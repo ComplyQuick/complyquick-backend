@@ -12,12 +12,25 @@ passport.use(
       clientID: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       callbackURL: process.env.GOOGLE_CALLBACK_URL,
+      passReqToCallback: true
     },
-    async (accessToken, refreshToken, profile, done) => {
+    async (request, accessToken, refreshToken, profile, done) => {
       try {
         const email = profile.emails?.[0].value;
         if (!email) {
           return done(new Error('No email found in Google profile'));
+        }
+
+        // Extract domain from email
+        const domain = email.split('@')[1];
+
+        // Check if domain exists in any tenant
+        const tenant = await prisma.tenant.findUnique({
+          where: { domain }
+        });
+
+        if (!tenant) {
+          return done(new Error('Your email domain is not registered with any organization'));
         }
 
         // Check if user exists
@@ -32,8 +45,16 @@ passport.use(
             data: {
               email,
               name: profile.displayName || email.split('@')[0],
-              role: UserRole.USER, // Default role
+              role: UserRole.USER,
+              tenantId: tenant.id // Associate with the found tenant
             },
+            include: { tenant: true }
+          });
+        } else if (!user.tenantId) {
+          // Update user with tenant if not already associated
+          user = await prisma.user.update({
+            where: { email },
+            data: { tenantId: tenant.id },
             include: { tenant: true }
           });
         }

@@ -15,40 +15,42 @@ datasource db {
 }
 
 model Tenant {
-  id         String   @id @default(uuid())
-  name       String
-  domain     String   @unique
-  createdAt  DateTime @default(now()) @map("created_at")
-  users      User[]
-  details    TenantDetails?
-  courses    TenantCourse[]
+  id              String         @id @default(uuid())
+  name            String
+  domain          String         @unique
+  adminEmail      String         @map("admin_email")
+  adminPassword   String         @map("admin_password")
+  createdAt       DateTime       @default(now()) @map("created_at")
+  users           User[]
+  details         TenantDetails?
+  courses         TenantCourse[]
 
   @@map("tenant")
 }
 
 model TenantDetails {
-  id                    String  @id @default(uuid())
-  tenantId             String  @unique @map("tenant_id")
-  presidingOfficerEmail String? @map("presiding_officer_email")
-  poshCommitteeEmail    String? @map("posh_committee_email")
-  hrContactName         String? @map("hr_contact_name")
-  hrContactEmail        String? @map("hr_contact_email")
-  hrContactPhone        String? @map("hr_contact_phone")
-  ceoName              String? @map("ceo_name")
-  ceoEmail             String? @map("ceo_email")
-  ceoContact           String? @map("ceo_contact")
-  ctoName              String? @map("cto_name")
-  ctoEmail             String? @map("cto_email")
-  ctoContact           String? @map("cto_contact")
-  ccoEmail             String? @map("cco_email")
-  ccoContact           String? @map("cco_contact")
-  croName              String? @map("cro_name")
-  croEmail             String? @map("cro_email")
-  croContact           String? @map("cro_contact")
-  legalOfficerName     String? @map("legal_officer_name")
-  legalOfficerEmail    String? @map("legal_officer_email")
-  legalOfficerContact  String? @map("legal_officer_contact")
-  tenant               Tenant  @relation(fields: [tenantId], references: [id])
+  id                    String   @id @default(uuid())
+  tenantId             String   @unique @map("tenant_id")
+  presidingOfficerEmail String?  @map("presiding_officer_email")
+  poshCommitteeEmail    String?  @map("posh_committee_email")
+  hrContactName         String?  @map("hr_contact_name")
+  hrContactEmail        String?  @map("hr_contact_email")
+  hrContactPhone        String?  @map("hr_contact_phone")
+  ceoName              String?  @map("ceo_name")
+  ceoEmail             String?  @map("ceo_email")
+  ceoContact           String?  @map("ceo_contact")
+  ctoName              String?  @map("cto_name")
+  ctoEmail             String?  @map("cto_email")
+  ctoContact           String?  @map("cto_contact")
+  ccoEmail             String?  @map("cco_email")
+  ccoContact           String?  @map("cco_contact")
+  croName              String?  @map("cro_name")
+  croEmail             String?  @map("cro_email")
+  croContact           String?  @map("cro_contact")
+  legalOfficerName     String?  @map("legal_officer_name")
+  legalOfficerEmail    String?  @map("legal_officer_email")
+  legalOfficerContact  String?  @map("legal_officer_contact")
+  tenant               Tenant   @relation(fields: [tenantId], references: [id])
 
   @@map("tenant_details")
 }
@@ -79,12 +81,14 @@ model Course {
   learningObjectives String[]
   targetAudience    String[]
   materialUrl       String
+  videoUrl          String?
   slides            Json[]
   mcqs              MCQ[]
   createdAt         DateTime      @default(now())
   updatedAt         DateTime      @updatedAt
   enrollments       Enrollment[]
   tenants           TenantCourse[]
+  slideExplanations SlideExplanation[]
 
   @@map("course")
 }
@@ -113,12 +117,13 @@ model Certificate {
 }
 
 model TenantCourse {
-  id        String   @id @default(uuid())
-  tenantId  String   @map("tenant_id")
-  courseId  String   @map("course_id")
-  assignedAt DateTime @default(now()) @map("assigned_at")
-  tenant    Tenant   @relation(fields: [tenantId], references: [id])
-  course    Course   @relation(fields: [courseId], references: [id])
+  id            String   @id @default(uuid())
+  tenantId      String   @map("tenant_id")
+  courseId      String   @map("course_id")
+  explanations  Json?    // Add this field
+  assignedAt    DateTime @default(now()) @map("assigned_at")
+  tenant        Tenant   @relation(fields: [tenantId], references: [id])
+  course        Course   @relation(fields: [courseId], references: [id])
 
   @@map("tenant_course")
 }
@@ -149,6 +154,18 @@ model UserMCQAnswer {
   mcq         MCQ      @relation(fields: [mcqId], references: [id])
 
   @@map("user_mcq_answers")
+}
+
+model SlideExplanation {
+  id          String   @id @default(uuid())
+  courseId    String
+  slideNumber Int
+  explanation String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  course      Course   @relation(fields: [courseId], references: [id])
+
+  @@map("slide_explanation")
 }
 
 enum UserRole {

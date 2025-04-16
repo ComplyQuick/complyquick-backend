@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { PrismaClient, UserRole } from '../generated/prisma';
+import { UserRole } from '../generated/prisma';
 import bcrypt from 'bcryptjs';
-
-const prisma = new PrismaClient();
+import { prisma } from '../lib/prisma';
 
 interface AddUserRequest {
   email: string;

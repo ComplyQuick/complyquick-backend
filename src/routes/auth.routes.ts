@@ -2,7 +2,7 @@ import { Router, RequestHandler } from 'express';
 import { login, registerAdmin } from '../controllers/auth.controller';
 import { isFirstSuperAdmin } from '../middlewares/auth.middleware';
 import { LoginRequest, RegisterRequest } from '../controllers/auth.controller';
-import passport from 'passport';
+import passport from '../config/passport';
 import jwt from 'jsonwebtoken';
 
 const router = Router();
@@ -28,6 +28,9 @@ router.get('/google/callback',
       { expiresIn: '24h' }
     );
     res.redirect(`${process.env.FRONTEND_URL}/dashboard?token=${token}`);
+    // res.json({
+    //   token
+    // })
   }
 );
 

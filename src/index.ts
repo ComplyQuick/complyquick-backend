@@ -19,9 +19,13 @@ const app = express();
 // Initialize Prisma client
 export const prisma = new PrismaClient();
 
-// Middleware
-app.use(cors());
+
 app.use(express.json());
+
+app.use(cors({
+  origin: '*',
+  credentials: true
+}));
 
 // Session middleware
 app.use(session({

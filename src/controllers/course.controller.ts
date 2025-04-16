@@ -4,6 +4,11 @@ import { generateMCQs, generateSlideExplanations } from '../services/ai.service'
 import { uploadToS3, getSignedUrl } from '../services/aws.service';
 import multer, { FileFilterCallback } from 'multer';
 import { v4 as uuidv4 } from 'uuid';
+import { aiServiceClient } from '../services/ai.service';
+// import { generateVideoFromSlides } from '../services/video.service';
+import { generateAndStoreExplanations, getSlideExplanations } from '../services/slide.service';
+import { Prisma } from '@prisma/client';
+// import { processCourseSlides as processSlides } from '../services/video.service';
 
 const prisma = new PrismaClient();
 
@@ -62,21 +67,14 @@ export const createCourse = async (
         duration,
         tags,
         learningObjectives,
-        targetAudience,
-        companyName
+        targetAudience
       } = req.body as CourseRequest;
 
       // Upload file to S3
       const fileKey = `courses/${uuidv4()}-${req.file.originalname}`;
       const s3Url = await uploadToS3(req.file.buffer, fileKey);
 
-      // Generate slide explanations from AI
-      const slideExplanations = await generateSlideExplanations(s3Url, companyName);
-
-      // Generate MCQs from AI
-      const mcqs = await generateMCQs(s3Url);
-
-      // Create course with all details
+      // Create course with file URL
       const course = await prisma.course.create({
         data: {
           title,
@@ -86,21 +84,7 @@ export const createCourse = async (
           learningObjectives: Array.isArray(learningObjectives) ? learningObjectives : [learningObjectives],
           targetAudience: typeof targetAudience === 'string' ? targetAudience.split(',').map(audience => audience.trim()) : targetAudience,
           materialUrl: s3Url,
-          slides: slideExplanations.map(slide => ({
-            ...slide,
-            [slide.slideNumber.toString()]: slide
-          })),
-          mcqs: {
-            create: mcqs.map(mcq => ({
-              question: mcq.question,
-              options: mcq.options,
-              correctAnswer: mcq.correctAnswer,
-              explanation: mcq.explanation
-            }))
-          }
-        },
-        include: {
-          mcqs: true
+          slides: []
         }
       });
 
@@ -192,7 +176,7 @@ export const deleteCourse = async (
     next(error);
   }
 };
-
+  
 // Assign course to tenant
 export const assignCourseToTenant = async (
   req: Request<{}, any, { courseId: string; tenantId: string }>,
@@ -201,16 +185,61 @@ export const assignCourseToTenant = async (
 ): Promise<void> => {
   try {
     const { courseId, tenantId } = req.body;
+
+    // Get course and tenant details
+    const course = await prisma.course.findUnique({
+      where: { id: courseId }
+    });
+
+    if (!course) {
+      res.status(404).json({ error: 'Course not found' });
+      return;
+    }
+
+    const tenant = await prisma.tenant.findUnique({
+      where: { id: tenantId }
+    });
+
+    if (!tenant) {
+      res.status(404).json({ error: 'Tenant not found' });
+      return;
+    }
+
+    // Check if course is already assigned to tenant
+    const existingAssignment = await prisma.tenantCourse.findFirst({
+      where: {
+        courseId,
+        tenantId
+      }
+    });
+
+    if (existingAssignment) {
+      res.status(400).json({ error: 'Course is already assigned to this tenant' });
+      return;
+    }
+
+    // Generate explanations
+    let explanations;
+    try {
+      explanations = await generateSlideExplanations(course.materialUrl, tenant.name);
+    } catch (error) {
+      console.error('Error generating explanations:', error);
+      explanations = null;
+    }
+
+    // Create tenant course assignment with explanations
     const tenantCourse = await prisma.tenantCourse.create({
       data: {
         courseId,
-        tenantId
+        tenantId,
+        explanations: explanations as any
       },
       include: {
         course: true,
         tenant: true
       }
     });
+
     res.status(201).json(tenantCourse);
   } catch (error) {
     next(error);
@@ -343,6 +372,178 @@ export const getCourseContent = async (
       ...course,
       materialUrl: materialSignedUrl
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Process course slides and generate video
+export const processCourseSlides = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id: courseId } = req.params;
+    const { tenantId } = req.body;
+
+    console.log('Processing course slides:', { courseId, tenantId });
+
+    // Validate tenantId
+    if (!tenantId) {
+      res.status(400).json({ error: 'Tenant ID is required' });
+      return;
+    }
+
+    // Handle both array and string input for tenantId
+    const tenantIdToUse = Array.isArray(tenantId) ? tenantId[0] : tenantId;
+
+    // Get tenant course assignment with explanations
+    const tenantCourse = await prisma.tenantCourse.findFirst({
+      where: {
+        courseId,
+        tenantId: tenantIdToUse
+      },
+      include: {
+        course: true,
+        tenant: true
+      }
+    });
+
+    if (!tenantCourse) {
+      res.status(404).json({ error: 'Course not assigned to this tenant' });
+      return;
+    }
+
+    // If explanations exist, return them
+    if (tenantCourse.explanations) {
+      const parsedExplanations = typeof tenantCourse.explanations === 'string' 
+        ? JSON.parse(tenantCourse.explanations)
+        : tenantCourse.explanations;
+        
+      res.json({ 
+        message: 'Slides processed successfully', 
+        explanations: parsedExplanations
+      });
+      return;
+    }
+
+    // If no explanations, generate them
+    try {
+      const explanations = await generateSlideExplanations(tenantCourse.course.materialUrl, tenantCourse.tenant.name);
+
+      // Update tenant course with explanations
+      await prisma.tenantCourse.update({
+        where: { id: tenantCourse.id },
+        data: {
+          explanations: explanations as any
+        }
+      });
+
+      res.json({ 
+        message: 'Slides processed successfully', 
+        explanations
+      });
+    } catch (error) {
+      console.error('Error in slide processing:', error);
+      res.status(500).json({ 
+        error: 'Failed to process slides',
+        details: error instanceof Error ? error.message : 'Unknown error',
+        courseId,
+        tenantId: tenantIdToUse
+      });
+    }
+  } catch (error) {
+    console.error('Error in processCourseSlides:', error);
+    res.status(500).json({ 
+      error: 'Internal server error',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+};
+
+// Test AI service connection
+export const testAIService = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const response = await aiServiceClient.get('/health');
+    res.json({
+      status: 'AI service is connected',
+      response: response.data
+    });
+  } catch (error) {
+    console.error('AI service connection test failed:', error);
+    res.status(500).json({
+      error: 'AI service connection failed',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+};
+
+export const generateExplanations = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { courseId } = req.params;
+    const { tenantId } = req.body;
+
+    if (!tenantId) {
+      res.status(400).json({ error: 'Tenant ID is required' });
+      return;
+    }
+
+    const tenantCourse = await prisma.tenantCourse.findFirst({
+      where: {
+        courseId,
+        tenantId
+      },
+      include: {
+        course: true,
+        tenant: true
+      }
+    });
+
+    if (!tenantCourse) {
+      res.status(404).json({ error: 'Course not assigned to this tenant' });
+      return;
+    }
+
+    const explanations = await generateSlideExplanations(tenantCourse.course.materialUrl, tenantCourse.tenant.name);
+
+    // Store explanations in tenant course
+    await prisma.tenantCourse.update({
+      where: { id: tenantCourse.id },
+      data: {
+        explanations: explanations as any
+      }
+    });
+
+    res.json({ explanations });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const fetchExplanations = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { courseId } = req.params;
+    const { tenantId } = req.query;
+
+    if (!tenantId) {
+      res.status(400).json({ error: 'Tenant ID is required' });
+      return;
+    }
+
+    const tenantCourse = await prisma.tenantCourse.findFirst({
+      where: {
+        courseId,
+        tenantId: tenantId as string
+      }
+    });
+
+    if (!tenantCourse) {
+      res.status(404).json({ error: 'Course not assigned to this tenant' });
+      return;
+    }
+
+    res.json({ explanations: tenantCourse.explanations });
   } catch (error) {
     next(error);
   }

@@ -58,6 +58,11 @@ export type MCQ = $Result.DefaultSelection<Prisma.$MCQPayload>
  * 
  */
 export type UserMCQAnswer = $Result.DefaultSelection<Prisma.$UserMCQAnswerPayload>
+/**
+ * Model SlideExplanation
+ * 
+ */
+export type SlideExplanation = $Result.DefaultSelection<Prisma.$SlideExplanationPayload>
 
 /**
  * Enums
@@ -304,6 +309,16 @@ export class PrismaClient<
     * ```
     */
   get userMCQAnswer(): Prisma.UserMCQAnswerDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.slideExplanation`: Exposes CRUD operations for the **SlideExplanation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SlideExplanations
+    * const slideExplanations = await prisma.slideExplanation.findMany()
+    * ```
+    */
+  get slideExplanation(): Prisma.SlideExplanationDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -752,7 +767,8 @@ export namespace Prisma {
     Certificate: 'Certificate',
     TenantCourse: 'TenantCourse',
     MCQ: 'MCQ',
-    UserMCQAnswer: 'UserMCQAnswer'
+    UserMCQAnswer: 'UserMCQAnswer',
+    SlideExplanation: 'SlideExplanation'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -771,7 +787,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "tenant" | "tenantDetails" | "user" | "course" | "enrollment" | "certificate" | "tenantCourse" | "mCQ" | "userMCQAnswer"
+      modelProps: "tenant" | "tenantDetails" | "user" | "course" | "enrollment" | "certificate" | "tenantCourse" | "mCQ" | "userMCQAnswer" | "slideExplanation"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1441,6 +1457,80 @@ export namespace Prisma {
           }
         }
       }
+      SlideExplanation: {
+        payload: Prisma.$SlideExplanationPayload<ExtArgs>
+        fields: Prisma.SlideExplanationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SlideExplanationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SlideExplanationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SlideExplanationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SlideExplanationPayload>
+          }
+          findFirst: {
+            args: Prisma.SlideExplanationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SlideExplanationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SlideExplanationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SlideExplanationPayload>
+          }
+          findMany: {
+            args: Prisma.SlideExplanationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SlideExplanationPayload>[]
+          }
+          create: {
+            args: Prisma.SlideExplanationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SlideExplanationPayload>
+          }
+          createMany: {
+            args: Prisma.SlideExplanationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SlideExplanationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SlideExplanationPayload>[]
+          }
+          delete: {
+            args: Prisma.SlideExplanationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SlideExplanationPayload>
+          }
+          update: {
+            args: Prisma.SlideExplanationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SlideExplanationPayload>
+          }
+          deleteMany: {
+            args: Prisma.SlideExplanationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SlideExplanationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SlideExplanationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SlideExplanationPayload>[]
+          }
+          upsert: {
+            args: Prisma.SlideExplanationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SlideExplanationPayload>
+          }
+          aggregate: {
+            args: Prisma.SlideExplanationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSlideExplanation>
+          }
+          groupBy: {
+            args: Prisma.SlideExplanationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SlideExplanationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SlideExplanationCountArgs<ExtArgs>
+            result: $Utils.Optional<SlideExplanationCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1534,6 +1624,7 @@ export namespace Prisma {
     tenantCourse?: TenantCourseOmit
     mCQ?: MCQOmit
     userMCQAnswer?: UserMCQAnswerOmit
+    slideExplanation?: SlideExplanationOmit
   }
 
   /* Types for Logging */
@@ -1720,12 +1811,14 @@ export namespace Prisma {
     mcqs: number
     enrollments: number
     tenants: number
+    slideExplanations: number
   }
 
   export type CourseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     mcqs?: boolean | CourseCountOutputTypeCountMcqsArgs
     enrollments?: boolean | CourseCountOutputTypeCountEnrollmentsArgs
     tenants?: boolean | CourseCountOutputTypeCountTenantsArgs
+    slideExplanations?: boolean | CourseCountOutputTypeCountSlideExplanationsArgs
   }
 
   // Custom InputTypes
@@ -1758,6 +1851,13 @@ export namespace Prisma {
    */
   export type CourseCountOutputTypeCountTenantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TenantCourseWhereInput
+  }
+
+  /**
+   * CourseCountOutputType without action
+   */
+  export type CourseCountOutputTypeCountSlideExplanationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SlideExplanationWhereInput
   }
 
 
@@ -1810,6 +1910,8 @@ export namespace Prisma {
     id: string | null
     name: string | null
     domain: string | null
+    adminEmail: string | null
+    adminPassword: string | null
     createdAt: Date | null
   }
 
@@ -1817,6 +1919,8 @@ export namespace Prisma {
     id: string | null
     name: string | null
     domain: string | null
+    adminEmail: string | null
+    adminPassword: string | null
     createdAt: Date | null
   }
 
@@ -1824,6 +1928,8 @@ export namespace Prisma {
     id: number
     name: number
     domain: number
+    adminEmail: number
+    adminPassword: number
     createdAt: number
     _all: number
   }
@@ -1833,6 +1939,8 @@ export namespace Prisma {
     id?: true
     name?: true
     domain?: true
+    adminEmail?: true
+    adminPassword?: true
     createdAt?: true
   }
 
@@ -1840,6 +1948,8 @@ export namespace Prisma {
     id?: true
     name?: true
     domain?: true
+    adminEmail?: true
+    adminPassword?: true
     createdAt?: true
   }
 
@@ -1847,6 +1957,8 @@ export namespace Prisma {
     id?: true
     name?: true
     domain?: true
+    adminEmail?: true
+    adminPassword?: true
     createdAt?: true
     _all?: true
   }
@@ -1927,6 +2039,8 @@ export namespace Prisma {
     id: string
     name: string
     domain: string
+    adminEmail: string
+    adminPassword: string
     createdAt: Date
     _count: TenantCountAggregateOutputType | null
     _min: TenantMinAggregateOutputType | null
@@ -1951,6 +2065,8 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     domain?: boolean
+    adminEmail?: boolean
+    adminPassword?: boolean
     createdAt?: boolean
     users?: boolean | Tenant$usersArgs<ExtArgs>
     details?: boolean | Tenant$detailsArgs<ExtArgs>
@@ -1962,6 +2078,8 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     domain?: boolean
+    adminEmail?: boolean
+    adminPassword?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["tenant"]>
 
@@ -1969,6 +2087,8 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     domain?: boolean
+    adminEmail?: boolean
+    adminPassword?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["tenant"]>
 
@@ -1976,10 +2096,12 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     domain?: boolean
+    adminEmail?: boolean
+    adminPassword?: boolean
     createdAt?: boolean
   }
 
-  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "domain" | "createdAt", ExtArgs["result"]["tenant"]>
+  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "domain" | "adminEmail" | "adminPassword" | "createdAt", ExtArgs["result"]["tenant"]>
   export type TenantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | Tenant$usersArgs<ExtArgs>
     details?: boolean | Tenant$detailsArgs<ExtArgs>
@@ -2000,6 +2122,8 @@ export namespace Prisma {
       id: string
       name: string
       domain: string
+      adminEmail: string
+      adminPassword: string
       createdAt: Date
     }, ExtArgs["result"]["tenant"]>
     composites: {}
@@ -2430,6 +2554,8 @@ export namespace Prisma {
     readonly id: FieldRef<"Tenant", 'String'>
     readonly name: FieldRef<"Tenant", 'String'>
     readonly domain: FieldRef<"Tenant", 'String'>
+    readonly adminEmail: FieldRef<"Tenant", 'String'>
+    readonly adminPassword: FieldRef<"Tenant", 'String'>
     readonly createdAt: FieldRef<"Tenant", 'DateTime'>
   }
     
@@ -5394,6 +5520,7 @@ export namespace Prisma {
     description: string | null
     duration: number | null
     materialUrl: string | null
+    videoUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -5404,6 +5531,7 @@ export namespace Prisma {
     description: string | null
     duration: number | null
     materialUrl: string | null
+    videoUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -5417,6 +5545,7 @@ export namespace Prisma {
     learningObjectives: number
     targetAudience: number
     materialUrl: number
+    videoUrl: number
     slides: number
     createdAt: number
     updatedAt: number
@@ -5438,6 +5567,7 @@ export namespace Prisma {
     description?: true
     duration?: true
     materialUrl?: true
+    videoUrl?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -5448,6 +5578,7 @@ export namespace Prisma {
     description?: true
     duration?: true
     materialUrl?: true
+    videoUrl?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -5461,6 +5592,7 @@ export namespace Prisma {
     learningObjectives?: true
     targetAudience?: true
     materialUrl?: true
+    videoUrl?: true
     slides?: true
     createdAt?: true
     updatedAt?: true
@@ -5562,6 +5694,7 @@ export namespace Prisma {
     learningObjectives: string[]
     targetAudience: string[]
     materialUrl: string
+    videoUrl: string | null
     slides: JsonValue[]
     createdAt: Date
     updatedAt: Date
@@ -5595,12 +5728,14 @@ export namespace Prisma {
     learningObjectives?: boolean
     targetAudience?: boolean
     materialUrl?: boolean
+    videoUrl?: boolean
     slides?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     mcqs?: boolean | Course$mcqsArgs<ExtArgs>
     enrollments?: boolean | Course$enrollmentsArgs<ExtArgs>
     tenants?: boolean | Course$tenantsArgs<ExtArgs>
+    slideExplanations?: boolean | Course$slideExplanationsArgs<ExtArgs>
     _count?: boolean | CourseCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["course"]>
 
@@ -5613,6 +5748,7 @@ export namespace Prisma {
     learningObjectives?: boolean
     targetAudience?: boolean
     materialUrl?: boolean
+    videoUrl?: boolean
     slides?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5627,6 +5763,7 @@ export namespace Prisma {
     learningObjectives?: boolean
     targetAudience?: boolean
     materialUrl?: boolean
+    videoUrl?: boolean
     slides?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5641,16 +5778,18 @@ export namespace Prisma {
     learningObjectives?: boolean
     targetAudience?: boolean
     materialUrl?: boolean
+    videoUrl?: boolean
     slides?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "duration" | "tags" | "learningObjectives" | "targetAudience" | "materialUrl" | "slides" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
+  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "duration" | "tags" | "learningObjectives" | "targetAudience" | "materialUrl" | "videoUrl" | "slides" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
   export type CourseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     mcqs?: boolean | Course$mcqsArgs<ExtArgs>
     enrollments?: boolean | Course$enrollmentsArgs<ExtArgs>
     tenants?: boolean | Course$tenantsArgs<ExtArgs>
+    slideExplanations?: boolean | Course$slideExplanationsArgs<ExtArgs>
     _count?: boolean | CourseCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CourseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -5662,6 +5801,7 @@ export namespace Prisma {
       mcqs: Prisma.$MCQPayload<ExtArgs>[]
       enrollments: Prisma.$EnrollmentPayload<ExtArgs>[]
       tenants: Prisma.$TenantCoursePayload<ExtArgs>[]
+      slideExplanations: Prisma.$SlideExplanationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5672,6 +5812,7 @@ export namespace Prisma {
       learningObjectives: string[]
       targetAudience: string[]
       materialUrl: string
+      videoUrl: string | null
       slides: Prisma.JsonValue[]
       createdAt: Date
       updatedAt: Date
@@ -6072,6 +6213,7 @@ export namespace Prisma {
     mcqs<T extends Course$mcqsArgs<ExtArgs> = {}>(args?: Subset<T, Course$mcqsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MCQPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     enrollments<T extends Course$enrollmentsArgs<ExtArgs> = {}>(args?: Subset<T, Course$enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnrollmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tenants<T extends Course$tenantsArgs<ExtArgs> = {}>(args?: Subset<T, Course$tenantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantCoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    slideExplanations<T extends Course$slideExplanationsArgs<ExtArgs> = {}>(args?: Subset<T, Course$slideExplanationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SlideExplanationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6109,6 +6251,7 @@ export namespace Prisma {
     readonly learningObjectives: FieldRef<"Course", 'String[]'>
     readonly targetAudience: FieldRef<"Course", 'String[]'>
     readonly materialUrl: FieldRef<"Course", 'String'>
+    readonly videoUrl: FieldRef<"Course", 'String'>
     readonly slides: FieldRef<"Course", 'Json[]'>
     readonly createdAt: FieldRef<"Course", 'DateTime'>
     readonly updatedAt: FieldRef<"Course", 'DateTime'>
@@ -6569,6 +6712,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TenantCourseScalarFieldEnum | TenantCourseScalarFieldEnum[]
+  }
+
+  /**
+   * Course.slideExplanations
+   */
+  export type Course$slideExplanationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SlideExplanation
+     */
+    select?: SlideExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SlideExplanation
+     */
+    omit?: SlideExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SlideExplanationInclude<ExtArgs> | null
+    where?: SlideExplanationWhereInput
+    orderBy?: SlideExplanationOrderByWithRelationInput | SlideExplanationOrderByWithRelationInput[]
+    cursor?: SlideExplanationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SlideExplanationScalarFieldEnum | SlideExplanationScalarFieldEnum[]
   }
 
   /**
@@ -8776,6 +8943,7 @@ export namespace Prisma {
     id: number
     tenantId: number
     courseId: number
+    explanations: number
     assignedAt: number
     _all: number
   }
@@ -8799,6 +8967,7 @@ export namespace Prisma {
     id?: true
     tenantId?: true
     courseId?: true
+    explanations?: true
     assignedAt?: true
     _all?: true
   }
@@ -8879,6 +9048,7 @@ export namespace Prisma {
     id: string
     tenantId: string
     courseId: string
+    explanations: JsonValue | null
     assignedAt: Date
     _count: TenantCourseCountAggregateOutputType | null
     _min: TenantCourseMinAggregateOutputType | null
@@ -8903,6 +9073,7 @@ export namespace Prisma {
     id?: boolean
     tenantId?: boolean
     courseId?: boolean
+    explanations?: boolean
     assignedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     course?: boolean | CourseDefaultArgs<ExtArgs>
@@ -8912,6 +9083,7 @@ export namespace Prisma {
     id?: boolean
     tenantId?: boolean
     courseId?: boolean
+    explanations?: boolean
     assignedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     course?: boolean | CourseDefaultArgs<ExtArgs>
@@ -8921,6 +9093,7 @@ export namespace Prisma {
     id?: boolean
     tenantId?: boolean
     courseId?: boolean
+    explanations?: boolean
     assignedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     course?: boolean | CourseDefaultArgs<ExtArgs>
@@ -8930,10 +9103,11 @@ export namespace Prisma {
     id?: boolean
     tenantId?: boolean
     courseId?: boolean
+    explanations?: boolean
     assignedAt?: boolean
   }
 
-  export type TenantCourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "courseId" | "assignedAt", ExtArgs["result"]["tenantCourse"]>
+  export type TenantCourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "courseId" | "explanations" | "assignedAt", ExtArgs["result"]["tenantCourse"]>
   export type TenantCourseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     course?: boolean | CourseDefaultArgs<ExtArgs>
@@ -8957,6 +9131,7 @@ export namespace Prisma {
       id: string
       tenantId: string
       courseId: string
+      explanations: Prisma.JsonValue | null
       assignedAt: Date
     }, ExtArgs["result"]["tenantCourse"]>
     composites: {}
@@ -9386,6 +9561,7 @@ export namespace Prisma {
     readonly id: FieldRef<"TenantCourse", 'String'>
     readonly tenantId: FieldRef<"TenantCourse", 'String'>
     readonly courseId: FieldRef<"TenantCourse", 'String'>
+    readonly explanations: FieldRef<"TenantCourse", 'Json'>
     readonly assignedAt: FieldRef<"TenantCourse", 'DateTime'>
   }
     
@@ -12004,6 +12180,1111 @@ export namespace Prisma {
 
 
   /**
+   * Model SlideExplanation
+   */
+
+  export type AggregateSlideExplanation = {
+    _count: SlideExplanationCountAggregateOutputType | null
+    _avg: SlideExplanationAvgAggregateOutputType | null
+    _sum: SlideExplanationSumAggregateOutputType | null
+    _min: SlideExplanationMinAggregateOutputType | null
+    _max: SlideExplanationMaxAggregateOutputType | null
+  }
+
+  export type SlideExplanationAvgAggregateOutputType = {
+    slideNumber: number | null
+  }
+
+  export type SlideExplanationSumAggregateOutputType = {
+    slideNumber: number | null
+  }
+
+  export type SlideExplanationMinAggregateOutputType = {
+    id: string | null
+    courseId: string | null
+    slideNumber: number | null
+    explanation: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SlideExplanationMaxAggregateOutputType = {
+    id: string | null
+    courseId: string | null
+    slideNumber: number | null
+    explanation: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SlideExplanationCountAggregateOutputType = {
+    id: number
+    courseId: number
+    slideNumber: number
+    explanation: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SlideExplanationAvgAggregateInputType = {
+    slideNumber?: true
+  }
+
+  export type SlideExplanationSumAggregateInputType = {
+    slideNumber?: true
+  }
+
+  export type SlideExplanationMinAggregateInputType = {
+    id?: true
+    courseId?: true
+    slideNumber?: true
+    explanation?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SlideExplanationMaxAggregateInputType = {
+    id?: true
+    courseId?: true
+    slideNumber?: true
+    explanation?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SlideExplanationCountAggregateInputType = {
+    id?: true
+    courseId?: true
+    slideNumber?: true
+    explanation?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SlideExplanationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SlideExplanation to aggregate.
+     */
+    where?: SlideExplanationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SlideExplanations to fetch.
+     */
+    orderBy?: SlideExplanationOrderByWithRelationInput | SlideExplanationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SlideExplanationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SlideExplanations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SlideExplanations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SlideExplanations
+    **/
+    _count?: true | SlideExplanationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SlideExplanationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SlideExplanationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SlideExplanationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SlideExplanationMaxAggregateInputType
+  }
+
+  export type GetSlideExplanationAggregateType<T extends SlideExplanationAggregateArgs> = {
+        [P in keyof T & keyof AggregateSlideExplanation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSlideExplanation[P]>
+      : GetScalarType<T[P], AggregateSlideExplanation[P]>
+  }
+
+
+
+
+  export type SlideExplanationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SlideExplanationWhereInput
+    orderBy?: SlideExplanationOrderByWithAggregationInput | SlideExplanationOrderByWithAggregationInput[]
+    by: SlideExplanationScalarFieldEnum[] | SlideExplanationScalarFieldEnum
+    having?: SlideExplanationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SlideExplanationCountAggregateInputType | true
+    _avg?: SlideExplanationAvgAggregateInputType
+    _sum?: SlideExplanationSumAggregateInputType
+    _min?: SlideExplanationMinAggregateInputType
+    _max?: SlideExplanationMaxAggregateInputType
+  }
+
+  export type SlideExplanationGroupByOutputType = {
+    id: string
+    courseId: string
+    slideNumber: number
+    explanation: string
+    createdAt: Date
+    updatedAt: Date
+    _count: SlideExplanationCountAggregateOutputType | null
+    _avg: SlideExplanationAvgAggregateOutputType | null
+    _sum: SlideExplanationSumAggregateOutputType | null
+    _min: SlideExplanationMinAggregateOutputType | null
+    _max: SlideExplanationMaxAggregateOutputType | null
+  }
+
+  type GetSlideExplanationGroupByPayload<T extends SlideExplanationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SlideExplanationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SlideExplanationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SlideExplanationGroupByOutputType[P]>
+            : GetScalarType<T[P], SlideExplanationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SlideExplanationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    courseId?: boolean
+    slideNumber?: boolean
+    explanation?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["slideExplanation"]>
+
+  export type SlideExplanationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    courseId?: boolean
+    slideNumber?: boolean
+    explanation?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["slideExplanation"]>
+
+  export type SlideExplanationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    courseId?: boolean
+    slideNumber?: boolean
+    explanation?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["slideExplanation"]>
+
+  export type SlideExplanationSelectScalar = {
+    id?: boolean
+    courseId?: boolean
+    slideNumber?: boolean
+    explanation?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SlideExplanationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "courseId" | "slideNumber" | "explanation" | "createdAt" | "updatedAt", ExtArgs["result"]["slideExplanation"]>
+  export type SlideExplanationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }
+  export type SlideExplanationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }
+  export type SlideExplanationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }
+
+  export type $SlideExplanationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SlideExplanation"
+    objects: {
+      course: Prisma.$CoursePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      courseId: string
+      slideNumber: number
+      explanation: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["slideExplanation"]>
+    composites: {}
+  }
+
+  type SlideExplanationGetPayload<S extends boolean | null | undefined | SlideExplanationDefaultArgs> = $Result.GetResult<Prisma.$SlideExplanationPayload, S>
+
+  type SlideExplanationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SlideExplanationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SlideExplanationCountAggregateInputType | true
+    }
+
+  export interface SlideExplanationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SlideExplanation'], meta: { name: 'SlideExplanation' } }
+    /**
+     * Find zero or one SlideExplanation that matches the filter.
+     * @param {SlideExplanationFindUniqueArgs} args - Arguments to find a SlideExplanation
+     * @example
+     * // Get one SlideExplanation
+     * const slideExplanation = await prisma.slideExplanation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SlideExplanationFindUniqueArgs>(args: SelectSubset<T, SlideExplanationFindUniqueArgs<ExtArgs>>): Prisma__SlideExplanationClient<$Result.GetResult<Prisma.$SlideExplanationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SlideExplanation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SlideExplanationFindUniqueOrThrowArgs} args - Arguments to find a SlideExplanation
+     * @example
+     * // Get one SlideExplanation
+     * const slideExplanation = await prisma.slideExplanation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SlideExplanationFindUniqueOrThrowArgs>(args: SelectSubset<T, SlideExplanationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SlideExplanationClient<$Result.GetResult<Prisma.$SlideExplanationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SlideExplanation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SlideExplanationFindFirstArgs} args - Arguments to find a SlideExplanation
+     * @example
+     * // Get one SlideExplanation
+     * const slideExplanation = await prisma.slideExplanation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SlideExplanationFindFirstArgs>(args?: SelectSubset<T, SlideExplanationFindFirstArgs<ExtArgs>>): Prisma__SlideExplanationClient<$Result.GetResult<Prisma.$SlideExplanationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SlideExplanation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SlideExplanationFindFirstOrThrowArgs} args - Arguments to find a SlideExplanation
+     * @example
+     * // Get one SlideExplanation
+     * const slideExplanation = await prisma.slideExplanation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SlideExplanationFindFirstOrThrowArgs>(args?: SelectSubset<T, SlideExplanationFindFirstOrThrowArgs<ExtArgs>>): Prisma__SlideExplanationClient<$Result.GetResult<Prisma.$SlideExplanationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SlideExplanations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SlideExplanationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SlideExplanations
+     * const slideExplanations = await prisma.slideExplanation.findMany()
+     * 
+     * // Get first 10 SlideExplanations
+     * const slideExplanations = await prisma.slideExplanation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const slideExplanationWithIdOnly = await prisma.slideExplanation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SlideExplanationFindManyArgs>(args?: SelectSubset<T, SlideExplanationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SlideExplanationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SlideExplanation.
+     * @param {SlideExplanationCreateArgs} args - Arguments to create a SlideExplanation.
+     * @example
+     * // Create one SlideExplanation
+     * const SlideExplanation = await prisma.slideExplanation.create({
+     *   data: {
+     *     // ... data to create a SlideExplanation
+     *   }
+     * })
+     * 
+     */
+    create<T extends SlideExplanationCreateArgs>(args: SelectSubset<T, SlideExplanationCreateArgs<ExtArgs>>): Prisma__SlideExplanationClient<$Result.GetResult<Prisma.$SlideExplanationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SlideExplanations.
+     * @param {SlideExplanationCreateManyArgs} args - Arguments to create many SlideExplanations.
+     * @example
+     * // Create many SlideExplanations
+     * const slideExplanation = await prisma.slideExplanation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SlideExplanationCreateManyArgs>(args?: SelectSubset<T, SlideExplanationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SlideExplanations and returns the data saved in the database.
+     * @param {SlideExplanationCreateManyAndReturnArgs} args - Arguments to create many SlideExplanations.
+     * @example
+     * // Create many SlideExplanations
+     * const slideExplanation = await prisma.slideExplanation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SlideExplanations and only return the `id`
+     * const slideExplanationWithIdOnly = await prisma.slideExplanation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SlideExplanationCreateManyAndReturnArgs>(args?: SelectSubset<T, SlideExplanationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SlideExplanationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SlideExplanation.
+     * @param {SlideExplanationDeleteArgs} args - Arguments to delete one SlideExplanation.
+     * @example
+     * // Delete one SlideExplanation
+     * const SlideExplanation = await prisma.slideExplanation.delete({
+     *   where: {
+     *     // ... filter to delete one SlideExplanation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SlideExplanationDeleteArgs>(args: SelectSubset<T, SlideExplanationDeleteArgs<ExtArgs>>): Prisma__SlideExplanationClient<$Result.GetResult<Prisma.$SlideExplanationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SlideExplanation.
+     * @param {SlideExplanationUpdateArgs} args - Arguments to update one SlideExplanation.
+     * @example
+     * // Update one SlideExplanation
+     * const slideExplanation = await prisma.slideExplanation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SlideExplanationUpdateArgs>(args: SelectSubset<T, SlideExplanationUpdateArgs<ExtArgs>>): Prisma__SlideExplanationClient<$Result.GetResult<Prisma.$SlideExplanationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SlideExplanations.
+     * @param {SlideExplanationDeleteManyArgs} args - Arguments to filter SlideExplanations to delete.
+     * @example
+     * // Delete a few SlideExplanations
+     * const { count } = await prisma.slideExplanation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SlideExplanationDeleteManyArgs>(args?: SelectSubset<T, SlideExplanationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SlideExplanations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SlideExplanationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SlideExplanations
+     * const slideExplanation = await prisma.slideExplanation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SlideExplanationUpdateManyArgs>(args: SelectSubset<T, SlideExplanationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SlideExplanations and returns the data updated in the database.
+     * @param {SlideExplanationUpdateManyAndReturnArgs} args - Arguments to update many SlideExplanations.
+     * @example
+     * // Update many SlideExplanations
+     * const slideExplanation = await prisma.slideExplanation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SlideExplanations and only return the `id`
+     * const slideExplanationWithIdOnly = await prisma.slideExplanation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SlideExplanationUpdateManyAndReturnArgs>(args: SelectSubset<T, SlideExplanationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SlideExplanationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SlideExplanation.
+     * @param {SlideExplanationUpsertArgs} args - Arguments to update or create a SlideExplanation.
+     * @example
+     * // Update or create a SlideExplanation
+     * const slideExplanation = await prisma.slideExplanation.upsert({
+     *   create: {
+     *     // ... data to create a SlideExplanation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SlideExplanation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SlideExplanationUpsertArgs>(args: SelectSubset<T, SlideExplanationUpsertArgs<ExtArgs>>): Prisma__SlideExplanationClient<$Result.GetResult<Prisma.$SlideExplanationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SlideExplanations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SlideExplanationCountArgs} args - Arguments to filter SlideExplanations to count.
+     * @example
+     * // Count the number of SlideExplanations
+     * const count = await prisma.slideExplanation.count({
+     *   where: {
+     *     // ... the filter for the SlideExplanations we want to count
+     *   }
+     * })
+    **/
+    count<T extends SlideExplanationCountArgs>(
+      args?: Subset<T, SlideExplanationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SlideExplanationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SlideExplanation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SlideExplanationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SlideExplanationAggregateArgs>(args: Subset<T, SlideExplanationAggregateArgs>): Prisma.PrismaPromise<GetSlideExplanationAggregateType<T>>
+
+    /**
+     * Group by SlideExplanation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SlideExplanationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SlideExplanationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SlideExplanationGroupByArgs['orderBy'] }
+        : { orderBy?: SlideExplanationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SlideExplanationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSlideExplanationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SlideExplanation model
+   */
+  readonly fields: SlideExplanationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SlideExplanation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SlideExplanationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    course<T extends CourseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CourseDefaultArgs<ExtArgs>>): Prisma__CourseClient<$Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SlideExplanation model
+   */
+  interface SlideExplanationFieldRefs {
+    readonly id: FieldRef<"SlideExplanation", 'String'>
+    readonly courseId: FieldRef<"SlideExplanation", 'String'>
+    readonly slideNumber: FieldRef<"SlideExplanation", 'Int'>
+    readonly explanation: FieldRef<"SlideExplanation", 'String'>
+    readonly createdAt: FieldRef<"SlideExplanation", 'DateTime'>
+    readonly updatedAt: FieldRef<"SlideExplanation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SlideExplanation findUnique
+   */
+  export type SlideExplanationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SlideExplanation
+     */
+    select?: SlideExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SlideExplanation
+     */
+    omit?: SlideExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SlideExplanationInclude<ExtArgs> | null
+    /**
+     * Filter, which SlideExplanation to fetch.
+     */
+    where: SlideExplanationWhereUniqueInput
+  }
+
+  /**
+   * SlideExplanation findUniqueOrThrow
+   */
+  export type SlideExplanationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SlideExplanation
+     */
+    select?: SlideExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SlideExplanation
+     */
+    omit?: SlideExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SlideExplanationInclude<ExtArgs> | null
+    /**
+     * Filter, which SlideExplanation to fetch.
+     */
+    where: SlideExplanationWhereUniqueInput
+  }
+
+  /**
+   * SlideExplanation findFirst
+   */
+  export type SlideExplanationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SlideExplanation
+     */
+    select?: SlideExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SlideExplanation
+     */
+    omit?: SlideExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SlideExplanationInclude<ExtArgs> | null
+    /**
+     * Filter, which SlideExplanation to fetch.
+     */
+    where?: SlideExplanationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SlideExplanations to fetch.
+     */
+    orderBy?: SlideExplanationOrderByWithRelationInput | SlideExplanationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SlideExplanations.
+     */
+    cursor?: SlideExplanationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SlideExplanations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SlideExplanations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SlideExplanations.
+     */
+    distinct?: SlideExplanationScalarFieldEnum | SlideExplanationScalarFieldEnum[]
+  }
+
+  /**
+   * SlideExplanation findFirstOrThrow
+   */
+  export type SlideExplanationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SlideExplanation
+     */
+    select?: SlideExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SlideExplanation
+     */
+    omit?: SlideExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SlideExplanationInclude<ExtArgs> | null
+    /**
+     * Filter, which SlideExplanation to fetch.
+     */
+    where?: SlideExplanationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SlideExplanations to fetch.
+     */
+    orderBy?: SlideExplanationOrderByWithRelationInput | SlideExplanationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SlideExplanations.
+     */
+    cursor?: SlideExplanationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SlideExplanations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SlideExplanations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SlideExplanations.
+     */
+    distinct?: SlideExplanationScalarFieldEnum | SlideExplanationScalarFieldEnum[]
+  }
+
+  /**
+   * SlideExplanation findMany
+   */
+  export type SlideExplanationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SlideExplanation
+     */
+    select?: SlideExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SlideExplanation
+     */
+    omit?: SlideExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SlideExplanationInclude<ExtArgs> | null
+    /**
+     * Filter, which SlideExplanations to fetch.
+     */
+    where?: SlideExplanationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SlideExplanations to fetch.
+     */
+    orderBy?: SlideExplanationOrderByWithRelationInput | SlideExplanationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SlideExplanations.
+     */
+    cursor?: SlideExplanationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SlideExplanations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SlideExplanations.
+     */
+    skip?: number
+    distinct?: SlideExplanationScalarFieldEnum | SlideExplanationScalarFieldEnum[]
+  }
+
+  /**
+   * SlideExplanation create
+   */
+  export type SlideExplanationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SlideExplanation
+     */
+    select?: SlideExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SlideExplanation
+     */
+    omit?: SlideExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SlideExplanationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SlideExplanation.
+     */
+    data: XOR<SlideExplanationCreateInput, SlideExplanationUncheckedCreateInput>
+  }
+
+  /**
+   * SlideExplanation createMany
+   */
+  export type SlideExplanationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SlideExplanations.
+     */
+    data: SlideExplanationCreateManyInput | SlideExplanationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SlideExplanation createManyAndReturn
+   */
+  export type SlideExplanationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SlideExplanation
+     */
+    select?: SlideExplanationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SlideExplanation
+     */
+    omit?: SlideExplanationOmit<ExtArgs> | null
+    /**
+     * The data used to create many SlideExplanations.
+     */
+    data: SlideExplanationCreateManyInput | SlideExplanationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SlideExplanationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SlideExplanation update
+   */
+  export type SlideExplanationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SlideExplanation
+     */
+    select?: SlideExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SlideExplanation
+     */
+    omit?: SlideExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SlideExplanationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SlideExplanation.
+     */
+    data: XOR<SlideExplanationUpdateInput, SlideExplanationUncheckedUpdateInput>
+    /**
+     * Choose, which SlideExplanation to update.
+     */
+    where: SlideExplanationWhereUniqueInput
+  }
+
+  /**
+   * SlideExplanation updateMany
+   */
+  export type SlideExplanationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SlideExplanations.
+     */
+    data: XOR<SlideExplanationUpdateManyMutationInput, SlideExplanationUncheckedUpdateManyInput>
+    /**
+     * Filter which SlideExplanations to update
+     */
+    where?: SlideExplanationWhereInput
+    /**
+     * Limit how many SlideExplanations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SlideExplanation updateManyAndReturn
+   */
+  export type SlideExplanationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SlideExplanation
+     */
+    select?: SlideExplanationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SlideExplanation
+     */
+    omit?: SlideExplanationOmit<ExtArgs> | null
+    /**
+     * The data used to update SlideExplanations.
+     */
+    data: XOR<SlideExplanationUpdateManyMutationInput, SlideExplanationUncheckedUpdateManyInput>
+    /**
+     * Filter which SlideExplanations to update
+     */
+    where?: SlideExplanationWhereInput
+    /**
+     * Limit how many SlideExplanations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SlideExplanationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SlideExplanation upsert
+   */
+  export type SlideExplanationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SlideExplanation
+     */
+    select?: SlideExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SlideExplanation
+     */
+    omit?: SlideExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SlideExplanationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SlideExplanation to update in case it exists.
+     */
+    where: SlideExplanationWhereUniqueInput
+    /**
+     * In case the SlideExplanation found by the `where` argument doesn't exist, create a new SlideExplanation with this data.
+     */
+    create: XOR<SlideExplanationCreateInput, SlideExplanationUncheckedCreateInput>
+    /**
+     * In case the SlideExplanation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SlideExplanationUpdateInput, SlideExplanationUncheckedUpdateInput>
+  }
+
+  /**
+   * SlideExplanation delete
+   */
+  export type SlideExplanationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SlideExplanation
+     */
+    select?: SlideExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SlideExplanation
+     */
+    omit?: SlideExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SlideExplanationInclude<ExtArgs> | null
+    /**
+     * Filter which SlideExplanation to delete.
+     */
+    where: SlideExplanationWhereUniqueInput
+  }
+
+  /**
+   * SlideExplanation deleteMany
+   */
+  export type SlideExplanationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SlideExplanations to delete
+     */
+    where?: SlideExplanationWhereInput
+    /**
+     * Limit how many SlideExplanations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SlideExplanation without action
+   */
+  export type SlideExplanationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SlideExplanation
+     */
+    select?: SlideExplanationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SlideExplanation
+     */
+    omit?: SlideExplanationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SlideExplanationInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -12021,6 +13302,8 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     domain: 'domain',
+    adminEmail: 'adminEmail',
+    adminPassword: 'adminPassword',
     createdAt: 'createdAt'
   };
 
@@ -12077,6 +13360,7 @@ export namespace Prisma {
     learningObjectives: 'learningObjectives',
     targetAudience: 'targetAudience',
     materialUrl: 'materialUrl',
+    videoUrl: 'videoUrl',
     slides: 'slides',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -12111,6 +13395,7 @@ export namespace Prisma {
     id: 'id',
     tenantId: 'tenantId',
     courseId: 'courseId',
+    explanations: 'explanations',
     assignedAt: 'assignedAt'
   };
 
@@ -12143,12 +13428,32 @@ export namespace Prisma {
   export type UserMCQAnswerScalarFieldEnum = (typeof UserMCQAnswerScalarFieldEnum)[keyof typeof UserMCQAnswerScalarFieldEnum]
 
 
+  export const SlideExplanationScalarFieldEnum: {
+    id: 'id',
+    courseId: 'courseId',
+    slideNumber: 'slideNumber',
+    explanation: 'explanation',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SlideExplanationScalarFieldEnum = (typeof SlideExplanationScalarFieldEnum)[keyof typeof SlideExplanationScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -12165,6 +13470,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -12257,6 +13571,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -12287,6 +13608,8 @@ export namespace Prisma {
     id?: StringFilter<"Tenant"> | string
     name?: StringFilter<"Tenant"> | string
     domain?: StringFilter<"Tenant"> | string
+    adminEmail?: StringFilter<"Tenant"> | string
+    adminPassword?: StringFilter<"Tenant"> | string
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
     users?: UserListRelationFilter
     details?: XOR<TenantDetailsNullableScalarRelationFilter, TenantDetailsWhereInput> | null
@@ -12297,6 +13620,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     domain?: SortOrder
+    adminEmail?: SortOrder
+    adminPassword?: SortOrder
     createdAt?: SortOrder
     users?: UserOrderByRelationAggregateInput
     details?: TenantDetailsOrderByWithRelationInput
@@ -12310,6 +13635,8 @@ export namespace Prisma {
     OR?: TenantWhereInput[]
     NOT?: TenantWhereInput | TenantWhereInput[]
     name?: StringFilter<"Tenant"> | string
+    adminEmail?: StringFilter<"Tenant"> | string
+    adminPassword?: StringFilter<"Tenant"> | string
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
     users?: UserListRelationFilter
     details?: XOR<TenantDetailsNullableScalarRelationFilter, TenantDetailsWhereInput> | null
@@ -12320,6 +13647,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     domain?: SortOrder
+    adminEmail?: SortOrder
+    adminPassword?: SortOrder
     createdAt?: SortOrder
     _count?: TenantCountOrderByAggregateInput
     _max?: TenantMaxOrderByAggregateInput
@@ -12333,6 +13662,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Tenant"> | string
     name?: StringWithAggregatesFilter<"Tenant"> | string
     domain?: StringWithAggregatesFilter<"Tenant"> | string
+    adminEmail?: StringWithAggregatesFilter<"Tenant"> | string
+    adminPassword?: StringWithAggregatesFilter<"Tenant"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Tenant"> | Date | string
   }
 
@@ -12562,12 +13893,14 @@ export namespace Prisma {
     learningObjectives?: StringNullableListFilter<"Course">
     targetAudience?: StringNullableListFilter<"Course">
     materialUrl?: StringFilter<"Course"> | string
+    videoUrl?: StringNullableFilter<"Course"> | string | null
     slides?: JsonNullableListFilter<"Course">
     createdAt?: DateTimeFilter<"Course"> | Date | string
     updatedAt?: DateTimeFilter<"Course"> | Date | string
     mcqs?: MCQListRelationFilter
     enrollments?: EnrollmentListRelationFilter
     tenants?: TenantCourseListRelationFilter
+    slideExplanations?: SlideExplanationListRelationFilter
   }
 
   export type CourseOrderByWithRelationInput = {
@@ -12579,12 +13912,14 @@ export namespace Prisma {
     learningObjectives?: SortOrder
     targetAudience?: SortOrder
     materialUrl?: SortOrder
+    videoUrl?: SortOrderInput | SortOrder
     slides?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     mcqs?: MCQOrderByRelationAggregateInput
     enrollments?: EnrollmentOrderByRelationAggregateInput
     tenants?: TenantCourseOrderByRelationAggregateInput
+    slideExplanations?: SlideExplanationOrderByRelationAggregateInput
   }
 
   export type CourseWhereUniqueInput = Prisma.AtLeast<{
@@ -12599,12 +13934,14 @@ export namespace Prisma {
     learningObjectives?: StringNullableListFilter<"Course">
     targetAudience?: StringNullableListFilter<"Course">
     materialUrl?: StringFilter<"Course"> | string
+    videoUrl?: StringNullableFilter<"Course"> | string | null
     slides?: JsonNullableListFilter<"Course">
     createdAt?: DateTimeFilter<"Course"> | Date | string
     updatedAt?: DateTimeFilter<"Course"> | Date | string
     mcqs?: MCQListRelationFilter
     enrollments?: EnrollmentListRelationFilter
     tenants?: TenantCourseListRelationFilter
+    slideExplanations?: SlideExplanationListRelationFilter
   }, "id">
 
   export type CourseOrderByWithAggregationInput = {
@@ -12616,6 +13953,7 @@ export namespace Prisma {
     learningObjectives?: SortOrder
     targetAudience?: SortOrder
     materialUrl?: SortOrder
+    videoUrl?: SortOrderInput | SortOrder
     slides?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12638,6 +13976,7 @@ export namespace Prisma {
     learningObjectives?: StringNullableListFilter<"Course">
     targetAudience?: StringNullableListFilter<"Course">
     materialUrl?: StringWithAggregatesFilter<"Course"> | string
+    videoUrl?: StringNullableWithAggregatesFilter<"Course"> | string | null
     slides?: JsonNullableListFilter<"Course">
     createdAt?: DateTimeWithAggregatesFilter<"Course"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Course"> | Date | string
@@ -12765,6 +14104,7 @@ export namespace Prisma {
     id?: StringFilter<"TenantCourse"> | string
     tenantId?: StringFilter<"TenantCourse"> | string
     courseId?: StringFilter<"TenantCourse"> | string
+    explanations?: JsonNullableFilter<"TenantCourse">
     assignedAt?: DateTimeFilter<"TenantCourse"> | Date | string
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
@@ -12774,6 +14114,7 @@ export namespace Prisma {
     id?: SortOrder
     tenantId?: SortOrder
     courseId?: SortOrder
+    explanations?: SortOrderInput | SortOrder
     assignedAt?: SortOrder
     tenant?: TenantOrderByWithRelationInput
     course?: CourseOrderByWithRelationInput
@@ -12786,6 +14127,7 @@ export namespace Prisma {
     NOT?: TenantCourseWhereInput | TenantCourseWhereInput[]
     tenantId?: StringFilter<"TenantCourse"> | string
     courseId?: StringFilter<"TenantCourse"> | string
+    explanations?: JsonNullableFilter<"TenantCourse">
     assignedAt?: DateTimeFilter<"TenantCourse"> | Date | string
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
@@ -12795,6 +14137,7 @@ export namespace Prisma {
     id?: SortOrder
     tenantId?: SortOrder
     courseId?: SortOrder
+    explanations?: SortOrderInput | SortOrder
     assignedAt?: SortOrder
     _count?: TenantCourseCountOrderByAggregateInput
     _max?: TenantCourseMaxOrderByAggregateInput
@@ -12808,6 +14151,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"TenantCourse"> | string
     tenantId?: StringWithAggregatesFilter<"TenantCourse"> | string
     courseId?: StringWithAggregatesFilter<"TenantCourse"> | string
+    explanations?: JsonNullableWithAggregatesFilter<"TenantCourse">
     assignedAt?: DateTimeWithAggregatesFilter<"TenantCourse"> | Date | string
   }
 
@@ -12947,10 +14291,74 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"UserMCQAnswer"> | Date | string
   }
 
+  export type SlideExplanationWhereInput = {
+    AND?: SlideExplanationWhereInput | SlideExplanationWhereInput[]
+    OR?: SlideExplanationWhereInput[]
+    NOT?: SlideExplanationWhereInput | SlideExplanationWhereInput[]
+    id?: StringFilter<"SlideExplanation"> | string
+    courseId?: StringFilter<"SlideExplanation"> | string
+    slideNumber?: IntFilter<"SlideExplanation"> | number
+    explanation?: StringFilter<"SlideExplanation"> | string
+    createdAt?: DateTimeFilter<"SlideExplanation"> | Date | string
+    updatedAt?: DateTimeFilter<"SlideExplanation"> | Date | string
+    course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
+  }
+
+  export type SlideExplanationOrderByWithRelationInput = {
+    id?: SortOrder
+    courseId?: SortOrder
+    slideNumber?: SortOrder
+    explanation?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    course?: CourseOrderByWithRelationInput
+  }
+
+  export type SlideExplanationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SlideExplanationWhereInput | SlideExplanationWhereInput[]
+    OR?: SlideExplanationWhereInput[]
+    NOT?: SlideExplanationWhereInput | SlideExplanationWhereInput[]
+    courseId?: StringFilter<"SlideExplanation"> | string
+    slideNumber?: IntFilter<"SlideExplanation"> | number
+    explanation?: StringFilter<"SlideExplanation"> | string
+    createdAt?: DateTimeFilter<"SlideExplanation"> | Date | string
+    updatedAt?: DateTimeFilter<"SlideExplanation"> | Date | string
+    course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
+  }, "id">
+
+  export type SlideExplanationOrderByWithAggregationInput = {
+    id?: SortOrder
+    courseId?: SortOrder
+    slideNumber?: SortOrder
+    explanation?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SlideExplanationCountOrderByAggregateInput
+    _avg?: SlideExplanationAvgOrderByAggregateInput
+    _max?: SlideExplanationMaxOrderByAggregateInput
+    _min?: SlideExplanationMinOrderByAggregateInput
+    _sum?: SlideExplanationSumOrderByAggregateInput
+  }
+
+  export type SlideExplanationScalarWhereWithAggregatesInput = {
+    AND?: SlideExplanationScalarWhereWithAggregatesInput | SlideExplanationScalarWhereWithAggregatesInput[]
+    OR?: SlideExplanationScalarWhereWithAggregatesInput[]
+    NOT?: SlideExplanationScalarWhereWithAggregatesInput | SlideExplanationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SlideExplanation"> | string
+    courseId?: StringWithAggregatesFilter<"SlideExplanation"> | string
+    slideNumber?: IntWithAggregatesFilter<"SlideExplanation"> | number
+    explanation?: StringWithAggregatesFilter<"SlideExplanation"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"SlideExplanation"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SlideExplanation"> | Date | string
+  }
+
   export type TenantCreateInput = {
     id?: string
     name: string
     domain: string
+    adminEmail: string
+    adminPassword: string
     createdAt?: Date | string
     users?: UserCreateNestedManyWithoutTenantInput
     details?: TenantDetailsCreateNestedOneWithoutTenantInput
@@ -12961,6 +14369,8 @@ export namespace Prisma {
     id?: string
     name: string
     domain: string
+    adminEmail: string
+    adminPassword: string
     createdAt?: Date | string
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     details?: TenantDetailsUncheckedCreateNestedOneWithoutTenantInput
@@ -12971,6 +14381,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     domain?: StringFieldUpdateOperationsInput | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUpdateManyWithoutTenantNestedInput
     details?: TenantDetailsUpdateOneWithoutTenantNestedInput
@@ -12981,6 +14393,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     domain?: StringFieldUpdateOperationsInput | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     details?: TenantDetailsUncheckedUpdateOneWithoutTenantNestedInput
@@ -12991,6 +14405,8 @@ export namespace Prisma {
     id?: string
     name: string
     domain: string
+    adminEmail: string
+    adminPassword: string
     createdAt?: Date | string
   }
 
@@ -12998,6 +14414,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     domain?: StringFieldUpdateOperationsInput | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13005,6 +14423,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     domain?: StringFieldUpdateOperationsInput | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13272,12 +14692,14 @@ export namespace Prisma {
     learningObjectives?: CourseCreatelearningObjectivesInput | string[]
     targetAudience?: CourseCreatetargetAudienceInput | string[]
     materialUrl: string
+    videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
     createdAt?: Date | string
     updatedAt?: Date | string
     mcqs?: MCQCreateNestedManyWithoutCourseInput
     enrollments?: EnrollmentCreateNestedManyWithoutCourseInput
     tenants?: TenantCourseCreateNestedManyWithoutCourseInput
+    slideExplanations?: SlideExplanationCreateNestedManyWithoutCourseInput
   }
 
   export type CourseUncheckedCreateInput = {
@@ -13289,12 +14711,14 @@ export namespace Prisma {
     learningObjectives?: CourseCreatelearningObjectivesInput | string[]
     targetAudience?: CourseCreatetargetAudienceInput | string[]
     materialUrl: string
+    videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
     createdAt?: Date | string
     updatedAt?: Date | string
     mcqs?: MCQUncheckedCreateNestedManyWithoutCourseInput
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutCourseInput
     tenants?: TenantCourseUncheckedCreateNestedManyWithoutCourseInput
+    slideExplanations?: SlideExplanationUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type CourseUpdateInput = {
@@ -13306,12 +14730,14 @@ export namespace Prisma {
     learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
     targetAudience?: CourseUpdatetargetAudienceInput | string[]
     materialUrl?: StringFieldUpdateOperationsInput | string
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mcqs?: MCQUpdateManyWithoutCourseNestedInput
     enrollments?: EnrollmentUpdateManyWithoutCourseNestedInput
     tenants?: TenantCourseUpdateManyWithoutCourseNestedInput
+    slideExplanations?: SlideExplanationUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateInput = {
@@ -13323,12 +14749,14 @@ export namespace Prisma {
     learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
     targetAudience?: CourseUpdatetargetAudienceInput | string[]
     materialUrl?: StringFieldUpdateOperationsInput | string
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mcqs?: MCQUncheckedUpdateManyWithoutCourseNestedInput
     enrollments?: EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
     tenants?: TenantCourseUncheckedUpdateManyWithoutCourseNestedInput
+    slideExplanations?: SlideExplanationUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseCreateManyInput = {
@@ -13340,6 +14768,7 @@ export namespace Prisma {
     learningObjectives?: CourseCreatelearningObjectivesInput | string[]
     targetAudience?: CourseCreatetargetAudienceInput | string[]
     materialUrl: string
+    videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13354,6 +14783,7 @@ export namespace Prisma {
     learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
     targetAudience?: CourseUpdatetargetAudienceInput | string[]
     materialUrl?: StringFieldUpdateOperationsInput | string
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13368,6 +14798,7 @@ export namespace Prisma {
     learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
     targetAudience?: CourseUpdatetargetAudienceInput | string[]
     materialUrl?: StringFieldUpdateOperationsInput | string
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13484,6 +14915,7 @@ export namespace Prisma {
 
   export type TenantCourseCreateInput = {
     id?: string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutCoursesInput
     course: CourseCreateNestedOneWithoutTenantsInput
@@ -13493,11 +14925,13 @@ export namespace Prisma {
     id?: string
     tenantId: string
     courseId: string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: Date | string
   }
 
   export type TenantCourseUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutCoursesNestedInput
     course?: CourseUpdateOneRequiredWithoutTenantsNestedInput
@@ -13507,6 +14941,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     courseId?: StringFieldUpdateOperationsInput | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13514,11 +14949,13 @@ export namespace Prisma {
     id?: string
     tenantId: string
     courseId: string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: Date | string
   }
 
   export type TenantCourseUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13526,6 +14963,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     courseId?: StringFieldUpdateOperationsInput | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13670,6 +15108,68 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SlideExplanationCreateInput = {
+    id?: string
+    slideNumber: number
+    explanation: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    course: CourseCreateNestedOneWithoutSlideExplanationsInput
+  }
+
+  export type SlideExplanationUncheckedCreateInput = {
+    id?: string
+    courseId: string
+    slideNumber: number
+    explanation: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SlideExplanationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slideNumber?: IntFieldUpdateOperationsInput | number
+    explanation?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    course?: CourseUpdateOneRequiredWithoutSlideExplanationsNestedInput
+  }
+
+  export type SlideExplanationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    courseId?: StringFieldUpdateOperationsInput | string
+    slideNumber?: IntFieldUpdateOperationsInput | number
+    explanation?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SlideExplanationCreateManyInput = {
+    id?: string
+    courseId: string
+    slideNumber: number
+    explanation: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SlideExplanationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slideNumber?: IntFieldUpdateOperationsInput | number
+    explanation?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SlideExplanationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    courseId?: StringFieldUpdateOperationsInput | string
+    slideNumber?: IntFieldUpdateOperationsInput | number
+    explanation?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -13725,6 +15225,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     domain?: SortOrder
+    adminEmail?: SortOrder
+    adminPassword?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -13732,6 +15234,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     domain?: SortOrder
+    adminEmail?: SortOrder
+    adminPassword?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -13739,6 +15243,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     domain?: SortOrder
+    adminEmail?: SortOrder
+    adminPassword?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -14019,7 +15525,17 @@ export namespace Prisma {
     none?: MCQWhereInput
   }
 
+  export type SlideExplanationListRelationFilter = {
+    every?: SlideExplanationWhereInput
+    some?: SlideExplanationWhereInput
+    none?: SlideExplanationWhereInput
+  }
+
   export type MCQOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SlideExplanationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14032,6 +15548,7 @@ export namespace Prisma {
     learningObjectives?: SortOrder
     targetAudience?: SortOrder
     materialUrl?: SortOrder
+    videoUrl?: SortOrder
     slides?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -14047,6 +15564,7 @@ export namespace Prisma {
     description?: SortOrder
     duration?: SortOrder
     materialUrl?: SortOrder
+    videoUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -14057,6 +15575,7 @@ export namespace Prisma {
     description?: SortOrder
     duration?: SortOrder
     materialUrl?: SortOrder
+    videoUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -14163,11 +15682,35 @@ export namespace Prisma {
     certificateUrl?: SortOrder
     issuedAt?: SortOrder
   }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type TenantCourseCountOrderByAggregateInput = {
     id?: SortOrder
     tenantId?: SortOrder
     courseId?: SortOrder
+    explanations?: SortOrder
     assignedAt?: SortOrder
   }
 
@@ -14183,6 +15726,32 @@ export namespace Prisma {
     tenantId?: SortOrder
     courseId?: SortOrder
     assignedAt?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type MCQCountOrderByAggregateInput = {
@@ -14259,6 +15828,41 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type SlideExplanationCountOrderByAggregateInput = {
+    id?: SortOrder
+    courseId?: SortOrder
+    slideNumber?: SortOrder
+    explanation?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SlideExplanationAvgOrderByAggregateInput = {
+    slideNumber?: SortOrder
+  }
+
+  export type SlideExplanationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    courseId?: SortOrder
+    slideNumber?: SortOrder
+    explanation?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SlideExplanationMinOrderByAggregateInput = {
+    id?: SortOrder
+    courseId?: SortOrder
+    slideNumber?: SortOrder
+    explanation?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SlideExplanationSumOrderByAggregateInput = {
+    slideNumber?: SortOrder
   }
 
   export type UserCreateNestedManyWithoutTenantInput = {
@@ -14595,6 +16199,13 @@ export namespace Prisma {
     connect?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
   }
 
+  export type SlideExplanationCreateNestedManyWithoutCourseInput = {
+    create?: XOR<SlideExplanationCreateWithoutCourseInput, SlideExplanationUncheckedCreateWithoutCourseInput> | SlideExplanationCreateWithoutCourseInput[] | SlideExplanationUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: SlideExplanationCreateOrConnectWithoutCourseInput | SlideExplanationCreateOrConnectWithoutCourseInput[]
+    createMany?: SlideExplanationCreateManyCourseInputEnvelope
+    connect?: SlideExplanationWhereUniqueInput | SlideExplanationWhereUniqueInput[]
+  }
+
   export type MCQUncheckedCreateNestedManyWithoutCourseInput = {
     create?: XOR<MCQCreateWithoutCourseInput, MCQUncheckedCreateWithoutCourseInput> | MCQCreateWithoutCourseInput[] | MCQUncheckedCreateWithoutCourseInput[]
     connectOrCreate?: MCQCreateOrConnectWithoutCourseInput | MCQCreateOrConnectWithoutCourseInput[]
@@ -14614,6 +16225,13 @@ export namespace Prisma {
     connectOrCreate?: TenantCourseCreateOrConnectWithoutCourseInput | TenantCourseCreateOrConnectWithoutCourseInput[]
     createMany?: TenantCourseCreateManyCourseInputEnvelope
     connect?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
+  }
+
+  export type SlideExplanationUncheckedCreateNestedManyWithoutCourseInput = {
+    create?: XOR<SlideExplanationCreateWithoutCourseInput, SlideExplanationUncheckedCreateWithoutCourseInput> | SlideExplanationCreateWithoutCourseInput[] | SlideExplanationUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: SlideExplanationCreateOrConnectWithoutCourseInput | SlideExplanationCreateOrConnectWithoutCourseInput[]
+    createMany?: SlideExplanationCreateManyCourseInputEnvelope
+    connect?: SlideExplanationWhereUniqueInput | SlideExplanationWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -14686,6 +16304,20 @@ export namespace Prisma {
     deleteMany?: TenantCourseScalarWhereInput | TenantCourseScalarWhereInput[]
   }
 
+  export type SlideExplanationUpdateManyWithoutCourseNestedInput = {
+    create?: XOR<SlideExplanationCreateWithoutCourseInput, SlideExplanationUncheckedCreateWithoutCourseInput> | SlideExplanationCreateWithoutCourseInput[] | SlideExplanationUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: SlideExplanationCreateOrConnectWithoutCourseInput | SlideExplanationCreateOrConnectWithoutCourseInput[]
+    upsert?: SlideExplanationUpsertWithWhereUniqueWithoutCourseInput | SlideExplanationUpsertWithWhereUniqueWithoutCourseInput[]
+    createMany?: SlideExplanationCreateManyCourseInputEnvelope
+    set?: SlideExplanationWhereUniqueInput | SlideExplanationWhereUniqueInput[]
+    disconnect?: SlideExplanationWhereUniqueInput | SlideExplanationWhereUniqueInput[]
+    delete?: SlideExplanationWhereUniqueInput | SlideExplanationWhereUniqueInput[]
+    connect?: SlideExplanationWhereUniqueInput | SlideExplanationWhereUniqueInput[]
+    update?: SlideExplanationUpdateWithWhereUniqueWithoutCourseInput | SlideExplanationUpdateWithWhereUniqueWithoutCourseInput[]
+    updateMany?: SlideExplanationUpdateManyWithWhereWithoutCourseInput | SlideExplanationUpdateManyWithWhereWithoutCourseInput[]
+    deleteMany?: SlideExplanationScalarWhereInput | SlideExplanationScalarWhereInput[]
+  }
+
   export type MCQUncheckedUpdateManyWithoutCourseNestedInput = {
     create?: XOR<MCQCreateWithoutCourseInput, MCQUncheckedCreateWithoutCourseInput> | MCQCreateWithoutCourseInput[] | MCQUncheckedCreateWithoutCourseInput[]
     connectOrCreate?: MCQCreateOrConnectWithoutCourseInput | MCQCreateOrConnectWithoutCourseInput[]
@@ -14726,6 +16358,20 @@ export namespace Prisma {
     update?: TenantCourseUpdateWithWhereUniqueWithoutCourseInput | TenantCourseUpdateWithWhereUniqueWithoutCourseInput[]
     updateMany?: TenantCourseUpdateManyWithWhereWithoutCourseInput | TenantCourseUpdateManyWithWhereWithoutCourseInput[]
     deleteMany?: TenantCourseScalarWhereInput | TenantCourseScalarWhereInput[]
+  }
+
+  export type SlideExplanationUncheckedUpdateManyWithoutCourseNestedInput = {
+    create?: XOR<SlideExplanationCreateWithoutCourseInput, SlideExplanationUncheckedCreateWithoutCourseInput> | SlideExplanationCreateWithoutCourseInput[] | SlideExplanationUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: SlideExplanationCreateOrConnectWithoutCourseInput | SlideExplanationCreateOrConnectWithoutCourseInput[]
+    upsert?: SlideExplanationUpsertWithWhereUniqueWithoutCourseInput | SlideExplanationUpsertWithWhereUniqueWithoutCourseInput[]
+    createMany?: SlideExplanationCreateManyCourseInputEnvelope
+    set?: SlideExplanationWhereUniqueInput | SlideExplanationWhereUniqueInput[]
+    disconnect?: SlideExplanationWhereUniqueInput | SlideExplanationWhereUniqueInput[]
+    delete?: SlideExplanationWhereUniqueInput | SlideExplanationWhereUniqueInput[]
+    connect?: SlideExplanationWhereUniqueInput | SlideExplanationWhereUniqueInput[]
+    update?: SlideExplanationUpdateWithWhereUniqueWithoutCourseInput | SlideExplanationUpdateWithWhereUniqueWithoutCourseInput[]
+    updateMany?: SlideExplanationUpdateManyWithWhereWithoutCourseInput | SlideExplanationUpdateManyWithWhereWithoutCourseInput[]
+    deleteMany?: SlideExplanationScalarWhereInput | SlideExplanationScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutEnrollmentsInput = {
@@ -14899,6 +16545,20 @@ export namespace Prisma {
     update?: XOR<XOR<MCQUpdateToOneWithWhereWithoutUserAnswersInput, MCQUpdateWithoutUserAnswersInput>, MCQUncheckedUpdateWithoutUserAnswersInput>
   }
 
+  export type CourseCreateNestedOneWithoutSlideExplanationsInput = {
+    create?: XOR<CourseCreateWithoutSlideExplanationsInput, CourseUncheckedCreateWithoutSlideExplanationsInput>
+    connectOrCreate?: CourseCreateOrConnectWithoutSlideExplanationsInput
+    connect?: CourseWhereUniqueInput
+  }
+
+  export type CourseUpdateOneRequiredWithoutSlideExplanationsNestedInput = {
+    create?: XOR<CourseCreateWithoutSlideExplanationsInput, CourseUncheckedCreateWithoutSlideExplanationsInput>
+    connectOrCreate?: CourseCreateOrConnectWithoutSlideExplanationsInput
+    upsert?: CourseUpsertWithoutSlideExplanationsInput
+    connect?: CourseWhereUniqueInput
+    update?: XOR<XOR<CourseUpdateToOneWithWhereWithoutSlideExplanationsInput, CourseUpdateWithoutSlideExplanationsInput>, CourseUncheckedUpdateWithoutSlideExplanationsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -15068,6 +16728,29 @@ export namespace Prisma {
     _min?: NestedEnumEnrollmentStatusFilter<$PrismaModel>
     _max?: NestedEnumEnrollmentStatusFilter<$PrismaModel>
   }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
@@ -15171,6 +16854,7 @@ export namespace Prisma {
 
   export type TenantCourseCreateWithoutTenantInput = {
     id?: string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: Date | string
     course: CourseCreateNestedOneWithoutTenantsInput
   }
@@ -15178,6 +16862,7 @@ export namespace Prisma {
   export type TenantCourseUncheckedCreateWithoutTenantInput = {
     id?: string
     courseId: string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: Date | string
   }
 
@@ -15301,6 +16986,7 @@ export namespace Prisma {
     id?: StringFilter<"TenantCourse"> | string
     tenantId?: StringFilter<"TenantCourse"> | string
     courseId?: StringFilter<"TenantCourse"> | string
+    explanations?: JsonNullableFilter<"TenantCourse">
     assignedAt?: DateTimeFilter<"TenantCourse"> | Date | string
   }
 
@@ -15308,6 +16994,8 @@ export namespace Prisma {
     id?: string
     name: string
     domain: string
+    adminEmail: string
+    adminPassword: string
     createdAt?: Date | string
     users?: UserCreateNestedManyWithoutTenantInput
     courses?: TenantCourseCreateNestedManyWithoutTenantInput
@@ -15317,6 +17005,8 @@ export namespace Prisma {
     id?: string
     name: string
     domain: string
+    adminEmail: string
+    adminPassword: string
     createdAt?: Date | string
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     courses?: TenantCourseUncheckedCreateNestedManyWithoutTenantInput
@@ -15342,6 +17032,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     domain?: StringFieldUpdateOperationsInput | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUpdateManyWithoutTenantNestedInput
     courses?: TenantCourseUpdateManyWithoutTenantNestedInput
@@ -15351,6 +17043,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     domain?: StringFieldUpdateOperationsInput | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     courses?: TenantCourseUncheckedUpdateManyWithoutTenantNestedInput
@@ -15360,6 +17054,8 @@ export namespace Prisma {
     id?: string
     name: string
     domain: string
+    adminEmail: string
+    adminPassword: string
     createdAt?: Date | string
     details?: TenantDetailsCreateNestedOneWithoutTenantInput
     courses?: TenantCourseCreateNestedManyWithoutTenantInput
@@ -15369,6 +17065,8 @@ export namespace Prisma {
     id?: string
     name: string
     domain: string
+    adminEmail: string
+    adminPassword: string
     createdAt?: Date | string
     details?: TenantDetailsUncheckedCreateNestedOneWithoutTenantInput
     courses?: TenantCourseUncheckedCreateNestedManyWithoutTenantInput
@@ -15468,6 +17166,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     domain?: StringFieldUpdateOperationsInput | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     details?: TenantDetailsUpdateOneWithoutTenantNestedInput
     courses?: TenantCourseUpdateManyWithoutTenantNestedInput
@@ -15477,6 +17177,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     domain?: StringFieldUpdateOperationsInput | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     details?: TenantDetailsUncheckedUpdateOneWithoutTenantNestedInput
     courses?: TenantCourseUncheckedUpdateManyWithoutTenantNestedInput
@@ -15622,6 +17324,7 @@ export namespace Prisma {
 
   export type TenantCourseCreateWithoutCourseInput = {
     id?: string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutCoursesInput
   }
@@ -15629,6 +17332,7 @@ export namespace Prisma {
   export type TenantCourseUncheckedCreateWithoutCourseInput = {
     id?: string
     tenantId: string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: Date | string
   }
 
@@ -15639,6 +17343,32 @@ export namespace Prisma {
 
   export type TenantCourseCreateManyCourseInputEnvelope = {
     data: TenantCourseCreateManyCourseInput | TenantCourseCreateManyCourseInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SlideExplanationCreateWithoutCourseInput = {
+    id?: string
+    slideNumber: number
+    explanation: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SlideExplanationUncheckedCreateWithoutCourseInput = {
+    id?: string
+    slideNumber: number
+    explanation: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SlideExplanationCreateOrConnectWithoutCourseInput = {
+    where: SlideExplanationWhereUniqueInput
+    create: XOR<SlideExplanationCreateWithoutCourseInput, SlideExplanationUncheckedCreateWithoutCourseInput>
+  }
+
+  export type SlideExplanationCreateManyCourseInputEnvelope = {
+    data: SlideExplanationCreateManyCourseInput | SlideExplanationCreateManyCourseInput[]
     skipDuplicates?: boolean
   }
 
@@ -15704,6 +17434,34 @@ export namespace Prisma {
     data: XOR<TenantCourseUpdateManyMutationInput, TenantCourseUncheckedUpdateManyWithoutCourseInput>
   }
 
+  export type SlideExplanationUpsertWithWhereUniqueWithoutCourseInput = {
+    where: SlideExplanationWhereUniqueInput
+    update: XOR<SlideExplanationUpdateWithoutCourseInput, SlideExplanationUncheckedUpdateWithoutCourseInput>
+    create: XOR<SlideExplanationCreateWithoutCourseInput, SlideExplanationUncheckedCreateWithoutCourseInput>
+  }
+
+  export type SlideExplanationUpdateWithWhereUniqueWithoutCourseInput = {
+    where: SlideExplanationWhereUniqueInput
+    data: XOR<SlideExplanationUpdateWithoutCourseInput, SlideExplanationUncheckedUpdateWithoutCourseInput>
+  }
+
+  export type SlideExplanationUpdateManyWithWhereWithoutCourseInput = {
+    where: SlideExplanationScalarWhereInput
+    data: XOR<SlideExplanationUpdateManyMutationInput, SlideExplanationUncheckedUpdateManyWithoutCourseInput>
+  }
+
+  export type SlideExplanationScalarWhereInput = {
+    AND?: SlideExplanationScalarWhereInput | SlideExplanationScalarWhereInput[]
+    OR?: SlideExplanationScalarWhereInput[]
+    NOT?: SlideExplanationScalarWhereInput | SlideExplanationScalarWhereInput[]
+    id?: StringFilter<"SlideExplanation"> | string
+    courseId?: StringFilter<"SlideExplanation"> | string
+    slideNumber?: IntFilter<"SlideExplanation"> | number
+    explanation?: StringFilter<"SlideExplanation"> | string
+    createdAt?: DateTimeFilter<"SlideExplanation"> | Date | string
+    updatedAt?: DateTimeFilter<"SlideExplanation"> | Date | string
+  }
+
   export type UserCreateWithoutEnrollmentsInput = {
     id?: string
     email: string
@@ -15744,11 +17502,13 @@ export namespace Prisma {
     learningObjectives?: CourseCreatelearningObjectivesInput | string[]
     targetAudience?: CourseCreatetargetAudienceInput | string[]
     materialUrl: string
+    videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
     createdAt?: Date | string
     updatedAt?: Date | string
     mcqs?: MCQCreateNestedManyWithoutCourseInput
     tenants?: TenantCourseCreateNestedManyWithoutCourseInput
+    slideExplanations?: SlideExplanationCreateNestedManyWithoutCourseInput
   }
 
   export type CourseUncheckedCreateWithoutEnrollmentsInput = {
@@ -15760,11 +17520,13 @@ export namespace Prisma {
     learningObjectives?: CourseCreatelearningObjectivesInput | string[]
     targetAudience?: CourseCreatetargetAudienceInput | string[]
     materialUrl: string
+    videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
     createdAt?: Date | string
     updatedAt?: Date | string
     mcqs?: MCQUncheckedCreateNestedManyWithoutCourseInput
     tenants?: TenantCourseUncheckedCreateNestedManyWithoutCourseInput
+    slideExplanations?: SlideExplanationUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type CourseCreateOrConnectWithoutEnrollmentsInput = {
@@ -15829,11 +17591,13 @@ export namespace Prisma {
     learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
     targetAudience?: CourseUpdatetargetAudienceInput | string[]
     materialUrl?: StringFieldUpdateOperationsInput | string
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mcqs?: MCQUpdateManyWithoutCourseNestedInput
     tenants?: TenantCourseUpdateManyWithoutCourseNestedInput
+    slideExplanations?: SlideExplanationUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateWithoutEnrollmentsInput = {
@@ -15845,11 +17609,13 @@ export namespace Prisma {
     learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
     targetAudience?: CourseUpdatetargetAudienceInput | string[]
     materialUrl?: StringFieldUpdateOperationsInput | string
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mcqs?: MCQUncheckedUpdateManyWithoutCourseNestedInput
     tenants?: TenantCourseUncheckedUpdateManyWithoutCourseNestedInput
+    slideExplanations?: SlideExplanationUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type UserCreateWithoutCertificatesInput = {
@@ -15924,6 +17690,8 @@ export namespace Prisma {
     id?: string
     name: string
     domain: string
+    adminEmail: string
+    adminPassword: string
     createdAt?: Date | string
     users?: UserCreateNestedManyWithoutTenantInput
     details?: TenantDetailsCreateNestedOneWithoutTenantInput
@@ -15933,6 +17701,8 @@ export namespace Prisma {
     id?: string
     name: string
     domain: string
+    adminEmail: string
+    adminPassword: string
     createdAt?: Date | string
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     details?: TenantDetailsUncheckedCreateNestedOneWithoutTenantInput
@@ -15952,11 +17722,13 @@ export namespace Prisma {
     learningObjectives?: CourseCreatelearningObjectivesInput | string[]
     targetAudience?: CourseCreatetargetAudienceInput | string[]
     materialUrl: string
+    videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
     createdAt?: Date | string
     updatedAt?: Date | string
     mcqs?: MCQCreateNestedManyWithoutCourseInput
     enrollments?: EnrollmentCreateNestedManyWithoutCourseInput
+    slideExplanations?: SlideExplanationCreateNestedManyWithoutCourseInput
   }
 
   export type CourseUncheckedCreateWithoutTenantsInput = {
@@ -15968,11 +17740,13 @@ export namespace Prisma {
     learningObjectives?: CourseCreatelearningObjectivesInput | string[]
     targetAudience?: CourseCreatetargetAudienceInput | string[]
     materialUrl: string
+    videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
     createdAt?: Date | string
     updatedAt?: Date | string
     mcqs?: MCQUncheckedCreateNestedManyWithoutCourseInput
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutCourseInput
+    slideExplanations?: SlideExplanationUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type CourseCreateOrConnectWithoutTenantsInput = {
@@ -15995,6 +17769,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     domain?: StringFieldUpdateOperationsInput | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUpdateManyWithoutTenantNestedInput
     details?: TenantDetailsUpdateOneWithoutTenantNestedInput
@@ -16004,6 +17780,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     domain?: StringFieldUpdateOperationsInput | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     details?: TenantDetailsUncheckedUpdateOneWithoutTenantNestedInput
@@ -16029,11 +17807,13 @@ export namespace Prisma {
     learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
     targetAudience?: CourseUpdatetargetAudienceInput | string[]
     materialUrl?: StringFieldUpdateOperationsInput | string
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mcqs?: MCQUpdateManyWithoutCourseNestedInput
     enrollments?: EnrollmentUpdateManyWithoutCourseNestedInput
+    slideExplanations?: SlideExplanationUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateWithoutTenantsInput = {
@@ -16045,11 +17825,13 @@ export namespace Prisma {
     learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
     targetAudience?: CourseUpdatetargetAudienceInput | string[]
     materialUrl?: StringFieldUpdateOperationsInput | string
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mcqs?: MCQUncheckedUpdateManyWithoutCourseNestedInput
     enrollments?: EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
+    slideExplanations?: SlideExplanationUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseCreateWithoutMcqsInput = {
@@ -16061,11 +17843,13 @@ export namespace Prisma {
     learningObjectives?: CourseCreatelearningObjectivesInput | string[]
     targetAudience?: CourseCreatetargetAudienceInput | string[]
     materialUrl: string
+    videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
     createdAt?: Date | string
     updatedAt?: Date | string
     enrollments?: EnrollmentCreateNestedManyWithoutCourseInput
     tenants?: TenantCourseCreateNestedManyWithoutCourseInput
+    slideExplanations?: SlideExplanationCreateNestedManyWithoutCourseInput
   }
 
   export type CourseUncheckedCreateWithoutMcqsInput = {
@@ -16077,11 +17861,13 @@ export namespace Prisma {
     learningObjectives?: CourseCreatelearningObjectivesInput | string[]
     targetAudience?: CourseCreatetargetAudienceInput | string[]
     materialUrl: string
+    videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
     createdAt?: Date | string
     updatedAt?: Date | string
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutCourseInput
     tenants?: TenantCourseUncheckedCreateNestedManyWithoutCourseInput
+    slideExplanations?: SlideExplanationUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type CourseCreateOrConnectWithoutMcqsInput = {
@@ -16135,11 +17921,13 @@ export namespace Prisma {
     learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
     targetAudience?: CourseUpdatetargetAudienceInput | string[]
     materialUrl?: StringFieldUpdateOperationsInput | string
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enrollments?: EnrollmentUpdateManyWithoutCourseNestedInput
     tenants?: TenantCourseUpdateManyWithoutCourseNestedInput
+    slideExplanations?: SlideExplanationUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateWithoutMcqsInput = {
@@ -16151,11 +17939,13 @@ export namespace Prisma {
     learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
     targetAudience?: CourseUpdatetargetAudienceInput | string[]
     materialUrl?: StringFieldUpdateOperationsInput | string
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enrollments?: EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
     tenants?: TenantCourseUncheckedUpdateManyWithoutCourseNestedInput
+    slideExplanations?: SlideExplanationUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type UserMCQAnswerUpsertWithWhereUniqueWithoutMcqInput = {
@@ -16302,6 +18092,94 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CourseCreateWithoutSlideExplanationsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    duration: number
+    tags?: CourseCreatetagsInput | string[]
+    learningObjectives?: CourseCreatelearningObjectivesInput | string[]
+    targetAudience?: CourseCreatetargetAudienceInput | string[]
+    materialUrl: string
+    videoUrl?: string | null
+    slides?: CourseCreateslidesInput | InputJsonValue[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    mcqs?: MCQCreateNestedManyWithoutCourseInput
+    enrollments?: EnrollmentCreateNestedManyWithoutCourseInput
+    tenants?: TenantCourseCreateNestedManyWithoutCourseInput
+  }
+
+  export type CourseUncheckedCreateWithoutSlideExplanationsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    duration: number
+    tags?: CourseCreatetagsInput | string[]
+    learningObjectives?: CourseCreatelearningObjectivesInput | string[]
+    targetAudience?: CourseCreatetargetAudienceInput | string[]
+    materialUrl: string
+    videoUrl?: string | null
+    slides?: CourseCreateslidesInput | InputJsonValue[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    mcqs?: MCQUncheckedCreateNestedManyWithoutCourseInput
+    enrollments?: EnrollmentUncheckedCreateNestedManyWithoutCourseInput
+    tenants?: TenantCourseUncheckedCreateNestedManyWithoutCourseInput
+  }
+
+  export type CourseCreateOrConnectWithoutSlideExplanationsInput = {
+    where: CourseWhereUniqueInput
+    create: XOR<CourseCreateWithoutSlideExplanationsInput, CourseUncheckedCreateWithoutSlideExplanationsInput>
+  }
+
+  export type CourseUpsertWithoutSlideExplanationsInput = {
+    update: XOR<CourseUpdateWithoutSlideExplanationsInput, CourseUncheckedUpdateWithoutSlideExplanationsInput>
+    create: XOR<CourseCreateWithoutSlideExplanationsInput, CourseUncheckedCreateWithoutSlideExplanationsInput>
+    where?: CourseWhereInput
+  }
+
+  export type CourseUpdateToOneWithWhereWithoutSlideExplanationsInput = {
+    where?: CourseWhereInput
+    data: XOR<CourseUpdateWithoutSlideExplanationsInput, CourseUncheckedUpdateWithoutSlideExplanationsInput>
+  }
+
+  export type CourseUpdateWithoutSlideExplanationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    tags?: CourseUpdatetagsInput | string[]
+    learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
+    targetAudience?: CourseUpdatetargetAudienceInput | string[]
+    materialUrl?: StringFieldUpdateOperationsInput | string
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    slides?: CourseUpdateslidesInput | InputJsonValue[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mcqs?: MCQUpdateManyWithoutCourseNestedInput
+    enrollments?: EnrollmentUpdateManyWithoutCourseNestedInput
+    tenants?: TenantCourseUpdateManyWithoutCourseNestedInput
+  }
+
+  export type CourseUncheckedUpdateWithoutSlideExplanationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    tags?: CourseUpdatetagsInput | string[]
+    learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
+    targetAudience?: CourseUpdatetargetAudienceInput | string[]
+    materialUrl?: StringFieldUpdateOperationsInput | string
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    slides?: CourseUpdateslidesInput | InputJsonValue[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mcqs?: MCQUncheckedUpdateManyWithoutCourseNestedInput
+    enrollments?: EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
+    tenants?: TenantCourseUncheckedUpdateManyWithoutCourseNestedInput
+  }
+
   export type UserCreateManyTenantInput = {
     id?: string
     email: string
@@ -16315,6 +18193,7 @@ export namespace Prisma {
   export type TenantCourseCreateManyTenantInput = {
     id?: string
     courseId: string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: Date | string
   }
 
@@ -16356,6 +18235,7 @@ export namespace Prisma {
 
   export type TenantCourseUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     course?: CourseUpdateOneRequiredWithoutTenantsNestedInput
   }
@@ -16363,12 +18243,14 @@ export namespace Prisma {
   export type TenantCourseUncheckedUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     courseId?: StringFieldUpdateOperationsInput | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TenantCourseUncheckedUpdateManyWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     courseId?: StringFieldUpdateOperationsInput | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -16480,7 +18362,16 @@ export namespace Prisma {
   export type TenantCourseCreateManyCourseInput = {
     id?: string
     tenantId: string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: Date | string
+  }
+
+  export type SlideExplanationCreateManyCourseInput = {
+    id?: string
+    slideNumber: number
+    explanation: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type MCQUpdateWithoutCourseInput = {
@@ -16538,6 +18429,7 @@ export namespace Prisma {
 
   export type TenantCourseUpdateWithoutCourseInput = {
     id?: StringFieldUpdateOperationsInput | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutCoursesNestedInput
   }
@@ -16545,13 +18437,39 @@ export namespace Prisma {
   export type TenantCourseUncheckedUpdateWithoutCourseInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TenantCourseUncheckedUpdateManyWithoutCourseInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SlideExplanationUpdateWithoutCourseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slideNumber?: IntFieldUpdateOperationsInput | number
+    explanation?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SlideExplanationUncheckedUpdateWithoutCourseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slideNumber?: IntFieldUpdateOperationsInput | number
+    explanation?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SlideExplanationUncheckedUpdateManyWithoutCourseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slideNumber?: IntFieldUpdateOperationsInput | number
+    explanation?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserMCQAnswerCreateManyMcqInput = {

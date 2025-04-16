@@ -3,7 +3,7 @@ import { config } from 'dotenv';
 
 config();
 
-const aiServiceClient = axios.create({
+export const aiServiceClient = axios.create({
   baseURL: process.env.AI_SERVICE_URL,
   headers: {
     'Content-Type': 'application/json'
@@ -17,7 +17,7 @@ interface MCQQuestion {
   explanation?: string;
 }
 
-interface SlideExplanation {
+export interface SlideExplanation {
   slideNumber: number;
   content: string;
   explanation: string;
@@ -37,14 +37,76 @@ export const generateMCQs = async (s3Url: string): Promise<MCQQuestion[]> => {
 
 export const generateSlideExplanations = async (s3Url: string, companyName: string): Promise<SlideExplanation[]> => {
   try {
-    const response = await aiServiceClient.post('/generate_explanations', {
-      s3_url: s3Url,
+    console.log('Generating explanations for:', { s3Url, companyName });
+    
+    // Validate S3 URL
+    if (!s3Url) {
+      console.error('Invalid S3 URL:', s3Url);
+      throw new Error('Invalid S3 URL provided');
+    }
+
+    // Format S3 URL to ensure it matches the required format
+    let formattedS3Url = s3Url;
+    if (s3Url.startsWith('https://')) {
+      // If it's already an HTTPS URL, ensure it's properly formatted
+      const url = new URL(s3Url);
+      const pathParts = url.pathname.split('/');
+      // Only encode the filename, not the path segments
+      const filename = pathParts.pop();
+      const encodedFilename = encodeURIComponent(filename || '');
+      formattedS3Url = `https://${url.hostname}${pathParts.join('/')}/${encodedFilename}`;
+    } else if (s3Url.startsWith('s3://')) {
+      // Convert s3:// format to HTTPS URL
+      const [bucket, ...keyParts] = s3Url.replace('s3://', '').split('/');
+      const key = keyParts.join('/');
+      formattedS3Url = `https://${bucket}.s3.amazonaws.com/${encodeURIComponent(key)}`;
+    }
+
+    // Ensure the URL is properly formatted for S3 access
+    formattedS3Url = formattedS3Url.replace(/%2B/g, '+'); // Replace %2B with + for spaces
+    formattedS3Url = formattedS3Url.replace(/%20/g, '+'); // Replace %20 with + for spaces
+
+    console.log('Formatted S3 URL:', formattedS3Url);
+
+    const requestBody = {
+      s3_url: formattedS3Url,
       company_name: companyName
+    };
+
+    console.log('Sending request to AI service:', {
+      url: `${process.env.AI_SERVICE_URL}/generate_explanations`,
+      body: requestBody
     });
+
+    const response = await aiServiceClient.post('/generate_explanations', requestBody);
+
+    console.log('AI service response:', {
+      status: response.status,
+      statusText: response.statusText,
+      data: response.data
+    });
+
+    if (!response.data || !Array.isArray(response.data.explanations)) {
+      console.error('Invalid response format from AI service:', response.data);
+      throw new Error('Invalid response format from AI service');
+    }
+
     return response.data.explanations;
   } catch (error) {
     console.error('Error generating slide explanations:', error);
-    throw new Error('Failed to generate slide explanations');
+    if (axios.isAxiosError(error)) {
+      console.error('AI Service Error Details:', {
+        status: error.response?.status,
+        statusText: error.response?.statusText,
+        data: error.response?.data,
+        url: error.config?.url,
+        method: error.config?.method,
+        headers: error.config?.headers,
+        baseURL: error.config?.baseURL
+      });
+      throw new Error(`AI Service Error: ${error.response?.status} ${error.response?.statusText} - ${JSON.stringify(error.response?.data)}`);
+    }
+    throw new Error('Failed to generate slide explanations: ' + (error instanceof Error ? error.message : 'Unknown error'));
   }
 };
 

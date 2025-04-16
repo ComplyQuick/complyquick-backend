@@ -121,6 +121,8 @@ exports.Prisma.TenantScalarFieldEnum = {
   id: 'id',
   name: 'name',
   domain: 'domain',
+  adminEmail: 'adminEmail',
+  adminPassword: 'adminPassword',
   createdAt: 'createdAt'
 };
 
@@ -168,6 +170,7 @@ exports.Prisma.CourseScalarFieldEnum = {
   learningObjectives: 'learningObjectives',
   targetAudience: 'targetAudience',
   materialUrl: 'materialUrl',
+  videoUrl: 'videoUrl',
   slides: 'slides',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -193,6 +196,7 @@ exports.Prisma.TenantCourseScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
   courseId: 'courseId',
+  explanations: 'explanations',
   assignedAt: 'assignedAt'
 };
 
@@ -216,9 +220,23 @@ exports.Prisma.UserMCQAnswerScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.SlideExplanationScalarFieldEnum = {
+  id: 'id',
+  courseId: 'courseId',
+  slideNumber: 'slideNumber',
+  explanation: 'explanation',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -229,6 +247,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.UserRole = exports.$Enums.UserRole = {
   SUPER_ADMIN: 'SUPER_ADMIN',
@@ -251,7 +275,8 @@ exports.Prisma.ModelName = {
   Certificate: 'Certificate',
   TenantCourse: 'TenantCourse',
   MCQ: 'MCQ',
-  UserMCQAnswer: 'UserMCQAnswer'
+  UserMCQAnswer: 'UserMCQAnswer',
+  SlideExplanation: 'SlideExplanation'
 };
 
 /**

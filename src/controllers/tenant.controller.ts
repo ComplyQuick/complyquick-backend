@@ -1,7 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
-import { PrismaClient } from '../generated/prisma';
+import bcrypt from 'bcrypt';
+import { prisma } from '../lib/prisma';
+import { UserRole } from '../generated/prisma';
 
-const prisma = new PrismaClient();
+export interface CreateTenantRequest {
+  name: string;
+  domain: string;
+  adminEmail: string;
+  adminPassword: string;
+}
 
 export interface TenantDetailsRequest {
   presidingOfficerEmail?: string;
@@ -25,18 +32,50 @@ export interface TenantDetailsRequest {
   legalOfficerContact?: string;
 }
 
-export const addTenantDetails = async (
-  req: Request<{ id: string }, any, TenantDetailsRequest>,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
+// Create a new tenant (organization) - SuperAdmin only
+export const createTenant = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const { name, domain, adminEmail, adminPassword } = req.body as CreateTenantRequest;
+
+    // Hash the admin password
+    const hashedPassword = await bcrypt.hash(adminPassword, 10);
+
+    // Create tenant
+    const tenant = await prisma.tenant.create({
+      data: {
+        name,
+        domain,
+        adminEmail,
+        adminPassword: hashedPassword,
+        users: {
+          create: {
+            email: adminEmail,
+            name: `${name} Admin`,
+            password: hashedPassword,
+            role: UserRole.ADMIN
+          }
+        }
+      },
+      include: {
+        users: true
+      }
+    });
+
+    res.status(201).json(tenant);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Add tenant details - Tenant Admin only
+export const addTenantDetails = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { id } = req.params;
-    const details = req.body;
+    const detailsData = req.body as TenantDetailsRequest;
 
-    // Check if tenant exists
     const tenant = await prisma.tenant.findUnique({
-      where: { id }
+      where: { id },
+      include: { details: true }
     });
 
     if (!tenant) {
@@ -44,23 +83,197 @@ export const addTenantDetails = async (
       return;
     }
 
-    // Create or update tenant details
-    const tenantDetails = await prisma.tenantDetails.upsert({
-      where: { tenantId: id },
-      update: details,
-      create: {
-        ...details,
-        tenantId: id
-      }
-    });
-
-    res.status(200).json(tenantDetails);
+    if (tenant.details) {
+      // Update existing details
+      const updatedDetails = await prisma.tenantDetails.update({
+        where: { tenantId: id },
+        data: detailsData
+      });
+      res.json(updatedDetails);
+    } else {
+      // Create new details
+      const newDetails = await prisma.tenantDetails.create({
+        data: {
+          ...detailsData,
+          tenantId: id
+        }
+      });
+      res.json(newDetails);
+    }
   } catch (error) {
     next(error);
   }
 };
 
-export const getTenantDetails = async (
+export const getTenantDetails = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const tenant = await prisma.tenant.findUnique({
+      where: { id },
+      include: { details: true }
+    });
+    
+    if (!tenant) {
+      res.status(404).json({ error: 'Tenant not found' });
+      return;
+    }
+    
+    if (!tenant.details) {
+      res.status(404).json({ error: 'Tenant details not found' });
+      return;
+    }
+    
+    res.json(tenant.details);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateTenantDetails = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const detailsData = req.body as TenantDetailsRequest;
+    
+    const updatedDetails = await prisma.tenantDetails.update({
+      where: { tenantId: id },
+      data: detailsData
+    });
+    
+    res.json(updatedDetails);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllTenants = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const tenants = await prisma.tenant.findMany({
+      include: {
+        details: true,
+        users: true
+      }
+    });
+    res.json(tenants);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getTenantById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const tenant = await prisma.tenant.findUnique({
+      where: { id },
+      include: {
+        details: true,
+        users: true,
+        courses: true
+      }
+    });
+    
+    if (!tenant) {
+      res.status(404).json({ error: 'Tenant not found' });
+      return;
+    }
+    
+    res.json(tenant);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getTenantStats = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const tenant = await prisma.tenant.findUnique({
+      where: { id },
+      include: {
+        users: true,
+        courses: true,
+        details: true
+      }
+    });
+    
+    if (!tenant) {
+      res.status(404).json({ error: 'Tenant not found' });
+      return;
+    }
+    
+    const stats = {
+      totalUsers: tenant.users.length,
+      totalCourses: tenant.courses.length,
+      hasDetails: tenant.details !== null
+    };
+    
+    res.json(stats);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getActiveTenants = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const tenants = await prisma.tenant.findMany({
+      where: {
+        details: {
+          isNot: null
+        }
+      },
+      include: {
+        details: true
+      }
+    });
+    res.json(tenants);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getInactiveTenants = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const tenants = await prisma.tenant.findMany({
+      where: {
+        details: null
+      },
+      include: {
+        details: true
+      }
+    });
+    res.json(tenants);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const addTenantDetailsHandler = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const tenantDetails = req.body as TenantDetailsRequest;
+
+  try {
+    const tenant = await prisma.tenant.findUnique({
+      where: { id },
+    });
+
+    if (!tenant) {
+      return res.status(404).json({ error: 'Tenant not found' });
+    }
+
+    // Create tenant details
+    const details = await prisma.tenantDetails.create({
+      data: {
+        tenantId: id,
+        ...tenantDetails
+      },
+    });
+
+    return res.status(201).json(details);
+  } catch (error) {
+    console.error('Error adding tenant details:', error);
+    return res.status(500).json({ error: 'Failed to add tenant details' });
+  }
+};
+
+export const getTenantDetailsHandler = async (
   req: Request<{ id: string }>,
   res: Response,
   next: NextFunction
@@ -83,7 +296,7 @@ export const getTenantDetails = async (
   }
 };
 
-export const updateTenantDetails = async (
+export const updateTenantDetailsHandler = async (
   req: Request<{ id: string }, any, Partial<TenantDetailsRequest>>,
   res: Response,
   next: NextFunction
@@ -104,7 +317,7 @@ export const updateTenantDetails = async (
 };
 
 // Get tenant statistics
-export const getTenantStats = async (
+export const getTenantStatsHandler = async (
   _req: Request,
   res: Response,
   next: NextFunction
@@ -131,7 +344,7 @@ export const getTenantStats = async (
 };
 
 // Get active tenants (tenants with active users or course enrollments in last 30 days)
-export const getActiveTenants = async (
+export const getActiveTenantsHandler = async (
   _req: Request,
   res: Response,
   next: NextFunction
@@ -177,7 +390,7 @@ export const getActiveTenants = async (
 };
 
 // Get inactive tenants (tenants without active users or course enrollments in last 30 days)
-export const getInactiveTenants = async (
+export const getInactiveTenantsHandler = async (
   _req: Request,
   res: Response,
   next: NextFunction
