@@ -197,11 +197,17 @@ export const assignCourseToTenant = async (
     }
 
     const tenant = await prisma.tenant.findUnique({
-      where: { id: tenantId }
+      where: { id: tenantId },
+      include: { details: true }
     });
 
     if (!tenant) {
       res.status(404).json({ error: 'Tenant not found' });
+      return;
+    }
+
+    if (!tenant.details) {
+      res.status(400).json({ error: 'Tenant details not found' });
       return;
     }
 
@@ -221,7 +227,31 @@ export const assignCourseToTenant = async (
     // Generate explanations
     let explanations;
     try {
-      explanations = await generateSlideExplanations(course.materialUrl, tenant.name);
+      explanations = await generateSlideExplanations(
+        course.materialUrl,
+        tenant.name,
+        {
+          presidingOfficerEmail: tenant.details.presidingOfficerEmail || undefined,
+          poshCommitteeEmail: tenant.details.poshCommitteeEmail || undefined,
+          hrContactName: tenant.details.hrContactName || undefined,
+          hrContactEmail: tenant.details.hrContactEmail || undefined,
+          hrContactPhone: tenant.details.hrContactPhone || undefined,
+          ceoName: tenant.details.ceoName || undefined,
+          ceoEmail: tenant.details.ceoEmail || undefined,
+          ceoContact: tenant.details.ceoContact || undefined,
+          ctoName: tenant.details.ctoName || undefined,
+          ctoEmail: tenant.details.ctoEmail || undefined,
+          ctoContact: tenant.details.ctoContact || undefined,
+          ccoEmail: tenant.details.ccoEmail || undefined,
+          ccoContact: tenant.details.ccoContact || undefined,
+          croName: tenant.details.croName || undefined,
+          croEmail: tenant.details.croEmail || undefined,
+          croContact: tenant.details.croContact || undefined,
+          legalOfficerName: tenant.details.legalOfficerName || undefined,
+          legalOfficerEmail: tenant.details.legalOfficerEmail || undefined,
+          legalOfficerContact: tenant.details.legalOfficerContact || undefined
+        }
+      );
     } catch (error) {
       console.error('Error generating explanations:', error);
       explanations = null;
@@ -232,7 +262,7 @@ export const assignCourseToTenant = async (
       data: {
         courseId,
         tenantId,
-        explanations: explanations as any
+        explanations: explanations ? explanations as any : undefined
       },
       include: {
         course: true,
@@ -402,7 +432,11 @@ export const processCourseSlides = async (req: Request, res: Response, next: Nex
       },
       include: {
         course: true,
-        tenant: true
+        tenant: {
+          include: {
+            details: true
+          }
+        }
       }
     });
 
@@ -413,24 +447,46 @@ export const processCourseSlides = async (req: Request, res: Response, next: Nex
 
     // If explanations exist, return them
     if (tenantCourse.explanations) {
-      const parsedExplanations = typeof tenantCourse.explanations === 'string' 
-        ? JSON.parse(tenantCourse.explanations)
-        : tenantCourse.explanations;
-        
       res.json({ 
         message: 'Slides processed successfully', 
-        explanations: parsedExplanations
+        explanations: JSON.parse(tenantCourse.explanations as string)
       });
       return;
     }
 
     // If no explanations, generate them
     try {
-      const explanations = await generateSlideExplanations(tenantCourse.course.materialUrl, tenantCourse.tenant.name);
+      const explanations = await generateSlideExplanations(
+        tenantCourse.course.materialUrl,
+        tenantCourse.tenant.name,
+        {
+          presidingOfficerEmail: tenantCourse.tenant.details?.presidingOfficerEmail ?? undefined,
+          poshCommitteeEmail: tenantCourse.tenant.details?.poshCommitteeEmail ?? undefined,
+          hrContactName: tenantCourse.tenant.details?.hrContactName ?? undefined,
+          hrContactEmail: tenantCourse.tenant.details?.hrContactEmail ?? undefined,
+          hrContactPhone: tenantCourse.tenant.details?.hrContactPhone ?? undefined,
+          ceoName: tenantCourse.tenant.details?.ceoName ?? undefined,
+          ceoEmail: tenantCourse.tenant.details?.ceoEmail ?? undefined,
+          ceoContact: tenantCourse.tenant.details?.ceoContact ?? undefined,
+          ctoName: tenantCourse.tenant.details?.ctoName ?? undefined,
+          ctoEmail: tenantCourse.tenant.details?.ctoEmail ?? undefined,
+          ctoContact: tenantCourse.tenant.details?.ctoContact ?? undefined,
+          ccoEmail: tenantCourse.tenant.details?.ccoEmail ?? undefined,
+          ccoContact: tenantCourse.tenant.details?.ccoContact ?? undefined,
+          croName: tenantCourse.tenant.details?.croName ?? undefined,
+          croEmail: tenantCourse.tenant.details?.croEmail ?? undefined,
+          croContact: tenantCourse.tenant.details?.croContact ?? undefined,
+          legalOfficerName: tenantCourse.tenant.details?.legalOfficerName ?? undefined,
+          legalOfficerEmail: tenantCourse.tenant.details?.legalOfficerEmail ?? undefined,
+          legalOfficerContact: tenantCourse.tenant.details?.legalOfficerContact ?? undefined
+        }
+      );
 
       // Update tenant course with explanations
       await prisma.tenantCourse.update({
-        where: { id: tenantCourse.id },
+        where: { 
+          id: tenantCourse.id
+        },
         data: {
           explanations: explanations as any
         }
@@ -496,7 +552,11 @@ export const generateExplanations = async (req: Request, res: Response, next: Ne
       },
       include: {
         course: true,
-        tenant: true
+        tenant: {
+          include: {
+            details: true
+          }
+        }
       }
     });
 
@@ -505,7 +565,36 @@ export const generateExplanations = async (req: Request, res: Response, next: Ne
       return;
     }
 
-    const explanations = await generateSlideExplanations(tenantCourse.course.materialUrl, tenantCourse.tenant.name);
+    if (!tenantCourse.tenant.details) {
+      res.status(400).json({ error: 'Tenant details not found' });
+      return;
+    }
+
+    const explanations = await generateSlideExplanations(
+      tenantCourse.course.materialUrl,
+      tenantCourse.tenant.name,
+      {
+        presidingOfficerEmail: tenantCourse.tenant.details?.presidingOfficerEmail ?? undefined,
+        poshCommitteeEmail: tenantCourse.tenant.details?.poshCommitteeEmail ?? undefined,
+        hrContactName: tenantCourse.tenant.details?.hrContactName ?? undefined,
+        hrContactEmail: tenantCourse.tenant.details?.hrContactEmail ?? undefined,
+        hrContactPhone: tenantCourse.tenant.details?.hrContactPhone ?? undefined,
+        ceoName: tenantCourse.tenant.details?.ceoName ?? undefined,
+        ceoEmail: tenantCourse.tenant.details?.ceoEmail ?? undefined,
+        ceoContact: tenantCourse.tenant.details?.ceoContact ?? undefined,
+        ctoName: tenantCourse.tenant.details?.ctoName ?? undefined,
+        ctoEmail: tenantCourse.tenant.details?.ctoEmail ?? undefined,
+        ctoContact: tenantCourse.tenant.details?.ctoContact ?? undefined,
+        ccoEmail: tenantCourse.tenant.details?.ccoEmail ?? undefined,
+        ccoContact: tenantCourse.tenant.details?.ccoContact ?? undefined,
+        croName: tenantCourse.tenant.details?.croName ?? undefined,
+        croEmail: tenantCourse.tenant.details?.croEmail ?? undefined,
+        croContact: tenantCourse.tenant.details?.croContact ?? undefined,
+        legalOfficerName: tenantCourse.tenant.details?.legalOfficerName ?? undefined,
+        legalOfficerEmail: tenantCourse.tenant.details?.legalOfficerEmail ?? undefined,
+        legalOfficerContact: tenantCourse.tenant.details?.legalOfficerContact ?? undefined
+      }
+    );
 
     // Store explanations in tenant course
     await prisma.tenantCourse.update({
@@ -535,6 +624,14 @@ export const fetchExplanations = async (req: Request, res: Response, next: NextF
       where: {
         courseId,
         tenantId: tenantId as string
+      },
+      include: {
+        course: true,
+        tenant: {
+          include: {
+            details: true
+          }
+        }
       }
     });
 
@@ -544,6 +641,42 @@ export const fetchExplanations = async (req: Request, res: Response, next: NextF
     }
 
     res.json({ explanations: tenantCourse.explanations });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getCourseMaterialForChatbot = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { courseId } = req.params;
+    const { tenantId } = req.query;
+
+    if (!tenantId) {
+      res.status(400).json({ error: 'Tenant ID is required' });
+      return;
+    }
+
+    // Get the course material URL from tenant course
+    const tenantCourse = await prisma.tenantCourse.findFirst({
+      where: {
+        courseId,
+        tenantId: tenantId as string
+      },
+      include: {
+        course: true
+      }
+    });
+
+    if (!tenantCourse) {
+      res.status(404).json({ error: 'Course not found or not assigned to this tenant' });
+      return;
+    }
+
+    res.json({ 
+      materialUrl: tenantCourse.course.materialUrl,
+      courseId: courseId,
+      tenantId: tenantId
+    });
   } catch (error) {
     next(error);
   }

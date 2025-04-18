@@ -12,7 +12,8 @@ import {
   processCourseSlides,
   testAIService,
   generateExplanations,
-  fetchExplanations
+  fetchExplanations,
+  getCourseMaterialForChatbot
 } from '../controllers/course.controller';
 import asyncHandler from 'express-async-handler';
 
@@ -41,5 +42,6 @@ router.post('/:id/process-slides', asyncHandler(processCourseSlides));
 
 router.post('/:courseId/generate-explanations', asyncHandler(generateExplanations));
 router.get('/:courseId/explanations', asyncHandler(fetchExplanations));
+router.get('/:courseId/chatbot-material', asyncHandler(getCourseMaterialForChatbot));
 
 export default router; 

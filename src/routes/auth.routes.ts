@@ -27,7 +27,7 @@ router.get('/google/callback',
       process.env.JWT_SECRET!,
       { expiresIn: '24h' }
     );
-    res.redirect(`${process.env.FRONTEND_URL}/dashboard?token=${token}`);
+    res.redirect(`${process.env.FRONTEND_URL}/dashboard?token=${token}&tenantId=${user.tenantId}`);
     // res.json({
     //   token
     // })

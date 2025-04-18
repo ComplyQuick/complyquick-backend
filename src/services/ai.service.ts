@@ -23,6 +23,28 @@ export interface SlideExplanation {
   explanation: string;
 }
 
+export interface TenantDetails {
+  presidingOfficerEmail?: string;
+  poshCommitteeEmail?: string;
+  hrContactName?: string;
+  hrContactEmail?: string;
+  hrContactPhone?: string;
+  ceoName?: string;
+  ceoEmail?: string;
+  ceoContact?: string;
+  ctoName?: string;
+  ctoEmail?: string;
+  ctoContact?: string;
+  ccoEmail?: string;
+  ccoContact?: string;
+  croName?: string;
+  croEmail?: string;
+  croContact?: string;
+  legalOfficerName?: string;
+  legalOfficerEmail?: string;
+  legalOfficerContact?: string;
+}
+
 export const generateMCQs = async (s3Url: string): Promise<MCQQuestion[]> => {
   try {
     const response = await aiServiceClient.post('/generate-mcq', {
@@ -35,9 +57,13 @@ export const generateMCQs = async (s3Url: string): Promise<MCQQuestion[]> => {
   }
 };
 
-export const generateSlideExplanations = async (s3Url: string, companyName: string): Promise<SlideExplanation[]> => {
+export const generateSlideExplanations = async (
+  s3Url: string, 
+  companyName: string,
+  tenantDetails: TenantDetails
+): Promise<SlideExplanation[]> => {
   try {
-    console.log('Generating explanations for:', { s3Url, companyName });
+    console.log('Generating explanations for:', { s3Url, companyName, tenantDetails });
     
     // Validate S3 URL
     if (!s3Url) {
@@ -70,7 +96,8 @@ export const generateSlideExplanations = async (s3Url: string, companyName: stri
 
     const requestBody = {
       s3_url: formattedS3Url,
-      company_name: companyName
+      company_name: companyName,
+      tenant_details: tenantDetails
     };
 
     console.log('Sending request to AI service:', {
