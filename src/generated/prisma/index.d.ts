@@ -63,6 +63,11 @@ export type UserMCQAnswer = $Result.DefaultSelection<Prisma.$UserMCQAnswerPayloa
  * 
  */
 export type SlideExplanation = $Result.DefaultSelection<Prisma.$SlideExplanationPayload>
+/**
+ * Model OrganizationInterest
+ * 
+ */
+export type OrganizationInterest = $Result.DefaultSelection<Prisma.$OrganizationInterestPayload>
 
 /**
  * Enums
@@ -319,6 +324,16 @@ export class PrismaClient<
     * ```
     */
   get slideExplanation(): Prisma.SlideExplanationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.organizationInterest`: Exposes CRUD operations for the **OrganizationInterest** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OrganizationInterests
+    * const organizationInterests = await prisma.organizationInterest.findMany()
+    * ```
+    */
+  get organizationInterest(): Prisma.OrganizationInterestDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -768,7 +783,8 @@ export namespace Prisma {
     TenantCourse: 'TenantCourse',
     MCQ: 'MCQ',
     UserMCQAnswer: 'UserMCQAnswer',
-    SlideExplanation: 'SlideExplanation'
+    SlideExplanation: 'SlideExplanation',
+    OrganizationInterest: 'OrganizationInterest'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -787,7 +803,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "tenant" | "tenantDetails" | "user" | "course" | "enrollment" | "certificate" | "tenantCourse" | "mCQ" | "userMCQAnswer" | "slideExplanation"
+      modelProps: "tenant" | "tenantDetails" | "user" | "course" | "enrollment" | "certificate" | "tenantCourse" | "mCQ" | "userMCQAnswer" | "slideExplanation" | "organizationInterest"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1531,6 +1547,80 @@ export namespace Prisma {
           }
         }
       }
+      OrganizationInterest: {
+        payload: Prisma.$OrganizationInterestPayload<ExtArgs>
+        fields: Prisma.OrganizationInterestFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OrganizationInterestFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationInterestPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OrganizationInterestFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationInterestPayload>
+          }
+          findFirst: {
+            args: Prisma.OrganizationInterestFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationInterestPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OrganizationInterestFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationInterestPayload>
+          }
+          findMany: {
+            args: Prisma.OrganizationInterestFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationInterestPayload>[]
+          }
+          create: {
+            args: Prisma.OrganizationInterestCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationInterestPayload>
+          }
+          createMany: {
+            args: Prisma.OrganizationInterestCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OrganizationInterestCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationInterestPayload>[]
+          }
+          delete: {
+            args: Prisma.OrganizationInterestDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationInterestPayload>
+          }
+          update: {
+            args: Prisma.OrganizationInterestUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationInterestPayload>
+          }
+          deleteMany: {
+            args: Prisma.OrganizationInterestDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OrganizationInterestUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.OrganizationInterestUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationInterestPayload>[]
+          }
+          upsert: {
+            args: Prisma.OrganizationInterestUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationInterestPayload>
+          }
+          aggregate: {
+            args: Prisma.OrganizationInterestAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOrganizationInterest>
+          }
+          groupBy: {
+            args: Prisma.OrganizationInterestGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OrganizationInterestGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OrganizationInterestCountArgs<ExtArgs>
+            result: $Utils.Optional<OrganizationInterestCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1625,6 +1715,7 @@ export namespace Prisma {
     mCQ?: MCQOmit
     userMCQAnswer?: UserMCQAnswerOmit
     slideExplanation?: SlideExplanationOmit
+    organizationInterest?: OrganizationInterestOmit
   }
 
   /* Types for Logging */
@@ -13285,6 +13376,1040 @@ export namespace Prisma {
 
 
   /**
+   * Model OrganizationInterest
+   */
+
+  export type AggregateOrganizationInterest = {
+    _count: OrganizationInterestCountAggregateOutputType | null
+    _min: OrganizationInterestMinAggregateOutputType | null
+    _max: OrganizationInterestMaxAggregateOutputType | null
+  }
+
+  export type OrganizationInterestMinAggregateOutputType = {
+    id: string | null
+    organizationName: string | null
+    email: string | null
+    fullName: string | null
+    message: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type OrganizationInterestMaxAggregateOutputType = {
+    id: string | null
+    organizationName: string | null
+    email: string | null
+    fullName: string | null
+    message: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type OrganizationInterestCountAggregateOutputType = {
+    id: number
+    organizationName: number
+    email: number
+    fullName: number
+    message: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type OrganizationInterestMinAggregateInputType = {
+    id?: true
+    organizationName?: true
+    email?: true
+    fullName?: true
+    message?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type OrganizationInterestMaxAggregateInputType = {
+    id?: true
+    organizationName?: true
+    email?: true
+    fullName?: true
+    message?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type OrganizationInterestCountAggregateInputType = {
+    id?: true
+    organizationName?: true
+    email?: true
+    fullName?: true
+    message?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type OrganizationInterestAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OrganizationInterest to aggregate.
+     */
+    where?: OrganizationInterestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OrganizationInterests to fetch.
+     */
+    orderBy?: OrganizationInterestOrderByWithRelationInput | OrganizationInterestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OrganizationInterestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OrganizationInterests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OrganizationInterests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OrganizationInterests
+    **/
+    _count?: true | OrganizationInterestCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OrganizationInterestMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OrganizationInterestMaxAggregateInputType
+  }
+
+  export type GetOrganizationInterestAggregateType<T extends OrganizationInterestAggregateArgs> = {
+        [P in keyof T & keyof AggregateOrganizationInterest]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOrganizationInterest[P]>
+      : GetScalarType<T[P], AggregateOrganizationInterest[P]>
+  }
+
+
+
+
+  export type OrganizationInterestGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrganizationInterestWhereInput
+    orderBy?: OrganizationInterestOrderByWithAggregationInput | OrganizationInterestOrderByWithAggregationInput[]
+    by: OrganizationInterestScalarFieldEnum[] | OrganizationInterestScalarFieldEnum
+    having?: OrganizationInterestScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OrganizationInterestCountAggregateInputType | true
+    _min?: OrganizationInterestMinAggregateInputType
+    _max?: OrganizationInterestMaxAggregateInputType
+  }
+
+  export type OrganizationInterestGroupByOutputType = {
+    id: string
+    organizationName: string
+    email: string
+    fullName: string
+    message: string
+    status: string
+    createdAt: Date
+    updatedAt: Date
+    _count: OrganizationInterestCountAggregateOutputType | null
+    _min: OrganizationInterestMinAggregateOutputType | null
+    _max: OrganizationInterestMaxAggregateOutputType | null
+  }
+
+  type GetOrganizationInterestGroupByPayload<T extends OrganizationInterestGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OrganizationInterestGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OrganizationInterestGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OrganizationInterestGroupByOutputType[P]>
+            : GetScalarType<T[P], OrganizationInterestGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OrganizationInterestSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    organizationName?: boolean
+    email?: boolean
+    fullName?: boolean
+    message?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["organizationInterest"]>
+
+  export type OrganizationInterestSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    organizationName?: boolean
+    email?: boolean
+    fullName?: boolean
+    message?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["organizationInterest"]>
+
+  export type OrganizationInterestSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    organizationName?: boolean
+    email?: boolean
+    fullName?: boolean
+    message?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["organizationInterest"]>
+
+  export type OrganizationInterestSelectScalar = {
+    id?: boolean
+    organizationName?: boolean
+    email?: boolean
+    fullName?: boolean
+    message?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type OrganizationInterestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "organizationName" | "email" | "fullName" | "message" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["organizationInterest"]>
+
+  export type $OrganizationInterestPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OrganizationInterest"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      organizationName: string
+      email: string
+      fullName: string
+      message: string
+      status: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["organizationInterest"]>
+    composites: {}
+  }
+
+  type OrganizationInterestGetPayload<S extends boolean | null | undefined | OrganizationInterestDefaultArgs> = $Result.GetResult<Prisma.$OrganizationInterestPayload, S>
+
+  type OrganizationInterestCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<OrganizationInterestFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: OrganizationInterestCountAggregateInputType | true
+    }
+
+  export interface OrganizationInterestDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OrganizationInterest'], meta: { name: 'OrganizationInterest' } }
+    /**
+     * Find zero or one OrganizationInterest that matches the filter.
+     * @param {OrganizationInterestFindUniqueArgs} args - Arguments to find a OrganizationInterest
+     * @example
+     * // Get one OrganizationInterest
+     * const organizationInterest = await prisma.organizationInterest.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OrganizationInterestFindUniqueArgs>(args: SelectSubset<T, OrganizationInterestFindUniqueArgs<ExtArgs>>): Prisma__OrganizationInterestClient<$Result.GetResult<Prisma.$OrganizationInterestPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one OrganizationInterest that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {OrganizationInterestFindUniqueOrThrowArgs} args - Arguments to find a OrganizationInterest
+     * @example
+     * // Get one OrganizationInterest
+     * const organizationInterest = await prisma.organizationInterest.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OrganizationInterestFindUniqueOrThrowArgs>(args: SelectSubset<T, OrganizationInterestFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OrganizationInterestClient<$Result.GetResult<Prisma.$OrganizationInterestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OrganizationInterest that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationInterestFindFirstArgs} args - Arguments to find a OrganizationInterest
+     * @example
+     * // Get one OrganizationInterest
+     * const organizationInterest = await prisma.organizationInterest.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OrganizationInterestFindFirstArgs>(args?: SelectSubset<T, OrganizationInterestFindFirstArgs<ExtArgs>>): Prisma__OrganizationInterestClient<$Result.GetResult<Prisma.$OrganizationInterestPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OrganizationInterest that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationInterestFindFirstOrThrowArgs} args - Arguments to find a OrganizationInterest
+     * @example
+     * // Get one OrganizationInterest
+     * const organizationInterest = await prisma.organizationInterest.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OrganizationInterestFindFirstOrThrowArgs>(args?: SelectSubset<T, OrganizationInterestFindFirstOrThrowArgs<ExtArgs>>): Prisma__OrganizationInterestClient<$Result.GetResult<Prisma.$OrganizationInterestPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more OrganizationInterests that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationInterestFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OrganizationInterests
+     * const organizationInterests = await prisma.organizationInterest.findMany()
+     * 
+     * // Get first 10 OrganizationInterests
+     * const organizationInterests = await prisma.organizationInterest.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const organizationInterestWithIdOnly = await prisma.organizationInterest.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OrganizationInterestFindManyArgs>(args?: SelectSubset<T, OrganizationInterestFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationInterestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a OrganizationInterest.
+     * @param {OrganizationInterestCreateArgs} args - Arguments to create a OrganizationInterest.
+     * @example
+     * // Create one OrganizationInterest
+     * const OrganizationInterest = await prisma.organizationInterest.create({
+     *   data: {
+     *     // ... data to create a OrganizationInterest
+     *   }
+     * })
+     * 
+     */
+    create<T extends OrganizationInterestCreateArgs>(args: SelectSubset<T, OrganizationInterestCreateArgs<ExtArgs>>): Prisma__OrganizationInterestClient<$Result.GetResult<Prisma.$OrganizationInterestPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many OrganizationInterests.
+     * @param {OrganizationInterestCreateManyArgs} args - Arguments to create many OrganizationInterests.
+     * @example
+     * // Create many OrganizationInterests
+     * const organizationInterest = await prisma.organizationInterest.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OrganizationInterestCreateManyArgs>(args?: SelectSubset<T, OrganizationInterestCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OrganizationInterests and returns the data saved in the database.
+     * @param {OrganizationInterestCreateManyAndReturnArgs} args - Arguments to create many OrganizationInterests.
+     * @example
+     * // Create many OrganizationInterests
+     * const organizationInterest = await prisma.organizationInterest.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OrganizationInterests and only return the `id`
+     * const organizationInterestWithIdOnly = await prisma.organizationInterest.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OrganizationInterestCreateManyAndReturnArgs>(args?: SelectSubset<T, OrganizationInterestCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationInterestPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a OrganizationInterest.
+     * @param {OrganizationInterestDeleteArgs} args - Arguments to delete one OrganizationInterest.
+     * @example
+     * // Delete one OrganizationInterest
+     * const OrganizationInterest = await prisma.organizationInterest.delete({
+     *   where: {
+     *     // ... filter to delete one OrganizationInterest
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OrganizationInterestDeleteArgs>(args: SelectSubset<T, OrganizationInterestDeleteArgs<ExtArgs>>): Prisma__OrganizationInterestClient<$Result.GetResult<Prisma.$OrganizationInterestPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one OrganizationInterest.
+     * @param {OrganizationInterestUpdateArgs} args - Arguments to update one OrganizationInterest.
+     * @example
+     * // Update one OrganizationInterest
+     * const organizationInterest = await prisma.organizationInterest.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OrganizationInterestUpdateArgs>(args: SelectSubset<T, OrganizationInterestUpdateArgs<ExtArgs>>): Prisma__OrganizationInterestClient<$Result.GetResult<Prisma.$OrganizationInterestPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more OrganizationInterests.
+     * @param {OrganizationInterestDeleteManyArgs} args - Arguments to filter OrganizationInterests to delete.
+     * @example
+     * // Delete a few OrganizationInterests
+     * const { count } = await prisma.organizationInterest.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OrganizationInterestDeleteManyArgs>(args?: SelectSubset<T, OrganizationInterestDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OrganizationInterests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationInterestUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OrganizationInterests
+     * const organizationInterest = await prisma.organizationInterest.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OrganizationInterestUpdateManyArgs>(args: SelectSubset<T, OrganizationInterestUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OrganizationInterests and returns the data updated in the database.
+     * @param {OrganizationInterestUpdateManyAndReturnArgs} args - Arguments to update many OrganizationInterests.
+     * @example
+     * // Update many OrganizationInterests
+     * const organizationInterest = await prisma.organizationInterest.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more OrganizationInterests and only return the `id`
+     * const organizationInterestWithIdOnly = await prisma.organizationInterest.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends OrganizationInterestUpdateManyAndReturnArgs>(args: SelectSubset<T, OrganizationInterestUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationInterestPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one OrganizationInterest.
+     * @param {OrganizationInterestUpsertArgs} args - Arguments to update or create a OrganizationInterest.
+     * @example
+     * // Update or create a OrganizationInterest
+     * const organizationInterest = await prisma.organizationInterest.upsert({
+     *   create: {
+     *     // ... data to create a OrganizationInterest
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OrganizationInterest we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OrganizationInterestUpsertArgs>(args: SelectSubset<T, OrganizationInterestUpsertArgs<ExtArgs>>): Prisma__OrganizationInterestClient<$Result.GetResult<Prisma.$OrganizationInterestPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of OrganizationInterests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationInterestCountArgs} args - Arguments to filter OrganizationInterests to count.
+     * @example
+     * // Count the number of OrganizationInterests
+     * const count = await prisma.organizationInterest.count({
+     *   where: {
+     *     // ... the filter for the OrganizationInterests we want to count
+     *   }
+     * })
+    **/
+    count<T extends OrganizationInterestCountArgs>(
+      args?: Subset<T, OrganizationInterestCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OrganizationInterestCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OrganizationInterest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationInterestAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OrganizationInterestAggregateArgs>(args: Subset<T, OrganizationInterestAggregateArgs>): Prisma.PrismaPromise<GetOrganizationInterestAggregateType<T>>
+
+    /**
+     * Group by OrganizationInterest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationInterestGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OrganizationInterestGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OrganizationInterestGroupByArgs['orderBy'] }
+        : { orderBy?: OrganizationInterestGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OrganizationInterestGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOrganizationInterestGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OrganizationInterest model
+   */
+  readonly fields: OrganizationInterestFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OrganizationInterest.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OrganizationInterestClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OrganizationInterest model
+   */
+  interface OrganizationInterestFieldRefs {
+    readonly id: FieldRef<"OrganizationInterest", 'String'>
+    readonly organizationName: FieldRef<"OrganizationInterest", 'String'>
+    readonly email: FieldRef<"OrganizationInterest", 'String'>
+    readonly fullName: FieldRef<"OrganizationInterest", 'String'>
+    readonly message: FieldRef<"OrganizationInterest", 'String'>
+    readonly status: FieldRef<"OrganizationInterest", 'String'>
+    readonly createdAt: FieldRef<"OrganizationInterest", 'DateTime'>
+    readonly updatedAt: FieldRef<"OrganizationInterest", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OrganizationInterest findUnique
+   */
+  export type OrganizationInterestFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationInterest
+     */
+    select?: OrganizationInterestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationInterest
+     */
+    omit?: OrganizationInterestOmit<ExtArgs> | null
+    /**
+     * Filter, which OrganizationInterest to fetch.
+     */
+    where: OrganizationInterestWhereUniqueInput
+  }
+
+  /**
+   * OrganizationInterest findUniqueOrThrow
+   */
+  export type OrganizationInterestFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationInterest
+     */
+    select?: OrganizationInterestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationInterest
+     */
+    omit?: OrganizationInterestOmit<ExtArgs> | null
+    /**
+     * Filter, which OrganizationInterest to fetch.
+     */
+    where: OrganizationInterestWhereUniqueInput
+  }
+
+  /**
+   * OrganizationInterest findFirst
+   */
+  export type OrganizationInterestFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationInterest
+     */
+    select?: OrganizationInterestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationInterest
+     */
+    omit?: OrganizationInterestOmit<ExtArgs> | null
+    /**
+     * Filter, which OrganizationInterest to fetch.
+     */
+    where?: OrganizationInterestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OrganizationInterests to fetch.
+     */
+    orderBy?: OrganizationInterestOrderByWithRelationInput | OrganizationInterestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OrganizationInterests.
+     */
+    cursor?: OrganizationInterestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OrganizationInterests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OrganizationInterests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OrganizationInterests.
+     */
+    distinct?: OrganizationInterestScalarFieldEnum | OrganizationInterestScalarFieldEnum[]
+  }
+
+  /**
+   * OrganizationInterest findFirstOrThrow
+   */
+  export type OrganizationInterestFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationInterest
+     */
+    select?: OrganizationInterestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationInterest
+     */
+    omit?: OrganizationInterestOmit<ExtArgs> | null
+    /**
+     * Filter, which OrganizationInterest to fetch.
+     */
+    where?: OrganizationInterestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OrganizationInterests to fetch.
+     */
+    orderBy?: OrganizationInterestOrderByWithRelationInput | OrganizationInterestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OrganizationInterests.
+     */
+    cursor?: OrganizationInterestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OrganizationInterests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OrganizationInterests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OrganizationInterests.
+     */
+    distinct?: OrganizationInterestScalarFieldEnum | OrganizationInterestScalarFieldEnum[]
+  }
+
+  /**
+   * OrganizationInterest findMany
+   */
+  export type OrganizationInterestFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationInterest
+     */
+    select?: OrganizationInterestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationInterest
+     */
+    omit?: OrganizationInterestOmit<ExtArgs> | null
+    /**
+     * Filter, which OrganizationInterests to fetch.
+     */
+    where?: OrganizationInterestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OrganizationInterests to fetch.
+     */
+    orderBy?: OrganizationInterestOrderByWithRelationInput | OrganizationInterestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OrganizationInterests.
+     */
+    cursor?: OrganizationInterestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OrganizationInterests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OrganizationInterests.
+     */
+    skip?: number
+    distinct?: OrganizationInterestScalarFieldEnum | OrganizationInterestScalarFieldEnum[]
+  }
+
+  /**
+   * OrganizationInterest create
+   */
+  export type OrganizationInterestCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationInterest
+     */
+    select?: OrganizationInterestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationInterest
+     */
+    omit?: OrganizationInterestOmit<ExtArgs> | null
+    /**
+     * The data needed to create a OrganizationInterest.
+     */
+    data: XOR<OrganizationInterestCreateInput, OrganizationInterestUncheckedCreateInput>
+  }
+
+  /**
+   * OrganizationInterest createMany
+   */
+  export type OrganizationInterestCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OrganizationInterests.
+     */
+    data: OrganizationInterestCreateManyInput | OrganizationInterestCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OrganizationInterest createManyAndReturn
+   */
+  export type OrganizationInterestCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationInterest
+     */
+    select?: OrganizationInterestSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationInterest
+     */
+    omit?: OrganizationInterestOmit<ExtArgs> | null
+    /**
+     * The data used to create many OrganizationInterests.
+     */
+    data: OrganizationInterestCreateManyInput | OrganizationInterestCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OrganizationInterest update
+   */
+  export type OrganizationInterestUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationInterest
+     */
+    select?: OrganizationInterestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationInterest
+     */
+    omit?: OrganizationInterestOmit<ExtArgs> | null
+    /**
+     * The data needed to update a OrganizationInterest.
+     */
+    data: XOR<OrganizationInterestUpdateInput, OrganizationInterestUncheckedUpdateInput>
+    /**
+     * Choose, which OrganizationInterest to update.
+     */
+    where: OrganizationInterestWhereUniqueInput
+  }
+
+  /**
+   * OrganizationInterest updateMany
+   */
+  export type OrganizationInterestUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OrganizationInterests.
+     */
+    data: XOR<OrganizationInterestUpdateManyMutationInput, OrganizationInterestUncheckedUpdateManyInput>
+    /**
+     * Filter which OrganizationInterests to update
+     */
+    where?: OrganizationInterestWhereInput
+    /**
+     * Limit how many OrganizationInterests to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * OrganizationInterest updateManyAndReturn
+   */
+  export type OrganizationInterestUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationInterest
+     */
+    select?: OrganizationInterestSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationInterest
+     */
+    omit?: OrganizationInterestOmit<ExtArgs> | null
+    /**
+     * The data used to update OrganizationInterests.
+     */
+    data: XOR<OrganizationInterestUpdateManyMutationInput, OrganizationInterestUncheckedUpdateManyInput>
+    /**
+     * Filter which OrganizationInterests to update
+     */
+    where?: OrganizationInterestWhereInput
+    /**
+     * Limit how many OrganizationInterests to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * OrganizationInterest upsert
+   */
+  export type OrganizationInterestUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationInterest
+     */
+    select?: OrganizationInterestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationInterest
+     */
+    omit?: OrganizationInterestOmit<ExtArgs> | null
+    /**
+     * The filter to search for the OrganizationInterest to update in case it exists.
+     */
+    where: OrganizationInterestWhereUniqueInput
+    /**
+     * In case the OrganizationInterest found by the `where` argument doesn't exist, create a new OrganizationInterest with this data.
+     */
+    create: XOR<OrganizationInterestCreateInput, OrganizationInterestUncheckedCreateInput>
+    /**
+     * In case the OrganizationInterest was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OrganizationInterestUpdateInput, OrganizationInterestUncheckedUpdateInput>
+  }
+
+  /**
+   * OrganizationInterest delete
+   */
+  export type OrganizationInterestDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationInterest
+     */
+    select?: OrganizationInterestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationInterest
+     */
+    omit?: OrganizationInterestOmit<ExtArgs> | null
+    /**
+     * Filter which OrganizationInterest to delete.
+     */
+    where: OrganizationInterestWhereUniqueInput
+  }
+
+  /**
+   * OrganizationInterest deleteMany
+   */
+  export type OrganizationInterestDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OrganizationInterests to delete
+     */
+    where?: OrganizationInterestWhereInput
+    /**
+     * Limit how many OrganizationInterests to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * OrganizationInterest without action
+   */
+  export type OrganizationInterestDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationInterest
+     */
+    select?: OrganizationInterestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationInterest
+     */
+    omit?: OrganizationInterestOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -13438,6 +14563,20 @@ export namespace Prisma {
   };
 
   export type SlideExplanationScalarFieldEnum = (typeof SlideExplanationScalarFieldEnum)[keyof typeof SlideExplanationScalarFieldEnum]
+
+
+  export const OrganizationInterestScalarFieldEnum: {
+    id: 'id',
+    organizationName: 'organizationName',
+    email: 'email',
+    fullName: 'fullName',
+    message: 'message',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type OrganizationInterestScalarFieldEnum = (typeof OrganizationInterestScalarFieldEnum)[keyof typeof OrganizationInterestScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -14353,6 +15492,74 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"SlideExplanation"> | Date | string
   }
 
+  export type OrganizationInterestWhereInput = {
+    AND?: OrganizationInterestWhereInput | OrganizationInterestWhereInput[]
+    OR?: OrganizationInterestWhereInput[]
+    NOT?: OrganizationInterestWhereInput | OrganizationInterestWhereInput[]
+    id?: StringFilter<"OrganizationInterest"> | string
+    organizationName?: StringFilter<"OrganizationInterest"> | string
+    email?: StringFilter<"OrganizationInterest"> | string
+    fullName?: StringFilter<"OrganizationInterest"> | string
+    message?: StringFilter<"OrganizationInterest"> | string
+    status?: StringFilter<"OrganizationInterest"> | string
+    createdAt?: DateTimeFilter<"OrganizationInterest"> | Date | string
+    updatedAt?: DateTimeFilter<"OrganizationInterest"> | Date | string
+  }
+
+  export type OrganizationInterestOrderByWithRelationInput = {
+    id?: SortOrder
+    organizationName?: SortOrder
+    email?: SortOrder
+    fullName?: SortOrder
+    message?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OrganizationInterestWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    email_organizationName?: OrganizationInterestEmailOrganizationNameCompoundUniqueInput
+    AND?: OrganizationInterestWhereInput | OrganizationInterestWhereInput[]
+    OR?: OrganizationInterestWhereInput[]
+    NOT?: OrganizationInterestWhereInput | OrganizationInterestWhereInput[]
+    organizationName?: StringFilter<"OrganizationInterest"> | string
+    email?: StringFilter<"OrganizationInterest"> | string
+    fullName?: StringFilter<"OrganizationInterest"> | string
+    message?: StringFilter<"OrganizationInterest"> | string
+    status?: StringFilter<"OrganizationInterest"> | string
+    createdAt?: DateTimeFilter<"OrganizationInterest"> | Date | string
+    updatedAt?: DateTimeFilter<"OrganizationInterest"> | Date | string
+  }, "id" | "email_organizationName">
+
+  export type OrganizationInterestOrderByWithAggregationInput = {
+    id?: SortOrder
+    organizationName?: SortOrder
+    email?: SortOrder
+    fullName?: SortOrder
+    message?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: OrganizationInterestCountOrderByAggregateInput
+    _max?: OrganizationInterestMaxOrderByAggregateInput
+    _min?: OrganizationInterestMinOrderByAggregateInput
+  }
+
+  export type OrganizationInterestScalarWhereWithAggregatesInput = {
+    AND?: OrganizationInterestScalarWhereWithAggregatesInput | OrganizationInterestScalarWhereWithAggregatesInput[]
+    OR?: OrganizationInterestScalarWhereWithAggregatesInput[]
+    NOT?: OrganizationInterestScalarWhereWithAggregatesInput | OrganizationInterestScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"OrganizationInterest"> | string
+    organizationName?: StringWithAggregatesFilter<"OrganizationInterest"> | string
+    email?: StringWithAggregatesFilter<"OrganizationInterest"> | string
+    fullName?: StringWithAggregatesFilter<"OrganizationInterest"> | string
+    message?: StringWithAggregatesFilter<"OrganizationInterest"> | string
+    status?: StringWithAggregatesFilter<"OrganizationInterest"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"OrganizationInterest"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"OrganizationInterest"> | Date | string
+  }
+
   export type TenantCreateInput = {
     id?: string
     name: string
@@ -15170,6 +16377,83 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type OrganizationInterestCreateInput = {
+    id?: string
+    organizationName: string
+    email: string
+    fullName: string
+    message: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OrganizationInterestUncheckedCreateInput = {
+    id?: string
+    organizationName: string
+    email: string
+    fullName: string
+    message: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OrganizationInterestUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OrganizationInterestUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OrganizationInterestCreateManyInput = {
+    id?: string
+    organizationName: string
+    email: string
+    fullName: string
+    message: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OrganizationInterestUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OrganizationInterestUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -15863,6 +17147,44 @@ export namespace Prisma {
 
   export type SlideExplanationSumOrderByAggregateInput = {
     slideNumber?: SortOrder
+  }
+
+  export type OrganizationInterestEmailOrganizationNameCompoundUniqueInput = {
+    email: string
+    organizationName: string
+  }
+
+  export type OrganizationInterestCountOrderByAggregateInput = {
+    id?: SortOrder
+    organizationName?: SortOrder
+    email?: SortOrder
+    fullName?: SortOrder
+    message?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OrganizationInterestMaxOrderByAggregateInput = {
+    id?: SortOrder
+    organizationName?: SortOrder
+    email?: SortOrder
+    fullName?: SortOrder
+    message?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OrganizationInterestMinOrderByAggregateInput = {
+    id?: SortOrder
+    organizationName?: SortOrder
+    email?: SortOrder
+    fullName?: SortOrder
+    message?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UserCreateNestedManyWithoutTenantInput = {

@@ -229,6 +229,17 @@ exports.Prisma.SlideExplanationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.OrganizationInterestScalarFieldEnum = {
+  id: 'id',
+  organizationName: 'organizationName',
+  email: 'email',
+  fullName: 'fullName',
+  message: 'message',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -276,7 +287,8 @@ exports.Prisma.ModelName = {
   TenantCourse: 'TenantCourse',
   MCQ: 'MCQ',
   UserMCQAnswer: 'UserMCQAnswer',
-  SlideExplanation: 'SlideExplanation'
+  SlideExplanation: 'SlideExplanation',
+  OrganizationInterest: 'OrganizationInterest'
 };
 
 /**

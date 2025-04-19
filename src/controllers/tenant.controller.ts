@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcrypt';
 import { prisma } from '../lib/prisma';
 import { UserRole } from '../generated/prisma';
+import { sendOrganizationCredentials } from '../services/email.service';
 
 export interface CreateTenantRequest {
   name: string;
@@ -33,12 +34,18 @@ export interface TenantDetailsRequest {
 }
 
 // Create a new tenant (organization) - SuperAdmin only
-export const createTenant = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const createTenant = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const { name, domain, adminEmail, adminPassword } = req.body as CreateTenantRequest;
+    const { name, domain, adminEmail, adminPassword } = req.body;
 
-    // Hash the admin password
-    const hashedPassword = await bcrypt.hash(adminPassword, 10);
+    // Validate required fields
+    if (!name || !domain || !adminEmail || !adminPassword) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
 
     // Create tenant
     const tenant = await prisma.tenant.create({
@@ -46,23 +53,23 @@ export const createTenant = async (req: Request, res: Response, next: NextFuncti
         name,
         domain,
         adminEmail,
-        adminPassword: hashedPassword,
-        users: {
-          create: {
-            email: adminEmail,
-            name: `${name} Admin`,
-            password: hashedPassword,
-            role: UserRole.ADMIN
-          }
-        }
-      },
-      include: {
-        users: true
+        adminPassword
       }
     });
 
-    res.status(201).json(tenant);
+    // Send credentials email
+    await sendOrganizationCredentials(
+      name,
+      adminEmail,
+      adminPassword
+    );
+
+    res.status(201).json({
+      message: 'Organization created successfully',
+      tenant
+    });
   } catch (error) {
+    console.error('Error creating tenant:', error);
     next(error);
   }
 };

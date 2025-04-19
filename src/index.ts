@@ -9,6 +9,7 @@ import tenantAdminRoutes from './routes/tenant-admin.routes';
 import passport from './config/passport';
 import session from 'express-session';
 import userDashboardRoutes from './routes/user-dashboard.routes';
+import contactRoutes from './routes/contact.routes';
 
 // Load environment variables
 dotenv.config();
@@ -87,6 +88,7 @@ app.use('/api/tenants', tenantRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/tenant-admin', tenantAdminRoutes);
 app.use('/api/user-dashboard', userDashboardRoutes);
+app.use('/api/contact', contactRoutes);
 
 // Basic health check route
 app.get('/health', (req, res) => {

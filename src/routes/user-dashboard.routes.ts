@@ -7,7 +7,8 @@ import {
   updateProgress,
   getUserCertificates,
   generateCertificate,
-  downloadCertificate
+  downloadCertificate,
+  getUserProfile
 } from '../controllers/user-dashboard.controller';
 import { getCourseById } from '../controllers/course.controller';
 import passport from '../config/passport';
@@ -254,5 +255,8 @@ router.get('/certificates/:id/download', asyncHandler(async (req: Request<{ id: 
     });
   }
 }));
+
+// Protected route - requires JWT authentication
+router.get('/profile', passport.authenticate('jwt', { session: false }), asyncHandler(getUserProfile));
 
 export default router; 

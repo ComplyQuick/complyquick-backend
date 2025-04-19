@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { PrismaClient, User } from '../generated/prisma';
 import path from 'path';
 import fs from 'fs';
+import asyncHandler from 'express-async-handler';
 
 const prisma = new PrismaClient();
 
@@ -366,4 +367,18 @@ export const downloadCertificate = async (
   } catch (error) {
     next(error);
   }
-}; 
+};
+
+export const getUserProfile = asyncHandler(async (req: Request, res: Response) => {
+  const user = req.user as any;
+  if (!user) {
+    res.status(401).json({ success: false, message: 'User not authenticated' });
+    return;
+  }
+
+  res.json({
+    success: true,
+    name: user.name,
+    email: user.email
+  });
+}); 

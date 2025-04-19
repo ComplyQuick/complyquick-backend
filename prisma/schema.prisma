@@ -168,6 +168,20 @@ model SlideExplanation {
   @@map("slide_explanation")
 }
 
+model OrganizationInterest {
+  id              String   @id @default(uuid())
+  organizationName String
+  email           String
+  fullName        String
+  message         String
+  status          String   @default("PENDING") // PENDING, CONFIRMED, REGISTERED
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([email, organizationName])
+  @@map("organization_interest")
+}
+
 enum UserRole {
   SUPER_ADMIN
   ADMIN
