@@ -47,13 +47,25 @@ export const createTenant = async (
       return res.status(400).json({ error: 'All fields are required' });
     }
 
+    // Check if tenant with same domain already exists
+    const existingTenant = await prisma.tenant.findUnique({
+      where: { domain }
+    });
+
+    if (existingTenant) {
+      return res.status(400).json({ error: 'A tenant with this domain already exists' });
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(adminPassword, 10);
+
     // Create tenant
     const tenant = await prisma.tenant.create({
       data: {
         name,
         domain,
         adminEmail,
-        adminPassword
+        adminPassword: hashedPassword
       }
     });
 

@@ -2,8 +2,9 @@ import { Request, Response, NextFunction } from 'express';
 import { PrismaClient, UserRole } from '../generated/prisma';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { prisma } from '../lib/prisma';
 
-const prisma = new PrismaClient();
+const prismaClient = new PrismaClient();
 
 export interface LoginRequest {
   email: string;
@@ -21,57 +22,55 @@ export interface RegisterRequest {
 }
 
 export const login = async (
-  req: Request<{}, any, LoginRequest>,
+  req: Request,
   res: Response,
   next: NextFunction
-): Promise<void> => {
+) => {
   try {
-    const { email, password, domain } = req.body;
+    const { email, domain, password } = req.body;
 
-    const user = await prisma.user.findUnique({
-      where: { email },
-      include: { tenant: true }
+    // Validate required fields
+    if (!email || !domain || !password) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
+
+    // Find tenant by domain
+    const tenant = await prisma.tenant.findUnique({
+      where: { domain }
     });
 
-    if (!user) {
-      res.status(401).json({ error: 'Invalid credentials' });
-      return;
+    if (!tenant) {
+      return res.status(404).json({ error: 'Organization not found' });
     }
 
-    // For tenant admin, verify domain
-    if (user.role === UserRole.ADMIN && (!domain || user.tenant?.domain !== domain)) {
-      res.status(401).json({ error: 'Invalid domain' });
-      return;
+    // Verify password
+    const isPasswordValid = await bcrypt.compare(password, tenant.adminPassword);
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    if (!user.password) {
-      res.status(401).json({ error: 'Invalid credentials' });
-      return;
-    }
-
-    const isValidPassword = await bcrypt.compare(password, user.password);
-    if (!isValidPassword) {
-      res.status(401).json({ error: 'Invalid credentials' });
-      return;
-    }
-
+    // Generate JWT token
     const token = jwt.sign(
-      { id: user.id, role: user.role },
-      process.env.JWT_SECRET!,
+      { 
+        tenantId: tenant.id,
+        email: tenant.adminEmail,
+        role: 'ADMIN'
+      },
+      process.env.JWT_SECRET || 'your-secret-key',
       { expiresIn: '24h' }
     );
 
-    res.status(200).json({
+    res.json({
       token,
       user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        role: user.role,
-        tenant: user.tenant
+        id: tenant.id,
+        email: tenant.adminEmail,
+        name: tenant.name,
+        role: 'ADMIN'
       }
     });
   } catch (error) {
+    console.error('Login error:', error);
     next(error);
   }
 };
@@ -91,7 +90,7 @@ export const registerAdmin = async (
     }
 
     // Check if user already exists
-    const existingUser = await prisma.user.findUnique({ where: { email } });
+    const existingUser = await prismaClient.user.findUnique({ where: { email } });
     if (existingUser) {
       res.status(400).json({ error: 'User already exists' });
       return;
@@ -108,7 +107,7 @@ export const registerAdmin = async (
         return;
       }
 
-      const existingTenant = await prisma.tenant.findUnique({
+      const existingTenant = await prismaClient.tenant.findUnique({
         where: { domain }
       });
 
@@ -120,7 +119,7 @@ export const registerAdmin = async (
       tenantId = existingTenant.id;
     }
 
-    const user = await prisma.user.create({
+    const user = await prismaClient.user.create({
       data: {
         email,
         name,
