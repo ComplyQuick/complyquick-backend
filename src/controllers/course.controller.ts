@@ -31,6 +31,7 @@ export interface AuthenticatedRequest extends Request {
     id: string;
     email: string;
     role: UserRole;
+    tenantId: string;
   };
 }
 
@@ -455,9 +456,13 @@ export const processCourseSlides = async (req: Request, res: Response, next: Nex
 
     // If explanations exist, return them
     if (tenantCourse.explanations) {
+      const parsedExplanations = typeof tenantCourse.explanations === 'string' 
+        ? JSON.parse(tenantCourse.explanations)
+        : tenantCourse.explanations;
+      
       res.json({ 
         message: 'Slides processed successfully', 
-        explanations: JSON.parse(tenantCourse.explanations as string)
+        explanations: parsedExplanations
       });
       return;
     }
@@ -496,7 +501,7 @@ export const processCourseSlides = async (req: Request, res: Response, next: Nex
           id: tenantCourse.id
         },
         data: {
-          explanations: explanations as any
+          explanations: JSON.stringify(explanations)
         }
       });
 
@@ -711,18 +716,35 @@ export const updateCourseProgress = async (
       return;
     }
 
-    // Get the course to find total slides
-    const course = await prisma.course.findUnique({
-      where: { id: courseId },
-      select: { slides: true }
+    // Get the tenant course to find total slides from explanations
+    const tenantCourse = await prisma.tenantCourse.findFirst({
+      where: {
+        courseId,
+        tenantId: req.user?.tenantId
+      },
+      select: { 
+        explanations: true 
+      }
     });
 
-    if (!course) {
-      res.status(404).json({ error: 'Course not found' });
+    if (!tenantCourse) {
+      res.status(404).json({ error: 'Course not found or not assigned to tenant' });
       return;
     }
 
-    const totalSlides = course.slides.length;
+    // Parse explanations if it's a string
+    const explanations = typeof tenantCourse.explanations === 'string' 
+      ? JSON.parse(tenantCourse.explanations)
+      : tenantCourse.explanations;
+
+    if (!explanations || !Array.isArray(explanations)) {
+      res.status(400).json({ error: 'No slides found for this course' });
+      return;
+    }
+
+    const totalSlides = explanations.length;
+    console.log('Total slides:', totalSlides);
+
     if (slideNumber > totalSlides) {
       res.status(400).json({ error: 'Invalid slide number' });
       return;

@@ -17,7 +17,12 @@ export const authenticateToken = (
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key') as { id: string; email: string; role: UserRole };
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key') as { 
+      id: string; 
+      email: string; 
+      role: UserRole;
+      tenantId: string;
+    };
     (req as AuthenticatedRequest).user = decoded;
     next();
   } catch (error) {
