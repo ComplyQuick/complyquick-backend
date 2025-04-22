@@ -147,7 +147,7 @@ export const sendOrganizationCredentials = async (
         <p><strong>Admin Email:</strong> ${adminEmail}</p>
         <p><strong>Password:</strong> ${adminPassword}</p>
       </div>
-      // <p>You can log in using this link: <a href="${loginLink}">${loginLink}</a></p>
+       <p>You can log in using this link: <a href="${loginLink}">${loginLink}</a></p>
       <p>If you have any questions or need help getting started, feel free to reach out. We're here to assist you every step of the way.</p>
       <p>Welcome aboard!</p>
       <p>Best regards,<br>

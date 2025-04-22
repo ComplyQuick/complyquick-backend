@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { PrismaClient } from '../generated/prisma';
+import { PrismaClient, UserRole } from '../generated/prisma';
 import { generateMCQs, generateSlideExplanations } from '../services/ai.service';
 import { uploadToS3, getSignedUrl } from '../services/aws.service';
 import multer, { FileFilterCallback } from 'multer';
@@ -24,6 +24,14 @@ interface CourseRequest {
 
 interface RequestWithFile extends Request {
   file?: Express.Multer.File;
+}
+
+export interface AuthenticatedRequest extends Request {
+  user?: {
+    id: string;
+    email: string;
+    role: UserRole;
+  };
 }
 
 // Configure multer for file upload
@@ -678,6 +686,76 @@ export const getCourseMaterialForChatbot = async (req: Request, res: Response, n
       tenantId: tenantId
     });
   } catch (error) {
+    next(error);
+  }
+};
+
+export const updateCourseProgress = async (
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { courseId } = req.params;
+    const { slideNumber } = req.body;
+    const userId = req.user?.id;
+    console.log(userId);
+
+    if (!slideNumber) {
+      res.status(400).json({ error: 'Slide number is required' });
+      return;
+    }
+
+    if (!userId) {
+      res.status(401).json({ error: 'User not authenticated' });
+      return;
+    }
+
+    // Get the course to find total slides
+    const course = await prisma.course.findUnique({
+      where: { id: courseId },
+      select: { slides: true }
+    });
+
+    if (!course) {
+      res.status(404).json({ error: 'Course not found' });
+      return;
+    }
+
+    const totalSlides = course.slides.length;
+    if (slideNumber > totalSlides) {
+      res.status(400).json({ error: 'Invalid slide number' });
+      return;
+    }
+
+    // Calculate progress percentage
+    const progress = Math.round((slideNumber / totalSlides) * 100);
+
+    // Update enrollment progress
+    const enrollment = await prisma.enrollment.updateMany({
+      where: {
+        userId,
+        courseId
+      },
+      data: {
+        progress,
+        status: progress === 100 ? 'COMPLETED' : 'IN_PROGRESS'
+      }
+    });
+
+    if (enrollment.count === 0) {
+      res.status(404).json({ error: 'Enrollment not found' });
+      return;
+    }
+
+    res.json({
+      message: 'Progress updated successfully',
+      progress,
+      totalSlides,
+      currentSlide: slideNumber
+    });
+  } catch (error) {
+    console.error('Error updating course progress:', error);
     next(error);
   }
 }; 

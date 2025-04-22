@@ -38,13 +38,14 @@ export const createTenant = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   try {
     const { name, domain, adminEmail, adminPassword } = req.body;
 
     // Validate required fields
     if (!name || !domain || !adminEmail || !adminPassword) {
-      return res.status(400).json({ error: 'All fields are required' });
+      res.status(400).json({ error: 'All fields are required' });
+      return;
     }
 
     // Check if tenant with same domain already exists
@@ -53,7 +54,8 @@ export const createTenant = async (
     });
 
     if (existingTenant) {
-      return res.status(400).json({ error: 'A tenant with this domain already exists' });
+      res.status(400).json({ error: 'A tenant with this domain already exists' });
+      return;
     }
 
     // Hash the password

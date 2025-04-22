@@ -13,9 +13,13 @@ import {
   testAIService,
   generateExplanations,
   fetchExplanations,
-  getCourseMaterialForChatbot
+  getCourseMaterialForChatbot,
+  updateCourseProgress
 } from '../controllers/course.controller';
 import asyncHandler from 'express-async-handler';
+import { authenticateToken } from '../middleware/auth.middleware';
+import { AuthenticatedRequest } from '../controllers/course.controller';
+import { Response, NextFunction } from 'express';
 
 const router = Router();
 
@@ -43,5 +47,7 @@ router.post('/:id/process-slides', asyncHandler(processCourseSlides));
 router.post('/:courseId/generate-explanations', asyncHandler(generateExplanations));
 router.get('/:courseId/explanations', asyncHandler(fetchExplanations));
 router.get('/:courseId/chatbot-material', asyncHandler(getCourseMaterialForChatbot));
+
+router.post('/:courseId/update-progress', authenticateToken, asyncHandler(updateCourseProgress as any));
 
 export default router; 
