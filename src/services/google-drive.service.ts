@@ -44,11 +44,19 @@ export const uploadToGoogleDrive = async (fileBuffer: Buffer, fileName: string):
       fileId: response.data.id!,
       requestBody: {
         role: 'reader',
-        type: 'anyone'
+        type: 'anyone',
+        allowFileDiscovery: true
       }
     });
 
-    return response.data.webViewLink!;
+    // Get the file with updated permissions
+    const file = await drive.files.get({
+      fileId: response.data.id!,
+      fields: 'webViewLink, webContentLink'
+    });
+
+    // Use webContentLink for direct access
+    return file.data.webContentLink!;
   } catch (error) {
     console.error('Error uploading to Google Drive:', error);
     throw error;
