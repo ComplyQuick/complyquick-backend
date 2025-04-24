@@ -23,8 +23,35 @@ export interface RegisterRequest {
 }
 
 export const login = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-  const { email, password } = req.body;
+  const { email, password, domain } = req.body;
 
+  // First check if it's a tenant admin
+  const tenant = await prisma.tenant.findFirst({
+    where: { 
+      adminEmail: email,
+      domain: domain
+    }
+  });
+
+  if (tenant) {
+    const isPasswordValid = await bcrypt.compare(password, tenant.adminPassword);
+    if (isPasswordValid) {
+      const token = jwt.sign(
+        { 
+          id: tenant.id, 
+          role: 'ADMIN',
+          tenantId: tenant.id,
+          email: tenant.adminEmail
+        },
+        process.env.JWT_SECRET!,
+        { expiresIn: '24h' }
+      );
+      res.json({ token });
+      return;
+    }
+  }
+
+  // If not a tenant admin, check regular users
   const user = await prisma.user.findUnique({
     where: { email },
     include: { tenant: true }
