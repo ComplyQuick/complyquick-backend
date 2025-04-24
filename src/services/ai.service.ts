@@ -45,10 +45,10 @@ export interface TenantDetails {
   legalOfficerContact?: string;
 }
 
-export const generateMCQs = async (s3Url: string): Promise<MCQQuestion[]> => {
+export const generateMCQs = async (presentationUrl: string): Promise<MCQQuestion[]> => {
   try {
     const response = await aiServiceClient.post('/generate-mcq', {
-      s3_url: s3Url
+      presentation_url: presentationUrl
     });
     return response.data.mcqs;
   } catch (error) {
@@ -58,44 +58,21 @@ export const generateMCQs = async (s3Url: string): Promise<MCQQuestion[]> => {
 };
 
 export const generateSlideExplanations = async (
-  s3Url: string, 
+  presentationUrl: string, 
   companyName: string,
   tenantDetails: TenantDetails
 ): Promise<SlideExplanation[]> => {
   try {
-    console.log('Generating explanations for:', { s3Url, companyName, tenantDetails });
+    console.log('Generating explanations for:', { presentationUrl, companyName, tenantDetails });
     
-    // Validate S3 URL
-    if (!s3Url) {
-      console.error('Invalid S3 URL:', s3Url);
-      throw new Error('Invalid S3 URL provided');
+    // Validate presentation URL
+    if (!presentationUrl) {
+      console.error('Invalid presentation URL:', presentationUrl);
+      throw new Error('Invalid presentation URL provided');
     }
-
-    // Format S3 URL to ensure it matches the required format
-    let formattedS3Url = s3Url;
-    if (s3Url.startsWith('https://')) {
-      // If it's already an HTTPS URL, ensure it's properly formatted
-      const url = new URL(s3Url);
-      const pathParts = url.pathname.split('/');
-      // Only encode the filename, not the path segments
-      const filename = pathParts.pop();
-      const encodedFilename = encodeURIComponent(filename || '');
-      formattedS3Url = `https://${url.hostname}${pathParts.join('/')}/${encodedFilename}`;
-    } else if (s3Url.startsWith('s3://')) {
-      // Convert s3:// format to HTTPS URL
-      const [bucket, ...keyParts] = s3Url.replace('s3://', '').split('/');
-      const key = keyParts.join('/');
-      formattedS3Url = `https://${bucket}.s3.amazonaws.com/${encodeURIComponent(key)}`;
-    }
-
-    // Ensure the URL is properly formatted for S3 access
-    formattedS3Url = formattedS3Url.replace(/%2B/g, '+'); // Replace %2B with + for spaces
-    formattedS3Url = formattedS3Url.replace(/%20/g, '+'); // Replace %20 with + for spaces
-
-    console.log('Formatted S3 URL:', formattedS3Url);
 
     const requestBody = {
-      s3_url: formattedS3Url,
+      presentation_url: presentationUrl,
       company_name: companyName,
       tenant_details: tenantDetails
     };

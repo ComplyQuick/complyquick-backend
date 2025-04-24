@@ -39,28 +39,28 @@ export const generateAndStoreExplanations = async (courseId: string, tenantId: s
 
     // Generate explanations using AI service
     const explanations = await generateSlideExplanations(
-      course.materialUrl, 
+      course.materialUrl,
       tenant.name,
       {
-        presidingOfficerEmail: tenant.details.presidingOfficerEmail,
-        poshCommitteeEmail: tenant.details.poshCommitteeEmail,
-        hrContactName: tenant.details.hrContactName,
-        hrContactEmail: tenant.details.hrContactEmail,
-        hrContactPhone: tenant.details.hrContactPhone,
-        ceoName: tenant.details.ceoName,
-        ceoEmail: tenant.details.ceoEmail,
-        ceoContact: tenant.details.ceoContact,
-        ctoName: tenant.details.ctoName,
-        ctoEmail: tenant.details.ctoEmail,
-        ctoContact: tenant.details.ctoContact,
-        ccoEmail: tenant.details.ccoEmail,
-        ccoContact: tenant.details.ccoContact,
-        croName: tenant.details.croName,
-        croEmail: tenant.details.croEmail,
-        croContact: tenant.details.croContact,
-        legalOfficerName: tenant.details.legalOfficerName,
-        legalOfficerEmail: tenant.details.legalOfficerEmail,
-        legalOfficerContact: tenant.details.legalOfficerContact
+        presidingOfficerEmail: tenant.details?.presidingOfficerEmail ?? undefined,
+        poshCommitteeEmail: tenant.details?.poshCommitteeEmail ?? undefined,
+        hrContactName: tenant.details?.hrContactName ?? undefined,
+        hrContactEmail: tenant.details?.hrContactEmail ?? undefined,
+        hrContactPhone: tenant.details?.hrContactPhone ?? undefined,
+        ceoName: tenant.details?.ceoName ?? undefined,
+        ceoEmail: tenant.details?.ceoEmail ?? undefined,
+        ceoContact: tenant.details?.ceoContact ?? undefined,
+        ctoName: tenant.details?.ctoName ?? undefined,
+        ctoEmail: tenant.details?.ctoEmail ?? undefined,
+        ctoContact: tenant.details?.ctoContact ?? undefined,
+        ccoEmail: tenant.details?.ccoEmail ?? undefined,
+        ccoContact: tenant.details?.ccoContact ?? undefined,
+        croName: tenant.details?.croName ?? undefined,
+        croEmail: tenant.details?.croEmail ?? undefined,
+        croContact: tenant.details?.croContact ?? undefined,
+        legalOfficerName: tenant.details?.legalOfficerName ?? undefined,
+        legalOfficerEmail: tenant.details?.legalOfficerEmail ?? undefined,
+        legalOfficerContact: tenant.details?.legalOfficerContact ?? undefined
       }
     );
 
