@@ -9,6 +9,7 @@ import { aiServiceClient } from '../services/ai.service';
 import { generateAndStoreExplanations, getSlideExplanations } from '../services/slide.service';
 import { Prisma } from '@prisma/client';
 // import { processCourseSlides as processSlides } from '../services/video.service';
+import { uploadToGoogleDrive } from '../services/google-drive.service';
 
 const prisma = new PrismaClient();
 
@@ -58,7 +59,6 @@ export const createCourse = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    // Handle file upload
     upload(req, res, async (err: any) => {
       if (err) {
         res.status(400).json({ error: err.message });
@@ -79,9 +79,9 @@ export const createCourse = async (
         targetAudience
       } = req.body as CourseRequest;
 
-      // Upload file to S3
-      const fileKey = `courses/${uuidv4()}-${req.file.originalname}`;
-      const s3Url = await uploadToS3(req.file.buffer, fileKey);
+      // Upload file to Google Drive
+      const fileKey = `${uuidv4()}-${req.file.originalname}`;
+      const driveUrl = await uploadToGoogleDrive(req.file.buffer, fileKey);
 
       // Create course with file URL
       const course = await prisma.course.create({
@@ -92,7 +92,7 @@ export const createCourse = async (
           tags: typeof tags === 'string' ? tags.split(',').map(tag => tag.trim()) : tags,
           learningObjectives: Array.isArray(learningObjectives) ? learningObjectives : [learningObjectives],
           targetAudience: typeof targetAudience === 'string' ? targetAudience.split(',').map(audience => audience.trim()) : targetAudience,
-          materialUrl: s3Url,
+          materialUrl: driveUrl,
           slides: []
         }
       });
@@ -704,14 +704,16 @@ export const updateCourseProgress = async (
     const { courseId } = req.params;
     const { slideNumber } = req.body;
     const userId = req.user?.id;
+    const tenantId = req.user?.tenantId;
     console.log(userId);
+    console.log(tenantId);
 
     if (!slideNumber) {
       res.status(400).json({ error: 'Slide number is required' });
       return;
     }
 
-    if (!userId) {
+    if (!userId || !tenantId) {
       res.status(401).json({ error: 'User not authenticated' });
       return;
     }
@@ -720,7 +722,7 @@ export const updateCourseProgress = async (
     const tenantCourse = await prisma.tenantCourse.findFirst({
       where: {
         courseId,
-        tenantId: req.user?.tenantId
+        tenantId
       },
       select: { 
         explanations: true 
@@ -753,21 +755,33 @@ export const updateCourseProgress = async (
     // Calculate progress percentage
     const progress = Math.round((slideNumber / totalSlides) * 100);
 
-    // Update enrollment progress
-    const enrollment = await prisma.enrollment.updateMany({
+    // Find or create enrollment
+    let enrollment = await prisma.enrollment.findFirst({
       where: {
         userId,
         courseId
-      },
-      data: {
-        progress,
-        status: progress === 100 ? 'COMPLETED' : 'IN_PROGRESS'
       }
     });
 
-    if (enrollment.count === 0) {
-      res.status(404).json({ error: 'Enrollment not found' });
-      return;
+    if (!enrollment) {
+      // Create new enrollment if it doesn't exist
+      enrollment = await prisma.enrollment.create({
+        data: {
+          userId,
+          courseId,
+          progress,
+          status: progress === 100 ? 'COMPLETED' : 'IN_PROGRESS'
+        }
+      });
+    } else {
+      // Update existing enrollment
+      enrollment = await prisma.enrollment.update({
+        where: { id: enrollment.id },
+        data: {
+          progress,
+          status: progress === 100 ? 'COMPLETED' : 'IN_PROGRESS'
+        }
+      });
     }
 
     res.json({

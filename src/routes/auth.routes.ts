@@ -23,14 +23,16 @@ router.get('/google/callback',
   (req, res) => {
     const user = req.user as any;
     const token = jwt.sign(
-      { id: user.id, role: user.role },
+      { 
+        id: user.id, 
+        role: user.role,
+        tenantId: user.tenantId,
+        email: user.email
+      },
       process.env.JWT_SECRET!,
       { expiresIn: '24h' }
     );
-    res.redirect(`${process.env.FRONTEND_URL}/dashboard?token=${token}&tenantId=${user.tenantId}`);
-    // res.json({
-    //   token
-    // })
+    res.redirect(`${process.env.FRONTEND_URL}/dashboard?token=${token}`);
   }
 );
 

@@ -3,6 +3,7 @@ import { PrismaClient, UserRole } from '../generated/prisma';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { prisma } from '../lib/prisma';
+import asyncHandler from 'express-async-handler';
 
 const prismaClient = new PrismaClient();
 
@@ -21,59 +22,43 @@ export interface RegisterRequest {
   organizationName?: string;
 }
 
-export const login = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const { email, domain, password } = req.body;
+export const login = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+  const { email, password } = req.body;
 
-    // Validate required fields
-    if (!email || !domain || !password) {
-      return res.status(400).json({ error: 'All fields are required' });
-    }
+  const user = await prisma.user.findUnique({
+    where: { email },
+    include: { tenant: true }
+  });
 
-    // Find tenant by domain
-    const tenant = await prisma.tenant.findUnique({
-      where: { domain }
-    });
-
-    if (!tenant) {
-      return res.status(404).json({ error: 'Organization not found' });
-    }
-
-    // Verify password
-    const isPasswordValid = await bcrypt.compare(password, tenant.adminPassword);
-    if (!isPasswordValid) {
-      return res.status(401).json({ error: 'Invalid credentials' });
-    }
-
-    // Generate JWT token
-    const token = jwt.sign(
-      { 
-        tenantId: tenant.id,
-        email: tenant.adminEmail,
-        role: 'ADMIN'
-      },
-      process.env.JWT_SECRET || 'your-secret-key',
-      { expiresIn: '24h' }
-    );
-
-    res.json({
-      token,
-      user: {
-        id: tenant.id,
-        email: tenant.adminEmail,
-        name: tenant.name,
-        role: 'ADMIN'
-      }
-    });
-  } catch (error) {
-    console.error('Login error:', error);
-    next(error);
+  if (!user) {
+    res.status(401).json({ message: 'Invalid credentials' });
+    return;
   }
-};
+
+  if (!user.password) {
+    res.status(401).json({ message: 'Invalid credentials' });
+    return;
+  }
+
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+  if (!isPasswordValid) {
+    res.status(401).json({ message: 'Invalid credentials' });
+    return;
+  }
+
+  const token = jwt.sign(
+    { 
+      id: user.id, 
+      role: user.role,
+      tenantId: user.tenantId,
+      email: user.email
+    },
+    process.env.JWT_SECRET!,
+    { expiresIn: '24h' }
+  );
+
+  res.json({ token });
+});
 
 export const registerAdmin = async (
   req: Request<{}, any, RegisterRequest>,
