@@ -80,7 +80,7 @@ export const generateSlideExplanations = async (
     console.log('Sending request to AI service:', {
       url: `${process.env.AI_SERVICE_URL}/generate_explanations`,
       body: requestBody
-    });
+    });[]
 
     const response = await aiServiceClient.post('/generate_explanations', requestBody);
 

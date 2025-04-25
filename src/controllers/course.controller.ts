@@ -53,53 +53,41 @@ const upload = multer({
 }).single('courseMaterial');
 
 // Create a new course
-export const createCourse = async (
-  req: RequestWithFile,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
+export const createCourse = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    upload(req, res, async (err: any) => {
-      if (err) {
-        res.status(400).json({ error: err.message });
-        return;
-      }
+    const { title, description, duration, tags, learningObjectives, targetAudience, companyName } = req.body;
+    const file = req.file;
 
-      if (!req.file) {
-        res.status(400).json({ error: 'Course material file is required' });
-        return;
-      }
+    if (!file) {
+      res.status(400).json({ error: 'Course material file is required' });
+      return;
+    }
 
-      const {
+    // Validate required fields
+    if (!title || !description || !duration || !tags || !learningObjectives || !targetAudience || !companyName) {
+      res.status(400).json({ error: 'All fields are required' });
+      return;
+    }
+
+    // Upload to Google Drive and get the Google Slides URL
+    const slidesUrl = await uploadToGoogleDrive(file.buffer, `${companyName}-${title}-${file.originalname}`);
+
+    const course = await prisma.course.create({
+      data: {
         title,
         description,
-        duration,
-        tags,
-        learningObjectives,
-        targetAudience
-      } = req.body as CourseRequest;
-
-      // Upload file to Google Drive
-      const fileKey = `${uuidv4()}-${req.file.originalname}`;
-      const driveUrl = await uploadToGoogleDrive(req.file.buffer, fileKey);
-
-      // Create course with file URL
-      const course = await prisma.course.create({
-        data: {
-          title,
-          description,
-          duration: Number(duration),
-          tags: typeof tags === 'string' ? tags.split(',').map(tag => tag.trim()) : tags,
-          learningObjectives: Array.isArray(learningObjectives) ? learningObjectives : [learningObjectives],
-          targetAudience: typeof targetAudience === 'string' ? targetAudience.split(',').map(audience => audience.trim()) : targetAudience,
-          materialUrl: driveUrl,
-          slides: []
-        }
-      });
-
-      res.status(201).json(course);
+        duration: parseInt(duration),
+        tags: Array.isArray(tags) ? tags : JSON.parse(tags),
+        learningObjectives: Array.isArray(learningObjectives) ? learningObjectives : JSON.parse(learningObjectives),
+        targetAudience: Array.isArray(targetAudience) ? targetAudience : JSON.parse(targetAudience),
+        materialUrl: slidesUrl,
+        slides: []
+      }
     });
+
+    res.status(201).json(course);
   } catch (error) {
+    console.error('Error creating course:', error);
     next(error);
   }
 };

@@ -18,20 +18,23 @@ const drive = google.drive({ version: 'v3', auth: oauth2Client });
 
 export const uploadToGoogleDrive = async (fileBuffer: Buffer, fileName: string): Promise<string> => {
   try {
-    const fileMetadata = {
-      name: fileName,
-      parents: [process.env.GOOGLE_DRIVE_FOLDER_ID!]
-    };
-
     // Convert Buffer to Readable stream
     const bufferStream = new Readable();
     bufferStream.push(fileBuffer);
     bufferStream.push(null);
 
+    const fileMetadata = {
+      name: fileName,
+      mimeType: 'application/vnd.google-apps.presentation', // This triggers conversion to Google Slides
+      parents: [process.env.GOOGLE_DRIVE_FOLDER_ID!]
+    };
+
     const media = {
       mimeType: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
       body: bufferStream
     };
+
+    console.log('Uploading file to Google Drive:', { fileName });
 
     const response = await drive.files.create({
       requestBody: fileMetadata,
@@ -39,24 +42,22 @@ export const uploadToGoogleDrive = async (fileBuffer: Buffer, fileName: string):
       fields: 'id, webViewLink'
     });
 
-    // Make the file publicly accessible
+    console.log('File uploaded successfully:', response.data);
+
+    if (!response.data.webViewLink) {
+      throw new Error('Failed to get webViewLink for the uploaded file');
+    }
+
+    // Make the file accessible to anyone with the link
     await drive.permissions.create({
       fileId: response.data.id!,
       requestBody: {
         role: 'reader',
-        type: 'anyone',
-        allowFileDiscovery: true
+        type: 'anyone'
       }
     });
 
-    // Get the file with updated permissions
-    const file = await drive.files.get({
-      fileId: response.data.id!,
-      fields: 'webViewLink, webContentLink'
-    });
-
-    // Use webContentLink for direct access
-    return file.data.webContentLink!;
+    return response.data.webViewLink;
   } catch (error) {
     console.error('Error uploading to Google Drive:', error);
     throw error;
