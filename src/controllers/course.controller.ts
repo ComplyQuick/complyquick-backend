@@ -55,7 +55,7 @@ const upload = multer({
 // Create a new course
 export const createCourse = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const { title, description, duration, tags, learningObjectives, targetAudience, companyName } = req.body;
+    const { title, description, duration, tags, learningObjectives, targetAudience } = req.body;
     const file = req.file;
 
     if (!file) {
@@ -64,13 +64,13 @@ export const createCourse = async (req: Request, res: Response, next: NextFuncti
     }
 
     // Validate required fields
-    if (!title || !description || !duration || !tags || !learningObjectives || !targetAudience || !companyName) {
+    if (!title || !description || !duration || !tags || !learningObjectives || !targetAudience) {
       res.status(400).json({ error: 'All fields are required' });
       return;
     }
 
     // Upload to Google Drive and get the Google Slides URL
-    const slidesUrl = await uploadToGoogleDrive(file.buffer, `${companyName}-${title}-${file.originalname}`);
+    const slidesUrl = await uploadToGoogleDrive(file.buffer, `${title}-${file.originalname}`);
 
     const course = await prisma.course.create({
       data: {
