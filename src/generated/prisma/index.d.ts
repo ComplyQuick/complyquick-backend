@@ -5610,6 +5610,9 @@ export namespace Prisma {
     title: string | null
     description: string | null
     duration: number | null
+    tags: string | null
+    learningObjectives: string | null
+    targetAudience: string | null
     materialUrl: string | null
     videoUrl: string | null
     createdAt: Date | null
@@ -5621,6 +5624,9 @@ export namespace Prisma {
     title: string | null
     description: string | null
     duration: number | null
+    tags: string | null
+    learningObjectives: string | null
+    targetAudience: string | null
     materialUrl: string | null
     videoUrl: string | null
     createdAt: Date | null
@@ -5657,6 +5663,9 @@ export namespace Prisma {
     title?: true
     description?: true
     duration?: true
+    tags?: true
+    learningObjectives?: true
+    targetAudience?: true
     materialUrl?: true
     videoUrl?: true
     createdAt?: true
@@ -5668,6 +5677,9 @@ export namespace Prisma {
     title?: true
     description?: true
     duration?: true
+    tags?: true
+    learningObjectives?: true
+    targetAudience?: true
     materialUrl?: true
     videoUrl?: true
     createdAt?: true
@@ -5781,9 +5793,9 @@ export namespace Prisma {
     title: string
     description: string | null
     duration: number
-    tags: string[]
-    learningObjectives: string[]
-    targetAudience: string[]
+    tags: string
+    learningObjectives: string
+    targetAudience: string
     materialUrl: string
     videoUrl: string | null
     slides: JsonValue[]
@@ -5899,9 +5911,9 @@ export namespace Prisma {
       title: string
       description: string | null
       duration: number
-      tags: string[]
-      learningObjectives: string[]
-      targetAudience: string[]
+      tags: string
+      learningObjectives: string
+      targetAudience: string
       materialUrl: string
       videoUrl: string | null
       slides: Prisma.JsonValue[]
@@ -6338,9 +6350,9 @@ export namespace Prisma {
     readonly title: FieldRef<"Course", 'String'>
     readonly description: FieldRef<"Course", 'String'>
     readonly duration: FieldRef<"Course", 'Int'>
-    readonly tags: FieldRef<"Course", 'String[]'>
-    readonly learningObjectives: FieldRef<"Course", 'String[]'>
-    readonly targetAudience: FieldRef<"Course", 'String[]'>
+    readonly tags: FieldRef<"Course", 'String'>
+    readonly learningObjectives: FieldRef<"Course", 'String'>
+    readonly targetAudience: FieldRef<"Course", 'String'>
     readonly materialUrl: FieldRef<"Course", 'String'>
     readonly videoUrl: FieldRef<"Course", 'String'>
     readonly slides: FieldRef<"Course", 'Json[]'>
@@ -15028,9 +15040,9 @@ export namespace Prisma {
     title?: StringFilter<"Course"> | string
     description?: StringNullableFilter<"Course"> | string | null
     duration?: IntFilter<"Course"> | number
-    tags?: StringNullableListFilter<"Course">
-    learningObjectives?: StringNullableListFilter<"Course">
-    targetAudience?: StringNullableListFilter<"Course">
+    tags?: StringFilter<"Course"> | string
+    learningObjectives?: StringFilter<"Course"> | string
+    targetAudience?: StringFilter<"Course"> | string
     materialUrl?: StringFilter<"Course"> | string
     videoUrl?: StringNullableFilter<"Course"> | string | null
     slides?: JsonNullableListFilter<"Course">
@@ -15069,9 +15081,9 @@ export namespace Prisma {
     title?: StringFilter<"Course"> | string
     description?: StringNullableFilter<"Course"> | string | null
     duration?: IntFilter<"Course"> | number
-    tags?: StringNullableListFilter<"Course">
-    learningObjectives?: StringNullableListFilter<"Course">
-    targetAudience?: StringNullableListFilter<"Course">
+    tags?: StringFilter<"Course"> | string
+    learningObjectives?: StringFilter<"Course"> | string
+    targetAudience?: StringFilter<"Course"> | string
     materialUrl?: StringFilter<"Course"> | string
     videoUrl?: StringNullableFilter<"Course"> | string | null
     slides?: JsonNullableListFilter<"Course">
@@ -15111,9 +15123,9 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"Course"> | string
     description?: StringNullableWithAggregatesFilter<"Course"> | string | null
     duration?: IntWithAggregatesFilter<"Course"> | number
-    tags?: StringNullableListFilter<"Course">
-    learningObjectives?: StringNullableListFilter<"Course">
-    targetAudience?: StringNullableListFilter<"Course">
+    tags?: StringWithAggregatesFilter<"Course"> | string
+    learningObjectives?: StringWithAggregatesFilter<"Course"> | string
+    targetAudience?: StringWithAggregatesFilter<"Course"> | string
     materialUrl?: StringWithAggregatesFilter<"Course"> | string
     videoUrl?: StringNullableWithAggregatesFilter<"Course"> | string | null
     slides?: JsonNullableListFilter<"Course">
@@ -15895,9 +15907,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     duration: number
-    tags?: CourseCreatetagsInput | string[]
-    learningObjectives?: CourseCreatelearningObjectivesInput | string[]
-    targetAudience?: CourseCreatetargetAudienceInput | string[]
+    tags: string
+    learningObjectives: string
+    targetAudience: string
     materialUrl: string
     videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
@@ -15914,9 +15926,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     duration: number
-    tags?: CourseCreatetagsInput | string[]
-    learningObjectives?: CourseCreatelearningObjectivesInput | string[]
-    targetAudience?: CourseCreatetargetAudienceInput | string[]
+    tags: string
+    learningObjectives: string
+    targetAudience: string
     materialUrl: string
     videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
@@ -15933,9 +15945,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     duration?: IntFieldUpdateOperationsInput | number
-    tags?: CourseUpdatetagsInput | string[]
-    learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
-    targetAudience?: CourseUpdatetargetAudienceInput | string[]
+    tags?: StringFieldUpdateOperationsInput | string
+    learningObjectives?: StringFieldUpdateOperationsInput | string
+    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -15952,9 +15964,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     duration?: IntFieldUpdateOperationsInput | number
-    tags?: CourseUpdatetagsInput | string[]
-    learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
-    targetAudience?: CourseUpdatetargetAudienceInput | string[]
+    tags?: StringFieldUpdateOperationsInput | string
+    learningObjectives?: StringFieldUpdateOperationsInput | string
+    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -15971,9 +15983,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     duration: number
-    tags?: CourseCreatetagsInput | string[]
-    learningObjectives?: CourseCreatelearningObjectivesInput | string[]
-    targetAudience?: CourseCreatetargetAudienceInput | string[]
+    tags: string
+    learningObjectives: string
+    targetAudience: string
     materialUrl: string
     videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
@@ -15986,9 +15998,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     duration?: IntFieldUpdateOperationsInput | number
-    tags?: CourseUpdatetagsInput | string[]
-    learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
-    targetAudience?: CourseUpdatetargetAudienceInput | string[]
+    tags?: StringFieldUpdateOperationsInput | string
+    learningObjectives?: StringFieldUpdateOperationsInput | string
+    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -16001,9 +16013,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     duration?: IntFieldUpdateOperationsInput | number
-    tags?: CourseUpdatetagsInput | string[]
-    learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
-    targetAudience?: CourseUpdatetargetAudienceInput | string[]
+    tags?: StringFieldUpdateOperationsInput | string
+    learningObjectives?: StringFieldUpdateOperationsInput | string
+    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -16780,14 +16792,6 @@ export namespace Prisma {
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
   }
-
-  export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    has?: string | StringFieldRefInput<$PrismaModel> | null
-    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
-    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
-  }
   export type JsonNullableListFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<JsonNullableListFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableListFilterBase<$PrismaModel>>, 'path'>>,
@@ -16847,6 +16851,9 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     duration?: SortOrder
+    tags?: SortOrder
+    learningObjectives?: SortOrder
+    targetAudience?: SortOrder
     materialUrl?: SortOrder
     videoUrl?: SortOrder
     createdAt?: SortOrder
@@ -16858,6 +16865,9 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     duration?: SortOrder
+    tags?: SortOrder
+    learningObjectives?: SortOrder
+    targetAudience?: SortOrder
     materialUrl?: SortOrder
     videoUrl?: SortOrder
     createdAt?: SortOrder
@@ -17036,6 +17046,14 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedJsonNullableFilter<$PrismaModel>
     _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
   }
 
   export type MCQCountOrderByAggregateInput = {
@@ -17484,18 +17502,6 @@ export namespace Prisma {
     deleteMany?: UserMCQAnswerScalarWhereInput | UserMCQAnswerScalarWhereInput[]
   }
 
-  export type CourseCreatetagsInput = {
-    set: string[]
-  }
-
-  export type CourseCreatelearningObjectivesInput = {
-    set: string[]
-  }
-
-  export type CourseCreatetargetAudienceInput = {
-    set: string[]
-  }
-
   export type CourseCreateslidesInput = {
     set: InputJsonValue[]
   }
@@ -17562,21 +17568,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type CourseUpdatetagsInput = {
-    set?: string[]
-    push?: string | string[]
-  }
-
-  export type CourseUpdatelearningObjectivesInput = {
-    set?: string[]
-    push?: string | string[]
-  }
-
-  export type CourseUpdatetargetAudienceInput = {
-    set?: string[]
-    push?: string | string[]
   }
 
   export type CourseUpdateslidesInput = {
@@ -18820,9 +18811,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     duration: number
-    tags?: CourseCreatetagsInput | string[]
-    learningObjectives?: CourseCreatelearningObjectivesInput | string[]
-    targetAudience?: CourseCreatetargetAudienceInput | string[]
+    tags: string
+    learningObjectives: string
+    targetAudience: string
     materialUrl: string
     videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
@@ -18838,9 +18829,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     duration: number
-    tags?: CourseCreatetagsInput | string[]
-    learningObjectives?: CourseCreatelearningObjectivesInput | string[]
-    targetAudience?: CourseCreatetargetAudienceInput | string[]
+    tags: string
+    learningObjectives: string
+    targetAudience: string
     materialUrl: string
     videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
@@ -18909,9 +18900,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     duration?: IntFieldUpdateOperationsInput | number
-    tags?: CourseUpdatetagsInput | string[]
-    learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
-    targetAudience?: CourseUpdatetargetAudienceInput | string[]
+    tags?: StringFieldUpdateOperationsInput | string
+    learningObjectives?: StringFieldUpdateOperationsInput | string
+    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -18927,9 +18918,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     duration?: IntFieldUpdateOperationsInput | number
-    tags?: CourseUpdatetagsInput | string[]
-    learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
-    targetAudience?: CourseUpdatetargetAudienceInput | string[]
+    tags?: StringFieldUpdateOperationsInput | string
+    learningObjectives?: StringFieldUpdateOperationsInput | string
+    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -19040,9 +19031,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     duration: number
-    tags?: CourseCreatetagsInput | string[]
-    learningObjectives?: CourseCreatelearningObjectivesInput | string[]
-    targetAudience?: CourseCreatetargetAudienceInput | string[]
+    tags: string
+    learningObjectives: string
+    targetAudience: string
     materialUrl: string
     videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
@@ -19058,9 +19049,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     duration: number
-    tags?: CourseCreatetagsInput | string[]
-    learningObjectives?: CourseCreatelearningObjectivesInput | string[]
-    targetAudience?: CourseCreatetargetAudienceInput | string[]
+    tags: string
+    learningObjectives: string
+    targetAudience: string
     materialUrl: string
     videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
@@ -19125,9 +19116,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     duration?: IntFieldUpdateOperationsInput | number
-    tags?: CourseUpdatetagsInput | string[]
-    learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
-    targetAudience?: CourseUpdatetargetAudienceInput | string[]
+    tags?: StringFieldUpdateOperationsInput | string
+    learningObjectives?: StringFieldUpdateOperationsInput | string
+    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -19143,9 +19134,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     duration?: IntFieldUpdateOperationsInput | number
-    tags?: CourseUpdatetagsInput | string[]
-    learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
-    targetAudience?: CourseUpdatetargetAudienceInput | string[]
+    tags?: StringFieldUpdateOperationsInput | string
+    learningObjectives?: StringFieldUpdateOperationsInput | string
+    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -19161,9 +19152,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     duration: number
-    tags?: CourseCreatetagsInput | string[]
-    learningObjectives?: CourseCreatelearningObjectivesInput | string[]
-    targetAudience?: CourseCreatetargetAudienceInput | string[]
+    tags: string
+    learningObjectives: string
+    targetAudience: string
     materialUrl: string
     videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
@@ -19179,9 +19170,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     duration: number
-    tags?: CourseCreatetagsInput | string[]
-    learningObjectives?: CourseCreatelearningObjectivesInput | string[]
-    targetAudience?: CourseCreatetargetAudienceInput | string[]
+    tags: string
+    learningObjectives: string
+    targetAudience: string
     materialUrl: string
     videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
@@ -19239,9 +19230,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     duration?: IntFieldUpdateOperationsInput | number
-    tags?: CourseUpdatetagsInput | string[]
-    learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
-    targetAudience?: CourseUpdatetargetAudienceInput | string[]
+    tags?: StringFieldUpdateOperationsInput | string
+    learningObjectives?: StringFieldUpdateOperationsInput | string
+    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -19257,9 +19248,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     duration?: IntFieldUpdateOperationsInput | number
-    tags?: CourseUpdatetagsInput | string[]
-    learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
-    targetAudience?: CourseUpdatetargetAudienceInput | string[]
+    tags?: StringFieldUpdateOperationsInput | string
+    learningObjectives?: StringFieldUpdateOperationsInput | string
+    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -19419,9 +19410,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     duration: number
-    tags?: CourseCreatetagsInput | string[]
-    learningObjectives?: CourseCreatelearningObjectivesInput | string[]
-    targetAudience?: CourseCreatetargetAudienceInput | string[]
+    tags: string
+    learningObjectives: string
+    targetAudience: string
     materialUrl: string
     videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
@@ -19437,9 +19428,9 @@ export namespace Prisma {
     title: string
     description?: string | null
     duration: number
-    tags?: CourseCreatetagsInput | string[]
-    learningObjectives?: CourseCreatelearningObjectivesInput | string[]
-    targetAudience?: CourseCreatetargetAudienceInput | string[]
+    tags: string
+    learningObjectives: string
+    targetAudience: string
     materialUrl: string
     videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
@@ -19471,9 +19462,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     duration?: IntFieldUpdateOperationsInput | number
-    tags?: CourseUpdatetagsInput | string[]
-    learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
-    targetAudience?: CourseUpdatetargetAudienceInput | string[]
+    tags?: StringFieldUpdateOperationsInput | string
+    learningObjectives?: StringFieldUpdateOperationsInput | string
+    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -19489,9 +19480,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     duration?: IntFieldUpdateOperationsInput | number
-    tags?: CourseUpdatetagsInput | string[]
-    learningObjectives?: CourseUpdatelearningObjectivesInput | string[]
-    targetAudience?: CourseUpdatetargetAudienceInput | string[]
+    tags?: StringFieldUpdateOperationsInput | string
+    learningObjectives?: StringFieldUpdateOperationsInput | string
+    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]

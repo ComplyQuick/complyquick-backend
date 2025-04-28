@@ -77,9 +77,9 @@ export const createCourse = async (req: Request, res: Response, next: NextFuncti
         title,
         description,
         duration: parseInt(duration),
-        tags: Array.isArray(tags) ? tags : JSON.parse(tags),
-        learningObjectives: Array.isArray(learningObjectives) ? learningObjectives : JSON.parse(learningObjectives),
-        targetAudience: Array.isArray(targetAudience) ? targetAudience : JSON.parse(targetAudience),
+        tags,
+        learningObjectives,
+        targetAudience,
         materialUrl: slidesUrl,
         slides: []
       }

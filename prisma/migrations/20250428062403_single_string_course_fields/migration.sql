@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE "course" ALTER COLUMN "learningObjectives" SET NOT NULL,
+ALTER COLUMN "learningObjectives" SET DATA TYPE TEXT,
+ALTER COLUMN "tags" SET NOT NULL,
+ALTER COLUMN "tags" SET DATA TYPE TEXT,
+ALTER COLUMN "targetAudience" SET NOT NULL,
+ALTER COLUMN "targetAudience" SET DATA TYPE TEXT;

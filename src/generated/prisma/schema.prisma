@@ -77,9 +77,9 @@ model Course {
   title              String
   description        String?
   duration           Int
-  tags               String[]
-  learningObjectives String[]
-  targetAudience     String[]
+  tags               String
+  learningObjectives String
+  targetAudience     String
   materialUrl        String
   videoUrl           String?
   slides             Json[]
