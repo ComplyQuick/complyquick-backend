@@ -807,13 +807,17 @@ export const generalChatbot = async (req: Request, res: Response, next: NextFunc
       return;
     }
 
-    // Prepare assigned_courses
-    const assigned_courses = tenant.courses.map(tc => ({
-      id: tc.course.id,
-      title: tc.course.title,
-      description: tc.course.description,
-      materialUrl: tc.course.materialUrl
-    }));
+    // Prepare assigned_courses with sanitized strings and required 'name' field
+    const assigned_courses = tenant.courses.map(tc => {
+      const sanitizedTitle = typeof tc.course.title === 'string' ? tc.course.title.replace(/^"+|"+$/g, '') : tc.course.title;
+      return {
+        id: tc.course.id,
+        name: sanitizedTitle, // required by AI service
+        title: sanitizedTitle,
+        description: typeof tc.course.description === 'string' ? tc.course.description.replace(/^"+|"+$/g, '') : tc.course.description,
+        materialUrl: tc.course.materialUrl
+      };
+    });
 
     // Prepare payload for AI service
     const payload = {
@@ -824,8 +828,16 @@ export const generalChatbot = async (req: Request, res: Response, next: NextFunc
     };
 
     // Call AI service
-    const aiResponse = await aiServiceClient.post('/general-chatbot', payload);
-    res.json(aiResponse.data);
+    try {
+      const aiResponse = await aiServiceClient.post('/general-chatbot', payload);
+      res.json(aiResponse.data);
+    } catch (error: any) {
+      if (error.response) {
+        res.status(error.response.status).json(error.response.data);
+      } else {
+        next(error);
+      }
+    }
   } catch (error) {
     console.error('Error in generalChatbot:', error);
     next(error);
