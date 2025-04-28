@@ -157,6 +157,7 @@ export const updateCourse = async (
   }
 };
 
+
 // Delete course
 export const deleteCourse = async (
   req: Request<{ id: string }>,
@@ -780,6 +781,53 @@ export const updateCourseProgress = async (
     });
   } catch (error) {
     console.error('Error updating course progress:', error);
+    next(error);
+  }
+};
+
+export const generalChatbot = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const { tenantId, chatHistory } = req.body;
+    if (!tenantId || !chatHistory) {
+      res.status(400).json({ error: 'tenantId and chatHistory are required' });
+      return;
+    }
+
+    // Fetch tenant, details, and assigned courses
+    const tenant = await prisma.tenant.findUnique({
+      where: { id: tenantId },
+      include: { details: true, courses: { include: { course: true } } }
+    });
+    if (!tenant) {
+      res.status(404).json({ error: 'Tenant not found' });
+      return;
+    }
+    if (!tenant.details) {
+      res.status(400).json({ error: 'Tenant details not found' });
+      return;
+    }
+
+    // Prepare assigned_courses
+    const assigned_courses = tenant.courses.map(tc => ({
+      id: tc.course.id,
+      title: tc.course.title,
+      description: tc.course.description,
+      materialUrl: tc.course.materialUrl
+    }));
+
+    // Prepare payload for AI service
+    const payload = {
+      chatHistory,
+      company_name: tenant.name,
+      tenant_details: tenant.details,
+      assigned_courses
+    };
+
+    // Call AI service
+    const aiResponse = await aiServiceClient.post('/general-chatbot', payload);
+    res.json(aiResponse.data);
+  } catch (error) {
+    console.error('Error in generalChatbot:', error);
     next(error);
   }
 }; 

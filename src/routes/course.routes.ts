@@ -14,7 +14,8 @@ import {
   generateExplanations,
   fetchExplanations,
   getCourseMaterialForChatbot,
-  updateCourseProgress
+  updateCourseProgress,
+  generalChatbot
 } from '../controllers/course.controller';
 import asyncHandler from 'express-async-handler';
 import { authenticateToken } from '../middleware/auth.middleware';
@@ -66,5 +67,7 @@ router.get('/:courseId/explanations', asyncHandler(fetchExplanations));
 router.get('/:courseId/chatbot-material', asyncHandler(getCourseMaterialForChatbot));
 
 router.post('/:courseId/update-progress', authenticateToken, asyncHandler(updateCourseProgress as any));
+
+router.post('/general-chatbot', asyncHandler(generalChatbot));
 
 export default router; 
