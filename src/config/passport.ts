@@ -17,6 +17,7 @@ passport.use(
     async (request, accessToken, refreshToken, profile, done) => {
       try {
         const email = profile.emails?.[0].value;
+        
         if (!email) {
           return done(new Error('No email found in Google profile'));
         }
@@ -39,6 +40,7 @@ passport.use(
           include: { tenant: true }
         });
 
+
         if (!user) {
           // Create new user if doesn't exist
           user = await prisma.user.create({
@@ -58,7 +60,6 @@ passport.use(
             include: { tenant: true }
           });
         }
-
         // Update user profile if needed
         if (profile.displayName && user.name !== profile.displayName) {
           user = await prisma.user.update({

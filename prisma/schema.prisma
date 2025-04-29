@@ -97,7 +97,7 @@ model Enrollment {
   id        String          @id @default(uuid())
   userId    String         @map("user_id")
   courseId  String         @map("course_id")
-  progress  Int            @default(0)
+  progress  Decimal        @default(0) @db.Decimal(5,2)
   status    EnrollmentStatus @default(IN_PROGRESS)
   user      User           @relation(fields: [userId], references: [id])
   course    Course         @relation(fields: [courseId], references: [id])

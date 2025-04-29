@@ -694,8 +694,8 @@ export const updateCourseProgress = async (
     const { slideNumber } = req.body;
     const userId = req.user?.id;
     const tenantId = req.user?.tenantId;
-    console.log(userId);
-    console.log(tenantId);
+    
+    console.log('[updateCourseProgress] Called with:', { userId, tenantId, courseId, slideNumber });
 
     if (!slideNumber) {
       res.status(400).json({ error: 'Slide number is required' });
@@ -717,6 +717,7 @@ export const updateCourseProgress = async (
         explanations: true 
       }
     });
+    console.log('[updateCourseProgress] tenantCourse:', tenantCourse);
 
     if (!tenantCourse) {
       res.status(404).json({ error: 'Course not found or not assigned to tenant' });
@@ -727,6 +728,7 @@ export const updateCourseProgress = async (
     const explanations = typeof tenantCourse.explanations === 'string' 
       ? JSON.parse(tenantCourse.explanations)
       : tenantCourse.explanations;
+    console.log('[updateCourseProgress] explanations:', explanations);
 
     if (!explanations || !Array.isArray(explanations)) {
       res.status(400).json({ error: 'No slides found for this course' });
@@ -734,15 +736,16 @@ export const updateCourseProgress = async (
     }
 
     const totalSlides = explanations.length;
-    console.log('Total slides:', totalSlides);
+    console.log('[updateCourseProgress] Total slides:', totalSlides);
 
     if (slideNumber > totalSlides) {
       res.status(400).json({ error: 'Invalid slide number' });
       return;
     }
 
-    // Calculate progress percentage
-    const progress = Math.round((slideNumber / totalSlides) * 100);
+    // Calculate progress percentage with 2 decimal places
+    const progress = Number(((slideNumber / totalSlides) * 100).toFixed(2));
+    console.log('[updateCourseProgress] Calculated progress:', progress);
 
     // Find or create enrollment
     let enrollment = await prisma.enrollment.findFirst({
@@ -751,6 +754,7 @@ export const updateCourseProgress = async (
         courseId
       }
     });
+    console.log('[updateCourseProgress] Enrollment before:', enrollment);
 
     if (!enrollment) {
       // Create new enrollment if it doesn't exist
@@ -762,6 +766,7 @@ export const updateCourseProgress = async (
           status: progress === 100 ? 'COMPLETED' : 'IN_PROGRESS'
         }
       });
+      console.log('[updateCourseProgress] Enrollment created:', enrollment);
     } else {
       // Update existing enrollment
       enrollment = await prisma.enrollment.update({
@@ -771,6 +776,7 @@ export const updateCourseProgress = async (
           status: progress === 100 ? 'COMPLETED' : 'IN_PROGRESS'
         }
       });
+      console.log('[updateCourseProgress] Enrollment updated:', enrollment);
     }
 
     res.json({
@@ -780,7 +786,7 @@ export const updateCourseProgress = async (
       currentSlide: slideNumber
     });
   } catch (error) {
-    console.error('Error updating course progress:', error);
+    console.error('[updateCourseProgress] Error updating course progress:', error);
     next(error);
   }
 };
@@ -788,26 +794,33 @@ export const updateCourseProgress = async (
 export const generalChatbot = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { tenantId, chatHistory } = req.body;
+    // Log incoming request
+    console.log('[generalChatbot] Incoming request:', { tenantId, chatHistory });
+
     if (!tenantId || !chatHistory) {
       res.status(400).json({ error: 'tenantId and chatHistory are required' });
       return;
     }
 
     // Fetch tenant, details, and assigned courses
+    console.log('[generalChatbot] Fetching tenant and related data from DB');
     const tenant = await prisma.tenant.findUnique({
       where: { id: tenantId },
       include: { details: true, courses: { include: { course: true } } }
     });
     if (!tenant) {
+      console.log('[generalChatbot] Tenant not found:', tenantId);
       res.status(404).json({ error: 'Tenant not found' });
       return;
     }
     if (!tenant.details) {
+      console.log('[generalChatbot] Tenant details not found:', tenantId);
       res.status(400).json({ error: 'Tenant details not found' });
       return;
     }
 
     // Prepare assigned_courses with sanitized strings and required 'name' field
+    console.log('[generalChatbot] Preparing assigned_courses payload');
     const assigned_courses = tenant.courses.map(tc => {
       const sanitizedTitle = typeof tc.course.title === 'string' ? tc.course.title.replace(/^"+|"+$/g, '') : tc.course.title;
       return {
@@ -826,12 +839,17 @@ export const generalChatbot = async (req: Request, res: Response, next: NextFunc
       tenant_details: tenant.details,
       assigned_courses
     };
+    console.log('[generalChatbot] Sending payload to AI service:', payload);
 
     // Call AI service
     try {
       const aiResponse = await aiServiceClient.post('/general-chatbot', payload);
+      // Log AI service response
+      console.log('[generalChatbot] AI service response:', aiResponse.data);
       res.json(aiResponse.data);
     } catch (error: any) {
+      // Log AI service error
+      console.error('[generalChatbot] AI service error:', error.response ? error.response.data : error);
       if (error.response) {
         res.status(error.response.status).json(error.response.data);
       } else {
@@ -839,7 +857,84 @@ export const generalChatbot = async (req: Request, res: Response, next: NextFunc
       }
     }
   } catch (error) {
-    console.error('Error in generalChatbot:', error);
+    // Log unexpected error
+    console.error('[generalChatbot] Unexpected error:', error);
+    next(error);
+  }
+};
+
+export const getUserCourseProgress = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { userId, courseId } = req.query;
+
+    if (!userId || !courseId) {
+      res.status(400).json({ error: 'userId and courseId are required' });
+      return;
+    }
+
+    const enrollment = await prisma.enrollment.findFirst({
+      where: {
+        userId: userId as string,
+        courseId: courseId as string
+      },
+      include: {
+        course: true,
+        user: true
+      }
+    });
+
+    if (!enrollment) {
+      res.status(404).json({ error: 'No enrollment found for this user and course' });
+      return;
+    }
+
+    res.json({
+      userId: enrollment.userId,
+      courseId: enrollment.courseId,
+      progress: Number(enrollment.progress),
+      status: enrollment.status,
+      courseTitle: enrollment.course.title,
+      userName: enrollment.user.name
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllUsersProgress = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const enrollments = await prisma.enrollment.findMany({
+      include: {
+        course: true,
+        user: {
+          include: {
+            tenant: true
+          }
+        }
+      }
+    });
+
+    const progressData = enrollments.map(enrollment => ({
+      userId: enrollment.userId,
+      userName: enrollment.user.name,
+      courseId: enrollment.courseId,
+      courseTitle: enrollment.course.title,
+      progress: Number(enrollment.progress),
+      status: enrollment.status,
+      tenantName: enrollment.user.tenant?.name || 'No Tenant',
+      tenantId: enrollment.user.tenantId
+    }));
+
+    res.json(progressData);
+  } catch (error) {
     next(error);
   }
 }; 

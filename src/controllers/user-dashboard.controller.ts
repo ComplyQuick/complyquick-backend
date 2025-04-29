@@ -170,7 +170,7 @@ export const getUserProgress = async (
       totalCourses: progress.length,
       completedCourses: progress.filter(p => p.status === 'COMPLETED').length,
       inProgressCourses: progress.filter(p => p.status === 'IN_PROGRESS').length,
-      averageProgress: progress.reduce((acc, p) => acc + p.progress, 0) / progress.length || 0,
+      averageProgress: progress.reduce((acc, p) => acc + Number(p.progress), 0) / progress.length || 0,
       courses: progress.map(p => ({
         courseId: p.course.id,
         courseTitle: p.course.title,

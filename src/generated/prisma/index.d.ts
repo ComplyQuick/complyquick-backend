@@ -6873,18 +6873,18 @@ export namespace Prisma {
   }
 
   export type EnrollmentAvgAggregateOutputType = {
-    progress: number | null
+    progress: Decimal | null
   }
 
   export type EnrollmentSumAggregateOutputType = {
-    progress: number | null
+    progress: Decimal | null
   }
 
   export type EnrollmentMinAggregateOutputType = {
     id: string | null
     userId: string | null
     courseId: string | null
-    progress: number | null
+    progress: Decimal | null
     status: $Enums.EnrollmentStatus | null
   }
 
@@ -6892,7 +6892,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     courseId: string | null
-    progress: number | null
+    progress: Decimal | null
     status: $Enums.EnrollmentStatus | null
   }
 
@@ -7029,7 +7029,7 @@ export namespace Prisma {
     id: string
     userId: string
     courseId: string
-    progress: number
+    progress: Decimal
     status: $Enums.EnrollmentStatus
     _count: EnrollmentCountAggregateOutputType | null
     _avg: EnrollmentAvgAggregateOutputType | null
@@ -7114,7 +7114,7 @@ export namespace Prisma {
       id: string
       userId: string
       courseId: string
-      progress: number
+      progress: Prisma.Decimal
       status: $Enums.EnrollmentStatus
     }, ExtArgs["result"]["enrollment"]>
     composites: {}
@@ -7544,7 +7544,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Enrollment", 'String'>
     readonly userId: FieldRef<"Enrollment", 'String'>
     readonly courseId: FieldRef<"Enrollment", 'String'>
-    readonly progress: FieldRef<"Enrollment", 'Int'>
+    readonly progress: FieldRef<"Enrollment", 'Decimal'>
     readonly status: FieldRef<"Enrollment", 'EnrollmentStatus'>
   }
     
@@ -14708,6 +14708,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal[]'
+   */
+  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+  /**
    * Reference to a field of type 'EnrollmentStatus'
    */
   export type EnumEnrollmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EnrollmentStatus'>
@@ -15140,7 +15154,7 @@ export namespace Prisma {
     id?: StringFilter<"Enrollment"> | string
     userId?: StringFilter<"Enrollment"> | string
     courseId?: StringFilter<"Enrollment"> | string
-    progress?: IntFilter<"Enrollment"> | number
+    progress?: DecimalFilter<"Enrollment"> | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFilter<"Enrollment"> | $Enums.EnrollmentStatus
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
@@ -15163,7 +15177,7 @@ export namespace Prisma {
     NOT?: EnrollmentWhereInput | EnrollmentWhereInput[]
     userId?: StringFilter<"Enrollment"> | string
     courseId?: StringFilter<"Enrollment"> | string
-    progress?: IntFilter<"Enrollment"> | number
+    progress?: DecimalFilter<"Enrollment"> | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFilter<"Enrollment"> | $Enums.EnrollmentStatus
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
@@ -15189,7 +15203,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Enrollment"> | string
     userId?: StringWithAggregatesFilter<"Enrollment"> | string
     courseId?: StringWithAggregatesFilter<"Enrollment"> | string
-    progress?: IntWithAggregatesFilter<"Enrollment"> | number
+    progress?: DecimalWithAggregatesFilter<"Enrollment"> | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusWithAggregatesFilter<"Enrollment"> | $Enums.EnrollmentStatus
   }
 
@@ -16025,7 +16039,7 @@ export namespace Prisma {
 
   export type EnrollmentCreateInput = {
     id?: string
-    progress?: number
+    progress?: Decimal | DecimalJsLike | number | string
     status?: $Enums.EnrollmentStatus
     user: UserCreateNestedOneWithoutEnrollmentsInput
     course: CourseCreateNestedOneWithoutEnrollmentsInput
@@ -16035,13 +16049,13 @@ export namespace Prisma {
     id?: string
     userId: string
     courseId: string
-    progress?: number
+    progress?: Decimal | DecimalJsLike | number | string
     status?: $Enums.EnrollmentStatus
   }
 
   export type EnrollmentUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    progress?: IntFieldUpdateOperationsInput | number
+    progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
     user?: UserUpdateOneRequiredWithoutEnrollmentsNestedInput
     course?: CourseUpdateOneRequiredWithoutEnrollmentsNestedInput
@@ -16051,7 +16065,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     courseId?: StringFieldUpdateOperationsInput | string
-    progress?: IntFieldUpdateOperationsInput | number
+    progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
   }
 
@@ -16059,13 +16073,13 @@ export namespace Prisma {
     id?: string
     userId: string
     courseId: string
-    progress?: number
+    progress?: Decimal | DecimalJsLike | number | string
     status?: $Enums.EnrollmentStatus
   }
 
   export type EnrollmentUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    progress?: IntFieldUpdateOperationsInput | number
+    progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
   }
 
@@ -16073,7 +16087,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     courseId?: StringFieldUpdateOperationsInput | string
-    progress?: IntFieldUpdateOperationsInput | number
+    progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
   }
 
@@ -16894,6 +16908,17 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
   export type EnumEnrollmentStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.EnrollmentStatus | EnumEnrollmentStatusFieldRefInput<$PrismaModel>
     in?: $Enums.EnrollmentStatus[] | ListEnumEnrollmentStatusFieldRefInput<$PrismaModel>
@@ -16941,6 +16966,22 @@ export namespace Prisma {
 
   export type EnrollmentSumOrderByAggregateInput = {
     progress?: SortOrder
+  }
+
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type EnumEnrollmentStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -17699,6 +17740,14 @@ export namespace Prisma {
     connect?: CourseWhereUniqueInput
   }
 
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
   export type EnumEnrollmentStatusFieldUpdateOperationsInput = {
     set?: $Enums.EnrollmentStatus
   }
@@ -18025,11 +18074,38 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
   export type NestedEnumEnrollmentStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.EnrollmentStatus | EnumEnrollmentStatusFieldRefInput<$PrismaModel>
     in?: $Enums.EnrollmentStatus[] | ListEnumEnrollmentStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.EnrollmentStatus[] | ListEnumEnrollmentStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumEnrollmentStatusFilter<$PrismaModel> | $Enums.EnrollmentStatus
+  }
+
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type NestedEnumEnrollmentStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -18392,7 +18468,7 @@ export namespace Prisma {
 
   export type EnrollmentCreateWithoutUserInput = {
     id?: string
-    progress?: number
+    progress?: Decimal | DecimalJsLike | number | string
     status?: $Enums.EnrollmentStatus
     course: CourseCreateNestedOneWithoutEnrollmentsInput
   }
@@ -18400,7 +18476,7 @@ export namespace Prisma {
   export type EnrollmentUncheckedCreateWithoutUserInput = {
     id?: string
     courseId: string
-    progress?: number
+    progress?: Decimal | DecimalJsLike | number | string
     status?: $Enums.EnrollmentStatus
   }
 
@@ -18520,7 +18596,7 @@ export namespace Prisma {
     id?: StringFilter<"Enrollment"> | string
     userId?: StringFilter<"Enrollment"> | string
     courseId?: StringFilter<"Enrollment"> | string
-    progress?: IntFilter<"Enrollment"> | number
+    progress?: DecimalFilter<"Enrollment"> | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFilter<"Enrollment"> | $Enums.EnrollmentStatus
   }
 
@@ -18613,7 +18689,7 @@ export namespace Prisma {
 
   export type EnrollmentCreateWithoutCourseInput = {
     id?: string
-    progress?: number
+    progress?: Decimal | DecimalJsLike | number | string
     status?: $Enums.EnrollmentStatus
     user: UserCreateNestedOneWithoutEnrollmentsInput
   }
@@ -18621,7 +18697,7 @@ export namespace Prisma {
   export type EnrollmentUncheckedCreateWithoutCourseInput = {
     id?: string
     userId: string
-    progress?: number
+    progress?: Decimal | DecimalJsLike | number | string
     status?: $Enums.EnrollmentStatus
   }
 
@@ -19570,7 +19646,7 @@ export namespace Prisma {
   export type EnrollmentCreateManyUserInput = {
     id?: string
     courseId: string
-    progress?: number
+    progress?: Decimal | DecimalJsLike | number | string
     status?: $Enums.EnrollmentStatus
   }
 
@@ -19591,7 +19667,7 @@ export namespace Prisma {
 
   export type EnrollmentUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    progress?: IntFieldUpdateOperationsInput | number
+    progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
     course?: CourseUpdateOneRequiredWithoutEnrollmentsNestedInput
   }
@@ -19599,14 +19675,14 @@ export namespace Prisma {
   export type EnrollmentUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     courseId?: StringFieldUpdateOperationsInput | string
-    progress?: IntFieldUpdateOperationsInput | number
+    progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
   }
 
   export type EnrollmentUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     courseId?: StringFieldUpdateOperationsInput | string
-    progress?: IntFieldUpdateOperationsInput | number
+    progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
   }
 
@@ -19668,7 +19744,7 @@ export namespace Prisma {
   export type EnrollmentCreateManyCourseInput = {
     id?: string
     userId: string
-    progress?: number
+    progress?: Decimal | DecimalJsLike | number | string
     status?: $Enums.EnrollmentStatus
   }
 
@@ -19721,7 +19797,7 @@ export namespace Prisma {
 
   export type EnrollmentUpdateWithoutCourseInput = {
     id?: StringFieldUpdateOperationsInput | string
-    progress?: IntFieldUpdateOperationsInput | number
+    progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
     user?: UserUpdateOneRequiredWithoutEnrollmentsNestedInput
   }
@@ -19729,14 +19805,14 @@ export namespace Prisma {
   export type EnrollmentUncheckedUpdateWithoutCourseInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    progress?: IntFieldUpdateOperationsInput | number
+    progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
   }
 
   export type EnrollmentUncheckedUpdateManyWithoutCourseInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    progress?: IntFieldUpdateOperationsInput | number
+    progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
   }
 
