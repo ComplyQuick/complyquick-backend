@@ -717,7 +717,6 @@ export const updateCourseProgress = async (
         explanations: true 
       }
     });
-    console.log('[updateCourseProgress] tenantCourse:', tenantCourse);
 
     if (!tenantCourse) {
       res.status(404).json({ error: 'Course not found or not assigned to tenant' });
@@ -728,7 +727,6 @@ export const updateCourseProgress = async (
     const explanations = typeof tenantCourse.explanations === 'string' 
       ? JSON.parse(tenantCourse.explanations)
       : tenantCourse.explanations;
-    console.log('[updateCourseProgress] explanations:', explanations);
 
     if (!explanations || !Array.isArray(explanations)) {
       res.status(400).json({ error: 'No slides found for this course' });
@@ -736,25 +734,22 @@ export const updateCourseProgress = async (
     }
 
     const totalSlides = explanations.length;
-    console.log('[updateCourseProgress] Total slides:', totalSlides);
 
     if (slideNumber > totalSlides) {
       res.status(400).json({ error: 'Invalid slide number' });
       return;
     }
 
-    // Calculate progress percentage with 2 decimal places
-    const progress = Number(((slideNumber / totalSlides) * 100).toFixed(2));
-    console.log('[updateCourseProgress] Calculated progress:', progress);
+    // Calculate new progress percentage with 2 decimal places
+    const newProgress = Number(((slideNumber / totalSlides) * 100).toFixed(2));
 
-    // Find or create enrollment
+    // Find existing enrollment
     let enrollment = await prisma.enrollment.findFirst({
       where: {
         userId,
         courseId
       }
     });
-    console.log('[updateCourseProgress] Enrollment before:', enrollment);
 
     if (!enrollment) {
       // Create new enrollment if it doesn't exist
@@ -762,26 +757,26 @@ export const updateCourseProgress = async (
         data: {
           userId,
           courseId,
-          progress,
-          status: progress === 100 ? 'COMPLETED' : 'IN_PROGRESS'
+          progress: newProgress,
+          status: newProgress === 100 ? 'COMPLETED' : 'IN_PROGRESS'
         }
       });
-      console.log('[updateCourseProgress] Enrollment created:', enrollment);
     } else {
-      // Update existing enrollment
-      enrollment = await prisma.enrollment.update({
-        where: { id: enrollment.id },
-        data: {
-          progress,
-          status: progress === 100 ? 'COMPLETED' : 'IN_PROGRESS'
-        }
-      });
-      console.log('[updateCourseProgress] Enrollment updated:', enrollment);
+      // Only update if new progress is greater than current progress
+      if (newProgress > Number(enrollment.progress)) {
+        enrollment = await prisma.enrollment.update({
+          where: { id: enrollment.id },
+          data: {
+            progress: newProgress,
+            status: newProgress === 100 ? 'COMPLETED' : 'IN_PROGRESS'
+          }
+        });
+      }
     }
 
     res.json({
       message: 'Progress updated successfully',
-      progress,
+      progress: Number(enrollment.progress),
       totalSlides,
       currentSlide: slideNumber
     });
