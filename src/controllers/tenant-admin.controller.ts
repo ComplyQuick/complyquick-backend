@@ -215,7 +215,7 @@ export const getTenantProgress = async (
         enrollments: user.enrollments.length,
         completedCourses: user.enrollments.filter(e => e.status === 'COMPLETED').length,
         inProgressCourses: user.enrollments.filter(e => e.status === 'IN_PROGRESS').length,
-        averageProgress: user.enrollments.reduce((acc, e) => acc + e.progress, 0) / (user.enrollments.length || 1)
+        averageProgress: user.enrollments.reduce((acc, e) => acc + Number(e.progress), 0) / (user.enrollments.length || 1)
       }))
     };
 
@@ -224,7 +224,7 @@ export const getTenantProgress = async (
     stats.totalEnrollments = allEnrollments.length;
     stats.completedCourses = allEnrollments.filter(e => e.status === 'COMPLETED').length;
     stats.inProgressCourses = allEnrollments.filter(e => e.status === 'IN_PROGRESS').length;
-    stats.averageProgress = allEnrollments.reduce((acc, e) => acc + e.progress, 0) / (allEnrollments.length || 1);
+    stats.averageProgress = allEnrollments.reduce((acc, e) => acc + Number(e.progress), 0) / (allEnrollments.length || 1);
 
     res.json(stats);
   } catch (error) {
@@ -271,7 +271,7 @@ export const getTenantCompletionStats = async (
       const totalEnrollments = enrollments.length;
       const completedEnrollments = enrollments.filter(e => e.status === 'COMPLETED').length;
       const inProgressEnrollments = enrollments.filter(e => e.status === 'IN_PROGRESS').length;
-      const averageProgress = enrollments.reduce((acc, e) => acc + e.progress, 0) / (totalEnrollments || 1);
+      const averageProgress = enrollments.reduce((acc, e) => acc + Number(e.progress), 0) / (totalEnrollments || 1);
 
       return {
         courseId: tc.course.id,
@@ -341,7 +341,7 @@ export const getUserProgress = async (
       totalCourses: user.enrollments.length,
       completedCourses: user.enrollments.filter(e => e.status === 'COMPLETED').length,
       inProgressCourses: user.enrollments.filter(e => e.status === 'IN_PROGRESS').length,
-      averageProgress: user.enrollments.reduce((acc, e) => acc + e.progress, 0) / (user.enrollments.length || 1),
+      averageProgress: user.enrollments.reduce((acc, e) => acc + Number(e.progress), 0) / (user.enrollments.length || 1),
       courses: user.enrollments.map(enrollment => ({
         courseId: enrollment.course.id,
         courseTitle: enrollment.course.title,

@@ -6,6 +6,7 @@ import authRoutes from './routes/auth.routes';
 import tenantRoutes from './routes/tenant.routes';
 import courseRoutes from './routes/course.routes';
 import tenantAdminRoutes from './routes/tenant-admin.routes';
+import adminDashboardRoutes from './routes/admin-dashboard.routes';
 import passport from './config/passport';
 import session from 'express-session';
 import userDashboardRoutes from './routes/user-dashboard.routes';
@@ -19,7 +20,6 @@ const app = express();
 
 // Initialize Prisma client
 export const prisma = new PrismaClient();
-
 
 app.use(express.json());
 
@@ -89,6 +89,7 @@ app.use('/api/courses', courseRoutes);
 app.use('/api/tenant-admin', tenantAdminRoutes);
 app.use('/api/user-dashboard', userDashboardRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/admin/dashboard', adminDashboardRoutes);
 
 // Basic health check route
 app.get('/health', (req, res) => {
@@ -102,7 +103,7 @@ app.use((err: Error, req: express.Request, res: express.Response, next: express.
 });
 
 // Start server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 }); 
