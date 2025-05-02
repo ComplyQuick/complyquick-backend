@@ -76,12 +76,21 @@ export const getTrainingStatistics = async (
 
 // Get recent user activity
 export const getRecentUserActivity = async (
-  _req: Request,
+  req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
+    // Get tenantId from query params
+    const { tenantId } = req.query;
+    if (!tenantId || typeof tenantId !== 'string') {
+      res.status(400).json({ error: 'tenantId is required as a query parameter' });
+      return;
+    }
+
+    // Only fetch users for this tenant, and only regular users
     const users = await prisma.user.findMany({
+      where: { tenantId, role: 'USER' },
       include: {
         enrollments: {
           include: {
@@ -101,8 +110,6 @@ export const getRecentUserActivity = async (
       if (user.enrollments.length > 0) {
         const allCompleted = user.enrollments.every(e => e.status === 'COMPLETED');
         const anyInProgress = user.enrollments.some(e => e.status === 'IN_PROGRESS');
-        
-        
         if (allCompleted) {
           status = 'Completed';
         } else if (anyInProgress) {
