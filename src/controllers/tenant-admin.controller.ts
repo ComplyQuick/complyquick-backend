@@ -320,7 +320,6 @@ export const getUserProgress = async (
                 id: true,
                 title: true,
                 description: true,
-                duration: true,
                 slides: true
               }
             }
@@ -346,10 +345,9 @@ export const getUserProgress = async (
         courseId: enrollment.course.id,
         courseTitle: enrollment.course.title,
         description: enrollment.course.description,
-        duration: enrollment.course.duration,
         status: enrollment.status,
         progress: enrollment.progress,
-        createdAt: new Date().toISOString() // Fallback date since updatedAt is not available
+        createdAt: new Date().toISOString() 
       }))
     };
 
@@ -378,7 +376,6 @@ export const getUserCourseContent = async (
             id: true,
             title: true,
             description: true,
-            duration: true,
             slides: true
           }
         }
@@ -394,11 +391,10 @@ export const getUserCourseContent = async (
       courseId: enrollment.course.id,
       courseTitle: enrollment.course.title,
       description: enrollment.course.description,
-      duration: enrollment.course.duration,
       progress: enrollment.progress,
       status: enrollment.status,
       slides: enrollment.course.slides,
-      lastAccessed: new Date().toISOString() // Use current date instead of updatedAt
+      lastAccessed: new Date().toISOString() 
     };
 
     res.json(courseContent);

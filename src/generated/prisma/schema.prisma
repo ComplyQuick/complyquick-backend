@@ -76,10 +76,8 @@ model Course {
   id                 String             @id @default(uuid())
   title              String
   description        String?
-  duration           Int
   tags               String
   learningObjectives String
-  targetAudience     String
   materialUrl        String
   videoUrl           String?
   slides             Json[]
@@ -89,6 +87,7 @@ model Course {
   enrollments        Enrollment[]
   tenants            TenantCourse[]
   slideExplanations  SlideExplanation[]
+  properties         CourseProperties?
 
   @@map("course")
 }
@@ -97,7 +96,7 @@ model Enrollment {
   id       String           @id @default(uuid())
   userId   String           @map("user_id")
   courseId String           @map("course_id")
-  progress Int              @default(0)
+  progress Decimal          @default(0) @db.Decimal(5, 2)
   status   EnrollmentStatus @default(IN_PROGRESS)
   user     User             @relation(fields: [userId], references: [id])
   course   Course           @relation(fields: [courseId], references: [id])
@@ -192,4 +191,18 @@ enum EnrollmentStatus {
   NOT_STARTED
   IN_PROGRESS
   COMPLETED
+}
+
+enum RetryType {
+  SAME
+  DIFFERENT
+}
+
+model CourseProperties {
+  id        String    @id @default(uuid())
+  course    Course    @relation(fields: [courseId], references: [id])
+  courseId  String    @unique
+  skippable Boolean   @default(false)
+  mandatory Boolean   @default(false)
+  retryType RetryType @default(SAME)
 }

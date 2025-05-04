@@ -165,10 +165,8 @@ exports.Prisma.CourseScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
-  duration: 'duration',
   tags: 'tags',
   learningObjectives: 'learningObjectives',
-  targetAudience: 'targetAudience',
   materialUrl: 'materialUrl',
   videoUrl: 'videoUrl',
   slides: 'slides',
@@ -240,6 +238,14 @@ exports.Prisma.OrganizationInterestScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.CoursePropertiesScalarFieldEnum = {
+  id: 'id',
+  courseId: 'courseId',
+  skippable: 'skippable',
+  mandatory: 'mandatory',
+  retryType: 'retryType'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -277,6 +283,11 @@ exports.EnrollmentStatus = exports.$Enums.EnrollmentStatus = {
   COMPLETED: 'COMPLETED'
 };
 
+exports.RetryType = exports.$Enums.RetryType = {
+  SAME: 'SAME',
+  DIFFERENT: 'DIFFERENT'
+};
+
 exports.Prisma.ModelName = {
   Tenant: 'Tenant',
   TenantDetails: 'TenantDetails',
@@ -288,7 +299,8 @@ exports.Prisma.ModelName = {
   MCQ: 'MCQ',
   UserMCQAnswer: 'UserMCQAnswer',
   SlideExplanation: 'SlideExplanation',
-  OrganizationInterest: 'OrganizationInterest'
+  OrganizationInterest: 'OrganizationInterest',
+  CourseProperties: 'CourseProperties'
 };
 
 /**

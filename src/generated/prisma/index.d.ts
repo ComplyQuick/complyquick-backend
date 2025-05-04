@@ -68,6 +68,11 @@ export type SlideExplanation = $Result.DefaultSelection<Prisma.$SlideExplanation
  * 
  */
 export type OrganizationInterest = $Result.DefaultSelection<Prisma.$OrganizationInterestPayload>
+/**
+ * Model CourseProperties
+ * 
+ */
+export type CourseProperties = $Result.DefaultSelection<Prisma.$CoursePropertiesPayload>
 
 /**
  * Enums
@@ -90,6 +95,14 @@ export const EnrollmentStatus: {
 
 export type EnrollmentStatus = (typeof EnrollmentStatus)[keyof typeof EnrollmentStatus]
 
+
+export const RetryType: {
+  SAME: 'SAME',
+  DIFFERENT: 'DIFFERENT'
+};
+
+export type RetryType = (typeof RetryType)[keyof typeof RetryType]
+
 }
 
 export type UserRole = $Enums.UserRole
@@ -99,6 +112,10 @@ export const UserRole: typeof $Enums.UserRole
 export type EnrollmentStatus = $Enums.EnrollmentStatus
 
 export const EnrollmentStatus: typeof $Enums.EnrollmentStatus
+
+export type RetryType = $Enums.RetryType
+
+export const RetryType: typeof $Enums.RetryType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -334,6 +351,16 @@ export class PrismaClient<
     * ```
     */
   get organizationInterest(): Prisma.OrganizationInterestDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.courseProperties`: Exposes CRUD operations for the **CourseProperties** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CourseProperties
+    * const courseProperties = await prisma.courseProperties.findMany()
+    * ```
+    */
+  get courseProperties(): Prisma.CoursePropertiesDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -784,7 +811,8 @@ export namespace Prisma {
     MCQ: 'MCQ',
     UserMCQAnswer: 'UserMCQAnswer',
     SlideExplanation: 'SlideExplanation',
-    OrganizationInterest: 'OrganizationInterest'
+    OrganizationInterest: 'OrganizationInterest',
+    CourseProperties: 'CourseProperties'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -803,7 +831,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "tenant" | "tenantDetails" | "user" | "course" | "enrollment" | "certificate" | "tenantCourse" | "mCQ" | "userMCQAnswer" | "slideExplanation" | "organizationInterest"
+      modelProps: "tenant" | "tenantDetails" | "user" | "course" | "enrollment" | "certificate" | "tenantCourse" | "mCQ" | "userMCQAnswer" | "slideExplanation" | "organizationInterest" | "courseProperties"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1621,6 +1649,80 @@ export namespace Prisma {
           }
         }
       }
+      CourseProperties: {
+        payload: Prisma.$CoursePropertiesPayload<ExtArgs>
+        fields: Prisma.CoursePropertiesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CoursePropertiesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoursePropertiesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CoursePropertiesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoursePropertiesPayload>
+          }
+          findFirst: {
+            args: Prisma.CoursePropertiesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoursePropertiesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CoursePropertiesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoursePropertiesPayload>
+          }
+          findMany: {
+            args: Prisma.CoursePropertiesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoursePropertiesPayload>[]
+          }
+          create: {
+            args: Prisma.CoursePropertiesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoursePropertiesPayload>
+          }
+          createMany: {
+            args: Prisma.CoursePropertiesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CoursePropertiesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoursePropertiesPayload>[]
+          }
+          delete: {
+            args: Prisma.CoursePropertiesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoursePropertiesPayload>
+          }
+          update: {
+            args: Prisma.CoursePropertiesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoursePropertiesPayload>
+          }
+          deleteMany: {
+            args: Prisma.CoursePropertiesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CoursePropertiesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CoursePropertiesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoursePropertiesPayload>[]
+          }
+          upsert: {
+            args: Prisma.CoursePropertiesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoursePropertiesPayload>
+          }
+          aggregate: {
+            args: Prisma.CoursePropertiesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCourseProperties>
+          }
+          groupBy: {
+            args: Prisma.CoursePropertiesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CoursePropertiesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CoursePropertiesCountArgs<ExtArgs>
+            result: $Utils.Optional<CoursePropertiesCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1716,6 +1818,7 @@ export namespace Prisma {
     userMCQAnswer?: UserMCQAnswerOmit
     slideExplanation?: SlideExplanationOmit
     organizationInterest?: OrganizationInterestOmit
+    courseProperties?: CoursePropertiesOmit
   }
 
   /* Types for Logging */
@@ -5591,28 +5694,16 @@ export namespace Prisma {
 
   export type AggregateCourse = {
     _count: CourseCountAggregateOutputType | null
-    _avg: CourseAvgAggregateOutputType | null
-    _sum: CourseSumAggregateOutputType | null
     _min: CourseMinAggregateOutputType | null
     _max: CourseMaxAggregateOutputType | null
-  }
-
-  export type CourseAvgAggregateOutputType = {
-    duration: number | null
-  }
-
-  export type CourseSumAggregateOutputType = {
-    duration: number | null
   }
 
   export type CourseMinAggregateOutputType = {
     id: string | null
     title: string | null
     description: string | null
-    duration: number | null
     tags: string | null
     learningObjectives: string | null
-    targetAudience: string | null
     materialUrl: string | null
     videoUrl: string | null
     createdAt: Date | null
@@ -5623,10 +5714,8 @@ export namespace Prisma {
     id: string | null
     title: string | null
     description: string | null
-    duration: number | null
     tags: string | null
     learningObjectives: string | null
-    targetAudience: string | null
     materialUrl: string | null
     videoUrl: string | null
     createdAt: Date | null
@@ -5637,10 +5726,8 @@ export namespace Prisma {
     id: number
     title: number
     description: number
-    duration: number
     tags: number
     learningObjectives: number
-    targetAudience: number
     materialUrl: number
     videoUrl: number
     slides: number
@@ -5650,22 +5737,12 @@ export namespace Prisma {
   }
 
 
-  export type CourseAvgAggregateInputType = {
-    duration?: true
-  }
-
-  export type CourseSumAggregateInputType = {
-    duration?: true
-  }
-
   export type CourseMinAggregateInputType = {
     id?: true
     title?: true
     description?: true
-    duration?: true
     tags?: true
     learningObjectives?: true
-    targetAudience?: true
     materialUrl?: true
     videoUrl?: true
     createdAt?: true
@@ -5676,10 +5753,8 @@ export namespace Prisma {
     id?: true
     title?: true
     description?: true
-    duration?: true
     tags?: true
     learningObjectives?: true
-    targetAudience?: true
     materialUrl?: true
     videoUrl?: true
     createdAt?: true
@@ -5690,10 +5765,8 @@ export namespace Prisma {
     id?: true
     title?: true
     description?: true
-    duration?: true
     tags?: true
     learningObjectives?: true
-    targetAudience?: true
     materialUrl?: true
     videoUrl?: true
     slides?: true
@@ -5740,18 +5813,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: CourseAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: CourseSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: CourseMinAggregateInputType
@@ -5782,8 +5843,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: CourseCountAggregateInputType | true
-    _avg?: CourseAvgAggregateInputType
-    _sum?: CourseSumAggregateInputType
     _min?: CourseMinAggregateInputType
     _max?: CourseMaxAggregateInputType
   }
@@ -5792,18 +5851,14 @@ export namespace Prisma {
     id: string
     title: string
     description: string | null
-    duration: number
     tags: string
     learningObjectives: string
-    targetAudience: string
     materialUrl: string
     videoUrl: string | null
     slides: JsonValue[]
     createdAt: Date
     updatedAt: Date
     _count: CourseCountAggregateOutputType | null
-    _avg: CourseAvgAggregateOutputType | null
-    _sum: CourseSumAggregateOutputType | null
     _min: CourseMinAggregateOutputType | null
     _max: CourseMaxAggregateOutputType | null
   }
@@ -5826,10 +5881,8 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
-    duration?: boolean
     tags?: boolean
     learningObjectives?: boolean
-    targetAudience?: boolean
     materialUrl?: boolean
     videoUrl?: boolean
     slides?: boolean
@@ -5839,6 +5892,7 @@ export namespace Prisma {
     enrollments?: boolean | Course$enrollmentsArgs<ExtArgs>
     tenants?: boolean | Course$tenantsArgs<ExtArgs>
     slideExplanations?: boolean | Course$slideExplanationsArgs<ExtArgs>
+    properties?: boolean | Course$propertiesArgs<ExtArgs>
     _count?: boolean | CourseCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["course"]>
 
@@ -5846,10 +5900,8 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
-    duration?: boolean
     tags?: boolean
     learningObjectives?: boolean
-    targetAudience?: boolean
     materialUrl?: boolean
     videoUrl?: boolean
     slides?: boolean
@@ -5861,10 +5913,8 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
-    duration?: boolean
     tags?: boolean
     learningObjectives?: boolean
-    targetAudience?: boolean
     materialUrl?: boolean
     videoUrl?: boolean
     slides?: boolean
@@ -5876,10 +5926,8 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
-    duration?: boolean
     tags?: boolean
     learningObjectives?: boolean
-    targetAudience?: boolean
     materialUrl?: boolean
     videoUrl?: boolean
     slides?: boolean
@@ -5887,12 +5935,13 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "duration" | "tags" | "learningObjectives" | "targetAudience" | "materialUrl" | "videoUrl" | "slides" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
+  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "tags" | "learningObjectives" | "materialUrl" | "videoUrl" | "slides" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
   export type CourseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     mcqs?: boolean | Course$mcqsArgs<ExtArgs>
     enrollments?: boolean | Course$enrollmentsArgs<ExtArgs>
     tenants?: boolean | Course$tenantsArgs<ExtArgs>
     slideExplanations?: boolean | Course$slideExplanationsArgs<ExtArgs>
+    properties?: boolean | Course$propertiesArgs<ExtArgs>
     _count?: boolean | CourseCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CourseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -5905,15 +5954,14 @@ export namespace Prisma {
       enrollments: Prisma.$EnrollmentPayload<ExtArgs>[]
       tenants: Prisma.$TenantCoursePayload<ExtArgs>[]
       slideExplanations: Prisma.$SlideExplanationPayload<ExtArgs>[]
+      properties: Prisma.$CoursePropertiesPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
       description: string | null
-      duration: number
       tags: string
       learningObjectives: string
-      targetAudience: string
       materialUrl: string
       videoUrl: string | null
       slides: Prisma.JsonValue[]
@@ -6317,6 +6365,7 @@ export namespace Prisma {
     enrollments<T extends Course$enrollmentsArgs<ExtArgs> = {}>(args?: Subset<T, Course$enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnrollmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tenants<T extends Course$tenantsArgs<ExtArgs> = {}>(args?: Subset<T, Course$tenantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantCoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     slideExplanations<T extends Course$slideExplanationsArgs<ExtArgs> = {}>(args?: Subset<T, Course$slideExplanationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SlideExplanationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    properties<T extends Course$propertiesArgs<ExtArgs> = {}>(args?: Subset<T, Course$propertiesArgs<ExtArgs>>): Prisma__CoursePropertiesClient<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6349,10 +6398,8 @@ export namespace Prisma {
     readonly id: FieldRef<"Course", 'String'>
     readonly title: FieldRef<"Course", 'String'>
     readonly description: FieldRef<"Course", 'String'>
-    readonly duration: FieldRef<"Course", 'Int'>
     readonly tags: FieldRef<"Course", 'String'>
     readonly learningObjectives: FieldRef<"Course", 'String'>
-    readonly targetAudience: FieldRef<"Course", 'String'>
     readonly materialUrl: FieldRef<"Course", 'String'>
     readonly videoUrl: FieldRef<"Course", 'String'>
     readonly slides: FieldRef<"Course", 'Json[]'>
@@ -6839,6 +6886,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SlideExplanationScalarFieldEnum | SlideExplanationScalarFieldEnum[]
+  }
+
+  /**
+   * Course.properties
+   */
+  export type Course$propertiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseProperties
+     */
+    select?: CoursePropertiesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseProperties
+     */
+    omit?: CoursePropertiesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoursePropertiesInclude<ExtArgs> | null
+    where?: CoursePropertiesWhereInput
   }
 
   /**
@@ -14422,6 +14488,1064 @@ export namespace Prisma {
 
 
   /**
+   * Model CourseProperties
+   */
+
+  export type AggregateCourseProperties = {
+    _count: CoursePropertiesCountAggregateOutputType | null
+    _min: CoursePropertiesMinAggregateOutputType | null
+    _max: CoursePropertiesMaxAggregateOutputType | null
+  }
+
+  export type CoursePropertiesMinAggregateOutputType = {
+    id: string | null
+    courseId: string | null
+    skippable: boolean | null
+    mandatory: boolean | null
+    retryType: $Enums.RetryType | null
+  }
+
+  export type CoursePropertiesMaxAggregateOutputType = {
+    id: string | null
+    courseId: string | null
+    skippable: boolean | null
+    mandatory: boolean | null
+    retryType: $Enums.RetryType | null
+  }
+
+  export type CoursePropertiesCountAggregateOutputType = {
+    id: number
+    courseId: number
+    skippable: number
+    mandatory: number
+    retryType: number
+    _all: number
+  }
+
+
+  export type CoursePropertiesMinAggregateInputType = {
+    id?: true
+    courseId?: true
+    skippable?: true
+    mandatory?: true
+    retryType?: true
+  }
+
+  export type CoursePropertiesMaxAggregateInputType = {
+    id?: true
+    courseId?: true
+    skippable?: true
+    mandatory?: true
+    retryType?: true
+  }
+
+  export type CoursePropertiesCountAggregateInputType = {
+    id?: true
+    courseId?: true
+    skippable?: true
+    mandatory?: true
+    retryType?: true
+    _all?: true
+  }
+
+  export type CoursePropertiesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CourseProperties to aggregate.
+     */
+    where?: CoursePropertiesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CourseProperties to fetch.
+     */
+    orderBy?: CoursePropertiesOrderByWithRelationInput | CoursePropertiesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CoursePropertiesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CourseProperties from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CourseProperties.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CourseProperties
+    **/
+    _count?: true | CoursePropertiesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CoursePropertiesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CoursePropertiesMaxAggregateInputType
+  }
+
+  export type GetCoursePropertiesAggregateType<T extends CoursePropertiesAggregateArgs> = {
+        [P in keyof T & keyof AggregateCourseProperties]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCourseProperties[P]>
+      : GetScalarType<T[P], AggregateCourseProperties[P]>
+  }
+
+
+
+
+  export type CoursePropertiesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CoursePropertiesWhereInput
+    orderBy?: CoursePropertiesOrderByWithAggregationInput | CoursePropertiesOrderByWithAggregationInput[]
+    by: CoursePropertiesScalarFieldEnum[] | CoursePropertiesScalarFieldEnum
+    having?: CoursePropertiesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CoursePropertiesCountAggregateInputType | true
+    _min?: CoursePropertiesMinAggregateInputType
+    _max?: CoursePropertiesMaxAggregateInputType
+  }
+
+  export type CoursePropertiesGroupByOutputType = {
+    id: string
+    courseId: string
+    skippable: boolean
+    mandatory: boolean
+    retryType: $Enums.RetryType
+    _count: CoursePropertiesCountAggregateOutputType | null
+    _min: CoursePropertiesMinAggregateOutputType | null
+    _max: CoursePropertiesMaxAggregateOutputType | null
+  }
+
+  type GetCoursePropertiesGroupByPayload<T extends CoursePropertiesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CoursePropertiesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CoursePropertiesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CoursePropertiesGroupByOutputType[P]>
+            : GetScalarType<T[P], CoursePropertiesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CoursePropertiesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    courseId?: boolean
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: boolean
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["courseProperties"]>
+
+  export type CoursePropertiesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    courseId?: boolean
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: boolean
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["courseProperties"]>
+
+  export type CoursePropertiesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    courseId?: boolean
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: boolean
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["courseProperties"]>
+
+  export type CoursePropertiesSelectScalar = {
+    id?: boolean
+    courseId?: boolean
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: boolean
+  }
+
+  export type CoursePropertiesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "courseId" | "skippable" | "mandatory" | "retryType", ExtArgs["result"]["courseProperties"]>
+  export type CoursePropertiesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }
+  export type CoursePropertiesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }
+  export type CoursePropertiesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    course?: boolean | CourseDefaultArgs<ExtArgs>
+  }
+
+  export type $CoursePropertiesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CourseProperties"
+    objects: {
+      course: Prisma.$CoursePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      courseId: string
+      skippable: boolean
+      mandatory: boolean
+      retryType: $Enums.RetryType
+    }, ExtArgs["result"]["courseProperties"]>
+    composites: {}
+  }
+
+  type CoursePropertiesGetPayload<S extends boolean | null | undefined | CoursePropertiesDefaultArgs> = $Result.GetResult<Prisma.$CoursePropertiesPayload, S>
+
+  type CoursePropertiesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CoursePropertiesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CoursePropertiesCountAggregateInputType | true
+    }
+
+  export interface CoursePropertiesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CourseProperties'], meta: { name: 'CourseProperties' } }
+    /**
+     * Find zero or one CourseProperties that matches the filter.
+     * @param {CoursePropertiesFindUniqueArgs} args - Arguments to find a CourseProperties
+     * @example
+     * // Get one CourseProperties
+     * const courseProperties = await prisma.courseProperties.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CoursePropertiesFindUniqueArgs>(args: SelectSubset<T, CoursePropertiesFindUniqueArgs<ExtArgs>>): Prisma__CoursePropertiesClient<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CourseProperties that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CoursePropertiesFindUniqueOrThrowArgs} args - Arguments to find a CourseProperties
+     * @example
+     * // Get one CourseProperties
+     * const courseProperties = await prisma.courseProperties.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CoursePropertiesFindUniqueOrThrowArgs>(args: SelectSubset<T, CoursePropertiesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CoursePropertiesClient<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CourseProperties that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoursePropertiesFindFirstArgs} args - Arguments to find a CourseProperties
+     * @example
+     * // Get one CourseProperties
+     * const courseProperties = await prisma.courseProperties.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CoursePropertiesFindFirstArgs>(args?: SelectSubset<T, CoursePropertiesFindFirstArgs<ExtArgs>>): Prisma__CoursePropertiesClient<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CourseProperties that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoursePropertiesFindFirstOrThrowArgs} args - Arguments to find a CourseProperties
+     * @example
+     * // Get one CourseProperties
+     * const courseProperties = await prisma.courseProperties.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CoursePropertiesFindFirstOrThrowArgs>(args?: SelectSubset<T, CoursePropertiesFindFirstOrThrowArgs<ExtArgs>>): Prisma__CoursePropertiesClient<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CourseProperties that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoursePropertiesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CourseProperties
+     * const courseProperties = await prisma.courseProperties.findMany()
+     * 
+     * // Get first 10 CourseProperties
+     * const courseProperties = await prisma.courseProperties.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const coursePropertiesWithIdOnly = await prisma.courseProperties.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CoursePropertiesFindManyArgs>(args?: SelectSubset<T, CoursePropertiesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CourseProperties.
+     * @param {CoursePropertiesCreateArgs} args - Arguments to create a CourseProperties.
+     * @example
+     * // Create one CourseProperties
+     * const CourseProperties = await prisma.courseProperties.create({
+     *   data: {
+     *     // ... data to create a CourseProperties
+     *   }
+     * })
+     * 
+     */
+    create<T extends CoursePropertiesCreateArgs>(args: SelectSubset<T, CoursePropertiesCreateArgs<ExtArgs>>): Prisma__CoursePropertiesClient<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CourseProperties.
+     * @param {CoursePropertiesCreateManyArgs} args - Arguments to create many CourseProperties.
+     * @example
+     * // Create many CourseProperties
+     * const courseProperties = await prisma.courseProperties.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CoursePropertiesCreateManyArgs>(args?: SelectSubset<T, CoursePropertiesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CourseProperties and returns the data saved in the database.
+     * @param {CoursePropertiesCreateManyAndReturnArgs} args - Arguments to create many CourseProperties.
+     * @example
+     * // Create many CourseProperties
+     * const courseProperties = await prisma.courseProperties.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CourseProperties and only return the `id`
+     * const coursePropertiesWithIdOnly = await prisma.courseProperties.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CoursePropertiesCreateManyAndReturnArgs>(args?: SelectSubset<T, CoursePropertiesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CourseProperties.
+     * @param {CoursePropertiesDeleteArgs} args - Arguments to delete one CourseProperties.
+     * @example
+     * // Delete one CourseProperties
+     * const CourseProperties = await prisma.courseProperties.delete({
+     *   where: {
+     *     // ... filter to delete one CourseProperties
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CoursePropertiesDeleteArgs>(args: SelectSubset<T, CoursePropertiesDeleteArgs<ExtArgs>>): Prisma__CoursePropertiesClient<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CourseProperties.
+     * @param {CoursePropertiesUpdateArgs} args - Arguments to update one CourseProperties.
+     * @example
+     * // Update one CourseProperties
+     * const courseProperties = await prisma.courseProperties.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CoursePropertiesUpdateArgs>(args: SelectSubset<T, CoursePropertiesUpdateArgs<ExtArgs>>): Prisma__CoursePropertiesClient<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CourseProperties.
+     * @param {CoursePropertiesDeleteManyArgs} args - Arguments to filter CourseProperties to delete.
+     * @example
+     * // Delete a few CourseProperties
+     * const { count } = await prisma.courseProperties.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CoursePropertiesDeleteManyArgs>(args?: SelectSubset<T, CoursePropertiesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CourseProperties.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoursePropertiesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CourseProperties
+     * const courseProperties = await prisma.courseProperties.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CoursePropertiesUpdateManyArgs>(args: SelectSubset<T, CoursePropertiesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CourseProperties and returns the data updated in the database.
+     * @param {CoursePropertiesUpdateManyAndReturnArgs} args - Arguments to update many CourseProperties.
+     * @example
+     * // Update many CourseProperties
+     * const courseProperties = await prisma.courseProperties.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CourseProperties and only return the `id`
+     * const coursePropertiesWithIdOnly = await prisma.courseProperties.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CoursePropertiesUpdateManyAndReturnArgs>(args: SelectSubset<T, CoursePropertiesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CourseProperties.
+     * @param {CoursePropertiesUpsertArgs} args - Arguments to update or create a CourseProperties.
+     * @example
+     * // Update or create a CourseProperties
+     * const courseProperties = await prisma.courseProperties.upsert({
+     *   create: {
+     *     // ... data to create a CourseProperties
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CourseProperties we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CoursePropertiesUpsertArgs>(args: SelectSubset<T, CoursePropertiesUpsertArgs<ExtArgs>>): Prisma__CoursePropertiesClient<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CourseProperties.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoursePropertiesCountArgs} args - Arguments to filter CourseProperties to count.
+     * @example
+     * // Count the number of CourseProperties
+     * const count = await prisma.courseProperties.count({
+     *   where: {
+     *     // ... the filter for the CourseProperties we want to count
+     *   }
+     * })
+    **/
+    count<T extends CoursePropertiesCountArgs>(
+      args?: Subset<T, CoursePropertiesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CoursePropertiesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CourseProperties.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoursePropertiesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CoursePropertiesAggregateArgs>(args: Subset<T, CoursePropertiesAggregateArgs>): Prisma.PrismaPromise<GetCoursePropertiesAggregateType<T>>
+
+    /**
+     * Group by CourseProperties.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoursePropertiesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CoursePropertiesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CoursePropertiesGroupByArgs['orderBy'] }
+        : { orderBy?: CoursePropertiesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CoursePropertiesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCoursePropertiesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CourseProperties model
+   */
+  readonly fields: CoursePropertiesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CourseProperties.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CoursePropertiesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    course<T extends CourseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CourseDefaultArgs<ExtArgs>>): Prisma__CourseClient<$Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CourseProperties model
+   */
+  interface CoursePropertiesFieldRefs {
+    readonly id: FieldRef<"CourseProperties", 'String'>
+    readonly courseId: FieldRef<"CourseProperties", 'String'>
+    readonly skippable: FieldRef<"CourseProperties", 'Boolean'>
+    readonly mandatory: FieldRef<"CourseProperties", 'Boolean'>
+    readonly retryType: FieldRef<"CourseProperties", 'RetryType'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CourseProperties findUnique
+   */
+  export type CoursePropertiesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseProperties
+     */
+    select?: CoursePropertiesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseProperties
+     */
+    omit?: CoursePropertiesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoursePropertiesInclude<ExtArgs> | null
+    /**
+     * Filter, which CourseProperties to fetch.
+     */
+    where: CoursePropertiesWhereUniqueInput
+  }
+
+  /**
+   * CourseProperties findUniqueOrThrow
+   */
+  export type CoursePropertiesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseProperties
+     */
+    select?: CoursePropertiesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseProperties
+     */
+    omit?: CoursePropertiesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoursePropertiesInclude<ExtArgs> | null
+    /**
+     * Filter, which CourseProperties to fetch.
+     */
+    where: CoursePropertiesWhereUniqueInput
+  }
+
+  /**
+   * CourseProperties findFirst
+   */
+  export type CoursePropertiesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseProperties
+     */
+    select?: CoursePropertiesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseProperties
+     */
+    omit?: CoursePropertiesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoursePropertiesInclude<ExtArgs> | null
+    /**
+     * Filter, which CourseProperties to fetch.
+     */
+    where?: CoursePropertiesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CourseProperties to fetch.
+     */
+    orderBy?: CoursePropertiesOrderByWithRelationInput | CoursePropertiesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CourseProperties.
+     */
+    cursor?: CoursePropertiesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CourseProperties from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CourseProperties.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CourseProperties.
+     */
+    distinct?: CoursePropertiesScalarFieldEnum | CoursePropertiesScalarFieldEnum[]
+  }
+
+  /**
+   * CourseProperties findFirstOrThrow
+   */
+  export type CoursePropertiesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseProperties
+     */
+    select?: CoursePropertiesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseProperties
+     */
+    omit?: CoursePropertiesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoursePropertiesInclude<ExtArgs> | null
+    /**
+     * Filter, which CourseProperties to fetch.
+     */
+    where?: CoursePropertiesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CourseProperties to fetch.
+     */
+    orderBy?: CoursePropertiesOrderByWithRelationInput | CoursePropertiesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CourseProperties.
+     */
+    cursor?: CoursePropertiesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CourseProperties from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CourseProperties.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CourseProperties.
+     */
+    distinct?: CoursePropertiesScalarFieldEnum | CoursePropertiesScalarFieldEnum[]
+  }
+
+  /**
+   * CourseProperties findMany
+   */
+  export type CoursePropertiesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseProperties
+     */
+    select?: CoursePropertiesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseProperties
+     */
+    omit?: CoursePropertiesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoursePropertiesInclude<ExtArgs> | null
+    /**
+     * Filter, which CourseProperties to fetch.
+     */
+    where?: CoursePropertiesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CourseProperties to fetch.
+     */
+    orderBy?: CoursePropertiesOrderByWithRelationInput | CoursePropertiesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CourseProperties.
+     */
+    cursor?: CoursePropertiesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CourseProperties from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CourseProperties.
+     */
+    skip?: number
+    distinct?: CoursePropertiesScalarFieldEnum | CoursePropertiesScalarFieldEnum[]
+  }
+
+  /**
+   * CourseProperties create
+   */
+  export type CoursePropertiesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseProperties
+     */
+    select?: CoursePropertiesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseProperties
+     */
+    omit?: CoursePropertiesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoursePropertiesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CourseProperties.
+     */
+    data: XOR<CoursePropertiesCreateInput, CoursePropertiesUncheckedCreateInput>
+  }
+
+  /**
+   * CourseProperties createMany
+   */
+  export type CoursePropertiesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CourseProperties.
+     */
+    data: CoursePropertiesCreateManyInput | CoursePropertiesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CourseProperties createManyAndReturn
+   */
+  export type CoursePropertiesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseProperties
+     */
+    select?: CoursePropertiesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseProperties
+     */
+    omit?: CoursePropertiesOmit<ExtArgs> | null
+    /**
+     * The data used to create many CourseProperties.
+     */
+    data: CoursePropertiesCreateManyInput | CoursePropertiesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoursePropertiesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CourseProperties update
+   */
+  export type CoursePropertiesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseProperties
+     */
+    select?: CoursePropertiesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseProperties
+     */
+    omit?: CoursePropertiesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoursePropertiesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CourseProperties.
+     */
+    data: XOR<CoursePropertiesUpdateInput, CoursePropertiesUncheckedUpdateInput>
+    /**
+     * Choose, which CourseProperties to update.
+     */
+    where: CoursePropertiesWhereUniqueInput
+  }
+
+  /**
+   * CourseProperties updateMany
+   */
+  export type CoursePropertiesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CourseProperties.
+     */
+    data: XOR<CoursePropertiesUpdateManyMutationInput, CoursePropertiesUncheckedUpdateManyInput>
+    /**
+     * Filter which CourseProperties to update
+     */
+    where?: CoursePropertiesWhereInput
+    /**
+     * Limit how many CourseProperties to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CourseProperties updateManyAndReturn
+   */
+  export type CoursePropertiesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseProperties
+     */
+    select?: CoursePropertiesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseProperties
+     */
+    omit?: CoursePropertiesOmit<ExtArgs> | null
+    /**
+     * The data used to update CourseProperties.
+     */
+    data: XOR<CoursePropertiesUpdateManyMutationInput, CoursePropertiesUncheckedUpdateManyInput>
+    /**
+     * Filter which CourseProperties to update
+     */
+    where?: CoursePropertiesWhereInput
+    /**
+     * Limit how many CourseProperties to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoursePropertiesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CourseProperties upsert
+   */
+  export type CoursePropertiesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseProperties
+     */
+    select?: CoursePropertiesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseProperties
+     */
+    omit?: CoursePropertiesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoursePropertiesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CourseProperties to update in case it exists.
+     */
+    where: CoursePropertiesWhereUniqueInput
+    /**
+     * In case the CourseProperties found by the `where` argument doesn't exist, create a new CourseProperties with this data.
+     */
+    create: XOR<CoursePropertiesCreateInput, CoursePropertiesUncheckedCreateInput>
+    /**
+     * In case the CourseProperties was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CoursePropertiesUpdateInput, CoursePropertiesUncheckedUpdateInput>
+  }
+
+  /**
+   * CourseProperties delete
+   */
+  export type CoursePropertiesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseProperties
+     */
+    select?: CoursePropertiesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseProperties
+     */
+    omit?: CoursePropertiesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoursePropertiesInclude<ExtArgs> | null
+    /**
+     * Filter which CourseProperties to delete.
+     */
+    where: CoursePropertiesWhereUniqueInput
+  }
+
+  /**
+   * CourseProperties deleteMany
+   */
+  export type CoursePropertiesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CourseProperties to delete
+     */
+    where?: CoursePropertiesWhereInput
+    /**
+     * Limit how many CourseProperties to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CourseProperties without action
+   */
+  export type CoursePropertiesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CourseProperties
+     */
+    select?: CoursePropertiesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CourseProperties
+     */
+    omit?: CoursePropertiesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoursePropertiesInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -14492,10 +15616,8 @@ export namespace Prisma {
     id: 'id',
     title: 'title',
     description: 'description',
-    duration: 'duration',
     tags: 'tags',
     learningObjectives: 'learningObjectives',
-    targetAudience: 'targetAudience',
     materialUrl: 'materialUrl',
     videoUrl: 'videoUrl',
     slides: 'slides',
@@ -14591,6 +15713,17 @@ export namespace Prisma {
   export type OrganizationInterestScalarFieldEnum = (typeof OrganizationInterestScalarFieldEnum)[keyof typeof OrganizationInterestScalarFieldEnum]
 
 
+  export const CoursePropertiesScalarFieldEnum: {
+    id: 'id',
+    courseId: 'courseId',
+    skippable: 'skippable',
+    mandatory: 'mandatory',
+    retryType: 'retryType'
+  };
+
+  export type CoursePropertiesScalarFieldEnum = (typeof CoursePropertiesScalarFieldEnum)[keyof typeof CoursePropertiesScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -14680,20 +15813,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Json[]'
    */
   export type ListJsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json[]'>
@@ -14746,6 +15865,34 @@ export namespace Prisma {
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'RetryType'
+   */
+  export type EnumRetryTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RetryType'>
+    
+
+
+  /**
+   * Reference to a field of type 'RetryType[]'
+   */
+  export type ListEnumRetryTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RetryType[]'>
     
 
 
@@ -15053,10 +16200,8 @@ export namespace Prisma {
     id?: StringFilter<"Course"> | string
     title?: StringFilter<"Course"> | string
     description?: StringNullableFilter<"Course"> | string | null
-    duration?: IntFilter<"Course"> | number
     tags?: StringFilter<"Course"> | string
     learningObjectives?: StringFilter<"Course"> | string
-    targetAudience?: StringFilter<"Course"> | string
     materialUrl?: StringFilter<"Course"> | string
     videoUrl?: StringNullableFilter<"Course"> | string | null
     slides?: JsonNullableListFilter<"Course">
@@ -15066,16 +16211,15 @@ export namespace Prisma {
     enrollments?: EnrollmentListRelationFilter
     tenants?: TenantCourseListRelationFilter
     slideExplanations?: SlideExplanationListRelationFilter
+    properties?: XOR<CoursePropertiesNullableScalarRelationFilter, CoursePropertiesWhereInput> | null
   }
 
   export type CourseOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrderInput | SortOrder
-    duration?: SortOrder
     tags?: SortOrder
     learningObjectives?: SortOrder
-    targetAudience?: SortOrder
     materialUrl?: SortOrder
     videoUrl?: SortOrderInput | SortOrder
     slides?: SortOrder
@@ -15085,6 +16229,7 @@ export namespace Prisma {
     enrollments?: EnrollmentOrderByRelationAggregateInput
     tenants?: TenantCourseOrderByRelationAggregateInput
     slideExplanations?: SlideExplanationOrderByRelationAggregateInput
+    properties?: CoursePropertiesOrderByWithRelationInput
   }
 
   export type CourseWhereUniqueInput = Prisma.AtLeast<{
@@ -15094,10 +16239,8 @@ export namespace Prisma {
     NOT?: CourseWhereInput | CourseWhereInput[]
     title?: StringFilter<"Course"> | string
     description?: StringNullableFilter<"Course"> | string | null
-    duration?: IntFilter<"Course"> | number
     tags?: StringFilter<"Course"> | string
     learningObjectives?: StringFilter<"Course"> | string
-    targetAudience?: StringFilter<"Course"> | string
     materialUrl?: StringFilter<"Course"> | string
     videoUrl?: StringNullableFilter<"Course"> | string | null
     slides?: JsonNullableListFilter<"Course">
@@ -15107,26 +16250,23 @@ export namespace Prisma {
     enrollments?: EnrollmentListRelationFilter
     tenants?: TenantCourseListRelationFilter
     slideExplanations?: SlideExplanationListRelationFilter
+    properties?: XOR<CoursePropertiesNullableScalarRelationFilter, CoursePropertiesWhereInput> | null
   }, "id">
 
   export type CourseOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrderInput | SortOrder
-    duration?: SortOrder
     tags?: SortOrder
     learningObjectives?: SortOrder
-    targetAudience?: SortOrder
     materialUrl?: SortOrder
     videoUrl?: SortOrderInput | SortOrder
     slides?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CourseCountOrderByAggregateInput
-    _avg?: CourseAvgOrderByAggregateInput
     _max?: CourseMaxOrderByAggregateInput
     _min?: CourseMinOrderByAggregateInput
-    _sum?: CourseSumOrderByAggregateInput
   }
 
   export type CourseScalarWhereWithAggregatesInput = {
@@ -15136,10 +16276,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Course"> | string
     title?: StringWithAggregatesFilter<"Course"> | string
     description?: StringNullableWithAggregatesFilter<"Course"> | string | null
-    duration?: IntWithAggregatesFilter<"Course"> | number
     tags?: StringWithAggregatesFilter<"Course"> | string
     learningObjectives?: StringWithAggregatesFilter<"Course"> | string
-    targetAudience?: StringWithAggregatesFilter<"Course"> | string
     materialUrl?: StringWithAggregatesFilter<"Course"> | string
     videoUrl?: StringNullableWithAggregatesFilter<"Course"> | string | null
     slides?: JsonNullableListFilter<"Course">
@@ -15586,6 +16724,61 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"OrganizationInterest"> | Date | string
   }
 
+  export type CoursePropertiesWhereInput = {
+    AND?: CoursePropertiesWhereInput | CoursePropertiesWhereInput[]
+    OR?: CoursePropertiesWhereInput[]
+    NOT?: CoursePropertiesWhereInput | CoursePropertiesWhereInput[]
+    id?: StringFilter<"CourseProperties"> | string
+    courseId?: StringFilter<"CourseProperties"> | string
+    skippable?: BoolFilter<"CourseProperties"> | boolean
+    mandatory?: BoolFilter<"CourseProperties"> | boolean
+    retryType?: EnumRetryTypeFilter<"CourseProperties"> | $Enums.RetryType
+    course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
+  }
+
+  export type CoursePropertiesOrderByWithRelationInput = {
+    id?: SortOrder
+    courseId?: SortOrder
+    skippable?: SortOrder
+    mandatory?: SortOrder
+    retryType?: SortOrder
+    course?: CourseOrderByWithRelationInput
+  }
+
+  export type CoursePropertiesWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    courseId?: string
+    AND?: CoursePropertiesWhereInput | CoursePropertiesWhereInput[]
+    OR?: CoursePropertiesWhereInput[]
+    NOT?: CoursePropertiesWhereInput | CoursePropertiesWhereInput[]
+    skippable?: BoolFilter<"CourseProperties"> | boolean
+    mandatory?: BoolFilter<"CourseProperties"> | boolean
+    retryType?: EnumRetryTypeFilter<"CourseProperties"> | $Enums.RetryType
+    course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
+  }, "id" | "courseId">
+
+  export type CoursePropertiesOrderByWithAggregationInput = {
+    id?: SortOrder
+    courseId?: SortOrder
+    skippable?: SortOrder
+    mandatory?: SortOrder
+    retryType?: SortOrder
+    _count?: CoursePropertiesCountOrderByAggregateInput
+    _max?: CoursePropertiesMaxOrderByAggregateInput
+    _min?: CoursePropertiesMinOrderByAggregateInput
+  }
+
+  export type CoursePropertiesScalarWhereWithAggregatesInput = {
+    AND?: CoursePropertiesScalarWhereWithAggregatesInput | CoursePropertiesScalarWhereWithAggregatesInput[]
+    OR?: CoursePropertiesScalarWhereWithAggregatesInput[]
+    NOT?: CoursePropertiesScalarWhereWithAggregatesInput | CoursePropertiesScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CourseProperties"> | string
+    courseId?: StringWithAggregatesFilter<"CourseProperties"> | string
+    skippable?: BoolWithAggregatesFilter<"CourseProperties"> | boolean
+    mandatory?: BoolWithAggregatesFilter<"CourseProperties"> | boolean
+    retryType?: EnumRetryTypeWithAggregatesFilter<"CourseProperties"> | $Enums.RetryType
+  }
+
   export type TenantCreateInput = {
     id?: string
     name: string
@@ -15920,10 +17113,8 @@ export namespace Prisma {
     id?: string
     title: string
     description?: string | null
-    duration: number
     tags: string
     learningObjectives: string
-    targetAudience: string
     materialUrl: string
     videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
@@ -15933,16 +17124,15 @@ export namespace Prisma {
     enrollments?: EnrollmentCreateNestedManyWithoutCourseInput
     tenants?: TenantCourseCreateNestedManyWithoutCourseInput
     slideExplanations?: SlideExplanationCreateNestedManyWithoutCourseInput
+    properties?: CoursePropertiesCreateNestedOneWithoutCourseInput
   }
 
   export type CourseUncheckedCreateInput = {
     id?: string
     title: string
     description?: string | null
-    duration: number
     tags: string
     learningObjectives: string
-    targetAudience: string
     materialUrl: string
     videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
@@ -15952,16 +17142,15 @@ export namespace Prisma {
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutCourseInput
     tenants?: TenantCourseUncheckedCreateNestedManyWithoutCourseInput
     slideExplanations?: SlideExplanationUncheckedCreateNestedManyWithoutCourseInput
+    properties?: CoursePropertiesUncheckedCreateNestedOneWithoutCourseInput
   }
 
   export type CourseUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: IntFieldUpdateOperationsInput | number
     tags?: StringFieldUpdateOperationsInput | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
-    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -15971,16 +17160,15 @@ export namespace Prisma {
     enrollments?: EnrollmentUpdateManyWithoutCourseNestedInput
     tenants?: TenantCourseUpdateManyWithoutCourseNestedInput
     slideExplanations?: SlideExplanationUpdateManyWithoutCourseNestedInput
+    properties?: CoursePropertiesUpdateOneWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: IntFieldUpdateOperationsInput | number
     tags?: StringFieldUpdateOperationsInput | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
-    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -15990,16 +17178,15 @@ export namespace Prisma {
     enrollments?: EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
     tenants?: TenantCourseUncheckedUpdateManyWithoutCourseNestedInput
     slideExplanations?: SlideExplanationUncheckedUpdateManyWithoutCourseNestedInput
+    properties?: CoursePropertiesUncheckedUpdateOneWithoutCourseNestedInput
   }
 
   export type CourseCreateManyInput = {
     id?: string
     title: string
     description?: string | null
-    duration: number
     tags: string
     learningObjectives: string
-    targetAudience: string
     materialUrl: string
     videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
@@ -16011,10 +17198,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: IntFieldUpdateOperationsInput | number
     tags?: StringFieldUpdateOperationsInput | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
-    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -16026,10 +17211,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: IntFieldUpdateOperationsInput | number
     tags?: StringFieldUpdateOperationsInput | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
-    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -16480,6 +17663,61 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CoursePropertiesCreateInput = {
+    id?: string
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: $Enums.RetryType
+    course: CourseCreateNestedOneWithoutPropertiesInput
+  }
+
+  export type CoursePropertiesUncheckedCreateInput = {
+    id?: string
+    courseId: string
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: $Enums.RetryType
+  }
+
+  export type CoursePropertiesUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skippable?: BoolFieldUpdateOperationsInput | boolean
+    mandatory?: BoolFieldUpdateOperationsInput | boolean
+    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+    course?: CourseUpdateOneRequiredWithoutPropertiesNestedInput
+  }
+
+  export type CoursePropertiesUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    courseId?: StringFieldUpdateOperationsInput | string
+    skippable?: BoolFieldUpdateOperationsInput | boolean
+    mandatory?: BoolFieldUpdateOperationsInput | boolean
+    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+  }
+
+  export type CoursePropertiesCreateManyInput = {
+    id?: string
+    courseId: string
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: $Enums.RetryType
+  }
+
+  export type CoursePropertiesUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skippable?: BoolFieldUpdateOperationsInput | boolean
+    mandatory?: BoolFieldUpdateOperationsInput | boolean
+    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+  }
+
+  export type CoursePropertiesUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    courseId?: StringFieldUpdateOperationsInput | string
+    skippable?: BoolFieldUpdateOperationsInput | boolean
+    mandatory?: BoolFieldUpdateOperationsInput | boolean
+    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -16795,17 +18033,6 @@ export namespace Prisma {
     _min?: NestedEnumUserRoleFilter<$PrismaModel>
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
-
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
   export type JsonNullableListFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<JsonNullableListFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableListFilterBase<$PrismaModel>>, 'path'>>,
@@ -16833,6 +18060,11 @@ export namespace Prisma {
     none?: SlideExplanationWhereInput
   }
 
+  export type CoursePropertiesNullableScalarRelationFilter = {
+    is?: CoursePropertiesWhereInput | null
+    isNot?: CoursePropertiesWhereInput | null
+  }
+
   export type MCQOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -16845,10 +18077,8 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    duration?: SortOrder
     tags?: SortOrder
     learningObjectives?: SortOrder
-    targetAudience?: SortOrder
     materialUrl?: SortOrder
     videoUrl?: SortOrder
     slides?: SortOrder
@@ -16856,18 +18086,12 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type CourseAvgOrderByAggregateInput = {
-    duration?: SortOrder
-  }
-
   export type CourseMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    duration?: SortOrder
     tags?: SortOrder
     learningObjectives?: SortOrder
-    targetAudience?: SortOrder
     materialUrl?: SortOrder
     videoUrl?: SortOrder
     createdAt?: SortOrder
@@ -16878,34 +18102,12 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    duration?: SortOrder
     tags?: SortOrder
     learningObjectives?: SortOrder
-    targetAudience?: SortOrder
     materialUrl?: SortOrder
     videoUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type CourseSumOrderByAggregateInput = {
-    duration?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type DecimalFilter<$PrismaModel = never> = {
@@ -17173,6 +18375,17 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type SlideExplanationCountOrderByAggregateInput = {
     id?: SortOrder
     courseId?: SortOrder
@@ -17206,6 +18419,22 @@ export namespace Prisma {
 
   export type SlideExplanationSumOrderByAggregateInput = {
     slideNumber?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type OrganizationInterestEmailOrganizationNameCompoundUniqueInput = {
@@ -17244,6 +18473,47 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type EnumRetryTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.RetryType | EnumRetryTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRetryTypeFilter<$PrismaModel> | $Enums.RetryType
+  }
+
+  export type CoursePropertiesCountOrderByAggregateInput = {
+    id?: SortOrder
+    courseId?: SortOrder
+    skippable?: SortOrder
+    mandatory?: SortOrder
+    retryType?: SortOrder
+  }
+
+  export type CoursePropertiesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    courseId?: SortOrder
+    skippable?: SortOrder
+    mandatory?: SortOrder
+    retryType?: SortOrder
+  }
+
+  export type CoursePropertiesMinOrderByAggregateInput = {
+    id?: SortOrder
+    courseId?: SortOrder
+    skippable?: SortOrder
+    mandatory?: SortOrder
+    retryType?: SortOrder
+  }
+
+  export type EnumRetryTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RetryType | EnumRetryTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRetryTypeWithAggregatesFilter<$PrismaModel> | $Enums.RetryType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRetryTypeFilter<$PrismaModel>
+    _max?: NestedEnumRetryTypeFilter<$PrismaModel>
   }
 
   export type UserCreateNestedManyWithoutTenantInput = {
@@ -17575,6 +18845,12 @@ export namespace Prisma {
     connect?: SlideExplanationWhereUniqueInput | SlideExplanationWhereUniqueInput[]
   }
 
+  export type CoursePropertiesCreateNestedOneWithoutCourseInput = {
+    create?: XOR<CoursePropertiesCreateWithoutCourseInput, CoursePropertiesUncheckedCreateWithoutCourseInput>
+    connectOrCreate?: CoursePropertiesCreateOrConnectWithoutCourseInput
+    connect?: CoursePropertiesWhereUniqueInput
+  }
+
   export type MCQUncheckedCreateNestedManyWithoutCourseInput = {
     create?: XOR<MCQCreateWithoutCourseInput, MCQUncheckedCreateWithoutCourseInput> | MCQCreateWithoutCourseInput[] | MCQUncheckedCreateWithoutCourseInput[]
     connectOrCreate?: MCQCreateOrConnectWithoutCourseInput | MCQCreateOrConnectWithoutCourseInput[]
@@ -17603,12 +18879,10 @@ export namespace Prisma {
     connect?: SlideExplanationWhereUniqueInput | SlideExplanationWhereUniqueInput[]
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
+  export type CoursePropertiesUncheckedCreateNestedOneWithoutCourseInput = {
+    create?: XOR<CoursePropertiesCreateWithoutCourseInput, CoursePropertiesUncheckedCreateWithoutCourseInput>
+    connectOrCreate?: CoursePropertiesCreateOrConnectWithoutCourseInput
+    connect?: CoursePropertiesWhereUniqueInput
   }
 
   export type CourseUpdateslidesInput = {
@@ -17672,6 +18946,16 @@ export namespace Prisma {
     deleteMany?: SlideExplanationScalarWhereInput | SlideExplanationScalarWhereInput[]
   }
 
+  export type CoursePropertiesUpdateOneWithoutCourseNestedInput = {
+    create?: XOR<CoursePropertiesCreateWithoutCourseInput, CoursePropertiesUncheckedCreateWithoutCourseInput>
+    connectOrCreate?: CoursePropertiesCreateOrConnectWithoutCourseInput
+    upsert?: CoursePropertiesUpsertWithoutCourseInput
+    disconnect?: CoursePropertiesWhereInput | boolean
+    delete?: CoursePropertiesWhereInput | boolean
+    connect?: CoursePropertiesWhereUniqueInput
+    update?: XOR<XOR<CoursePropertiesUpdateToOneWithWhereWithoutCourseInput, CoursePropertiesUpdateWithoutCourseInput>, CoursePropertiesUncheckedUpdateWithoutCourseInput>
+  }
+
   export type MCQUncheckedUpdateManyWithoutCourseNestedInput = {
     create?: XOR<MCQCreateWithoutCourseInput, MCQUncheckedCreateWithoutCourseInput> | MCQCreateWithoutCourseInput[] | MCQUncheckedCreateWithoutCourseInput[]
     connectOrCreate?: MCQCreateOrConnectWithoutCourseInput | MCQCreateOrConnectWithoutCourseInput[]
@@ -17726,6 +19010,16 @@ export namespace Prisma {
     update?: SlideExplanationUpdateWithWhereUniqueWithoutCourseInput | SlideExplanationUpdateWithWhereUniqueWithoutCourseInput[]
     updateMany?: SlideExplanationUpdateManyWithWhereWithoutCourseInput | SlideExplanationUpdateManyWithWhereWithoutCourseInput[]
     deleteMany?: SlideExplanationScalarWhereInput | SlideExplanationScalarWhereInput[]
+  }
+
+  export type CoursePropertiesUncheckedUpdateOneWithoutCourseNestedInput = {
+    create?: XOR<CoursePropertiesCreateWithoutCourseInput, CoursePropertiesUncheckedCreateWithoutCourseInput>
+    connectOrCreate?: CoursePropertiesCreateOrConnectWithoutCourseInput
+    upsert?: CoursePropertiesUpsertWithoutCourseInput
+    disconnect?: CoursePropertiesWhereInput | boolean
+    delete?: CoursePropertiesWhereInput | boolean
+    connect?: CoursePropertiesWhereUniqueInput
+    update?: XOR<XOR<CoursePropertiesUpdateToOneWithWhereWithoutCourseInput, CoursePropertiesUpdateWithoutCourseInput>, CoursePropertiesUncheckedUpdateWithoutCourseInput>
   }
 
   export type UserCreateNestedOneWithoutEnrollmentsInput = {
@@ -17913,12 +19207,38 @@ export namespace Prisma {
     connect?: CourseWhereUniqueInput
   }
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type CourseUpdateOneRequiredWithoutSlideExplanationsNestedInput = {
     create?: XOR<CourseCreateWithoutSlideExplanationsInput, CourseUncheckedCreateWithoutSlideExplanationsInput>
     connectOrCreate?: CourseCreateOrConnectWithoutSlideExplanationsInput
     upsert?: CourseUpsertWithoutSlideExplanationsInput
     connect?: CourseWhereUniqueInput
     update?: XOR<XOR<CourseUpdateToOneWithWhereWithoutSlideExplanationsInput, CourseUpdateWithoutSlideExplanationsInput>, CourseUncheckedUpdateWithoutSlideExplanationsInput>
+  }
+
+  export type CourseCreateNestedOneWithoutPropertiesInput = {
+    create?: XOR<CourseCreateWithoutPropertiesInput, CourseUncheckedCreateWithoutPropertiesInput>
+    connectOrCreate?: CourseCreateOrConnectWithoutPropertiesInput
+    connect?: CourseWhereUniqueInput
+  }
+
+  export type EnumRetryTypeFieldUpdateOperationsInput = {
+    set?: $Enums.RetryType
+  }
+
+  export type CourseUpdateOneRequiredWithoutPropertiesNestedInput = {
+    create?: XOR<CourseCreateWithoutPropertiesInput, CourseUncheckedCreateWithoutPropertiesInput>
+    connectOrCreate?: CourseCreateOrConnectWithoutPropertiesInput
+    upsert?: CourseUpsertWithoutPropertiesInput
+    connect?: CourseWhereUniqueInput
+    update?: XOR<XOR<CourseUpdateToOneWithWhereWithoutPropertiesInput, CourseUpdateWithoutPropertiesInput>, CourseUncheckedUpdateWithoutPropertiesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -18047,33 +19367,6 @@ export namespace Prisma {
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type NestedDecimalFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -18152,6 +19445,50 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedEnumRetryTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.RetryType | EnumRetryTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRetryTypeFilter<$PrismaModel> | $Enums.RetryType
+  }
+
+  export type NestedEnumRetryTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RetryType | EnumRetryTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRetryTypeWithAggregatesFilter<$PrismaModel> | $Enums.RetryType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRetryTypeFilter<$PrismaModel>
+    _max?: NestedEnumRetryTypeFilter<$PrismaModel>
   }
 
   export type UserCreateWithoutTenantInput = {
@@ -18761,6 +20098,25 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type CoursePropertiesCreateWithoutCourseInput = {
+    id?: string
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: $Enums.RetryType
+  }
+
+  export type CoursePropertiesUncheckedCreateWithoutCourseInput = {
+    id?: string
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: $Enums.RetryType
+  }
+
+  export type CoursePropertiesCreateOrConnectWithoutCourseInput = {
+    where: CoursePropertiesWhereUniqueInput
+    create: XOR<CoursePropertiesCreateWithoutCourseInput, CoursePropertiesUncheckedCreateWithoutCourseInput>
+  }
+
   export type MCQUpsertWithWhereUniqueWithoutCourseInput = {
     where: MCQWhereUniqueInput
     update: XOR<MCQUpdateWithoutCourseInput, MCQUncheckedUpdateWithoutCourseInput>
@@ -18851,6 +20207,31 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"SlideExplanation"> | Date | string
   }
 
+  export type CoursePropertiesUpsertWithoutCourseInput = {
+    update: XOR<CoursePropertiesUpdateWithoutCourseInput, CoursePropertiesUncheckedUpdateWithoutCourseInput>
+    create: XOR<CoursePropertiesCreateWithoutCourseInput, CoursePropertiesUncheckedCreateWithoutCourseInput>
+    where?: CoursePropertiesWhereInput
+  }
+
+  export type CoursePropertiesUpdateToOneWithWhereWithoutCourseInput = {
+    where?: CoursePropertiesWhereInput
+    data: XOR<CoursePropertiesUpdateWithoutCourseInput, CoursePropertiesUncheckedUpdateWithoutCourseInput>
+  }
+
+  export type CoursePropertiesUpdateWithoutCourseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skippable?: BoolFieldUpdateOperationsInput | boolean
+    mandatory?: BoolFieldUpdateOperationsInput | boolean
+    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+  }
+
+  export type CoursePropertiesUncheckedUpdateWithoutCourseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skippable?: BoolFieldUpdateOperationsInput | boolean
+    mandatory?: BoolFieldUpdateOperationsInput | boolean
+    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+  }
+
   export type UserCreateWithoutEnrollmentsInput = {
     id?: string
     email: string
@@ -18886,10 +20267,8 @@ export namespace Prisma {
     id?: string
     title: string
     description?: string | null
-    duration: number
     tags: string
     learningObjectives: string
-    targetAudience: string
     materialUrl: string
     videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
@@ -18898,16 +20277,15 @@ export namespace Prisma {
     mcqs?: MCQCreateNestedManyWithoutCourseInput
     tenants?: TenantCourseCreateNestedManyWithoutCourseInput
     slideExplanations?: SlideExplanationCreateNestedManyWithoutCourseInput
+    properties?: CoursePropertiesCreateNestedOneWithoutCourseInput
   }
 
   export type CourseUncheckedCreateWithoutEnrollmentsInput = {
     id?: string
     title: string
     description?: string | null
-    duration: number
     tags: string
     learningObjectives: string
-    targetAudience: string
     materialUrl: string
     videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
@@ -18916,6 +20294,7 @@ export namespace Prisma {
     mcqs?: MCQUncheckedCreateNestedManyWithoutCourseInput
     tenants?: TenantCourseUncheckedCreateNestedManyWithoutCourseInput
     slideExplanations?: SlideExplanationUncheckedCreateNestedManyWithoutCourseInput
+    properties?: CoursePropertiesUncheckedCreateNestedOneWithoutCourseInput
   }
 
   export type CourseCreateOrConnectWithoutEnrollmentsInput = {
@@ -18975,10 +20354,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: IntFieldUpdateOperationsInput | number
     tags?: StringFieldUpdateOperationsInput | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
-    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -18987,16 +20364,15 @@ export namespace Prisma {
     mcqs?: MCQUpdateManyWithoutCourseNestedInput
     tenants?: TenantCourseUpdateManyWithoutCourseNestedInput
     slideExplanations?: SlideExplanationUpdateManyWithoutCourseNestedInput
+    properties?: CoursePropertiesUpdateOneWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateWithoutEnrollmentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: IntFieldUpdateOperationsInput | number
     tags?: StringFieldUpdateOperationsInput | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
-    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -19005,6 +20381,7 @@ export namespace Prisma {
     mcqs?: MCQUncheckedUpdateManyWithoutCourseNestedInput
     tenants?: TenantCourseUncheckedUpdateManyWithoutCourseNestedInput
     slideExplanations?: SlideExplanationUncheckedUpdateManyWithoutCourseNestedInput
+    properties?: CoursePropertiesUncheckedUpdateOneWithoutCourseNestedInput
   }
 
   export type UserCreateWithoutCertificatesInput = {
@@ -19106,10 +20483,8 @@ export namespace Prisma {
     id?: string
     title: string
     description?: string | null
-    duration: number
     tags: string
     learningObjectives: string
-    targetAudience: string
     materialUrl: string
     videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
@@ -19118,16 +20493,15 @@ export namespace Prisma {
     mcqs?: MCQCreateNestedManyWithoutCourseInput
     enrollments?: EnrollmentCreateNestedManyWithoutCourseInput
     slideExplanations?: SlideExplanationCreateNestedManyWithoutCourseInput
+    properties?: CoursePropertiesCreateNestedOneWithoutCourseInput
   }
 
   export type CourseUncheckedCreateWithoutTenantsInput = {
     id?: string
     title: string
     description?: string | null
-    duration: number
     tags: string
     learningObjectives: string
-    targetAudience: string
     materialUrl: string
     videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
@@ -19136,6 +20510,7 @@ export namespace Prisma {
     mcqs?: MCQUncheckedCreateNestedManyWithoutCourseInput
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutCourseInput
     slideExplanations?: SlideExplanationUncheckedCreateNestedManyWithoutCourseInput
+    properties?: CoursePropertiesUncheckedCreateNestedOneWithoutCourseInput
   }
 
   export type CourseCreateOrConnectWithoutTenantsInput = {
@@ -19191,10 +20566,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: IntFieldUpdateOperationsInput | number
     tags?: StringFieldUpdateOperationsInput | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
-    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -19203,16 +20576,15 @@ export namespace Prisma {
     mcqs?: MCQUpdateManyWithoutCourseNestedInput
     enrollments?: EnrollmentUpdateManyWithoutCourseNestedInput
     slideExplanations?: SlideExplanationUpdateManyWithoutCourseNestedInput
+    properties?: CoursePropertiesUpdateOneWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateWithoutTenantsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: IntFieldUpdateOperationsInput | number
     tags?: StringFieldUpdateOperationsInput | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
-    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -19221,16 +20593,15 @@ export namespace Prisma {
     mcqs?: MCQUncheckedUpdateManyWithoutCourseNestedInput
     enrollments?: EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
     slideExplanations?: SlideExplanationUncheckedUpdateManyWithoutCourseNestedInput
+    properties?: CoursePropertiesUncheckedUpdateOneWithoutCourseNestedInput
   }
 
   export type CourseCreateWithoutMcqsInput = {
     id?: string
     title: string
     description?: string | null
-    duration: number
     tags: string
     learningObjectives: string
-    targetAudience: string
     materialUrl: string
     videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
@@ -19239,16 +20610,15 @@ export namespace Prisma {
     enrollments?: EnrollmentCreateNestedManyWithoutCourseInput
     tenants?: TenantCourseCreateNestedManyWithoutCourseInput
     slideExplanations?: SlideExplanationCreateNestedManyWithoutCourseInput
+    properties?: CoursePropertiesCreateNestedOneWithoutCourseInput
   }
 
   export type CourseUncheckedCreateWithoutMcqsInput = {
     id?: string
     title: string
     description?: string | null
-    duration: number
     tags: string
     learningObjectives: string
-    targetAudience: string
     materialUrl: string
     videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
@@ -19257,6 +20627,7 @@ export namespace Prisma {
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutCourseInput
     tenants?: TenantCourseUncheckedCreateNestedManyWithoutCourseInput
     slideExplanations?: SlideExplanationUncheckedCreateNestedManyWithoutCourseInput
+    properties?: CoursePropertiesUncheckedCreateNestedOneWithoutCourseInput
   }
 
   export type CourseCreateOrConnectWithoutMcqsInput = {
@@ -19305,10 +20676,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: IntFieldUpdateOperationsInput | number
     tags?: StringFieldUpdateOperationsInput | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
-    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -19317,16 +20686,15 @@ export namespace Prisma {
     enrollments?: EnrollmentUpdateManyWithoutCourseNestedInput
     tenants?: TenantCourseUpdateManyWithoutCourseNestedInput
     slideExplanations?: SlideExplanationUpdateManyWithoutCourseNestedInput
+    properties?: CoursePropertiesUpdateOneWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateWithoutMcqsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: IntFieldUpdateOperationsInput | number
     tags?: StringFieldUpdateOperationsInput | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
-    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -19335,6 +20703,7 @@ export namespace Prisma {
     enrollments?: EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
     tenants?: TenantCourseUncheckedUpdateManyWithoutCourseNestedInput
     slideExplanations?: SlideExplanationUncheckedUpdateManyWithoutCourseNestedInput
+    properties?: CoursePropertiesUncheckedUpdateOneWithoutCourseNestedInput
   }
 
   export type UserMCQAnswerUpsertWithWhereUniqueWithoutMcqInput = {
@@ -19485,10 +20854,8 @@ export namespace Prisma {
     id?: string
     title: string
     description?: string | null
-    duration: number
     tags: string
     learningObjectives: string
-    targetAudience: string
     materialUrl: string
     videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
@@ -19497,16 +20864,15 @@ export namespace Prisma {
     mcqs?: MCQCreateNestedManyWithoutCourseInput
     enrollments?: EnrollmentCreateNestedManyWithoutCourseInput
     tenants?: TenantCourseCreateNestedManyWithoutCourseInput
+    properties?: CoursePropertiesCreateNestedOneWithoutCourseInput
   }
 
   export type CourseUncheckedCreateWithoutSlideExplanationsInput = {
     id?: string
     title: string
     description?: string | null
-    duration: number
     tags: string
     learningObjectives: string
-    targetAudience: string
     materialUrl: string
     videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
@@ -19515,6 +20881,7 @@ export namespace Prisma {
     mcqs?: MCQUncheckedCreateNestedManyWithoutCourseInput
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutCourseInput
     tenants?: TenantCourseUncheckedCreateNestedManyWithoutCourseInput
+    properties?: CoursePropertiesUncheckedCreateNestedOneWithoutCourseInput
   }
 
   export type CourseCreateOrConnectWithoutSlideExplanationsInput = {
@@ -19537,10 +20904,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: IntFieldUpdateOperationsInput | number
     tags?: StringFieldUpdateOperationsInput | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
-    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -19549,16 +20914,15 @@ export namespace Prisma {
     mcqs?: MCQUpdateManyWithoutCourseNestedInput
     enrollments?: EnrollmentUpdateManyWithoutCourseNestedInput
     tenants?: TenantCourseUpdateManyWithoutCourseNestedInput
+    properties?: CoursePropertiesUpdateOneWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateWithoutSlideExplanationsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: IntFieldUpdateOperationsInput | number
     tags?: StringFieldUpdateOperationsInput | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
-    targetAudience?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
     videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
@@ -19567,6 +20931,91 @@ export namespace Prisma {
     mcqs?: MCQUncheckedUpdateManyWithoutCourseNestedInput
     enrollments?: EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
     tenants?: TenantCourseUncheckedUpdateManyWithoutCourseNestedInput
+    properties?: CoursePropertiesUncheckedUpdateOneWithoutCourseNestedInput
+  }
+
+  export type CourseCreateWithoutPropertiesInput = {
+    id?: string
+    title: string
+    description?: string | null
+    tags: string
+    learningObjectives: string
+    materialUrl: string
+    videoUrl?: string | null
+    slides?: CourseCreateslidesInput | InputJsonValue[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    mcqs?: MCQCreateNestedManyWithoutCourseInput
+    enrollments?: EnrollmentCreateNestedManyWithoutCourseInput
+    tenants?: TenantCourseCreateNestedManyWithoutCourseInput
+    slideExplanations?: SlideExplanationCreateNestedManyWithoutCourseInput
+  }
+
+  export type CourseUncheckedCreateWithoutPropertiesInput = {
+    id?: string
+    title: string
+    description?: string | null
+    tags: string
+    learningObjectives: string
+    materialUrl: string
+    videoUrl?: string | null
+    slides?: CourseCreateslidesInput | InputJsonValue[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    mcqs?: MCQUncheckedCreateNestedManyWithoutCourseInput
+    enrollments?: EnrollmentUncheckedCreateNestedManyWithoutCourseInput
+    tenants?: TenantCourseUncheckedCreateNestedManyWithoutCourseInput
+    slideExplanations?: SlideExplanationUncheckedCreateNestedManyWithoutCourseInput
+  }
+
+  export type CourseCreateOrConnectWithoutPropertiesInput = {
+    where: CourseWhereUniqueInput
+    create: XOR<CourseCreateWithoutPropertiesInput, CourseUncheckedCreateWithoutPropertiesInput>
+  }
+
+  export type CourseUpsertWithoutPropertiesInput = {
+    update: XOR<CourseUpdateWithoutPropertiesInput, CourseUncheckedUpdateWithoutPropertiesInput>
+    create: XOR<CourseCreateWithoutPropertiesInput, CourseUncheckedCreateWithoutPropertiesInput>
+    where?: CourseWhereInput
+  }
+
+  export type CourseUpdateToOneWithWhereWithoutPropertiesInput = {
+    where?: CourseWhereInput
+    data: XOR<CourseUpdateWithoutPropertiesInput, CourseUncheckedUpdateWithoutPropertiesInput>
+  }
+
+  export type CourseUpdateWithoutPropertiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: StringFieldUpdateOperationsInput | string
+    learningObjectives?: StringFieldUpdateOperationsInput | string
+    materialUrl?: StringFieldUpdateOperationsInput | string
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    slides?: CourseUpdateslidesInput | InputJsonValue[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mcqs?: MCQUpdateManyWithoutCourseNestedInput
+    enrollments?: EnrollmentUpdateManyWithoutCourseNestedInput
+    tenants?: TenantCourseUpdateManyWithoutCourseNestedInput
+    slideExplanations?: SlideExplanationUpdateManyWithoutCourseNestedInput
+  }
+
+  export type CourseUncheckedUpdateWithoutPropertiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: StringFieldUpdateOperationsInput | string
+    learningObjectives?: StringFieldUpdateOperationsInput | string
+    materialUrl?: StringFieldUpdateOperationsInput | string
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    slides?: CourseUpdateslidesInput | InputJsonValue[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mcqs?: MCQUncheckedUpdateManyWithoutCourseNestedInput
+    enrollments?: EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
+    tenants?: TenantCourseUncheckedUpdateManyWithoutCourseNestedInput
+    slideExplanations?: SlideExplanationUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type UserCreateManyTenantInput = {

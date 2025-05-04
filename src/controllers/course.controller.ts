@@ -16,11 +16,12 @@ const prisma = new PrismaClient();
 interface CourseRequest {
   title: string;
   description: string;
-  duration: number;
   tags: string | string[];
   learningObjectives: string | string[];
-  targetAudience: string | string[];
   companyName: string;
+  skippable?: boolean;
+  mandatory?: boolean;
+  retryType?: 'SAME' | 'DIFFERENT';
 }
 
 interface RequestWithFile extends Request {
@@ -52,10 +53,14 @@ const upload = multer({
   }
 }).single('courseMaterial');
 
+function toBool(val: any): boolean {
+  return val === true || val === 'true' || val === 1 || val === '1';
+}
+
 // Create a new course
 export const createCourse = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const { title, description, duration, tags, learningObjectives, targetAudience } = req.body;
+    const { title, description, tags, learningObjectives, skippable, mandatory, retryType } = req.body;
     const file = req.file;
 
     if (!file) {
@@ -64,7 +69,7 @@ export const createCourse = async (req: Request, res: Response, next: NextFuncti
     }
 
     // Validate required fields
-    if (!title || !description || !duration || !tags || !learningObjectives || !targetAudience) {
+    if (!title || !description || !tags || !learningObjectives) {
       res.status(400).json({ error: 'All fields are required' });
       return;
     }
@@ -76,12 +81,20 @@ export const createCourse = async (req: Request, res: Response, next: NextFuncti
       data: {
         title,
         description,
-        duration: parseInt(duration),
         tags,
         learningObjectives,
-        targetAudience,
         materialUrl: slidesUrl,
-        slides: []
+        slides: [],
+        properties: {
+          create: {
+            skippable: toBool(skippable),
+            mandatory: toBool(mandatory),
+            retryType: retryType === 'DIFFERENT' ? 'DIFFERENT' : 'SAME'
+          }
+        }
+      },
+      include: {
+        properties: true
       }
     });
 
@@ -142,13 +155,30 @@ export const updateCourse = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
-    const { title, description, duration } = req.body;
+    const { title, description, skippable, mandatory, retryType } = req.body;
+    // Update course main fields
     const course = await prisma.course.update({
       where: { id },
       data: {
         title,
         description,
-        duration
+        properties: {
+          upsert: {
+            create: {
+              skippable: toBool(skippable),
+              mandatory: toBool(mandatory),
+              retryType: retryType === 'DIFFERENT' ? 'DIFFERENT' : 'SAME'
+            },
+            update: {
+              skippable: toBool(skippable),
+              mandatory: toBool(mandatory),
+              retryType: retryType === 'DIFFERENT' ? 'DIFFERENT' : 'SAME'
+            }
+          }
+        }
+      },
+      include: {
+        properties: true
       }
     });
     res.json(course);
