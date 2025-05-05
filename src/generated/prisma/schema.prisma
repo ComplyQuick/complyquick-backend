@@ -205,4 +205,6 @@ model CourseProperties {
   skippable Boolean   @default(false)
   mandatory Boolean   @default(false)
   retryType RetryType @default(SAME)
+
+  @@map("CourseProperties")
 }
