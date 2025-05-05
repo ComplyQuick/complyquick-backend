@@ -45,7 +45,8 @@ router.get('/tenants/:tenantId/courses', asyncHandler(async (req: Request<{ tena
             include: {
               enrollments: {
                 where: { user: { tenantId } }
-              }
+              },
+              properties: true
             }
           }
         }
@@ -60,7 +61,8 @@ router.get('/tenants/:tenantId/courses', asyncHandler(async (req: Request<{ tena
 
   const courses = tenant.courses.map(tc => ({
     ...tc.course,
-    enrolledUsers: tc.course.enrollments.length
+    enrolledUsers: tc.course.enrollments.length,
+    properties: tc.course.properties
   }));
 
   res.json(courses);
