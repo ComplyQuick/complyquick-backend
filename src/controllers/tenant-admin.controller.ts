@@ -121,11 +121,7 @@ export const getTenantCourses = async (
     const courses = await prisma.tenantCourse.findMany({
       where: { tenantId },
       include: {
-        course: {
-          include: {
-            properties: true
-          }
-        }
+        course: true
       }
     });
     res.json(courses);

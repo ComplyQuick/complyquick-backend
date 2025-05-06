@@ -68,11 +68,6 @@ export type SlideExplanation = $Result.DefaultSelection<Prisma.$SlideExplanation
  * 
  */
 export type OrganizationInterest = $Result.DefaultSelection<Prisma.$OrganizationInterestPayload>
-/**
- * Model CourseProperties
- * 
- */
-export type CourseProperties = $Result.DefaultSelection<Prisma.$CoursePropertiesPayload>
 
 /**
  * Enums
@@ -351,16 +346,6 @@ export class PrismaClient<
     * ```
     */
   get organizationInterest(): Prisma.OrganizationInterestDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.courseProperties`: Exposes CRUD operations for the **CourseProperties** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more CourseProperties
-    * const courseProperties = await prisma.courseProperties.findMany()
-    * ```
-    */
-  get courseProperties(): Prisma.CoursePropertiesDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -811,8 +796,7 @@ export namespace Prisma {
     MCQ: 'MCQ',
     UserMCQAnswer: 'UserMCQAnswer',
     SlideExplanation: 'SlideExplanation',
-    OrganizationInterest: 'OrganizationInterest',
-    CourseProperties: 'CourseProperties'
+    OrganizationInterest: 'OrganizationInterest'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -831,7 +815,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "tenant" | "tenantDetails" | "user" | "course" | "enrollment" | "certificate" | "tenantCourse" | "mCQ" | "userMCQAnswer" | "slideExplanation" | "organizationInterest" | "courseProperties"
+      modelProps: "tenant" | "tenantDetails" | "user" | "course" | "enrollment" | "certificate" | "tenantCourse" | "mCQ" | "userMCQAnswer" | "slideExplanation" | "organizationInterest"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1649,80 +1633,6 @@ export namespace Prisma {
           }
         }
       }
-      CourseProperties: {
-        payload: Prisma.$CoursePropertiesPayload<ExtArgs>
-        fields: Prisma.CoursePropertiesFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.CoursePropertiesFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoursePropertiesPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.CoursePropertiesFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoursePropertiesPayload>
-          }
-          findFirst: {
-            args: Prisma.CoursePropertiesFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoursePropertiesPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.CoursePropertiesFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoursePropertiesPayload>
-          }
-          findMany: {
-            args: Prisma.CoursePropertiesFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoursePropertiesPayload>[]
-          }
-          create: {
-            args: Prisma.CoursePropertiesCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoursePropertiesPayload>
-          }
-          createMany: {
-            args: Prisma.CoursePropertiesCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.CoursePropertiesCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoursePropertiesPayload>[]
-          }
-          delete: {
-            args: Prisma.CoursePropertiesDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoursePropertiesPayload>
-          }
-          update: {
-            args: Prisma.CoursePropertiesUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoursePropertiesPayload>
-          }
-          deleteMany: {
-            args: Prisma.CoursePropertiesDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.CoursePropertiesUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.CoursePropertiesUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoursePropertiesPayload>[]
-          }
-          upsert: {
-            args: Prisma.CoursePropertiesUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CoursePropertiesPayload>
-          }
-          aggregate: {
-            args: Prisma.CoursePropertiesAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateCourseProperties>
-          }
-          groupBy: {
-            args: Prisma.CoursePropertiesGroupByArgs<ExtArgs>
-            result: $Utils.Optional<CoursePropertiesGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.CoursePropertiesCountArgs<ExtArgs>
-            result: $Utils.Optional<CoursePropertiesCountAggregateOutputType> | number
-          }
-        }
-      }
     }
   } & {
     other: {
@@ -1818,7 +1728,6 @@ export namespace Prisma {
     userMCQAnswer?: UserMCQAnswerOmit
     slideExplanation?: SlideExplanationOmit
     organizationInterest?: OrganizationInterestOmit
-    courseProperties?: CoursePropertiesOmit
   }
 
   /* Types for Logging */
@@ -1913,13 +1822,13 @@ export namespace Prisma {
    */
 
   export type TenantCountOutputType = {
-    users: number
     courses: number
+    users: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    users?: boolean | TenantCountOutputTypeCountUsersArgs
     courses?: boolean | TenantCountOutputTypeCountCoursesArgs
+    users?: boolean | TenantCountOutputTypeCountUsersArgs
   }
 
   // Custom InputTypes
@@ -1936,15 +1845,15 @@ export namespace Prisma {
   /**
    * TenantCountOutputType without action
    */
-  export type TenantCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UserWhereInput
+  export type TenantCountOutputTypeCountCoursesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TenantCourseWhereInput
   }
 
   /**
    * TenantCountOutputType without action
    */
-  export type TenantCountOutputTypeCountCoursesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TenantCourseWhereInput
+  export type TenantCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
   }
 
 
@@ -1953,14 +1862,14 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    enrollments: number
     certificates: number
+    enrollments: number
     mcqAnswers: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    enrollments?: boolean | UserCountOutputTypeCountEnrollmentsArgs
     certificates?: boolean | UserCountOutputTypeCountCertificatesArgs
+    enrollments?: boolean | UserCountOutputTypeCountEnrollmentsArgs
     mcqAnswers?: boolean | UserCountOutputTypeCountMcqAnswersArgs
   }
 
@@ -1978,15 +1887,15 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountEnrollmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: EnrollmentWhereInput
+  export type UserCountOutputTypeCountCertificatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CertificateWhereInput
   }
 
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountCertificatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CertificateWhereInput
+  export type UserCountOutputTypeCountEnrollmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EnrollmentWhereInput
   }
 
   /**
@@ -2002,17 +1911,17 @@ export namespace Prisma {
    */
 
   export type CourseCountOutputType = {
-    mcqs: number
     enrollments: number
-    tenants: number
+    mcqs: number
     slideExplanations: number
+    tenants: number
   }
 
   export type CourseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    mcqs?: boolean | CourseCountOutputTypeCountMcqsArgs
     enrollments?: boolean | CourseCountOutputTypeCountEnrollmentsArgs
-    tenants?: boolean | CourseCountOutputTypeCountTenantsArgs
+    mcqs?: boolean | CourseCountOutputTypeCountMcqsArgs
     slideExplanations?: boolean | CourseCountOutputTypeCountSlideExplanationsArgs
+    tenants?: boolean | CourseCountOutputTypeCountTenantsArgs
   }
 
   // Custom InputTypes
@@ -2029,13 +1938,6 @@ export namespace Prisma {
   /**
    * CourseCountOutputType without action
    */
-  export type CourseCountOutputTypeCountMcqsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MCQWhereInput
-  }
-
-  /**
-   * CourseCountOutputType without action
-   */
   export type CourseCountOutputTypeCountEnrollmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EnrollmentWhereInput
   }
@@ -2043,8 +1945,8 @@ export namespace Prisma {
   /**
    * CourseCountOutputType without action
    */
-  export type CourseCountOutputTypeCountTenantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TenantCourseWhereInput
+  export type CourseCountOutputTypeCountMcqsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MCQWhereInput
   }
 
   /**
@@ -2052,6 +1954,13 @@ export namespace Prisma {
    */
   export type CourseCountOutputTypeCountSlideExplanationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SlideExplanationWhereInput
+  }
+
+  /**
+   * CourseCountOutputType without action
+   */
+  export type CourseCountOutputTypeCountTenantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TenantCourseWhereInput
   }
 
 
@@ -2104,27 +2013,27 @@ export namespace Prisma {
     id: string | null
     name: string | null
     domain: string | null
+    createdAt: Date | null
     adminEmail: string | null
     adminPassword: string | null
-    createdAt: Date | null
   }
 
   export type TenantMaxAggregateOutputType = {
     id: string | null
     name: string | null
     domain: string | null
+    createdAt: Date | null
     adminEmail: string | null
     adminPassword: string | null
-    createdAt: Date | null
   }
 
   export type TenantCountAggregateOutputType = {
     id: number
     name: number
     domain: number
+    createdAt: number
     adminEmail: number
     adminPassword: number
-    createdAt: number
     _all: number
   }
 
@@ -2133,27 +2042,27 @@ export namespace Prisma {
     id?: true
     name?: true
     domain?: true
+    createdAt?: true
     adminEmail?: true
     adminPassword?: true
-    createdAt?: true
   }
 
   export type TenantMaxAggregateInputType = {
     id?: true
     name?: true
     domain?: true
+    createdAt?: true
     adminEmail?: true
     adminPassword?: true
-    createdAt?: true
   }
 
   export type TenantCountAggregateInputType = {
     id?: true
     name?: true
     domain?: true
+    createdAt?: true
     adminEmail?: true
     adminPassword?: true
-    createdAt?: true
     _all?: true
   }
 
@@ -2233,9 +2142,9 @@ export namespace Prisma {
     id: string
     name: string
     domain: string
+    createdAt: Date
     adminEmail: string
     adminPassword: string
-    createdAt: Date
     _count: TenantCountAggregateOutputType | null
     _min: TenantMinAggregateOutputType | null
     _max: TenantMaxAggregateOutputType | null
@@ -2259,12 +2168,12 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     domain?: boolean
+    createdAt?: boolean
     adminEmail?: boolean
     adminPassword?: boolean
-    createdAt?: boolean
-    users?: boolean | Tenant$usersArgs<ExtArgs>
-    details?: boolean | Tenant$detailsArgs<ExtArgs>
     courses?: boolean | Tenant$coursesArgs<ExtArgs>
+    details?: boolean | Tenant$detailsArgs<ExtArgs>
+    users?: boolean | Tenant$usersArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
@@ -2272,34 +2181,34 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     domain?: boolean
+    createdAt?: boolean
     adminEmail?: boolean
     adminPassword?: boolean
-    createdAt?: boolean
   }, ExtArgs["result"]["tenant"]>
 
   export type TenantSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     domain?: boolean
+    createdAt?: boolean
     adminEmail?: boolean
     adminPassword?: boolean
-    createdAt?: boolean
   }, ExtArgs["result"]["tenant"]>
 
   export type TenantSelectScalar = {
     id?: boolean
     name?: boolean
     domain?: boolean
+    createdAt?: boolean
     adminEmail?: boolean
     adminPassword?: boolean
-    createdAt?: boolean
   }
 
-  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "domain" | "adminEmail" | "adminPassword" | "createdAt", ExtArgs["result"]["tenant"]>
+  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "domain" | "createdAt" | "adminEmail" | "adminPassword", ExtArgs["result"]["tenant"]>
   export type TenantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    users?: boolean | Tenant$usersArgs<ExtArgs>
-    details?: boolean | Tenant$detailsArgs<ExtArgs>
     courses?: boolean | Tenant$coursesArgs<ExtArgs>
+    details?: boolean | Tenant$detailsArgs<ExtArgs>
+    users?: boolean | Tenant$usersArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2308,17 +2217,17 @@ export namespace Prisma {
   export type $TenantPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Tenant"
     objects: {
-      users: Prisma.$UserPayload<ExtArgs>[]
-      details: Prisma.$TenantDetailsPayload<ExtArgs> | null
       courses: Prisma.$TenantCoursePayload<ExtArgs>[]
+      details: Prisma.$TenantDetailsPayload<ExtArgs> | null
+      users: Prisma.$UserPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       domain: string
+      createdAt: Date
       adminEmail: string
       adminPassword: string
-      createdAt: Date
     }, ExtArgs["result"]["tenant"]>
     composites: {}
   }
@@ -2713,9 +2622,9 @@ export namespace Prisma {
    */
   export interface Prisma__TenantClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    users<T extends Tenant$usersArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    details<T extends Tenant$detailsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$detailsArgs<ExtArgs>>): Prisma__TenantDetailsClient<$Result.GetResult<Prisma.$TenantDetailsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     courses<T extends Tenant$coursesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$coursesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantCoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    details<T extends Tenant$detailsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$detailsArgs<ExtArgs>>): Prisma__TenantDetailsClient<$Result.GetResult<Prisma.$TenantDetailsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    users<T extends Tenant$usersArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2748,9 +2657,9 @@ export namespace Prisma {
     readonly id: FieldRef<"Tenant", 'String'>
     readonly name: FieldRef<"Tenant", 'String'>
     readonly domain: FieldRef<"Tenant", 'String'>
+    readonly createdAt: FieldRef<"Tenant", 'DateTime'>
     readonly adminEmail: FieldRef<"Tenant", 'String'>
     readonly adminPassword: FieldRef<"Tenant", 'String'>
-    readonly createdAt: FieldRef<"Tenant", 'DateTime'>
   }
     
 
@@ -3139,27 +3048,27 @@ export namespace Prisma {
   }
 
   /**
-   * Tenant.users
+   * Tenant.courses
    */
-  export type Tenant$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Tenant$coursesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the User
+     * Select specific fields to fetch from the TenantCourse
      */
-    select?: UserSelect<ExtArgs> | null
+    select?: TenantCourseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the User
+     * Omit specific fields from the TenantCourse
      */
-    omit?: UserOmit<ExtArgs> | null
+    omit?: TenantCourseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
-    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
-    cursor?: UserWhereUniqueInput
+    include?: TenantCourseInclude<ExtArgs> | null
+    where?: TenantCourseWhereInput
+    orderBy?: TenantCourseOrderByWithRelationInput | TenantCourseOrderByWithRelationInput[]
+    cursor?: TenantCourseWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+    distinct?: TenantCourseScalarFieldEnum | TenantCourseScalarFieldEnum[]
   }
 
   /**
@@ -3182,27 +3091,27 @@ export namespace Prisma {
   }
 
   /**
-   * Tenant.courses
+   * Tenant.users
    */
-  export type Tenant$coursesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Tenant$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TenantCourse
+     * Select specific fields to fetch from the User
      */
-    select?: TenantCourseSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TenantCourse
+     * Omit specific fields from the User
      */
-    omit?: TenantCourseOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TenantCourseInclude<ExtArgs> | null
-    where?: TenantCourseWhereInput
-    orderBy?: TenantCourseOrderByWithRelationInput | TenantCourseOrderByWithRelationInput[]
-    cursor?: TenantCourseWhereUniqueInput
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: TenantCourseScalarFieldEnum | TenantCourseScalarFieldEnum[]
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
   /**
@@ -4505,9 +4414,9 @@ export namespace Prisma {
     tenantId: string | null
     email: string | null
     name: string | null
-    password: string | null
     role: $Enums.UserRole | null
     createdAt: Date | null
+    password: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -4515,9 +4424,9 @@ export namespace Prisma {
     tenantId: string | null
     email: string | null
     name: string | null
-    password: string | null
     role: $Enums.UserRole | null
     createdAt: Date | null
+    password: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -4525,10 +4434,10 @@ export namespace Prisma {
     tenantId: number
     email: number
     name: number
-    password: number
     role: number
     createdAt: number
     userRoles: number
+    password: number
     _all: number
   }
 
@@ -4538,9 +4447,9 @@ export namespace Prisma {
     tenantId?: true
     email?: true
     name?: true
-    password?: true
     role?: true
     createdAt?: true
+    password?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -4548,9 +4457,9 @@ export namespace Prisma {
     tenantId?: true
     email?: true
     name?: true
-    password?: true
     role?: true
     createdAt?: true
+    password?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -4558,10 +4467,10 @@ export namespace Prisma {
     tenantId?: true
     email?: true
     name?: true
-    password?: true
     role?: true
     createdAt?: true
     userRoles?: true
+    password?: true
     _all?: true
   }
 
@@ -4642,10 +4551,10 @@ export namespace Prisma {
     tenantId: string | null
     email: string
     name: string
-    password: string | null
     role: $Enums.UserRole
     createdAt: Date
     userRoles: $Enums.UserRole[]
+    password: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -4670,14 +4579,14 @@ export namespace Prisma {
     tenantId?: boolean
     email?: boolean
     name?: boolean
-    password?: boolean
     role?: boolean
     createdAt?: boolean
     userRoles?: boolean
-    tenant?: boolean | User$tenantArgs<ExtArgs>
-    enrollments?: boolean | User$enrollmentsArgs<ExtArgs>
+    password?: boolean
     certificates?: boolean | User$certificatesArgs<ExtArgs>
+    enrollments?: boolean | User$enrollmentsArgs<ExtArgs>
     mcqAnswers?: boolean | User$mcqAnswersArgs<ExtArgs>
+    tenant?: boolean | User$tenantArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4686,10 +4595,10 @@ export namespace Prisma {
     tenantId?: boolean
     email?: boolean
     name?: boolean
-    password?: boolean
     role?: boolean
     createdAt?: boolean
     userRoles?: boolean
+    password?: boolean
     tenant?: boolean | User$tenantArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4698,10 +4607,10 @@ export namespace Prisma {
     tenantId?: boolean
     email?: boolean
     name?: boolean
-    password?: boolean
     role?: boolean
     createdAt?: boolean
     userRoles?: boolean
+    password?: boolean
     tenant?: boolean | User$tenantArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4710,18 +4619,18 @@ export namespace Prisma {
     tenantId?: boolean
     email?: boolean
     name?: boolean
-    password?: boolean
     role?: boolean
     createdAt?: boolean
     userRoles?: boolean
+    password?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "email" | "name" | "password" | "role" | "createdAt" | "userRoles", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "email" | "name" | "role" | "createdAt" | "userRoles" | "password", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tenant?: boolean | User$tenantArgs<ExtArgs>
-    enrollments?: boolean | User$enrollmentsArgs<ExtArgs>
     certificates?: boolean | User$certificatesArgs<ExtArgs>
+    enrollments?: boolean | User$enrollmentsArgs<ExtArgs>
     mcqAnswers?: boolean | User$mcqAnswersArgs<ExtArgs>
+    tenant?: boolean | User$tenantArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4734,20 +4643,20 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      tenant: Prisma.$TenantPayload<ExtArgs> | null
-      enrollments: Prisma.$EnrollmentPayload<ExtArgs>[]
       certificates: Prisma.$CertificatePayload<ExtArgs>[]
+      enrollments: Prisma.$EnrollmentPayload<ExtArgs>[]
       mcqAnswers: Prisma.$UserMCQAnswerPayload<ExtArgs>[]
+      tenant: Prisma.$TenantPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       tenantId: string | null
       email: string
       name: string
-      password: string | null
       role: $Enums.UserRole
       createdAt: Date
       userRoles: $Enums.UserRole[]
+      password: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -5142,10 +5051,10 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    tenant<T extends User$tenantArgs<ExtArgs> = {}>(args?: Subset<T, User$tenantArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    enrollments<T extends User$enrollmentsArgs<ExtArgs> = {}>(args?: Subset<T, User$enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnrollmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     certificates<T extends User$certificatesArgs<ExtArgs> = {}>(args?: Subset<T, User$certificatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CertificatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    enrollments<T extends User$enrollmentsArgs<ExtArgs> = {}>(args?: Subset<T, User$enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnrollmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     mcqAnswers<T extends User$mcqAnswersArgs<ExtArgs> = {}>(args?: Subset<T, User$mcqAnswersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMCQAnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    tenant<T extends User$tenantArgs<ExtArgs> = {}>(args?: Subset<T, User$tenantArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5179,10 +5088,10 @@ export namespace Prisma {
     readonly tenantId: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
-    readonly password: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'UserRole'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly userRoles: FieldRef<"User", 'UserRole[]'>
+    readonly password: FieldRef<"User", 'String'>
   }
     
 
@@ -5579,22 +5488,27 @@ export namespace Prisma {
   }
 
   /**
-   * User.tenant
+   * User.certificates
    */
-  export type User$tenantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$certificatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Tenant
+     * Select specific fields to fetch from the Certificate
      */
-    select?: TenantSelect<ExtArgs> | null
+    select?: CertificateSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Tenant
+     * Omit specific fields from the Certificate
      */
-    omit?: TenantOmit<ExtArgs> | null
+    omit?: CertificateOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TenantInclude<ExtArgs> | null
-    where?: TenantWhereInput
+    include?: CertificateInclude<ExtArgs> | null
+    where?: CertificateWhereInput
+    orderBy?: CertificateOrderByWithRelationInput | CertificateOrderByWithRelationInput[]
+    cursor?: CertificateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CertificateScalarFieldEnum | CertificateScalarFieldEnum[]
   }
 
   /**
@@ -5622,30 +5536,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.certificates
-   */
-  export type User$certificatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Certificate
-     */
-    select?: CertificateSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Certificate
-     */
-    omit?: CertificateOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CertificateInclude<ExtArgs> | null
-    where?: CertificateWhereInput
-    orderBy?: CertificateOrderByWithRelationInput | CertificateOrderByWithRelationInput[]
-    cursor?: CertificateWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: CertificateScalarFieldEnum | CertificateScalarFieldEnum[]
-  }
-
-  /**
    * User.mcqAnswers
    */
   export type User$mcqAnswersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5667,6 +5557,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserMCQAnswerScalarFieldEnum | UserMCQAnswerScalarFieldEnum[]
+  }
+
+  /**
+   * User.tenant
+   */
+  export type User$tenantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tenant
+     */
+    omit?: TenantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    where?: TenantWhereInput
   }
 
   /**
@@ -5702,37 +5611,37 @@ export namespace Prisma {
     id: string | null
     title: string | null
     description: string | null
-    tags: string | null
+    createdAt: Date | null
     learningObjectives: string | null
     materialUrl: string | null
-    videoUrl: string | null
-    createdAt: Date | null
+    tags: string | null
     updatedAt: Date | null
+    videoUrl: string | null
   }
 
   export type CourseMaxAggregateOutputType = {
     id: string | null
     title: string | null
     description: string | null
-    tags: string | null
+    createdAt: Date | null
     learningObjectives: string | null
     materialUrl: string | null
-    videoUrl: string | null
-    createdAt: Date | null
+    tags: string | null
     updatedAt: Date | null
+    videoUrl: string | null
   }
 
   export type CourseCountAggregateOutputType = {
     id: number
     title: number
     description: number
-    tags: number
+    createdAt: number
     learningObjectives: number
     materialUrl: number
-    videoUrl: number
     slides: number
-    createdAt: number
+    tags: number
     updatedAt: number
+    videoUrl: number
     _all: number
   }
 
@@ -5741,37 +5650,37 @@ export namespace Prisma {
     id?: true
     title?: true
     description?: true
-    tags?: true
+    createdAt?: true
     learningObjectives?: true
     materialUrl?: true
-    videoUrl?: true
-    createdAt?: true
+    tags?: true
     updatedAt?: true
+    videoUrl?: true
   }
 
   export type CourseMaxAggregateInputType = {
     id?: true
     title?: true
     description?: true
-    tags?: true
+    createdAt?: true
     learningObjectives?: true
     materialUrl?: true
-    videoUrl?: true
-    createdAt?: true
+    tags?: true
     updatedAt?: true
+    videoUrl?: true
   }
 
   export type CourseCountAggregateInputType = {
     id?: true
     title?: true
     description?: true
-    tags?: true
+    createdAt?: true
     learningObjectives?: true
     materialUrl?: true
-    videoUrl?: true
     slides?: true
-    createdAt?: true
+    tags?: true
     updatedAt?: true
+    videoUrl?: true
     _all?: true
   }
 
@@ -5851,13 +5760,13 @@ export namespace Prisma {
     id: string
     title: string
     description: string | null
-    tags: string
+    createdAt: Date
     learningObjectives: string
     materialUrl: string
-    videoUrl: string | null
     slides: JsonValue[]
-    createdAt: Date
+    tags: string
     updatedAt: Date
+    videoUrl: string | null
     _count: CourseCountAggregateOutputType | null
     _min: CourseMinAggregateOutputType | null
     _max: CourseMaxAggregateOutputType | null
@@ -5881,18 +5790,17 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
-    tags?: boolean
+    createdAt?: boolean
     learningObjectives?: boolean
     materialUrl?: boolean
-    videoUrl?: boolean
     slides?: boolean
-    createdAt?: boolean
+    tags?: boolean
     updatedAt?: boolean
-    mcqs?: boolean | Course$mcqsArgs<ExtArgs>
+    videoUrl?: boolean
     enrollments?: boolean | Course$enrollmentsArgs<ExtArgs>
-    tenants?: boolean | Course$tenantsArgs<ExtArgs>
+    mcqs?: boolean | Course$mcqsArgs<ExtArgs>
     slideExplanations?: boolean | Course$slideExplanationsArgs<ExtArgs>
-    properties?: boolean | Course$propertiesArgs<ExtArgs>
+    tenants?: boolean | Course$tenantsArgs<ExtArgs>
     _count?: boolean | CourseCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["course"]>
 
@@ -5900,48 +5808,47 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
-    tags?: boolean
+    createdAt?: boolean
     learningObjectives?: boolean
     materialUrl?: boolean
-    videoUrl?: boolean
     slides?: boolean
-    createdAt?: boolean
+    tags?: boolean
     updatedAt?: boolean
+    videoUrl?: boolean
   }, ExtArgs["result"]["course"]>
 
   export type CourseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
     description?: boolean
-    tags?: boolean
+    createdAt?: boolean
     learningObjectives?: boolean
     materialUrl?: boolean
-    videoUrl?: boolean
     slides?: boolean
-    createdAt?: boolean
+    tags?: boolean
     updatedAt?: boolean
+    videoUrl?: boolean
   }, ExtArgs["result"]["course"]>
 
   export type CourseSelectScalar = {
     id?: boolean
     title?: boolean
     description?: boolean
-    tags?: boolean
+    createdAt?: boolean
     learningObjectives?: boolean
     materialUrl?: boolean
-    videoUrl?: boolean
     slides?: boolean
-    createdAt?: boolean
+    tags?: boolean
     updatedAt?: boolean
+    videoUrl?: boolean
   }
 
-  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "tags" | "learningObjectives" | "materialUrl" | "videoUrl" | "slides" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
+  export type CourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "createdAt" | "learningObjectives" | "materialUrl" | "slides" | "tags" | "updatedAt" | "videoUrl", ExtArgs["result"]["course"]>
   export type CourseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    mcqs?: boolean | Course$mcqsArgs<ExtArgs>
     enrollments?: boolean | Course$enrollmentsArgs<ExtArgs>
-    tenants?: boolean | Course$tenantsArgs<ExtArgs>
+    mcqs?: boolean | Course$mcqsArgs<ExtArgs>
     slideExplanations?: boolean | Course$slideExplanationsArgs<ExtArgs>
-    properties?: boolean | Course$propertiesArgs<ExtArgs>
+    tenants?: boolean | Course$tenantsArgs<ExtArgs>
     _count?: boolean | CourseCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CourseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -5950,23 +5857,22 @@ export namespace Prisma {
   export type $CoursePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Course"
     objects: {
-      mcqs: Prisma.$MCQPayload<ExtArgs>[]
       enrollments: Prisma.$EnrollmentPayload<ExtArgs>[]
-      tenants: Prisma.$TenantCoursePayload<ExtArgs>[]
+      mcqs: Prisma.$MCQPayload<ExtArgs>[]
       slideExplanations: Prisma.$SlideExplanationPayload<ExtArgs>[]
-      properties: Prisma.$CoursePropertiesPayload<ExtArgs> | null
+      tenants: Prisma.$TenantCoursePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
       description: string | null
-      tags: string
+      createdAt: Date
       learningObjectives: string
       materialUrl: string
-      videoUrl: string | null
       slides: Prisma.JsonValue[]
-      createdAt: Date
+      tags: string
       updatedAt: Date
+      videoUrl: string | null
     }, ExtArgs["result"]["course"]>
     composites: {}
   }
@@ -6361,11 +6267,10 @@ export namespace Prisma {
    */
   export interface Prisma__CourseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    mcqs<T extends Course$mcqsArgs<ExtArgs> = {}>(args?: Subset<T, Course$mcqsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MCQPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     enrollments<T extends Course$enrollmentsArgs<ExtArgs> = {}>(args?: Subset<T, Course$enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnrollmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    tenants<T extends Course$tenantsArgs<ExtArgs> = {}>(args?: Subset<T, Course$tenantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantCoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    mcqs<T extends Course$mcqsArgs<ExtArgs> = {}>(args?: Subset<T, Course$mcqsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MCQPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     slideExplanations<T extends Course$slideExplanationsArgs<ExtArgs> = {}>(args?: Subset<T, Course$slideExplanationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SlideExplanationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    properties<T extends Course$propertiesArgs<ExtArgs> = {}>(args?: Subset<T, Course$propertiesArgs<ExtArgs>>): Prisma__CoursePropertiesClient<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    tenants<T extends Course$tenantsArgs<ExtArgs> = {}>(args?: Subset<T, Course$tenantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantCoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6398,13 +6303,13 @@ export namespace Prisma {
     readonly id: FieldRef<"Course", 'String'>
     readonly title: FieldRef<"Course", 'String'>
     readonly description: FieldRef<"Course", 'String'>
-    readonly tags: FieldRef<"Course", 'String'>
+    readonly createdAt: FieldRef<"Course", 'DateTime'>
     readonly learningObjectives: FieldRef<"Course", 'String'>
     readonly materialUrl: FieldRef<"Course", 'String'>
-    readonly videoUrl: FieldRef<"Course", 'String'>
     readonly slides: FieldRef<"Course", 'Json[]'>
-    readonly createdAt: FieldRef<"Course", 'DateTime'>
+    readonly tags: FieldRef<"Course", 'String'>
     readonly updatedAt: FieldRef<"Course", 'DateTime'>
+    readonly videoUrl: FieldRef<"Course", 'String'>
   }
     
 
@@ -6793,30 +6698,6 @@ export namespace Prisma {
   }
 
   /**
-   * Course.mcqs
-   */
-  export type Course$mcqsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MCQ
-     */
-    select?: MCQSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MCQ
-     */
-    omit?: MCQOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MCQInclude<ExtArgs> | null
-    where?: MCQWhereInput
-    orderBy?: MCQOrderByWithRelationInput | MCQOrderByWithRelationInput[]
-    cursor?: MCQWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MCQScalarFieldEnum | MCQScalarFieldEnum[]
-  }
-
-  /**
    * Course.enrollments
    */
   export type Course$enrollmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6841,27 +6722,27 @@ export namespace Prisma {
   }
 
   /**
-   * Course.tenants
+   * Course.mcqs
    */
-  export type Course$tenantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Course$mcqsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TenantCourse
+     * Select specific fields to fetch from the MCQ
      */
-    select?: TenantCourseSelect<ExtArgs> | null
+    select?: MCQSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TenantCourse
+     * Omit specific fields from the MCQ
      */
-    omit?: TenantCourseOmit<ExtArgs> | null
+    omit?: MCQOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TenantCourseInclude<ExtArgs> | null
-    where?: TenantCourseWhereInput
-    orderBy?: TenantCourseOrderByWithRelationInput | TenantCourseOrderByWithRelationInput[]
-    cursor?: TenantCourseWhereUniqueInput
+    include?: MCQInclude<ExtArgs> | null
+    where?: MCQWhereInput
+    orderBy?: MCQOrderByWithRelationInput | MCQOrderByWithRelationInput[]
+    cursor?: MCQWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: TenantCourseScalarFieldEnum | TenantCourseScalarFieldEnum[]
+    distinct?: MCQScalarFieldEnum | MCQScalarFieldEnum[]
   }
 
   /**
@@ -6889,22 +6770,27 @@ export namespace Prisma {
   }
 
   /**
-   * Course.properties
+   * Course.tenants
    */
-  export type Course$propertiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Course$tenantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CourseProperties
+     * Select specific fields to fetch from the TenantCourse
      */
-    select?: CoursePropertiesSelect<ExtArgs> | null
+    select?: TenantCourseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the CourseProperties
+     * Omit specific fields from the TenantCourse
      */
-    omit?: CoursePropertiesOmit<ExtArgs> | null
+    omit?: TenantCourseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CoursePropertiesInclude<ExtArgs> | null
-    where?: CoursePropertiesWhereInput
+    include?: TenantCourseInclude<ExtArgs> | null
+    where?: TenantCourseWhereInput
+    orderBy?: TenantCourseOrderByWithRelationInput | TenantCourseOrderByWithRelationInput[]
+    cursor?: TenantCourseWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TenantCourseScalarFieldEnum | TenantCourseScalarFieldEnum[]
   }
 
   /**
@@ -7124,8 +7010,8 @@ export namespace Prisma {
     courseId?: boolean
     progress?: boolean
     status?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     course?: boolean | CourseDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["enrollment"]>
 
   export type EnrollmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7134,8 +7020,8 @@ export namespace Prisma {
     courseId?: boolean
     progress?: boolean
     status?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     course?: boolean | CourseDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["enrollment"]>
 
   export type EnrollmentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7144,8 +7030,8 @@ export namespace Prisma {
     courseId?: boolean
     progress?: boolean
     status?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     course?: boolean | CourseDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["enrollment"]>
 
   export type EnrollmentSelectScalar = {
@@ -7158,23 +7044,23 @@ export namespace Prisma {
 
   export type EnrollmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "courseId" | "progress" | "status", ExtArgs["result"]["enrollment"]>
   export type EnrollmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     course?: boolean | CourseDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type EnrollmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     course?: boolean | CourseDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type EnrollmentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     course?: boolean | CourseDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $EnrollmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Enrollment"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       course: Prisma.$CoursePayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7576,8 +7462,8 @@ export namespace Prisma {
    */
   export interface Prisma__EnrollmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     course<T extends CourseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CourseDefaultArgs<ExtArgs>>): Prisma__CourseClient<$Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9099,6 +8985,9 @@ export namespace Prisma {
     tenantId: string | null
     courseId: string | null
     assignedAt: Date | null
+    skippable: boolean | null
+    mandatory: boolean | null
+    retryType: $Enums.RetryType | null
   }
 
   export type TenantCourseMaxAggregateOutputType = {
@@ -9106,14 +8995,20 @@ export namespace Prisma {
     tenantId: string | null
     courseId: string | null
     assignedAt: Date | null
+    skippable: boolean | null
+    mandatory: boolean | null
+    retryType: $Enums.RetryType | null
   }
 
   export type TenantCourseCountAggregateOutputType = {
     id: number
     tenantId: number
     courseId: number
-    explanations: number
     assignedAt: number
+    explanations: number
+    skippable: number
+    mandatory: number
+    retryType: number
     _all: number
   }
 
@@ -9123,6 +9018,9 @@ export namespace Prisma {
     tenantId?: true
     courseId?: true
     assignedAt?: true
+    skippable?: true
+    mandatory?: true
+    retryType?: true
   }
 
   export type TenantCourseMaxAggregateInputType = {
@@ -9130,14 +9028,20 @@ export namespace Prisma {
     tenantId?: true
     courseId?: true
     assignedAt?: true
+    skippable?: true
+    mandatory?: true
+    retryType?: true
   }
 
   export type TenantCourseCountAggregateInputType = {
     id?: true
     tenantId?: true
     courseId?: true
-    explanations?: true
     assignedAt?: true
+    explanations?: true
+    skippable?: true
+    mandatory?: true
+    retryType?: true
     _all?: true
   }
 
@@ -9217,8 +9121,11 @@ export namespace Prisma {
     id: string
     tenantId: string
     courseId: string
-    explanations: JsonValue | null
     assignedAt: Date
+    explanations: JsonValue | null
+    skippable: boolean
+    mandatory: boolean
+    retryType: $Enums.RetryType
     _count: TenantCourseCountAggregateOutputType | null
     _min: TenantCourseMinAggregateOutputType | null
     _max: TenantCourseMaxAggregateOutputType | null
@@ -9242,66 +9149,81 @@ export namespace Prisma {
     id?: boolean
     tenantId?: boolean
     courseId?: boolean
-    explanations?: boolean
     assignedAt?: boolean
-    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    explanations?: boolean
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenantCourse"]>
 
   export type TenantCourseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tenantId?: boolean
     courseId?: boolean
-    explanations?: boolean
     assignedAt?: boolean
-    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    explanations?: boolean
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenantCourse"]>
 
   export type TenantCourseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tenantId?: boolean
     courseId?: boolean
-    explanations?: boolean
     assignedAt?: boolean
-    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    explanations?: boolean
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenantCourse"]>
 
   export type TenantCourseSelectScalar = {
     id?: boolean
     tenantId?: boolean
     courseId?: boolean
-    explanations?: boolean
     assignedAt?: boolean
+    explanations?: boolean
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: boolean
   }
 
-  export type TenantCourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "courseId" | "explanations" | "assignedAt", ExtArgs["result"]["tenantCourse"]>
+  export type TenantCourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "courseId" | "assignedAt" | "explanations" | "skippable" | "mandatory" | "retryType", ExtArgs["result"]["tenantCourse"]>
   export type TenantCourseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     course?: boolean | CourseDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }
   export type TenantCourseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     course?: boolean | CourseDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }
   export type TenantCourseIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     course?: boolean | CourseDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }
 
   export type $TenantCoursePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "TenantCourse"
     objects: {
-      tenant: Prisma.$TenantPayload<ExtArgs>
       course: Prisma.$CoursePayload<ExtArgs>
+      tenant: Prisma.$TenantPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       tenantId: string
       courseId: string
-      explanations: Prisma.JsonValue | null
       assignedAt: Date
+      explanations: Prisma.JsonValue | null
+      skippable: boolean
+      mandatory: boolean
+      retryType: $Enums.RetryType
     }, ExtArgs["result"]["tenantCourse"]>
     composites: {}
   }
@@ -9696,8 +9618,8 @@ export namespace Prisma {
    */
   export interface Prisma__TenantCourseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     course<T extends CourseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CourseDefaultArgs<ExtArgs>>): Prisma__CourseClient<$Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9730,8 +9652,11 @@ export namespace Prisma {
     readonly id: FieldRef<"TenantCourse", 'String'>
     readonly tenantId: FieldRef<"TenantCourse", 'String'>
     readonly courseId: FieldRef<"TenantCourse", 'String'>
-    readonly explanations: FieldRef<"TenantCourse", 'Json'>
     readonly assignedAt: FieldRef<"TenantCourse", 'DateTime'>
+    readonly explanations: FieldRef<"TenantCourse", 'Json'>
+    readonly skippable: FieldRef<"TenantCourse", 'Boolean'>
+    readonly mandatory: FieldRef<"TenantCourse", 'Boolean'>
+    readonly retryType: FieldRef<"TenantCourse", 'RetryType'>
   }
     
 
@@ -11441,8 +11366,8 @@ export namespace Prisma {
     answer?: boolean
     isCorrect?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     mcq?: boolean | MCQDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userMCQAnswer"]>
 
   export type UserMCQAnswerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -11452,8 +11377,8 @@ export namespace Prisma {
     answer?: boolean
     isCorrect?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     mcq?: boolean | MCQDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userMCQAnswer"]>
 
   export type UserMCQAnswerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -11463,8 +11388,8 @@ export namespace Prisma {
     answer?: boolean
     isCorrect?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     mcq?: boolean | MCQDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userMCQAnswer"]>
 
   export type UserMCQAnswerSelectScalar = {
@@ -11478,23 +11403,23 @@ export namespace Prisma {
 
   export type UserMCQAnswerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "mcqId" | "answer" | "isCorrect" | "createdAt", ExtArgs["result"]["userMCQAnswer"]>
   export type UserMCQAnswerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     mcq?: boolean | MCQDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type UserMCQAnswerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     mcq?: boolean | MCQDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type UserMCQAnswerIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     mcq?: boolean | MCQDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $UserMCQAnswerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "UserMCQAnswer"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       mcq: Prisma.$MCQPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11897,8 +11822,8 @@ export namespace Prisma {
    */
   export interface Prisma__UserMCQAnswerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     mcq<T extends MCQDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MCQDefaultArgs<ExtArgs>>): Prisma__MCQClient<$Result.GetResult<Prisma.$MCQPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14488,1064 +14413,6 @@ export namespace Prisma {
 
 
   /**
-   * Model CourseProperties
-   */
-
-  export type AggregateCourseProperties = {
-    _count: CoursePropertiesCountAggregateOutputType | null
-    _min: CoursePropertiesMinAggregateOutputType | null
-    _max: CoursePropertiesMaxAggregateOutputType | null
-  }
-
-  export type CoursePropertiesMinAggregateOutputType = {
-    id: string | null
-    courseId: string | null
-    skippable: boolean | null
-    mandatory: boolean | null
-    retryType: $Enums.RetryType | null
-  }
-
-  export type CoursePropertiesMaxAggregateOutputType = {
-    id: string | null
-    courseId: string | null
-    skippable: boolean | null
-    mandatory: boolean | null
-    retryType: $Enums.RetryType | null
-  }
-
-  export type CoursePropertiesCountAggregateOutputType = {
-    id: number
-    courseId: number
-    skippable: number
-    mandatory: number
-    retryType: number
-    _all: number
-  }
-
-
-  export type CoursePropertiesMinAggregateInputType = {
-    id?: true
-    courseId?: true
-    skippable?: true
-    mandatory?: true
-    retryType?: true
-  }
-
-  export type CoursePropertiesMaxAggregateInputType = {
-    id?: true
-    courseId?: true
-    skippable?: true
-    mandatory?: true
-    retryType?: true
-  }
-
-  export type CoursePropertiesCountAggregateInputType = {
-    id?: true
-    courseId?: true
-    skippable?: true
-    mandatory?: true
-    retryType?: true
-    _all?: true
-  }
-
-  export type CoursePropertiesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which CourseProperties to aggregate.
-     */
-    where?: CoursePropertiesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of CourseProperties to fetch.
-     */
-    orderBy?: CoursePropertiesOrderByWithRelationInput | CoursePropertiesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: CoursePropertiesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` CourseProperties from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` CourseProperties.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned CourseProperties
-    **/
-    _count?: true | CoursePropertiesCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: CoursePropertiesMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: CoursePropertiesMaxAggregateInputType
-  }
-
-  export type GetCoursePropertiesAggregateType<T extends CoursePropertiesAggregateArgs> = {
-        [P in keyof T & keyof AggregateCourseProperties]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateCourseProperties[P]>
-      : GetScalarType<T[P], AggregateCourseProperties[P]>
-  }
-
-
-
-
-  export type CoursePropertiesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CoursePropertiesWhereInput
-    orderBy?: CoursePropertiesOrderByWithAggregationInput | CoursePropertiesOrderByWithAggregationInput[]
-    by: CoursePropertiesScalarFieldEnum[] | CoursePropertiesScalarFieldEnum
-    having?: CoursePropertiesScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: CoursePropertiesCountAggregateInputType | true
-    _min?: CoursePropertiesMinAggregateInputType
-    _max?: CoursePropertiesMaxAggregateInputType
-  }
-
-  export type CoursePropertiesGroupByOutputType = {
-    id: string
-    courseId: string
-    skippable: boolean
-    mandatory: boolean
-    retryType: $Enums.RetryType
-    _count: CoursePropertiesCountAggregateOutputType | null
-    _min: CoursePropertiesMinAggregateOutputType | null
-    _max: CoursePropertiesMaxAggregateOutputType | null
-  }
-
-  type GetCoursePropertiesGroupByPayload<T extends CoursePropertiesGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<CoursePropertiesGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof CoursePropertiesGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], CoursePropertiesGroupByOutputType[P]>
-            : GetScalarType<T[P], CoursePropertiesGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type CoursePropertiesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    courseId?: boolean
-    skippable?: boolean
-    mandatory?: boolean
-    retryType?: boolean
-    course?: boolean | CourseDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["courseProperties"]>
-
-  export type CoursePropertiesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    courseId?: boolean
-    skippable?: boolean
-    mandatory?: boolean
-    retryType?: boolean
-    course?: boolean | CourseDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["courseProperties"]>
-
-  export type CoursePropertiesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    courseId?: boolean
-    skippable?: boolean
-    mandatory?: boolean
-    retryType?: boolean
-    course?: boolean | CourseDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["courseProperties"]>
-
-  export type CoursePropertiesSelectScalar = {
-    id?: boolean
-    courseId?: boolean
-    skippable?: boolean
-    mandatory?: boolean
-    retryType?: boolean
-  }
-
-  export type CoursePropertiesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "courseId" | "skippable" | "mandatory" | "retryType", ExtArgs["result"]["courseProperties"]>
-  export type CoursePropertiesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    course?: boolean | CourseDefaultArgs<ExtArgs>
-  }
-  export type CoursePropertiesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    course?: boolean | CourseDefaultArgs<ExtArgs>
-  }
-  export type CoursePropertiesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    course?: boolean | CourseDefaultArgs<ExtArgs>
-  }
-
-  export type $CoursePropertiesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "CourseProperties"
-    objects: {
-      course: Prisma.$CoursePayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      courseId: string
-      skippable: boolean
-      mandatory: boolean
-      retryType: $Enums.RetryType
-    }, ExtArgs["result"]["courseProperties"]>
-    composites: {}
-  }
-
-  type CoursePropertiesGetPayload<S extends boolean | null | undefined | CoursePropertiesDefaultArgs> = $Result.GetResult<Prisma.$CoursePropertiesPayload, S>
-
-  type CoursePropertiesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<CoursePropertiesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: CoursePropertiesCountAggregateInputType | true
-    }
-
-  export interface CoursePropertiesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CourseProperties'], meta: { name: 'CourseProperties' } }
-    /**
-     * Find zero or one CourseProperties that matches the filter.
-     * @param {CoursePropertiesFindUniqueArgs} args - Arguments to find a CourseProperties
-     * @example
-     * // Get one CourseProperties
-     * const courseProperties = await prisma.courseProperties.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends CoursePropertiesFindUniqueArgs>(args: SelectSubset<T, CoursePropertiesFindUniqueArgs<ExtArgs>>): Prisma__CoursePropertiesClient<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one CourseProperties that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {CoursePropertiesFindUniqueOrThrowArgs} args - Arguments to find a CourseProperties
-     * @example
-     * // Get one CourseProperties
-     * const courseProperties = await prisma.courseProperties.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends CoursePropertiesFindUniqueOrThrowArgs>(args: SelectSubset<T, CoursePropertiesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CoursePropertiesClient<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first CourseProperties that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoursePropertiesFindFirstArgs} args - Arguments to find a CourseProperties
-     * @example
-     * // Get one CourseProperties
-     * const courseProperties = await prisma.courseProperties.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends CoursePropertiesFindFirstArgs>(args?: SelectSubset<T, CoursePropertiesFindFirstArgs<ExtArgs>>): Prisma__CoursePropertiesClient<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first CourseProperties that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoursePropertiesFindFirstOrThrowArgs} args - Arguments to find a CourseProperties
-     * @example
-     * // Get one CourseProperties
-     * const courseProperties = await prisma.courseProperties.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends CoursePropertiesFindFirstOrThrowArgs>(args?: SelectSubset<T, CoursePropertiesFindFirstOrThrowArgs<ExtArgs>>): Prisma__CoursePropertiesClient<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more CourseProperties that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoursePropertiesFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all CourseProperties
-     * const courseProperties = await prisma.courseProperties.findMany()
-     * 
-     * // Get first 10 CourseProperties
-     * const courseProperties = await prisma.courseProperties.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const coursePropertiesWithIdOnly = await prisma.courseProperties.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends CoursePropertiesFindManyArgs>(args?: SelectSubset<T, CoursePropertiesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a CourseProperties.
-     * @param {CoursePropertiesCreateArgs} args - Arguments to create a CourseProperties.
-     * @example
-     * // Create one CourseProperties
-     * const CourseProperties = await prisma.courseProperties.create({
-     *   data: {
-     *     // ... data to create a CourseProperties
-     *   }
-     * })
-     * 
-     */
-    create<T extends CoursePropertiesCreateArgs>(args: SelectSubset<T, CoursePropertiesCreateArgs<ExtArgs>>): Prisma__CoursePropertiesClient<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many CourseProperties.
-     * @param {CoursePropertiesCreateManyArgs} args - Arguments to create many CourseProperties.
-     * @example
-     * // Create many CourseProperties
-     * const courseProperties = await prisma.courseProperties.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends CoursePropertiesCreateManyArgs>(args?: SelectSubset<T, CoursePropertiesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many CourseProperties and returns the data saved in the database.
-     * @param {CoursePropertiesCreateManyAndReturnArgs} args - Arguments to create many CourseProperties.
-     * @example
-     * // Create many CourseProperties
-     * const courseProperties = await prisma.courseProperties.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many CourseProperties and only return the `id`
-     * const coursePropertiesWithIdOnly = await prisma.courseProperties.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends CoursePropertiesCreateManyAndReturnArgs>(args?: SelectSubset<T, CoursePropertiesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a CourseProperties.
-     * @param {CoursePropertiesDeleteArgs} args - Arguments to delete one CourseProperties.
-     * @example
-     * // Delete one CourseProperties
-     * const CourseProperties = await prisma.courseProperties.delete({
-     *   where: {
-     *     // ... filter to delete one CourseProperties
-     *   }
-     * })
-     * 
-     */
-    delete<T extends CoursePropertiesDeleteArgs>(args: SelectSubset<T, CoursePropertiesDeleteArgs<ExtArgs>>): Prisma__CoursePropertiesClient<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one CourseProperties.
-     * @param {CoursePropertiesUpdateArgs} args - Arguments to update one CourseProperties.
-     * @example
-     * // Update one CourseProperties
-     * const courseProperties = await prisma.courseProperties.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends CoursePropertiesUpdateArgs>(args: SelectSubset<T, CoursePropertiesUpdateArgs<ExtArgs>>): Prisma__CoursePropertiesClient<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more CourseProperties.
-     * @param {CoursePropertiesDeleteManyArgs} args - Arguments to filter CourseProperties to delete.
-     * @example
-     * // Delete a few CourseProperties
-     * const { count } = await prisma.courseProperties.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends CoursePropertiesDeleteManyArgs>(args?: SelectSubset<T, CoursePropertiesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more CourseProperties.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoursePropertiesUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many CourseProperties
-     * const courseProperties = await prisma.courseProperties.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends CoursePropertiesUpdateManyArgs>(args: SelectSubset<T, CoursePropertiesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more CourseProperties and returns the data updated in the database.
-     * @param {CoursePropertiesUpdateManyAndReturnArgs} args - Arguments to update many CourseProperties.
-     * @example
-     * // Update many CourseProperties
-     * const courseProperties = await prisma.courseProperties.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more CourseProperties and only return the `id`
-     * const coursePropertiesWithIdOnly = await prisma.courseProperties.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends CoursePropertiesUpdateManyAndReturnArgs>(args: SelectSubset<T, CoursePropertiesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one CourseProperties.
-     * @param {CoursePropertiesUpsertArgs} args - Arguments to update or create a CourseProperties.
-     * @example
-     * // Update or create a CourseProperties
-     * const courseProperties = await prisma.courseProperties.upsert({
-     *   create: {
-     *     // ... data to create a CourseProperties
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the CourseProperties we want to update
-     *   }
-     * })
-     */
-    upsert<T extends CoursePropertiesUpsertArgs>(args: SelectSubset<T, CoursePropertiesUpsertArgs<ExtArgs>>): Prisma__CoursePropertiesClient<$Result.GetResult<Prisma.$CoursePropertiesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of CourseProperties.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoursePropertiesCountArgs} args - Arguments to filter CourseProperties to count.
-     * @example
-     * // Count the number of CourseProperties
-     * const count = await prisma.courseProperties.count({
-     *   where: {
-     *     // ... the filter for the CourseProperties we want to count
-     *   }
-     * })
-    **/
-    count<T extends CoursePropertiesCountArgs>(
-      args?: Subset<T, CoursePropertiesCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], CoursePropertiesCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a CourseProperties.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoursePropertiesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends CoursePropertiesAggregateArgs>(args: Subset<T, CoursePropertiesAggregateArgs>): Prisma.PrismaPromise<GetCoursePropertiesAggregateType<T>>
-
-    /**
-     * Group by CourseProperties.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CoursePropertiesGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends CoursePropertiesGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: CoursePropertiesGroupByArgs['orderBy'] }
-        : { orderBy?: CoursePropertiesGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, CoursePropertiesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCoursePropertiesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the CourseProperties model
-   */
-  readonly fields: CoursePropertiesFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for CourseProperties.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__CoursePropertiesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    course<T extends CourseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CourseDefaultArgs<ExtArgs>>): Prisma__CourseClient<$Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the CourseProperties model
-   */
-  interface CoursePropertiesFieldRefs {
-    readonly id: FieldRef<"CourseProperties", 'String'>
-    readonly courseId: FieldRef<"CourseProperties", 'String'>
-    readonly skippable: FieldRef<"CourseProperties", 'Boolean'>
-    readonly mandatory: FieldRef<"CourseProperties", 'Boolean'>
-    readonly retryType: FieldRef<"CourseProperties", 'RetryType'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * CourseProperties findUnique
-   */
-  export type CoursePropertiesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CourseProperties
-     */
-    select?: CoursePropertiesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CourseProperties
-     */
-    omit?: CoursePropertiesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoursePropertiesInclude<ExtArgs> | null
-    /**
-     * Filter, which CourseProperties to fetch.
-     */
-    where: CoursePropertiesWhereUniqueInput
-  }
-
-  /**
-   * CourseProperties findUniqueOrThrow
-   */
-  export type CoursePropertiesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CourseProperties
-     */
-    select?: CoursePropertiesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CourseProperties
-     */
-    omit?: CoursePropertiesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoursePropertiesInclude<ExtArgs> | null
-    /**
-     * Filter, which CourseProperties to fetch.
-     */
-    where: CoursePropertiesWhereUniqueInput
-  }
-
-  /**
-   * CourseProperties findFirst
-   */
-  export type CoursePropertiesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CourseProperties
-     */
-    select?: CoursePropertiesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CourseProperties
-     */
-    omit?: CoursePropertiesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoursePropertiesInclude<ExtArgs> | null
-    /**
-     * Filter, which CourseProperties to fetch.
-     */
-    where?: CoursePropertiesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of CourseProperties to fetch.
-     */
-    orderBy?: CoursePropertiesOrderByWithRelationInput | CoursePropertiesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for CourseProperties.
-     */
-    cursor?: CoursePropertiesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` CourseProperties from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` CourseProperties.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of CourseProperties.
-     */
-    distinct?: CoursePropertiesScalarFieldEnum | CoursePropertiesScalarFieldEnum[]
-  }
-
-  /**
-   * CourseProperties findFirstOrThrow
-   */
-  export type CoursePropertiesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CourseProperties
-     */
-    select?: CoursePropertiesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CourseProperties
-     */
-    omit?: CoursePropertiesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoursePropertiesInclude<ExtArgs> | null
-    /**
-     * Filter, which CourseProperties to fetch.
-     */
-    where?: CoursePropertiesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of CourseProperties to fetch.
-     */
-    orderBy?: CoursePropertiesOrderByWithRelationInput | CoursePropertiesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for CourseProperties.
-     */
-    cursor?: CoursePropertiesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` CourseProperties from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` CourseProperties.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of CourseProperties.
-     */
-    distinct?: CoursePropertiesScalarFieldEnum | CoursePropertiesScalarFieldEnum[]
-  }
-
-  /**
-   * CourseProperties findMany
-   */
-  export type CoursePropertiesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CourseProperties
-     */
-    select?: CoursePropertiesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CourseProperties
-     */
-    omit?: CoursePropertiesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoursePropertiesInclude<ExtArgs> | null
-    /**
-     * Filter, which CourseProperties to fetch.
-     */
-    where?: CoursePropertiesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of CourseProperties to fetch.
-     */
-    orderBy?: CoursePropertiesOrderByWithRelationInput | CoursePropertiesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing CourseProperties.
-     */
-    cursor?: CoursePropertiesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` CourseProperties from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` CourseProperties.
-     */
-    skip?: number
-    distinct?: CoursePropertiesScalarFieldEnum | CoursePropertiesScalarFieldEnum[]
-  }
-
-  /**
-   * CourseProperties create
-   */
-  export type CoursePropertiesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CourseProperties
-     */
-    select?: CoursePropertiesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CourseProperties
-     */
-    omit?: CoursePropertiesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoursePropertiesInclude<ExtArgs> | null
-    /**
-     * The data needed to create a CourseProperties.
-     */
-    data: XOR<CoursePropertiesCreateInput, CoursePropertiesUncheckedCreateInput>
-  }
-
-  /**
-   * CourseProperties createMany
-   */
-  export type CoursePropertiesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many CourseProperties.
-     */
-    data: CoursePropertiesCreateManyInput | CoursePropertiesCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * CourseProperties createManyAndReturn
-   */
-  export type CoursePropertiesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CourseProperties
-     */
-    select?: CoursePropertiesSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the CourseProperties
-     */
-    omit?: CoursePropertiesOmit<ExtArgs> | null
-    /**
-     * The data used to create many CourseProperties.
-     */
-    data: CoursePropertiesCreateManyInput | CoursePropertiesCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoursePropertiesIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * CourseProperties update
-   */
-  export type CoursePropertiesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CourseProperties
-     */
-    select?: CoursePropertiesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CourseProperties
-     */
-    omit?: CoursePropertiesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoursePropertiesInclude<ExtArgs> | null
-    /**
-     * The data needed to update a CourseProperties.
-     */
-    data: XOR<CoursePropertiesUpdateInput, CoursePropertiesUncheckedUpdateInput>
-    /**
-     * Choose, which CourseProperties to update.
-     */
-    where: CoursePropertiesWhereUniqueInput
-  }
-
-  /**
-   * CourseProperties updateMany
-   */
-  export type CoursePropertiesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update CourseProperties.
-     */
-    data: XOR<CoursePropertiesUpdateManyMutationInput, CoursePropertiesUncheckedUpdateManyInput>
-    /**
-     * Filter which CourseProperties to update
-     */
-    where?: CoursePropertiesWhereInput
-    /**
-     * Limit how many CourseProperties to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * CourseProperties updateManyAndReturn
-   */
-  export type CoursePropertiesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CourseProperties
-     */
-    select?: CoursePropertiesSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the CourseProperties
-     */
-    omit?: CoursePropertiesOmit<ExtArgs> | null
-    /**
-     * The data used to update CourseProperties.
-     */
-    data: XOR<CoursePropertiesUpdateManyMutationInput, CoursePropertiesUncheckedUpdateManyInput>
-    /**
-     * Filter which CourseProperties to update
-     */
-    where?: CoursePropertiesWhereInput
-    /**
-     * Limit how many CourseProperties to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoursePropertiesIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * CourseProperties upsert
-   */
-  export type CoursePropertiesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CourseProperties
-     */
-    select?: CoursePropertiesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CourseProperties
-     */
-    omit?: CoursePropertiesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoursePropertiesInclude<ExtArgs> | null
-    /**
-     * The filter to search for the CourseProperties to update in case it exists.
-     */
-    where: CoursePropertiesWhereUniqueInput
-    /**
-     * In case the CourseProperties found by the `where` argument doesn't exist, create a new CourseProperties with this data.
-     */
-    create: XOR<CoursePropertiesCreateInput, CoursePropertiesUncheckedCreateInput>
-    /**
-     * In case the CourseProperties was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<CoursePropertiesUpdateInput, CoursePropertiesUncheckedUpdateInput>
-  }
-
-  /**
-   * CourseProperties delete
-   */
-  export type CoursePropertiesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CourseProperties
-     */
-    select?: CoursePropertiesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CourseProperties
-     */
-    omit?: CoursePropertiesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoursePropertiesInclude<ExtArgs> | null
-    /**
-     * Filter which CourseProperties to delete.
-     */
-    where: CoursePropertiesWhereUniqueInput
-  }
-
-  /**
-   * CourseProperties deleteMany
-   */
-  export type CoursePropertiesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which CourseProperties to delete
-     */
-    where?: CoursePropertiesWhereInput
-    /**
-     * Limit how many CourseProperties to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * CourseProperties without action
-   */
-  export type CoursePropertiesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CourseProperties
-     */
-    select?: CoursePropertiesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CourseProperties
-     */
-    omit?: CoursePropertiesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CoursePropertiesInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Enums
    */
 
@@ -15563,9 +14430,9 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     domain: 'domain',
+    createdAt: 'createdAt',
     adminEmail: 'adminEmail',
-    adminPassword: 'adminPassword',
-    createdAt: 'createdAt'
+    adminPassword: 'adminPassword'
   };
 
   export type TenantScalarFieldEnum = (typeof TenantScalarFieldEnum)[keyof typeof TenantScalarFieldEnum]
@@ -15603,10 +14470,10 @@ export namespace Prisma {
     tenantId: 'tenantId',
     email: 'email',
     name: 'name',
-    password: 'password',
     role: 'role',
     createdAt: 'createdAt',
-    userRoles: 'userRoles'
+    userRoles: 'userRoles',
+    password: 'password'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -15616,13 +14483,13 @@ export namespace Prisma {
     id: 'id',
     title: 'title',
     description: 'description',
-    tags: 'tags',
+    createdAt: 'createdAt',
     learningObjectives: 'learningObjectives',
     materialUrl: 'materialUrl',
-    videoUrl: 'videoUrl',
     slides: 'slides',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    tags: 'tags',
+    updatedAt: 'updatedAt',
+    videoUrl: 'videoUrl'
   };
 
   export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
@@ -15654,8 +14521,11 @@ export namespace Prisma {
     id: 'id',
     tenantId: 'tenantId',
     courseId: 'courseId',
+    assignedAt: 'assignedAt',
     explanations: 'explanations',
-    assignedAt: 'assignedAt'
+    skippable: 'skippable',
+    mandatory: 'mandatory',
+    retryType: 'retryType'
   };
 
   export type TenantCourseScalarFieldEnum = (typeof TenantCourseScalarFieldEnum)[keyof typeof TenantCourseScalarFieldEnum]
@@ -15711,17 +14581,6 @@ export namespace Prisma {
   };
 
   export type OrganizationInterestScalarFieldEnum = (typeof OrganizationInterestScalarFieldEnum)[keyof typeof OrganizationInterestScalarFieldEnum]
-
-
-  export const CoursePropertiesScalarFieldEnum: {
-    id: 'id',
-    courseId: 'courseId',
-    skippable: 'skippable',
-    mandatory: 'mandatory',
-    retryType: 'retryType'
-  };
-
-  export type CoursePropertiesScalarFieldEnum = (typeof CoursePropertiesScalarFieldEnum)[keyof typeof CoursePropertiesScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -15869,20 +14728,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
    * Reference to a field of type 'RetryType'
    */
   export type EnumRetryTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RetryType'>
@@ -15893,6 +14738,20 @@ export namespace Prisma {
    * Reference to a field of type 'RetryType[]'
    */
   export type ListEnumRetryTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RetryType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -15920,24 +14779,24 @@ export namespace Prisma {
     id?: StringFilter<"Tenant"> | string
     name?: StringFilter<"Tenant"> | string
     domain?: StringFilter<"Tenant"> | string
+    createdAt?: DateTimeFilter<"Tenant"> | Date | string
     adminEmail?: StringFilter<"Tenant"> | string
     adminPassword?: StringFilter<"Tenant"> | string
-    createdAt?: DateTimeFilter<"Tenant"> | Date | string
-    users?: UserListRelationFilter
-    details?: XOR<TenantDetailsNullableScalarRelationFilter, TenantDetailsWhereInput> | null
     courses?: TenantCourseListRelationFilter
+    details?: XOR<TenantDetailsNullableScalarRelationFilter, TenantDetailsWhereInput> | null
+    users?: UserListRelationFilter
   }
 
   export type TenantOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     domain?: SortOrder
+    createdAt?: SortOrder
     adminEmail?: SortOrder
     adminPassword?: SortOrder
-    createdAt?: SortOrder
-    users?: UserOrderByRelationAggregateInput
-    details?: TenantDetailsOrderByWithRelationInput
     courses?: TenantCourseOrderByRelationAggregateInput
+    details?: TenantDetailsOrderByWithRelationInput
+    users?: UserOrderByRelationAggregateInput
   }
 
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -15947,21 +14806,21 @@ export namespace Prisma {
     OR?: TenantWhereInput[]
     NOT?: TenantWhereInput | TenantWhereInput[]
     name?: StringFilter<"Tenant"> | string
+    createdAt?: DateTimeFilter<"Tenant"> | Date | string
     adminEmail?: StringFilter<"Tenant"> | string
     adminPassword?: StringFilter<"Tenant"> | string
-    createdAt?: DateTimeFilter<"Tenant"> | Date | string
-    users?: UserListRelationFilter
-    details?: XOR<TenantDetailsNullableScalarRelationFilter, TenantDetailsWhereInput> | null
     courses?: TenantCourseListRelationFilter
+    details?: XOR<TenantDetailsNullableScalarRelationFilter, TenantDetailsWhereInput> | null
+    users?: UserListRelationFilter
   }, "id" | "domain">
 
   export type TenantOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     domain?: SortOrder
+    createdAt?: SortOrder
     adminEmail?: SortOrder
     adminPassword?: SortOrder
-    createdAt?: SortOrder
     _count?: TenantCountOrderByAggregateInput
     _max?: TenantMaxOrderByAggregateInput
     _min?: TenantMinOrderByAggregateInput
@@ -15974,9 +14833,9 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Tenant"> | string
     name?: StringWithAggregatesFilter<"Tenant"> | string
     domain?: StringWithAggregatesFilter<"Tenant"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Tenant"> | Date | string
     adminEmail?: StringWithAggregatesFilter<"Tenant"> | string
     adminPassword?: StringWithAggregatesFilter<"Tenant"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"Tenant"> | Date | string
   }
 
   export type TenantDetailsWhereInput = {
@@ -16122,14 +14981,14 @@ export namespace Prisma {
     tenantId?: StringNullableFilter<"User"> | string | null
     email?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
-    password?: StringNullableFilter<"User"> | string | null
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     createdAt?: DateTimeFilter<"User"> | Date | string
     userRoles?: EnumUserRoleNullableListFilter<"User">
-    tenant?: XOR<TenantNullableScalarRelationFilter, TenantWhereInput> | null
-    enrollments?: EnrollmentListRelationFilter
+    password?: StringNullableFilter<"User"> | string | null
     certificates?: CertificateListRelationFilter
+    enrollments?: EnrollmentListRelationFilter
     mcqAnswers?: UserMCQAnswerListRelationFilter
+    tenant?: XOR<TenantNullableScalarRelationFilter, TenantWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -16137,14 +14996,14 @@ export namespace Prisma {
     tenantId?: SortOrderInput | SortOrder
     email?: SortOrder
     name?: SortOrder
-    password?: SortOrderInput | SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     userRoles?: SortOrder
-    tenant?: TenantOrderByWithRelationInput
-    enrollments?: EnrollmentOrderByRelationAggregateInput
+    password?: SortOrderInput | SortOrder
     certificates?: CertificateOrderByRelationAggregateInput
+    enrollments?: EnrollmentOrderByRelationAggregateInput
     mcqAnswers?: UserMCQAnswerOrderByRelationAggregateInput
+    tenant?: TenantOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -16155,14 +15014,14 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     tenantId?: StringNullableFilter<"User"> | string | null
     name?: StringFilter<"User"> | string
-    password?: StringNullableFilter<"User"> | string | null
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     createdAt?: DateTimeFilter<"User"> | Date | string
     userRoles?: EnumUserRoleNullableListFilter<"User">
-    tenant?: XOR<TenantNullableScalarRelationFilter, TenantWhereInput> | null
-    enrollments?: EnrollmentListRelationFilter
+    password?: StringNullableFilter<"User"> | string | null
     certificates?: CertificateListRelationFilter
+    enrollments?: EnrollmentListRelationFilter
     mcqAnswers?: UserMCQAnswerListRelationFilter
+    tenant?: XOR<TenantNullableScalarRelationFilter, TenantWhereInput> | null
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -16170,10 +15029,10 @@ export namespace Prisma {
     tenantId?: SortOrderInput | SortOrder
     email?: SortOrder
     name?: SortOrder
-    password?: SortOrderInput | SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     userRoles?: SortOrder
+    password?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -16187,10 +15046,10 @@ export namespace Prisma {
     tenantId?: StringNullableWithAggregatesFilter<"User"> | string | null
     email?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
-    password?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     userRoles?: EnumUserRoleNullableListFilter<"User">
+    password?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type CourseWhereInput = {
@@ -16200,36 +15059,34 @@ export namespace Prisma {
     id?: StringFilter<"Course"> | string
     title?: StringFilter<"Course"> | string
     description?: StringNullableFilter<"Course"> | string | null
-    tags?: StringFilter<"Course"> | string
+    createdAt?: DateTimeFilter<"Course"> | Date | string
     learningObjectives?: StringFilter<"Course"> | string
     materialUrl?: StringFilter<"Course"> | string
-    videoUrl?: StringNullableFilter<"Course"> | string | null
     slides?: JsonNullableListFilter<"Course">
-    createdAt?: DateTimeFilter<"Course"> | Date | string
+    tags?: StringFilter<"Course"> | string
     updatedAt?: DateTimeFilter<"Course"> | Date | string
-    mcqs?: MCQListRelationFilter
+    videoUrl?: StringNullableFilter<"Course"> | string | null
     enrollments?: EnrollmentListRelationFilter
-    tenants?: TenantCourseListRelationFilter
+    mcqs?: MCQListRelationFilter
     slideExplanations?: SlideExplanationListRelationFilter
-    properties?: XOR<CoursePropertiesNullableScalarRelationFilter, CoursePropertiesWhereInput> | null
+    tenants?: TenantCourseListRelationFilter
   }
 
   export type CourseOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrderInput | SortOrder
-    tags?: SortOrder
+    createdAt?: SortOrder
     learningObjectives?: SortOrder
     materialUrl?: SortOrder
-    videoUrl?: SortOrderInput | SortOrder
     slides?: SortOrder
-    createdAt?: SortOrder
+    tags?: SortOrder
     updatedAt?: SortOrder
-    mcqs?: MCQOrderByRelationAggregateInput
+    videoUrl?: SortOrderInput | SortOrder
     enrollments?: EnrollmentOrderByRelationAggregateInput
-    tenants?: TenantCourseOrderByRelationAggregateInput
+    mcqs?: MCQOrderByRelationAggregateInput
     slideExplanations?: SlideExplanationOrderByRelationAggregateInput
-    properties?: CoursePropertiesOrderByWithRelationInput
+    tenants?: TenantCourseOrderByRelationAggregateInput
   }
 
   export type CourseWhereUniqueInput = Prisma.AtLeast<{
@@ -16239,31 +15096,30 @@ export namespace Prisma {
     NOT?: CourseWhereInput | CourseWhereInput[]
     title?: StringFilter<"Course"> | string
     description?: StringNullableFilter<"Course"> | string | null
-    tags?: StringFilter<"Course"> | string
+    createdAt?: DateTimeFilter<"Course"> | Date | string
     learningObjectives?: StringFilter<"Course"> | string
     materialUrl?: StringFilter<"Course"> | string
-    videoUrl?: StringNullableFilter<"Course"> | string | null
     slides?: JsonNullableListFilter<"Course">
-    createdAt?: DateTimeFilter<"Course"> | Date | string
+    tags?: StringFilter<"Course"> | string
     updatedAt?: DateTimeFilter<"Course"> | Date | string
-    mcqs?: MCQListRelationFilter
+    videoUrl?: StringNullableFilter<"Course"> | string | null
     enrollments?: EnrollmentListRelationFilter
-    tenants?: TenantCourseListRelationFilter
+    mcqs?: MCQListRelationFilter
     slideExplanations?: SlideExplanationListRelationFilter
-    properties?: XOR<CoursePropertiesNullableScalarRelationFilter, CoursePropertiesWhereInput> | null
+    tenants?: TenantCourseListRelationFilter
   }, "id">
 
   export type CourseOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrderInput | SortOrder
-    tags?: SortOrder
+    createdAt?: SortOrder
     learningObjectives?: SortOrder
     materialUrl?: SortOrder
-    videoUrl?: SortOrderInput | SortOrder
     slides?: SortOrder
-    createdAt?: SortOrder
+    tags?: SortOrder
     updatedAt?: SortOrder
+    videoUrl?: SortOrderInput | SortOrder
     _count?: CourseCountOrderByAggregateInput
     _max?: CourseMaxOrderByAggregateInput
     _min?: CourseMinOrderByAggregateInput
@@ -16276,13 +15132,13 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Course"> | string
     title?: StringWithAggregatesFilter<"Course"> | string
     description?: StringNullableWithAggregatesFilter<"Course"> | string | null
-    tags?: StringWithAggregatesFilter<"Course"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Course"> | Date | string
     learningObjectives?: StringWithAggregatesFilter<"Course"> | string
     materialUrl?: StringWithAggregatesFilter<"Course"> | string
-    videoUrl?: StringNullableWithAggregatesFilter<"Course"> | string | null
     slides?: JsonNullableListFilter<"Course">
-    createdAt?: DateTimeWithAggregatesFilter<"Course"> | Date | string
+    tags?: StringWithAggregatesFilter<"Course"> | string
     updatedAt?: DateTimeWithAggregatesFilter<"Course"> | Date | string
+    videoUrl?: StringNullableWithAggregatesFilter<"Course"> | string | null
   }
 
   export type EnrollmentWhereInput = {
@@ -16294,8 +15150,8 @@ export namespace Prisma {
     courseId?: StringFilter<"Enrollment"> | string
     progress?: DecimalFilter<"Enrollment"> | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFilter<"Enrollment"> | $Enums.EnrollmentStatus
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type EnrollmentOrderByWithRelationInput = {
@@ -16304,8 +15160,8 @@ export namespace Prisma {
     courseId?: SortOrder
     progress?: SortOrder
     status?: SortOrder
-    user?: UserOrderByWithRelationInput
     course?: CourseOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type EnrollmentWhereUniqueInput = Prisma.AtLeast<{
@@ -16317,8 +15173,8 @@ export namespace Prisma {
     courseId?: StringFilter<"Enrollment"> | string
     progress?: DecimalFilter<"Enrollment"> | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFilter<"Enrollment"> | $Enums.EnrollmentStatus
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type EnrollmentOrderByWithAggregationInput = {
@@ -16407,20 +15263,26 @@ export namespace Prisma {
     id?: StringFilter<"TenantCourse"> | string
     tenantId?: StringFilter<"TenantCourse"> | string
     courseId?: StringFilter<"TenantCourse"> | string
-    explanations?: JsonNullableFilter<"TenantCourse">
     assignedAt?: DateTimeFilter<"TenantCourse"> | Date | string
-    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    explanations?: JsonNullableFilter<"TenantCourse">
+    skippable?: BoolFilter<"TenantCourse"> | boolean
+    mandatory?: BoolFilter<"TenantCourse"> | boolean
+    retryType?: EnumRetryTypeFilter<"TenantCourse"> | $Enums.RetryType
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
   }
 
   export type TenantCourseOrderByWithRelationInput = {
     id?: SortOrder
     tenantId?: SortOrder
     courseId?: SortOrder
-    explanations?: SortOrderInput | SortOrder
     assignedAt?: SortOrder
-    tenant?: TenantOrderByWithRelationInput
+    explanations?: SortOrderInput | SortOrder
+    skippable?: SortOrder
+    mandatory?: SortOrder
+    retryType?: SortOrder
     course?: CourseOrderByWithRelationInput
+    tenant?: TenantOrderByWithRelationInput
   }
 
   export type TenantCourseWhereUniqueInput = Prisma.AtLeast<{
@@ -16430,18 +15292,24 @@ export namespace Prisma {
     NOT?: TenantCourseWhereInput | TenantCourseWhereInput[]
     tenantId?: StringFilter<"TenantCourse"> | string
     courseId?: StringFilter<"TenantCourse"> | string
-    explanations?: JsonNullableFilter<"TenantCourse">
     assignedAt?: DateTimeFilter<"TenantCourse"> | Date | string
-    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    explanations?: JsonNullableFilter<"TenantCourse">
+    skippable?: BoolFilter<"TenantCourse"> | boolean
+    mandatory?: BoolFilter<"TenantCourse"> | boolean
+    retryType?: EnumRetryTypeFilter<"TenantCourse"> | $Enums.RetryType
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
   }, "id">
 
   export type TenantCourseOrderByWithAggregationInput = {
     id?: SortOrder
     tenantId?: SortOrder
     courseId?: SortOrder
-    explanations?: SortOrderInput | SortOrder
     assignedAt?: SortOrder
+    explanations?: SortOrderInput | SortOrder
+    skippable?: SortOrder
+    mandatory?: SortOrder
+    retryType?: SortOrder
     _count?: TenantCourseCountOrderByAggregateInput
     _max?: TenantCourseMaxOrderByAggregateInput
     _min?: TenantCourseMinOrderByAggregateInput
@@ -16454,8 +15322,11 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"TenantCourse"> | string
     tenantId?: StringWithAggregatesFilter<"TenantCourse"> | string
     courseId?: StringWithAggregatesFilter<"TenantCourse"> | string
-    explanations?: JsonNullableWithAggregatesFilter<"TenantCourse">
     assignedAt?: DateTimeWithAggregatesFilter<"TenantCourse"> | Date | string
+    explanations?: JsonNullableWithAggregatesFilter<"TenantCourse">
+    skippable?: BoolWithAggregatesFilter<"TenantCourse"> | boolean
+    mandatory?: BoolWithAggregatesFilter<"TenantCourse"> | boolean
+    retryType?: EnumRetryTypeWithAggregatesFilter<"TenantCourse"> | $Enums.RetryType
   }
 
   export type MCQWhereInput = {
@@ -16541,8 +15412,8 @@ export namespace Prisma {
     answer?: StringFilter<"UserMCQAnswer"> | string
     isCorrect?: BoolFilter<"UserMCQAnswer"> | boolean
     createdAt?: DateTimeFilter<"UserMCQAnswer"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     mcq?: XOR<MCQScalarRelationFilter, MCQWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type UserMCQAnswerOrderByWithRelationInput = {
@@ -16552,8 +15423,8 @@ export namespace Prisma {
     answer?: SortOrder
     isCorrect?: SortOrder
     createdAt?: SortOrder
-    user?: UserOrderByWithRelationInput
     mcq?: MCQOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type UserMCQAnswerWhereUniqueInput = Prisma.AtLeast<{
@@ -16566,8 +15437,8 @@ export namespace Prisma {
     answer?: StringFilter<"UserMCQAnswer"> | string
     isCorrect?: BoolFilter<"UserMCQAnswer"> | boolean
     createdAt?: DateTimeFilter<"UserMCQAnswer"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     mcq?: XOR<MCQScalarRelationFilter, MCQWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type UserMCQAnswerOrderByWithAggregationInput = {
@@ -16724,134 +15595,79 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"OrganizationInterest"> | Date | string
   }
 
-  export type CoursePropertiesWhereInput = {
-    AND?: CoursePropertiesWhereInput | CoursePropertiesWhereInput[]
-    OR?: CoursePropertiesWhereInput[]
-    NOT?: CoursePropertiesWhereInput | CoursePropertiesWhereInput[]
-    id?: StringFilter<"CourseProperties"> | string
-    courseId?: StringFilter<"CourseProperties"> | string
-    skippable?: BoolFilter<"CourseProperties"> | boolean
-    mandatory?: BoolFilter<"CourseProperties"> | boolean
-    retryType?: EnumRetryTypeFilter<"CourseProperties"> | $Enums.RetryType
-    course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
-  }
-
-  export type CoursePropertiesOrderByWithRelationInput = {
-    id?: SortOrder
-    courseId?: SortOrder
-    skippable?: SortOrder
-    mandatory?: SortOrder
-    retryType?: SortOrder
-    course?: CourseOrderByWithRelationInput
-  }
-
-  export type CoursePropertiesWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    courseId?: string
-    AND?: CoursePropertiesWhereInput | CoursePropertiesWhereInput[]
-    OR?: CoursePropertiesWhereInput[]
-    NOT?: CoursePropertiesWhereInput | CoursePropertiesWhereInput[]
-    skippable?: BoolFilter<"CourseProperties"> | boolean
-    mandatory?: BoolFilter<"CourseProperties"> | boolean
-    retryType?: EnumRetryTypeFilter<"CourseProperties"> | $Enums.RetryType
-    course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
-  }, "id" | "courseId">
-
-  export type CoursePropertiesOrderByWithAggregationInput = {
-    id?: SortOrder
-    courseId?: SortOrder
-    skippable?: SortOrder
-    mandatory?: SortOrder
-    retryType?: SortOrder
-    _count?: CoursePropertiesCountOrderByAggregateInput
-    _max?: CoursePropertiesMaxOrderByAggregateInput
-    _min?: CoursePropertiesMinOrderByAggregateInput
-  }
-
-  export type CoursePropertiesScalarWhereWithAggregatesInput = {
-    AND?: CoursePropertiesScalarWhereWithAggregatesInput | CoursePropertiesScalarWhereWithAggregatesInput[]
-    OR?: CoursePropertiesScalarWhereWithAggregatesInput[]
-    NOT?: CoursePropertiesScalarWhereWithAggregatesInput | CoursePropertiesScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"CourseProperties"> | string
-    courseId?: StringWithAggregatesFilter<"CourseProperties"> | string
-    skippable?: BoolWithAggregatesFilter<"CourseProperties"> | boolean
-    mandatory?: BoolWithAggregatesFilter<"CourseProperties"> | boolean
-    retryType?: EnumRetryTypeWithAggregatesFilter<"CourseProperties"> | $Enums.RetryType
-  }
-
   export type TenantCreateInput = {
     id?: string
     name: string
     domain: string
+    createdAt?: Date | string
     adminEmail: string
     adminPassword: string
-    createdAt?: Date | string
-    users?: UserCreateNestedManyWithoutTenantInput
-    details?: TenantDetailsCreateNestedOneWithoutTenantInput
     courses?: TenantCourseCreateNestedManyWithoutTenantInput
+    details?: TenantDetailsCreateNestedOneWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateInput = {
     id?: string
     name: string
     domain: string
+    createdAt?: Date | string
     adminEmail: string
     adminPassword: string
-    createdAt?: Date | string
-    users?: UserUncheckedCreateNestedManyWithoutTenantInput
-    details?: TenantDetailsUncheckedCreateNestedOneWithoutTenantInput
     courses?: TenantCourseUncheckedCreateNestedManyWithoutTenantInput
+    details?: TenantDetailsUncheckedCreateNestedOneWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     domain?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     adminEmail?: StringFieldUpdateOperationsInput | string
     adminPassword?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUpdateManyWithoutTenantNestedInput
-    details?: TenantDetailsUpdateOneWithoutTenantNestedInput
     courses?: TenantCourseUpdateManyWithoutTenantNestedInput
+    details?: TenantDetailsUpdateOneWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     domain?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     adminEmail?: StringFieldUpdateOperationsInput | string
     adminPassword?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
-    details?: TenantDetailsUncheckedUpdateOneWithoutTenantNestedInput
     courses?: TenantCourseUncheckedUpdateManyWithoutTenantNestedInput
+    details?: TenantDetailsUncheckedUpdateOneWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateManyInput = {
     id?: string
     name: string
     domain: string
+    createdAt?: Date | string
     adminEmail: string
     adminPassword: string
-    createdAt?: Date | string
   }
 
   export type TenantUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     domain?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     adminEmail?: StringFieldUpdateOperationsInput | string
     adminPassword?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TenantUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     domain?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     adminEmail?: StringFieldUpdateOperationsInput | string
     adminPassword?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TenantDetailsCreateInput = {
@@ -17025,14 +15841,14 @@ export namespace Prisma {
     id?: string
     email: string
     name: string
-    password?: string | null
     role?: $Enums.UserRole
     createdAt?: Date | string
     userRoles?: UserCreateuserRolesInput | $Enums.UserRole[]
-    tenant?: TenantCreateNestedOneWithoutUsersInput
-    enrollments?: EnrollmentCreateNestedManyWithoutUserInput
+    password?: string | null
     certificates?: CertificateCreateNestedManyWithoutUserInput
+    enrollments?: EnrollmentCreateNestedManyWithoutUserInput
     mcqAnswers?: UserMCQAnswerCreateNestedManyWithoutUserInput
+    tenant?: TenantCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -17040,12 +15856,12 @@ export namespace Prisma {
     tenantId?: string | null
     email: string
     name: string
-    password?: string | null
     role?: $Enums.UserRole
     createdAt?: Date | string
     userRoles?: UserCreateuserRolesInput | $Enums.UserRole[]
-    enrollments?: EnrollmentUncheckedCreateNestedManyWithoutUserInput
+    password?: string | null
     certificates?: CertificateUncheckedCreateNestedManyWithoutUserInput
+    enrollments?: EnrollmentUncheckedCreateNestedManyWithoutUserInput
     mcqAnswers?: UserMCQAnswerUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -17053,14 +15869,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userRoles?: UserUpdateuserRolesInput | $Enums.UserRole[]
-    tenant?: TenantUpdateOneWithoutUsersNestedInput
-    enrollments?: EnrollmentUpdateManyWithoutUserNestedInput
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     certificates?: CertificateUpdateManyWithoutUserNestedInput
+    enrollments?: EnrollmentUpdateManyWithoutUserNestedInput
     mcqAnswers?: UserMCQAnswerUpdateManyWithoutUserNestedInput
+    tenant?: TenantUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -17068,12 +15884,12 @@ export namespace Prisma {
     tenantId?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userRoles?: UserUpdateuserRolesInput | $Enums.UserRole[]
-    enrollments?: EnrollmentUncheckedUpdateManyWithoutUserNestedInput
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     certificates?: CertificateUncheckedUpdateManyWithoutUserNestedInput
+    enrollments?: EnrollmentUncheckedUpdateManyWithoutUserNestedInput
     mcqAnswers?: UserMCQAnswerUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -17082,20 +15898,20 @@ export namespace Prisma {
     tenantId?: string | null
     email: string
     name: string
-    password?: string | null
     role?: $Enums.UserRole
     createdAt?: Date | string
     userRoles?: UserCreateuserRolesInput | $Enums.UserRole[]
+    password?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userRoles?: UserUpdateuserRolesInput | $Enums.UserRole[]
+    password?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -17103,129 +15919,125 @@ export namespace Prisma {
     tenantId?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userRoles?: UserUpdateuserRolesInput | $Enums.UserRole[]
+    password?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CourseCreateInput = {
     id?: string
     title: string
     description?: string | null
-    tags: string
+    createdAt?: Date | string
     learningObjectives: string
     materialUrl: string
-    videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
-    createdAt?: Date | string
+    tags: string
     updatedAt?: Date | string
-    mcqs?: MCQCreateNestedManyWithoutCourseInput
+    videoUrl?: string | null
     enrollments?: EnrollmentCreateNestedManyWithoutCourseInput
-    tenants?: TenantCourseCreateNestedManyWithoutCourseInput
+    mcqs?: MCQCreateNestedManyWithoutCourseInput
     slideExplanations?: SlideExplanationCreateNestedManyWithoutCourseInput
-    properties?: CoursePropertiesCreateNestedOneWithoutCourseInput
+    tenants?: TenantCourseCreateNestedManyWithoutCourseInput
   }
 
   export type CourseUncheckedCreateInput = {
     id?: string
     title: string
     description?: string | null
-    tags: string
+    createdAt?: Date | string
     learningObjectives: string
     materialUrl: string
-    videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
-    createdAt?: Date | string
+    tags: string
     updatedAt?: Date | string
-    mcqs?: MCQUncheckedCreateNestedManyWithoutCourseInput
+    videoUrl?: string | null
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutCourseInput
-    tenants?: TenantCourseUncheckedCreateNestedManyWithoutCourseInput
+    mcqs?: MCQUncheckedCreateNestedManyWithoutCourseInput
     slideExplanations?: SlideExplanationUncheckedCreateNestedManyWithoutCourseInput
-    properties?: CoursePropertiesUncheckedCreateNestedOneWithoutCourseInput
+    tenants?: TenantCourseUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type CourseUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    tags?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
-    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    mcqs?: MCQUpdateManyWithoutCourseNestedInput
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: EnrollmentUpdateManyWithoutCourseNestedInput
-    tenants?: TenantCourseUpdateManyWithoutCourseNestedInput
+    mcqs?: MCQUpdateManyWithoutCourseNestedInput
     slideExplanations?: SlideExplanationUpdateManyWithoutCourseNestedInput
-    properties?: CoursePropertiesUpdateOneWithoutCourseNestedInput
+    tenants?: TenantCourseUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    tags?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
-    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    mcqs?: MCQUncheckedUpdateManyWithoutCourseNestedInput
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
-    tenants?: TenantCourseUncheckedUpdateManyWithoutCourseNestedInput
+    mcqs?: MCQUncheckedUpdateManyWithoutCourseNestedInput
     slideExplanations?: SlideExplanationUncheckedUpdateManyWithoutCourseNestedInput
-    properties?: CoursePropertiesUncheckedUpdateOneWithoutCourseNestedInput
+    tenants?: TenantCourseUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseCreateManyInput = {
     id?: string
     title: string
     description?: string | null
-    tags: string
+    createdAt?: Date | string
     learningObjectives: string
     materialUrl: string
-    videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
-    createdAt?: Date | string
+    tags: string
     updatedAt?: Date | string
+    videoUrl?: string | null
   }
 
   export type CourseUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    tags?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
-    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CourseUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    tags?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
-    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type EnrollmentCreateInput = {
     id?: string
     progress?: Decimal | DecimalJsLike | number | string
     status?: $Enums.EnrollmentStatus
-    user: UserCreateNestedOneWithoutEnrollmentsInput
     course: CourseCreateNestedOneWithoutEnrollmentsInput
+    user: UserCreateNestedOneWithoutEnrollmentsInput
   }
 
   export type EnrollmentUncheckedCreateInput = {
@@ -17240,8 +16052,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
-    user?: UserUpdateOneRequiredWithoutEnrollmentsNestedInput
     course?: CourseUpdateOneRequiredWithoutEnrollmentsNestedInput
+    user?: UserUpdateOneRequiredWithoutEnrollmentsNestedInput
   }
 
   export type EnrollmentUncheckedUpdateInput = {
@@ -17331,56 +16143,77 @@ export namespace Prisma {
 
   export type TenantCourseCreateInput = {
     id?: string
-    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: Date | string
-    tenant: TenantCreateNestedOneWithoutCoursesInput
+    explanations?: NullableJsonNullValueInput | InputJsonValue
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: $Enums.RetryType
     course: CourseCreateNestedOneWithoutTenantsInput
+    tenant: TenantCreateNestedOneWithoutCoursesInput
   }
 
   export type TenantCourseUncheckedCreateInput = {
     id?: string
     tenantId: string
     courseId: string
-    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: Date | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: $Enums.RetryType
   }
 
   export type TenantCourseUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tenant?: TenantUpdateOneRequiredWithoutCoursesNestedInput
+    explanations?: NullableJsonNullValueInput | InputJsonValue
+    skippable?: BoolFieldUpdateOperationsInput | boolean
+    mandatory?: BoolFieldUpdateOperationsInput | boolean
+    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
     course?: CourseUpdateOneRequiredWithoutTenantsNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutCoursesNestedInput
   }
 
   export type TenantCourseUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     courseId?: StringFieldUpdateOperationsInput | string
-    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
+    skippable?: BoolFieldUpdateOperationsInput | boolean
+    mandatory?: BoolFieldUpdateOperationsInput | boolean
+    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
   }
 
   export type TenantCourseCreateManyInput = {
     id?: string
     tenantId: string
     courseId: string
-    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: Date | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: $Enums.RetryType
   }
 
   export type TenantCourseUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
+    skippable?: BoolFieldUpdateOperationsInput | boolean
+    mandatory?: BoolFieldUpdateOperationsInput | boolean
+    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
   }
 
   export type TenantCourseUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     courseId?: StringFieldUpdateOperationsInput | string
-    explanations?: NullableJsonNullValueInput | InputJsonValue
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
+    skippable?: BoolFieldUpdateOperationsInput | boolean
+    mandatory?: BoolFieldUpdateOperationsInput | boolean
+    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
   }
 
   export type MCQCreateInput = {
@@ -17468,8 +16301,8 @@ export namespace Prisma {
     answer: string
     isCorrect: boolean
     createdAt?: Date | string
-    user: UserCreateNestedOneWithoutMcqAnswersInput
     mcq: MCQCreateNestedOneWithoutUserAnswersInput
+    user: UserCreateNestedOneWithoutMcqAnswersInput
   }
 
   export type UserMCQAnswerUncheckedCreateInput = {
@@ -17486,8 +16319,8 @@ export namespace Prisma {
     answer?: StringFieldUpdateOperationsInput | string
     isCorrect?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutMcqAnswersNestedInput
     mcq?: MCQUpdateOneRequiredWithoutUserAnswersNestedInput
+    user?: UserUpdateOneRequiredWithoutMcqAnswersNestedInput
   }
 
   export type UserMCQAnswerUncheckedUpdateInput = {
@@ -17663,61 +16496,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type CoursePropertiesCreateInput = {
-    id?: string
-    skippable?: boolean
-    mandatory?: boolean
-    retryType?: $Enums.RetryType
-    course: CourseCreateNestedOneWithoutPropertiesInput
-  }
-
-  export type CoursePropertiesUncheckedCreateInput = {
-    id?: string
-    courseId: string
-    skippable?: boolean
-    mandatory?: boolean
-    retryType?: $Enums.RetryType
-  }
-
-  export type CoursePropertiesUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    skippable?: BoolFieldUpdateOperationsInput | boolean
-    mandatory?: BoolFieldUpdateOperationsInput | boolean
-    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
-    course?: CourseUpdateOneRequiredWithoutPropertiesNestedInput
-  }
-
-  export type CoursePropertiesUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    courseId?: StringFieldUpdateOperationsInput | string
-    skippable?: BoolFieldUpdateOperationsInput | boolean
-    mandatory?: BoolFieldUpdateOperationsInput | boolean
-    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
-  }
-
-  export type CoursePropertiesCreateManyInput = {
-    id?: string
-    courseId: string
-    skippable?: boolean
-    mandatory?: boolean
-    retryType?: $Enums.RetryType
-  }
-
-  export type CoursePropertiesUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    skippable?: BoolFieldUpdateOperationsInput | boolean
-    mandatory?: BoolFieldUpdateOperationsInput | boolean
-    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
-  }
-
-  export type CoursePropertiesUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    courseId?: StringFieldUpdateOperationsInput | string
-    skippable?: BoolFieldUpdateOperationsInput | boolean
-    mandatory?: BoolFieldUpdateOperationsInput | boolean
-    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
-  }
-
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -17744,10 +16522,10 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type UserListRelationFilter = {
-    every?: UserWhereInput
-    some?: UserWhereInput
-    none?: UserWhereInput
+  export type TenantCourseListRelationFilter = {
+    every?: TenantCourseWhereInput
+    some?: TenantCourseWhereInput
+    none?: TenantCourseWhereInput
   }
 
   export type TenantDetailsNullableScalarRelationFilter = {
@@ -17755,17 +16533,17 @@ export namespace Prisma {
     isNot?: TenantDetailsWhereInput | null
   }
 
-  export type TenantCourseListRelationFilter = {
-    every?: TenantCourseWhereInput
-    some?: TenantCourseWhereInput
-    none?: TenantCourseWhereInput
-  }
-
-  export type UserOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type UserListRelationFilter = {
+    every?: UserWhereInput
+    some?: UserWhereInput
+    none?: UserWhereInput
   }
 
   export type TenantCourseOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -17773,27 +16551,27 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     domain?: SortOrder
+    createdAt?: SortOrder
     adminEmail?: SortOrder
     adminPassword?: SortOrder
-    createdAt?: SortOrder
   }
 
   export type TenantMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     domain?: SortOrder
+    createdAt?: SortOrder
     adminEmail?: SortOrder
     adminPassword?: SortOrder
-    createdAt?: SortOrder
   }
 
   export type TenantMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     domain?: SortOrder
+    createdAt?: SortOrder
     adminEmail?: SortOrder
     adminPassword?: SortOrder
-    createdAt?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -17958,9 +16736,10 @@ export namespace Prisma {
     isEmpty?: boolean
   }
 
-  export type TenantNullableScalarRelationFilter = {
-    is?: TenantWhereInput | null
-    isNot?: TenantWhereInput | null
+  export type CertificateListRelationFilter = {
+    every?: CertificateWhereInput
+    some?: CertificateWhereInput
+    none?: CertificateWhereInput
   }
 
   export type EnrollmentListRelationFilter = {
@@ -17969,23 +16748,22 @@ export namespace Prisma {
     none?: EnrollmentWhereInput
   }
 
-  export type CertificateListRelationFilter = {
-    every?: CertificateWhereInput
-    some?: CertificateWhereInput
-    none?: CertificateWhereInput
-  }
-
   export type UserMCQAnswerListRelationFilter = {
     every?: UserMCQAnswerWhereInput
     some?: UserMCQAnswerWhereInput
     none?: UserMCQAnswerWhereInput
   }
 
-  export type EnrollmentOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type TenantNullableScalarRelationFilter = {
+    is?: TenantWhereInput | null
+    isNot?: TenantWhereInput | null
   }
 
   export type CertificateOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EnrollmentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -17998,10 +16776,10 @@ export namespace Prisma {
     tenantId?: SortOrder
     email?: SortOrder
     name?: SortOrder
-    password?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     userRoles?: SortOrder
+    password?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -18009,9 +16787,9 @@ export namespace Prisma {
     tenantId?: SortOrder
     email?: SortOrder
     name?: SortOrder
-    password?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    password?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -18019,9 +16797,9 @@ export namespace Prisma {
     tenantId?: SortOrder
     email?: SortOrder
     name?: SortOrder
-    password?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    password?: SortOrder
   }
 
   export type EnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -18060,11 +16838,6 @@ export namespace Prisma {
     none?: SlideExplanationWhereInput
   }
 
-  export type CoursePropertiesNullableScalarRelationFilter = {
-    is?: CoursePropertiesWhereInput | null
-    isNot?: CoursePropertiesWhereInput | null
-  }
-
   export type MCQOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -18077,37 +16850,37 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    tags?: SortOrder
+    createdAt?: SortOrder
     learningObjectives?: SortOrder
     materialUrl?: SortOrder
-    videoUrl?: SortOrder
     slides?: SortOrder
-    createdAt?: SortOrder
+    tags?: SortOrder
     updatedAt?: SortOrder
+    videoUrl?: SortOrder
   }
 
   export type CourseMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    tags?: SortOrder
+    createdAt?: SortOrder
     learningObjectives?: SortOrder
     materialUrl?: SortOrder
-    videoUrl?: SortOrder
-    createdAt?: SortOrder
+    tags?: SortOrder
     updatedAt?: SortOrder
+    videoUrl?: SortOrder
   }
 
   export type CourseMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    tags?: SortOrder
+    createdAt?: SortOrder
     learningObjectives?: SortOrder
     materialUrl?: SortOrder
-    videoUrl?: SortOrder
-    createdAt?: SortOrder
+    tags?: SortOrder
     updatedAt?: SortOrder
+    videoUrl?: SortOrder
   }
 
   export type DecimalFilter<$PrismaModel = never> = {
@@ -18128,14 +16901,14 @@ export namespace Prisma {
     not?: NestedEnumEnrollmentStatusFilter<$PrismaModel> | $Enums.EnrollmentStatus
   }
 
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
-  }
-
   export type CourseScalarRelationFilter = {
     is?: CourseWhereInput
     isNot?: CourseWhereInput
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
   }
 
   export type EnrollmentCountOrderByAggregateInput = {
@@ -18243,12 +17016,27 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type EnumRetryTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.RetryType | EnumRetryTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRetryTypeFilter<$PrismaModel> | $Enums.RetryType
+  }
+
   export type TenantCourseCountOrderByAggregateInput = {
     id?: SortOrder
     tenantId?: SortOrder
     courseId?: SortOrder
-    explanations?: SortOrder
     assignedAt?: SortOrder
+    explanations?: SortOrder
+    skippable?: SortOrder
+    mandatory?: SortOrder
+    retryType?: SortOrder
   }
 
   export type TenantCourseMaxOrderByAggregateInput = {
@@ -18256,6 +17044,9 @@ export namespace Prisma {
     tenantId?: SortOrder
     courseId?: SortOrder
     assignedAt?: SortOrder
+    skippable?: SortOrder
+    mandatory?: SortOrder
+    retryType?: SortOrder
   }
 
   export type TenantCourseMinOrderByAggregateInput = {
@@ -18263,6 +17054,9 @@ export namespace Prisma {
     tenantId?: SortOrder
     courseId?: SortOrder
     assignedAt?: SortOrder
+    skippable?: SortOrder
+    mandatory?: SortOrder
+    retryType?: SortOrder
   }
   export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -18289,6 +17083,24 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedJsonNullableFilter<$PrismaModel>
     _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type EnumRetryTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RetryType | EnumRetryTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRetryTypeWithAggregatesFilter<$PrismaModel> | $Enums.RetryType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRetryTypeFilter<$PrismaModel>
+    _max?: NestedEnumRetryTypeFilter<$PrismaModel>
   }
 
   export type StringNullableListFilter<$PrismaModel = never> = {
@@ -18330,11 +17142,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type MCQScalarRelationFilter = {
     is?: MCQWhereInput
     isNot?: MCQWhereInput
@@ -18365,14 +17172,6 @@ export namespace Prisma {
     answer?: SortOrder
     isCorrect?: SortOrder
     createdAt?: SortOrder
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -18475,45 +17274,17 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type EnumRetryTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.RetryType | EnumRetryTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumRetryTypeFilter<$PrismaModel> | $Enums.RetryType
+  export type TenantCourseCreateNestedManyWithoutTenantInput = {
+    create?: XOR<TenantCourseCreateWithoutTenantInput, TenantCourseUncheckedCreateWithoutTenantInput> | TenantCourseCreateWithoutTenantInput[] | TenantCourseUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TenantCourseCreateOrConnectWithoutTenantInput | TenantCourseCreateOrConnectWithoutTenantInput[]
+    createMany?: TenantCourseCreateManyTenantInputEnvelope
+    connect?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
   }
 
-  export type CoursePropertiesCountOrderByAggregateInput = {
-    id?: SortOrder
-    courseId?: SortOrder
-    skippable?: SortOrder
-    mandatory?: SortOrder
-    retryType?: SortOrder
-  }
-
-  export type CoursePropertiesMaxOrderByAggregateInput = {
-    id?: SortOrder
-    courseId?: SortOrder
-    skippable?: SortOrder
-    mandatory?: SortOrder
-    retryType?: SortOrder
-  }
-
-  export type CoursePropertiesMinOrderByAggregateInput = {
-    id?: SortOrder
-    courseId?: SortOrder
-    skippable?: SortOrder
-    mandatory?: SortOrder
-    retryType?: SortOrder
-  }
-
-  export type EnumRetryTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.RetryType | EnumRetryTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumRetryTypeWithAggregatesFilter<$PrismaModel> | $Enums.RetryType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumRetryTypeFilter<$PrismaModel>
-    _max?: NestedEnumRetryTypeFilter<$PrismaModel>
+  export type TenantDetailsCreateNestedOneWithoutTenantInput = {
+    create?: XOR<TenantDetailsCreateWithoutTenantInput, TenantDetailsUncheckedCreateWithoutTenantInput>
+    connectOrCreate?: TenantDetailsCreateOrConnectWithoutTenantInput
+    connect?: TenantDetailsWhereUniqueInput
   }
 
   export type UserCreateNestedManyWithoutTenantInput = {
@@ -18523,17 +17294,17 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
-  export type TenantDetailsCreateNestedOneWithoutTenantInput = {
-    create?: XOR<TenantDetailsCreateWithoutTenantInput, TenantDetailsUncheckedCreateWithoutTenantInput>
-    connectOrCreate?: TenantDetailsCreateOrConnectWithoutTenantInput
-    connect?: TenantDetailsWhereUniqueInput
-  }
-
-  export type TenantCourseCreateNestedManyWithoutTenantInput = {
+  export type TenantCourseUncheckedCreateNestedManyWithoutTenantInput = {
     create?: XOR<TenantCourseCreateWithoutTenantInput, TenantCourseUncheckedCreateWithoutTenantInput> | TenantCourseCreateWithoutTenantInput[] | TenantCourseUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: TenantCourseCreateOrConnectWithoutTenantInput | TenantCourseCreateOrConnectWithoutTenantInput[]
     createMany?: TenantCourseCreateManyTenantInputEnvelope
     connect?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
+  }
+
+  export type TenantDetailsUncheckedCreateNestedOneWithoutTenantInput = {
+    create?: XOR<TenantDetailsCreateWithoutTenantInput, TenantDetailsUncheckedCreateWithoutTenantInput>
+    connectOrCreate?: TenantDetailsCreateOrConnectWithoutTenantInput
+    connect?: TenantDetailsWhereUniqueInput
   }
 
   export type UserUncheckedCreateNestedManyWithoutTenantInput = {
@@ -18543,49 +17314,12 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
-  export type TenantDetailsUncheckedCreateNestedOneWithoutTenantInput = {
-    create?: XOR<TenantDetailsCreateWithoutTenantInput, TenantDetailsUncheckedCreateWithoutTenantInput>
-    connectOrCreate?: TenantDetailsCreateOrConnectWithoutTenantInput
-    connect?: TenantDetailsWhereUniqueInput
-  }
-
-  export type TenantCourseUncheckedCreateNestedManyWithoutTenantInput = {
-    create?: XOR<TenantCourseCreateWithoutTenantInput, TenantCourseUncheckedCreateWithoutTenantInput> | TenantCourseCreateWithoutTenantInput[] | TenantCourseUncheckedCreateWithoutTenantInput[]
-    connectOrCreate?: TenantCourseCreateOrConnectWithoutTenantInput | TenantCourseCreateOrConnectWithoutTenantInput[]
-    createMany?: TenantCourseCreateManyTenantInputEnvelope
-    connect?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
-  }
-
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
-  }
-
-  export type UserUpdateManyWithoutTenantNestedInput = {
-    create?: XOR<UserCreateWithoutTenantInput, UserUncheckedCreateWithoutTenantInput> | UserCreateWithoutTenantInput[] | UserUncheckedCreateWithoutTenantInput[]
-    connectOrCreate?: UserCreateOrConnectWithoutTenantInput | UserCreateOrConnectWithoutTenantInput[]
-    upsert?: UserUpsertWithWhereUniqueWithoutTenantInput | UserUpsertWithWhereUniqueWithoutTenantInput[]
-    createMany?: UserCreateManyTenantInputEnvelope
-    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    update?: UserUpdateWithWhereUniqueWithoutTenantInput | UserUpdateWithWhereUniqueWithoutTenantInput[]
-    updateMany?: UserUpdateManyWithWhereWithoutTenantInput | UserUpdateManyWithWhereWithoutTenantInput[]
-    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
-  }
-
-  export type TenantDetailsUpdateOneWithoutTenantNestedInput = {
-    create?: XOR<TenantDetailsCreateWithoutTenantInput, TenantDetailsUncheckedCreateWithoutTenantInput>
-    connectOrCreate?: TenantDetailsCreateOrConnectWithoutTenantInput
-    upsert?: TenantDetailsUpsertWithoutTenantInput
-    disconnect?: TenantDetailsWhereInput | boolean
-    delete?: TenantDetailsWhereInput | boolean
-    connect?: TenantDetailsWhereUniqueInput
-    update?: XOR<XOR<TenantDetailsUpdateToOneWithWhereWithoutTenantInput, TenantDetailsUpdateWithoutTenantInput>, TenantDetailsUncheckedUpdateWithoutTenantInput>
   }
 
   export type TenantCourseUpdateManyWithoutTenantNestedInput = {
@@ -18602,7 +17336,17 @@ export namespace Prisma {
     deleteMany?: TenantCourseScalarWhereInput | TenantCourseScalarWhereInput[]
   }
 
-  export type UserUncheckedUpdateManyWithoutTenantNestedInput = {
+  export type TenantDetailsUpdateOneWithoutTenantNestedInput = {
+    create?: XOR<TenantDetailsCreateWithoutTenantInput, TenantDetailsUncheckedCreateWithoutTenantInput>
+    connectOrCreate?: TenantDetailsCreateOrConnectWithoutTenantInput
+    upsert?: TenantDetailsUpsertWithoutTenantInput
+    disconnect?: TenantDetailsWhereInput | boolean
+    delete?: TenantDetailsWhereInput | boolean
+    connect?: TenantDetailsWhereUniqueInput
+    update?: XOR<XOR<TenantDetailsUpdateToOneWithWhereWithoutTenantInput, TenantDetailsUpdateWithoutTenantInput>, TenantDetailsUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type UserUpdateManyWithoutTenantNestedInput = {
     create?: XOR<UserCreateWithoutTenantInput, UserUncheckedCreateWithoutTenantInput> | UserCreateWithoutTenantInput[] | UserUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: UserCreateOrConnectWithoutTenantInput | UserCreateOrConnectWithoutTenantInput[]
     upsert?: UserUpsertWithWhereUniqueWithoutTenantInput | UserUpsertWithWhereUniqueWithoutTenantInput[]
@@ -18614,16 +17358,6 @@ export namespace Prisma {
     update?: UserUpdateWithWhereUniqueWithoutTenantInput | UserUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: UserUpdateManyWithWhereWithoutTenantInput | UserUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
-  }
-
-  export type TenantDetailsUncheckedUpdateOneWithoutTenantNestedInput = {
-    create?: XOR<TenantDetailsCreateWithoutTenantInput, TenantDetailsUncheckedCreateWithoutTenantInput>
-    connectOrCreate?: TenantDetailsCreateOrConnectWithoutTenantInput
-    upsert?: TenantDetailsUpsertWithoutTenantInput
-    disconnect?: TenantDetailsWhereInput | boolean
-    delete?: TenantDetailsWhereInput | boolean
-    connect?: TenantDetailsWhereUniqueInput
-    update?: XOR<XOR<TenantDetailsUpdateToOneWithWhereWithoutTenantInput, TenantDetailsUpdateWithoutTenantInput>, TenantDetailsUncheckedUpdateWithoutTenantInput>
   }
 
   export type TenantCourseUncheckedUpdateManyWithoutTenantNestedInput = {
@@ -18638,6 +17372,30 @@ export namespace Prisma {
     update?: TenantCourseUpdateWithWhereUniqueWithoutTenantInput | TenantCourseUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: TenantCourseUpdateManyWithWhereWithoutTenantInput | TenantCourseUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: TenantCourseScalarWhereInput | TenantCourseScalarWhereInput[]
+  }
+
+  export type TenantDetailsUncheckedUpdateOneWithoutTenantNestedInput = {
+    create?: XOR<TenantDetailsCreateWithoutTenantInput, TenantDetailsUncheckedCreateWithoutTenantInput>
+    connectOrCreate?: TenantDetailsCreateOrConnectWithoutTenantInput
+    upsert?: TenantDetailsUpsertWithoutTenantInput
+    disconnect?: TenantDetailsWhereInput | boolean
+    delete?: TenantDetailsWhereInput | boolean
+    connect?: TenantDetailsWhereUniqueInput
+    update?: XOR<XOR<TenantDetailsUpdateToOneWithWhereWithoutTenantInput, TenantDetailsUpdateWithoutTenantInput>, TenantDetailsUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type UserUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<UserCreateWithoutTenantInput, UserUncheckedCreateWithoutTenantInput> | UserCreateWithoutTenantInput[] | UserUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutTenantInput | UserCreateOrConnectWithoutTenantInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutTenantInput | UserUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: UserCreateManyTenantInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutTenantInput | UserUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutTenantInput | UserUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type TenantCreateNestedOneWithoutDetailsInput = {
@@ -18662,10 +17420,11 @@ export namespace Prisma {
     set: $Enums.UserRole[]
   }
 
-  export type TenantCreateNestedOneWithoutUsersInput = {
-    create?: XOR<TenantCreateWithoutUsersInput, TenantUncheckedCreateWithoutUsersInput>
-    connectOrCreate?: TenantCreateOrConnectWithoutUsersInput
-    connect?: TenantWhereUniqueInput
+  export type CertificateCreateNestedManyWithoutUserInput = {
+    create?: XOR<CertificateCreateWithoutUserInput, CertificateUncheckedCreateWithoutUserInput> | CertificateCreateWithoutUserInput[] | CertificateUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CertificateCreateOrConnectWithoutUserInput | CertificateCreateOrConnectWithoutUserInput[]
+    createMany?: CertificateCreateManyUserInputEnvelope
+    connect?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
   }
 
   export type EnrollmentCreateNestedManyWithoutUserInput = {
@@ -18675,13 +17434,6 @@ export namespace Prisma {
     connect?: EnrollmentWhereUniqueInput | EnrollmentWhereUniqueInput[]
   }
 
-  export type CertificateCreateNestedManyWithoutUserInput = {
-    create?: XOR<CertificateCreateWithoutUserInput, CertificateUncheckedCreateWithoutUserInput> | CertificateCreateWithoutUserInput[] | CertificateUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: CertificateCreateOrConnectWithoutUserInput | CertificateCreateOrConnectWithoutUserInput[]
-    createMany?: CertificateCreateManyUserInputEnvelope
-    connect?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
-  }
-
   export type UserMCQAnswerCreateNestedManyWithoutUserInput = {
     create?: XOR<UserMCQAnswerCreateWithoutUserInput, UserMCQAnswerUncheckedCreateWithoutUserInput> | UserMCQAnswerCreateWithoutUserInput[] | UserMCQAnswerUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserMCQAnswerCreateOrConnectWithoutUserInput | UserMCQAnswerCreateOrConnectWithoutUserInput[]
@@ -18689,11 +17441,10 @@ export namespace Prisma {
     connect?: UserMCQAnswerWhereUniqueInput | UserMCQAnswerWhereUniqueInput[]
   }
 
-  export type EnrollmentUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<EnrollmentCreateWithoutUserInput, EnrollmentUncheckedCreateWithoutUserInput> | EnrollmentCreateWithoutUserInput[] | EnrollmentUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: EnrollmentCreateOrConnectWithoutUserInput | EnrollmentCreateOrConnectWithoutUserInput[]
-    createMany?: EnrollmentCreateManyUserInputEnvelope
-    connect?: EnrollmentWhereUniqueInput | EnrollmentWhereUniqueInput[]
+  export type TenantCreateNestedOneWithoutUsersInput = {
+    create?: XOR<TenantCreateWithoutUsersInput, TenantUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutUsersInput
+    connect?: TenantWhereUniqueInput
   }
 
   export type CertificateUncheckedCreateNestedManyWithoutUserInput = {
@@ -18701,6 +17452,13 @@ export namespace Prisma {
     connectOrCreate?: CertificateCreateOrConnectWithoutUserInput | CertificateCreateOrConnectWithoutUserInput[]
     createMany?: CertificateCreateManyUserInputEnvelope
     connect?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
+  }
+
+  export type EnrollmentUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<EnrollmentCreateWithoutUserInput, EnrollmentUncheckedCreateWithoutUserInput> | EnrollmentCreateWithoutUserInput[] | EnrollmentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: EnrollmentCreateOrConnectWithoutUserInput | EnrollmentCreateOrConnectWithoutUserInput[]
+    createMany?: EnrollmentCreateManyUserInputEnvelope
+    connect?: EnrollmentWhereUniqueInput | EnrollmentWhereUniqueInput[]
   }
 
   export type UserMCQAnswerUncheckedCreateNestedManyWithoutUserInput = {
@@ -18719,14 +17477,18 @@ export namespace Prisma {
     push?: $Enums.UserRole | $Enums.UserRole[]
   }
 
-  export type TenantUpdateOneWithoutUsersNestedInput = {
-    create?: XOR<TenantCreateWithoutUsersInput, TenantUncheckedCreateWithoutUsersInput>
-    connectOrCreate?: TenantCreateOrConnectWithoutUsersInput
-    upsert?: TenantUpsertWithoutUsersInput
-    disconnect?: TenantWhereInput | boolean
-    delete?: TenantWhereInput | boolean
-    connect?: TenantWhereUniqueInput
-    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutUsersInput, TenantUpdateWithoutUsersInput>, TenantUncheckedUpdateWithoutUsersInput>
+  export type CertificateUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CertificateCreateWithoutUserInput, CertificateUncheckedCreateWithoutUserInput> | CertificateCreateWithoutUserInput[] | CertificateUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CertificateCreateOrConnectWithoutUserInput | CertificateCreateOrConnectWithoutUserInput[]
+    upsert?: CertificateUpsertWithWhereUniqueWithoutUserInput | CertificateUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CertificateCreateManyUserInputEnvelope
+    set?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
+    disconnect?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
+    delete?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
+    connect?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
+    update?: CertificateUpdateWithWhereUniqueWithoutUserInput | CertificateUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CertificateUpdateManyWithWhereWithoutUserInput | CertificateUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CertificateScalarWhereInput | CertificateScalarWhereInput[]
   }
 
   export type EnrollmentUpdateManyWithoutUserNestedInput = {
@@ -18743,20 +17505,6 @@ export namespace Prisma {
     deleteMany?: EnrollmentScalarWhereInput | EnrollmentScalarWhereInput[]
   }
 
-  export type CertificateUpdateManyWithoutUserNestedInput = {
-    create?: XOR<CertificateCreateWithoutUserInput, CertificateUncheckedCreateWithoutUserInput> | CertificateCreateWithoutUserInput[] | CertificateUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: CertificateCreateOrConnectWithoutUserInput | CertificateCreateOrConnectWithoutUserInput[]
-    upsert?: CertificateUpsertWithWhereUniqueWithoutUserInput | CertificateUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: CertificateCreateManyUserInputEnvelope
-    set?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
-    disconnect?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
-    delete?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
-    connect?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
-    update?: CertificateUpdateWithWhereUniqueWithoutUserInput | CertificateUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: CertificateUpdateManyWithWhereWithoutUserInput | CertificateUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: CertificateScalarWhereInput | CertificateScalarWhereInput[]
-  }
-
   export type UserMCQAnswerUpdateManyWithoutUserNestedInput = {
     create?: XOR<UserMCQAnswerCreateWithoutUserInput, UserMCQAnswerUncheckedCreateWithoutUserInput> | UserMCQAnswerCreateWithoutUserInput[] | UserMCQAnswerUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserMCQAnswerCreateOrConnectWithoutUserInput | UserMCQAnswerCreateOrConnectWithoutUserInput[]
@@ -18771,18 +17519,14 @@ export namespace Prisma {
     deleteMany?: UserMCQAnswerScalarWhereInput | UserMCQAnswerScalarWhereInput[]
   }
 
-  export type EnrollmentUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<EnrollmentCreateWithoutUserInput, EnrollmentUncheckedCreateWithoutUserInput> | EnrollmentCreateWithoutUserInput[] | EnrollmentUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: EnrollmentCreateOrConnectWithoutUserInput | EnrollmentCreateOrConnectWithoutUserInput[]
-    upsert?: EnrollmentUpsertWithWhereUniqueWithoutUserInput | EnrollmentUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: EnrollmentCreateManyUserInputEnvelope
-    set?: EnrollmentWhereUniqueInput | EnrollmentWhereUniqueInput[]
-    disconnect?: EnrollmentWhereUniqueInput | EnrollmentWhereUniqueInput[]
-    delete?: EnrollmentWhereUniqueInput | EnrollmentWhereUniqueInput[]
-    connect?: EnrollmentWhereUniqueInput | EnrollmentWhereUniqueInput[]
-    update?: EnrollmentUpdateWithWhereUniqueWithoutUserInput | EnrollmentUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: EnrollmentUpdateManyWithWhereWithoutUserInput | EnrollmentUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: EnrollmentScalarWhereInput | EnrollmentScalarWhereInput[]
+  export type TenantUpdateOneWithoutUsersNestedInput = {
+    create?: XOR<TenantCreateWithoutUsersInput, TenantUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutUsersInput
+    upsert?: TenantUpsertWithoutUsersInput
+    disconnect?: TenantWhereInput | boolean
+    delete?: TenantWhereInput | boolean
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutUsersInput, TenantUpdateWithoutUsersInput>, TenantUncheckedUpdateWithoutUsersInput>
   }
 
   export type CertificateUncheckedUpdateManyWithoutUserNestedInput = {
@@ -18797,6 +17541,20 @@ export namespace Prisma {
     update?: CertificateUpdateWithWhereUniqueWithoutUserInput | CertificateUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CertificateUpdateManyWithWhereWithoutUserInput | CertificateUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CertificateScalarWhereInput | CertificateScalarWhereInput[]
+  }
+
+  export type EnrollmentUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<EnrollmentCreateWithoutUserInput, EnrollmentUncheckedCreateWithoutUserInput> | EnrollmentCreateWithoutUserInput[] | EnrollmentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: EnrollmentCreateOrConnectWithoutUserInput | EnrollmentCreateOrConnectWithoutUserInput[]
+    upsert?: EnrollmentUpsertWithWhereUniqueWithoutUserInput | EnrollmentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: EnrollmentCreateManyUserInputEnvelope
+    set?: EnrollmentWhereUniqueInput | EnrollmentWhereUniqueInput[]
+    disconnect?: EnrollmentWhereUniqueInput | EnrollmentWhereUniqueInput[]
+    delete?: EnrollmentWhereUniqueInput | EnrollmentWhereUniqueInput[]
+    connect?: EnrollmentWhereUniqueInput | EnrollmentWhereUniqueInput[]
+    update?: EnrollmentUpdateWithWhereUniqueWithoutUserInput | EnrollmentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: EnrollmentUpdateManyWithWhereWithoutUserInput | EnrollmentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: EnrollmentScalarWhereInput | EnrollmentScalarWhereInput[]
   }
 
   export type UserMCQAnswerUncheckedUpdateManyWithoutUserNestedInput = {
@@ -18817,13 +17575,6 @@ export namespace Prisma {
     set: InputJsonValue[]
   }
 
-  export type MCQCreateNestedManyWithoutCourseInput = {
-    create?: XOR<MCQCreateWithoutCourseInput, MCQUncheckedCreateWithoutCourseInput> | MCQCreateWithoutCourseInput[] | MCQUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: MCQCreateOrConnectWithoutCourseInput | MCQCreateOrConnectWithoutCourseInput[]
-    createMany?: MCQCreateManyCourseInputEnvelope
-    connect?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
-  }
-
   export type EnrollmentCreateNestedManyWithoutCourseInput = {
     create?: XOR<EnrollmentCreateWithoutCourseInput, EnrollmentUncheckedCreateWithoutCourseInput> | EnrollmentCreateWithoutCourseInput[] | EnrollmentUncheckedCreateWithoutCourseInput[]
     connectOrCreate?: EnrollmentCreateOrConnectWithoutCourseInput | EnrollmentCreateOrConnectWithoutCourseInput[]
@@ -18831,11 +17582,11 @@ export namespace Prisma {
     connect?: EnrollmentWhereUniqueInput | EnrollmentWhereUniqueInput[]
   }
 
-  export type TenantCourseCreateNestedManyWithoutCourseInput = {
-    create?: XOR<TenantCourseCreateWithoutCourseInput, TenantCourseUncheckedCreateWithoutCourseInput> | TenantCourseCreateWithoutCourseInput[] | TenantCourseUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: TenantCourseCreateOrConnectWithoutCourseInput | TenantCourseCreateOrConnectWithoutCourseInput[]
-    createMany?: TenantCourseCreateManyCourseInputEnvelope
-    connect?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
+  export type MCQCreateNestedManyWithoutCourseInput = {
+    create?: XOR<MCQCreateWithoutCourseInput, MCQUncheckedCreateWithoutCourseInput> | MCQCreateWithoutCourseInput[] | MCQUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: MCQCreateOrConnectWithoutCourseInput | MCQCreateOrConnectWithoutCourseInput[]
+    createMany?: MCQCreateManyCourseInputEnvelope
+    connect?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
   }
 
   export type SlideExplanationCreateNestedManyWithoutCourseInput = {
@@ -18845,17 +17596,11 @@ export namespace Prisma {
     connect?: SlideExplanationWhereUniqueInput | SlideExplanationWhereUniqueInput[]
   }
 
-  export type CoursePropertiesCreateNestedOneWithoutCourseInput = {
-    create?: XOR<CoursePropertiesCreateWithoutCourseInput, CoursePropertiesUncheckedCreateWithoutCourseInput>
-    connectOrCreate?: CoursePropertiesCreateOrConnectWithoutCourseInput
-    connect?: CoursePropertiesWhereUniqueInput
-  }
-
-  export type MCQUncheckedCreateNestedManyWithoutCourseInput = {
-    create?: XOR<MCQCreateWithoutCourseInput, MCQUncheckedCreateWithoutCourseInput> | MCQCreateWithoutCourseInput[] | MCQUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: MCQCreateOrConnectWithoutCourseInput | MCQCreateOrConnectWithoutCourseInput[]
-    createMany?: MCQCreateManyCourseInputEnvelope
-    connect?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
+  export type TenantCourseCreateNestedManyWithoutCourseInput = {
+    create?: XOR<TenantCourseCreateWithoutCourseInput, TenantCourseUncheckedCreateWithoutCourseInput> | TenantCourseCreateWithoutCourseInput[] | TenantCourseUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: TenantCourseCreateOrConnectWithoutCourseInput | TenantCourseCreateOrConnectWithoutCourseInput[]
+    createMany?: TenantCourseCreateManyCourseInputEnvelope
+    connect?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
   }
 
   export type EnrollmentUncheckedCreateNestedManyWithoutCourseInput = {
@@ -18865,11 +17610,11 @@ export namespace Prisma {
     connect?: EnrollmentWhereUniqueInput | EnrollmentWhereUniqueInput[]
   }
 
-  export type TenantCourseUncheckedCreateNestedManyWithoutCourseInput = {
-    create?: XOR<TenantCourseCreateWithoutCourseInput, TenantCourseUncheckedCreateWithoutCourseInput> | TenantCourseCreateWithoutCourseInput[] | TenantCourseUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: TenantCourseCreateOrConnectWithoutCourseInput | TenantCourseCreateOrConnectWithoutCourseInput[]
-    createMany?: TenantCourseCreateManyCourseInputEnvelope
-    connect?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
+  export type MCQUncheckedCreateNestedManyWithoutCourseInput = {
+    create?: XOR<MCQCreateWithoutCourseInput, MCQUncheckedCreateWithoutCourseInput> | MCQCreateWithoutCourseInput[] | MCQUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: MCQCreateOrConnectWithoutCourseInput | MCQCreateOrConnectWithoutCourseInput[]
+    createMany?: MCQCreateManyCourseInputEnvelope
+    connect?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
   }
 
   export type SlideExplanationUncheckedCreateNestedManyWithoutCourseInput = {
@@ -18879,29 +17624,16 @@ export namespace Prisma {
     connect?: SlideExplanationWhereUniqueInput | SlideExplanationWhereUniqueInput[]
   }
 
-  export type CoursePropertiesUncheckedCreateNestedOneWithoutCourseInput = {
-    create?: XOR<CoursePropertiesCreateWithoutCourseInput, CoursePropertiesUncheckedCreateWithoutCourseInput>
-    connectOrCreate?: CoursePropertiesCreateOrConnectWithoutCourseInput
-    connect?: CoursePropertiesWhereUniqueInput
+  export type TenantCourseUncheckedCreateNestedManyWithoutCourseInput = {
+    create?: XOR<TenantCourseCreateWithoutCourseInput, TenantCourseUncheckedCreateWithoutCourseInput> | TenantCourseCreateWithoutCourseInput[] | TenantCourseUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: TenantCourseCreateOrConnectWithoutCourseInput | TenantCourseCreateOrConnectWithoutCourseInput[]
+    createMany?: TenantCourseCreateManyCourseInputEnvelope
+    connect?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
   }
 
   export type CourseUpdateslidesInput = {
     set?: InputJsonValue[]
     push?: InputJsonValue | InputJsonValue[]
-  }
-
-  export type MCQUpdateManyWithoutCourseNestedInput = {
-    create?: XOR<MCQCreateWithoutCourseInput, MCQUncheckedCreateWithoutCourseInput> | MCQCreateWithoutCourseInput[] | MCQUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: MCQCreateOrConnectWithoutCourseInput | MCQCreateOrConnectWithoutCourseInput[]
-    upsert?: MCQUpsertWithWhereUniqueWithoutCourseInput | MCQUpsertWithWhereUniqueWithoutCourseInput[]
-    createMany?: MCQCreateManyCourseInputEnvelope
-    set?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
-    disconnect?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
-    delete?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
-    connect?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
-    update?: MCQUpdateWithWhereUniqueWithoutCourseInput | MCQUpdateWithWhereUniqueWithoutCourseInput[]
-    updateMany?: MCQUpdateManyWithWhereWithoutCourseInput | MCQUpdateManyWithWhereWithoutCourseInput[]
-    deleteMany?: MCQScalarWhereInput | MCQScalarWhereInput[]
   }
 
   export type EnrollmentUpdateManyWithoutCourseNestedInput = {
@@ -18918,18 +17650,18 @@ export namespace Prisma {
     deleteMany?: EnrollmentScalarWhereInput | EnrollmentScalarWhereInput[]
   }
 
-  export type TenantCourseUpdateManyWithoutCourseNestedInput = {
-    create?: XOR<TenantCourseCreateWithoutCourseInput, TenantCourseUncheckedCreateWithoutCourseInput> | TenantCourseCreateWithoutCourseInput[] | TenantCourseUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: TenantCourseCreateOrConnectWithoutCourseInput | TenantCourseCreateOrConnectWithoutCourseInput[]
-    upsert?: TenantCourseUpsertWithWhereUniqueWithoutCourseInput | TenantCourseUpsertWithWhereUniqueWithoutCourseInput[]
-    createMany?: TenantCourseCreateManyCourseInputEnvelope
-    set?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
-    disconnect?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
-    delete?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
-    connect?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
-    update?: TenantCourseUpdateWithWhereUniqueWithoutCourseInput | TenantCourseUpdateWithWhereUniqueWithoutCourseInput[]
-    updateMany?: TenantCourseUpdateManyWithWhereWithoutCourseInput | TenantCourseUpdateManyWithWhereWithoutCourseInput[]
-    deleteMany?: TenantCourseScalarWhereInput | TenantCourseScalarWhereInput[]
+  export type MCQUpdateManyWithoutCourseNestedInput = {
+    create?: XOR<MCQCreateWithoutCourseInput, MCQUncheckedCreateWithoutCourseInput> | MCQCreateWithoutCourseInput[] | MCQUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: MCQCreateOrConnectWithoutCourseInput | MCQCreateOrConnectWithoutCourseInput[]
+    upsert?: MCQUpsertWithWhereUniqueWithoutCourseInput | MCQUpsertWithWhereUniqueWithoutCourseInput[]
+    createMany?: MCQCreateManyCourseInputEnvelope
+    set?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
+    disconnect?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
+    delete?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
+    connect?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
+    update?: MCQUpdateWithWhereUniqueWithoutCourseInput | MCQUpdateWithWhereUniqueWithoutCourseInput[]
+    updateMany?: MCQUpdateManyWithWhereWithoutCourseInput | MCQUpdateManyWithWhereWithoutCourseInput[]
+    deleteMany?: MCQScalarWhereInput | MCQScalarWhereInput[]
   }
 
   export type SlideExplanationUpdateManyWithoutCourseNestedInput = {
@@ -18946,28 +17678,18 @@ export namespace Prisma {
     deleteMany?: SlideExplanationScalarWhereInput | SlideExplanationScalarWhereInput[]
   }
 
-  export type CoursePropertiesUpdateOneWithoutCourseNestedInput = {
-    create?: XOR<CoursePropertiesCreateWithoutCourseInput, CoursePropertiesUncheckedCreateWithoutCourseInput>
-    connectOrCreate?: CoursePropertiesCreateOrConnectWithoutCourseInput
-    upsert?: CoursePropertiesUpsertWithoutCourseInput
-    disconnect?: CoursePropertiesWhereInput | boolean
-    delete?: CoursePropertiesWhereInput | boolean
-    connect?: CoursePropertiesWhereUniqueInput
-    update?: XOR<XOR<CoursePropertiesUpdateToOneWithWhereWithoutCourseInput, CoursePropertiesUpdateWithoutCourseInput>, CoursePropertiesUncheckedUpdateWithoutCourseInput>
-  }
-
-  export type MCQUncheckedUpdateManyWithoutCourseNestedInput = {
-    create?: XOR<MCQCreateWithoutCourseInput, MCQUncheckedCreateWithoutCourseInput> | MCQCreateWithoutCourseInput[] | MCQUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: MCQCreateOrConnectWithoutCourseInput | MCQCreateOrConnectWithoutCourseInput[]
-    upsert?: MCQUpsertWithWhereUniqueWithoutCourseInput | MCQUpsertWithWhereUniqueWithoutCourseInput[]
-    createMany?: MCQCreateManyCourseInputEnvelope
-    set?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
-    disconnect?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
-    delete?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
-    connect?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
-    update?: MCQUpdateWithWhereUniqueWithoutCourseInput | MCQUpdateWithWhereUniqueWithoutCourseInput[]
-    updateMany?: MCQUpdateManyWithWhereWithoutCourseInput | MCQUpdateManyWithWhereWithoutCourseInput[]
-    deleteMany?: MCQScalarWhereInput | MCQScalarWhereInput[]
+  export type TenantCourseUpdateManyWithoutCourseNestedInput = {
+    create?: XOR<TenantCourseCreateWithoutCourseInput, TenantCourseUncheckedCreateWithoutCourseInput> | TenantCourseCreateWithoutCourseInput[] | TenantCourseUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: TenantCourseCreateOrConnectWithoutCourseInput | TenantCourseCreateOrConnectWithoutCourseInput[]
+    upsert?: TenantCourseUpsertWithWhereUniqueWithoutCourseInput | TenantCourseUpsertWithWhereUniqueWithoutCourseInput[]
+    createMany?: TenantCourseCreateManyCourseInputEnvelope
+    set?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
+    disconnect?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
+    delete?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
+    connect?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
+    update?: TenantCourseUpdateWithWhereUniqueWithoutCourseInput | TenantCourseUpdateWithWhereUniqueWithoutCourseInput[]
+    updateMany?: TenantCourseUpdateManyWithWhereWithoutCourseInput | TenantCourseUpdateManyWithWhereWithoutCourseInput[]
+    deleteMany?: TenantCourseScalarWhereInput | TenantCourseScalarWhereInput[]
   }
 
   export type EnrollmentUncheckedUpdateManyWithoutCourseNestedInput = {
@@ -18984,18 +17706,18 @@ export namespace Prisma {
     deleteMany?: EnrollmentScalarWhereInput | EnrollmentScalarWhereInput[]
   }
 
-  export type TenantCourseUncheckedUpdateManyWithoutCourseNestedInput = {
-    create?: XOR<TenantCourseCreateWithoutCourseInput, TenantCourseUncheckedCreateWithoutCourseInput> | TenantCourseCreateWithoutCourseInput[] | TenantCourseUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: TenantCourseCreateOrConnectWithoutCourseInput | TenantCourseCreateOrConnectWithoutCourseInput[]
-    upsert?: TenantCourseUpsertWithWhereUniqueWithoutCourseInput | TenantCourseUpsertWithWhereUniqueWithoutCourseInput[]
-    createMany?: TenantCourseCreateManyCourseInputEnvelope
-    set?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
-    disconnect?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
-    delete?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
-    connect?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
-    update?: TenantCourseUpdateWithWhereUniqueWithoutCourseInput | TenantCourseUpdateWithWhereUniqueWithoutCourseInput[]
-    updateMany?: TenantCourseUpdateManyWithWhereWithoutCourseInput | TenantCourseUpdateManyWithWhereWithoutCourseInput[]
-    deleteMany?: TenantCourseScalarWhereInput | TenantCourseScalarWhereInput[]
+  export type MCQUncheckedUpdateManyWithoutCourseNestedInput = {
+    create?: XOR<MCQCreateWithoutCourseInput, MCQUncheckedCreateWithoutCourseInput> | MCQCreateWithoutCourseInput[] | MCQUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: MCQCreateOrConnectWithoutCourseInput | MCQCreateOrConnectWithoutCourseInput[]
+    upsert?: MCQUpsertWithWhereUniqueWithoutCourseInput | MCQUpsertWithWhereUniqueWithoutCourseInput[]
+    createMany?: MCQCreateManyCourseInputEnvelope
+    set?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
+    disconnect?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
+    delete?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
+    connect?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
+    update?: MCQUpdateWithWhereUniqueWithoutCourseInput | MCQUpdateWithWhereUniqueWithoutCourseInput[]
+    updateMany?: MCQUpdateManyWithWhereWithoutCourseInput | MCQUpdateManyWithWhereWithoutCourseInput[]
+    deleteMany?: MCQScalarWhereInput | MCQScalarWhereInput[]
   }
 
   export type SlideExplanationUncheckedUpdateManyWithoutCourseNestedInput = {
@@ -19012,26 +17734,30 @@ export namespace Prisma {
     deleteMany?: SlideExplanationScalarWhereInput | SlideExplanationScalarWhereInput[]
   }
 
-  export type CoursePropertiesUncheckedUpdateOneWithoutCourseNestedInput = {
-    create?: XOR<CoursePropertiesCreateWithoutCourseInput, CoursePropertiesUncheckedCreateWithoutCourseInput>
-    connectOrCreate?: CoursePropertiesCreateOrConnectWithoutCourseInput
-    upsert?: CoursePropertiesUpsertWithoutCourseInput
-    disconnect?: CoursePropertiesWhereInput | boolean
-    delete?: CoursePropertiesWhereInput | boolean
-    connect?: CoursePropertiesWhereUniqueInput
-    update?: XOR<XOR<CoursePropertiesUpdateToOneWithWhereWithoutCourseInput, CoursePropertiesUpdateWithoutCourseInput>, CoursePropertiesUncheckedUpdateWithoutCourseInput>
-  }
-
-  export type UserCreateNestedOneWithoutEnrollmentsInput = {
-    create?: XOR<UserCreateWithoutEnrollmentsInput, UserUncheckedCreateWithoutEnrollmentsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutEnrollmentsInput
-    connect?: UserWhereUniqueInput
+  export type TenantCourseUncheckedUpdateManyWithoutCourseNestedInput = {
+    create?: XOR<TenantCourseCreateWithoutCourseInput, TenantCourseUncheckedCreateWithoutCourseInput> | TenantCourseCreateWithoutCourseInput[] | TenantCourseUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: TenantCourseCreateOrConnectWithoutCourseInput | TenantCourseCreateOrConnectWithoutCourseInput[]
+    upsert?: TenantCourseUpsertWithWhereUniqueWithoutCourseInput | TenantCourseUpsertWithWhereUniqueWithoutCourseInput[]
+    createMany?: TenantCourseCreateManyCourseInputEnvelope
+    set?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
+    disconnect?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
+    delete?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
+    connect?: TenantCourseWhereUniqueInput | TenantCourseWhereUniqueInput[]
+    update?: TenantCourseUpdateWithWhereUniqueWithoutCourseInput | TenantCourseUpdateWithWhereUniqueWithoutCourseInput[]
+    updateMany?: TenantCourseUpdateManyWithWhereWithoutCourseInput | TenantCourseUpdateManyWithWhereWithoutCourseInput[]
+    deleteMany?: TenantCourseScalarWhereInput | TenantCourseScalarWhereInput[]
   }
 
   export type CourseCreateNestedOneWithoutEnrollmentsInput = {
     create?: XOR<CourseCreateWithoutEnrollmentsInput, CourseUncheckedCreateWithoutEnrollmentsInput>
     connectOrCreate?: CourseCreateOrConnectWithoutEnrollmentsInput
     connect?: CourseWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutEnrollmentsInput = {
+    create?: XOR<UserCreateWithoutEnrollmentsInput, UserUncheckedCreateWithoutEnrollmentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutEnrollmentsInput
+    connect?: UserWhereUniqueInput
   }
 
   export type DecimalFieldUpdateOperationsInput = {
@@ -19046,20 +17772,20 @@ export namespace Prisma {
     set?: $Enums.EnrollmentStatus
   }
 
-  export type UserUpdateOneRequiredWithoutEnrollmentsNestedInput = {
-    create?: XOR<UserCreateWithoutEnrollmentsInput, UserUncheckedCreateWithoutEnrollmentsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutEnrollmentsInput
-    upsert?: UserUpsertWithoutEnrollmentsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutEnrollmentsInput, UserUpdateWithoutEnrollmentsInput>, UserUncheckedUpdateWithoutEnrollmentsInput>
-  }
-
   export type CourseUpdateOneRequiredWithoutEnrollmentsNestedInput = {
     create?: XOR<CourseCreateWithoutEnrollmentsInput, CourseUncheckedCreateWithoutEnrollmentsInput>
     connectOrCreate?: CourseCreateOrConnectWithoutEnrollmentsInput
     upsert?: CourseUpsertWithoutEnrollmentsInput
     connect?: CourseWhereUniqueInput
     update?: XOR<XOR<CourseUpdateToOneWithWhereWithoutEnrollmentsInput, CourseUpdateWithoutEnrollmentsInput>, CourseUncheckedUpdateWithoutEnrollmentsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutEnrollmentsNestedInput = {
+    create?: XOR<UserCreateWithoutEnrollmentsInput, UserUncheckedCreateWithoutEnrollmentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutEnrollmentsInput
+    upsert?: UserUpsertWithoutEnrollmentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutEnrollmentsInput, UserUpdateWithoutEnrollmentsInput>, UserUncheckedUpdateWithoutEnrollmentsInput>
   }
 
   export type UserCreateNestedOneWithoutCertificatesInput = {
@@ -19076,24 +17802,24 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCertificatesInput, UserUpdateWithoutCertificatesInput>, UserUncheckedUpdateWithoutCertificatesInput>
   }
 
-  export type TenantCreateNestedOneWithoutCoursesInput = {
-    create?: XOR<TenantCreateWithoutCoursesInput, TenantUncheckedCreateWithoutCoursesInput>
-    connectOrCreate?: TenantCreateOrConnectWithoutCoursesInput
-    connect?: TenantWhereUniqueInput
-  }
-
   export type CourseCreateNestedOneWithoutTenantsInput = {
     create?: XOR<CourseCreateWithoutTenantsInput, CourseUncheckedCreateWithoutTenantsInput>
     connectOrCreate?: CourseCreateOrConnectWithoutTenantsInput
     connect?: CourseWhereUniqueInput
   }
 
-  export type TenantUpdateOneRequiredWithoutCoursesNestedInput = {
+  export type TenantCreateNestedOneWithoutCoursesInput = {
     create?: XOR<TenantCreateWithoutCoursesInput, TenantUncheckedCreateWithoutCoursesInput>
     connectOrCreate?: TenantCreateOrConnectWithoutCoursesInput
-    upsert?: TenantUpsertWithoutCoursesInput
     connect?: TenantWhereUniqueInput
-    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutCoursesInput, TenantUpdateWithoutCoursesInput>, TenantUncheckedUpdateWithoutCoursesInput>
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type EnumRetryTypeFieldUpdateOperationsInput = {
+    set?: $Enums.RetryType
   }
 
   export type CourseUpdateOneRequiredWithoutTenantsNestedInput = {
@@ -19102,6 +17828,14 @@ export namespace Prisma {
     upsert?: CourseUpsertWithoutTenantsInput
     connect?: CourseWhereUniqueInput
     update?: XOR<XOR<CourseUpdateToOneWithWhereWithoutTenantsInput, CourseUpdateWithoutTenantsInput>, CourseUncheckedUpdateWithoutTenantsInput>
+  }
+
+  export type TenantUpdateOneRequiredWithoutCoursesNestedInput = {
+    create?: XOR<TenantCreateWithoutCoursesInput, TenantUncheckedCreateWithoutCoursesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutCoursesInput
+    upsert?: TenantUpsertWithoutCoursesInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutCoursesInput, TenantUpdateWithoutCoursesInput>, TenantUncheckedUpdateWithoutCoursesInput>
   }
 
   export type MCQCreateoptionsInput = {
@@ -19169,28 +17903,16 @@ export namespace Prisma {
     deleteMany?: UserMCQAnswerScalarWhereInput | UserMCQAnswerScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutMcqAnswersInput = {
-    create?: XOR<UserCreateWithoutMcqAnswersInput, UserUncheckedCreateWithoutMcqAnswersInput>
-    connectOrCreate?: UserCreateOrConnectWithoutMcqAnswersInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type MCQCreateNestedOneWithoutUserAnswersInput = {
     create?: XOR<MCQCreateWithoutUserAnswersInput, MCQUncheckedCreateWithoutUserAnswersInput>
     connectOrCreate?: MCQCreateOrConnectWithoutUserAnswersInput
     connect?: MCQWhereUniqueInput
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
-  export type UserUpdateOneRequiredWithoutMcqAnswersNestedInput = {
+  export type UserCreateNestedOneWithoutMcqAnswersInput = {
     create?: XOR<UserCreateWithoutMcqAnswersInput, UserUncheckedCreateWithoutMcqAnswersInput>
     connectOrCreate?: UserCreateOrConnectWithoutMcqAnswersInput
-    upsert?: UserUpsertWithoutMcqAnswersInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMcqAnswersInput, UserUpdateWithoutMcqAnswersInput>, UserUncheckedUpdateWithoutMcqAnswersInput>
   }
 
   export type MCQUpdateOneRequiredWithoutUserAnswersNestedInput = {
@@ -19199,6 +17921,14 @@ export namespace Prisma {
     upsert?: MCQUpsertWithoutUserAnswersInput
     connect?: MCQWhereUniqueInput
     update?: XOR<XOR<MCQUpdateToOneWithWhereWithoutUserAnswersInput, MCQUpdateWithoutUserAnswersInput>, MCQUncheckedUpdateWithoutUserAnswersInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutMcqAnswersNestedInput = {
+    create?: XOR<UserCreateWithoutMcqAnswersInput, UserUncheckedCreateWithoutMcqAnswersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMcqAnswersInput
+    upsert?: UserUpsertWithoutMcqAnswersInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMcqAnswersInput, UserUpdateWithoutMcqAnswersInput>, UserUncheckedUpdateWithoutMcqAnswersInput>
   }
 
   export type CourseCreateNestedOneWithoutSlideExplanationsInput = {
@@ -19221,24 +17951,6 @@ export namespace Prisma {
     upsert?: CourseUpsertWithoutSlideExplanationsInput
     connect?: CourseWhereUniqueInput
     update?: XOR<XOR<CourseUpdateToOneWithWhereWithoutSlideExplanationsInput, CourseUpdateWithoutSlideExplanationsInput>, CourseUncheckedUpdateWithoutSlideExplanationsInput>
-  }
-
-  export type CourseCreateNestedOneWithoutPropertiesInput = {
-    create?: XOR<CourseCreateWithoutPropertiesInput, CourseUncheckedCreateWithoutPropertiesInput>
-    connectOrCreate?: CourseCreateOrConnectWithoutPropertiesInput
-    connect?: CourseWhereUniqueInput
-  }
-
-  export type EnumRetryTypeFieldUpdateOperationsInput = {
-    set?: $Enums.RetryType
-  }
-
-  export type CourseUpdateOneRequiredWithoutPropertiesNestedInput = {
-    create?: XOR<CourseCreateWithoutPropertiesInput, CourseUncheckedCreateWithoutPropertiesInput>
-    connectOrCreate?: CourseCreateOrConnectWithoutPropertiesInput
-    upsert?: CourseUpsertWithoutPropertiesInput
-    connect?: CourseWhereUniqueInput
-    update?: XOR<XOR<CourseUpdateToOneWithWhereWithoutPropertiesInput, CourseUpdateWithoutPropertiesInput>, CourseUncheckedUpdateWithoutPropertiesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -19410,6 +18122,18 @@ export namespace Prisma {
     _min?: NestedEnumEnrollmentStatusFilter<$PrismaModel>
     _max?: NestedEnumEnrollmentStatusFilter<$PrismaModel>
   }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedEnumRetryTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.RetryType | EnumRetryTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRetryTypeFilter<$PrismaModel> | $Enums.RetryType
+  }
   export type NestedJsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -19434,17 +18158,22 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedEnumRetryTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RetryType | EnumRetryTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRetryTypeWithAggregatesFilter<$PrismaModel> | $Enums.RetryType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRetryTypeFilter<$PrismaModel>
+    _max?: NestedEnumRetryTypeFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -19474,56 +18203,33 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedEnumRetryTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.RetryType | EnumRetryTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumRetryTypeFilter<$PrismaModel> | $Enums.RetryType
-  }
-
-  export type NestedEnumRetryTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.RetryType | EnumRetryTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumRetryTypeWithAggregatesFilter<$PrismaModel> | $Enums.RetryType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumRetryTypeFilter<$PrismaModel>
-    _max?: NestedEnumRetryTypeFilter<$PrismaModel>
-  }
-
-  export type UserCreateWithoutTenantInput = {
+  export type TenantCourseCreateWithoutTenantInput = {
     id?: string
-    email: string
-    name: string
-    password?: string | null
-    role?: $Enums.UserRole
-    createdAt?: Date | string
-    userRoles?: UserCreateuserRolesInput | $Enums.UserRole[]
-    enrollments?: EnrollmentCreateNestedManyWithoutUserInput
-    certificates?: CertificateCreateNestedManyWithoutUserInput
-    mcqAnswers?: UserMCQAnswerCreateNestedManyWithoutUserInput
+    assignedAt?: Date | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: $Enums.RetryType
+    course: CourseCreateNestedOneWithoutTenantsInput
   }
 
-  export type UserUncheckedCreateWithoutTenantInput = {
+  export type TenantCourseUncheckedCreateWithoutTenantInput = {
     id?: string
-    email: string
-    name: string
-    password?: string | null
-    role?: $Enums.UserRole
-    createdAt?: Date | string
-    userRoles?: UserCreateuserRolesInput | $Enums.UserRole[]
-    enrollments?: EnrollmentUncheckedCreateNestedManyWithoutUserInput
-    certificates?: CertificateUncheckedCreateNestedManyWithoutUserInput
-    mcqAnswers?: UserMCQAnswerUncheckedCreateNestedManyWithoutUserInput
+    courseId: string
+    assignedAt?: Date | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: $Enums.RetryType
   }
 
-  export type UserCreateOrConnectWithoutTenantInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutTenantInput, UserUncheckedCreateWithoutTenantInput>
+  export type TenantCourseCreateOrConnectWithoutTenantInput = {
+    where: TenantCourseWhereUniqueInput
+    create: XOR<TenantCourseCreateWithoutTenantInput, TenantCourseUncheckedCreateWithoutTenantInput>
   }
 
-  export type UserCreateManyTenantInputEnvelope = {
-    data: UserCreateManyTenantInput | UserCreateManyTenantInput[]
+  export type TenantCourseCreateManyTenantInputEnvelope = {
+    data: TenantCourseCreateManyTenantInput | TenantCourseCreateManyTenantInput[]
     skipDuplicates?: boolean
   }
 
@@ -19578,58 +18284,70 @@ export namespace Prisma {
     create: XOR<TenantDetailsCreateWithoutTenantInput, TenantDetailsUncheckedCreateWithoutTenantInput>
   }
 
-  export type TenantCourseCreateWithoutTenantInput = {
+  export type UserCreateWithoutTenantInput = {
     id?: string
-    explanations?: NullableJsonNullValueInput | InputJsonValue
-    assignedAt?: Date | string
-    course: CourseCreateNestedOneWithoutTenantsInput
+    email: string
+    name: string
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    userRoles?: UserCreateuserRolesInput | $Enums.UserRole[]
+    password?: string | null
+    certificates?: CertificateCreateNestedManyWithoutUserInput
+    enrollments?: EnrollmentCreateNestedManyWithoutUserInput
+    mcqAnswers?: UserMCQAnswerCreateNestedManyWithoutUserInput
   }
 
-  export type TenantCourseUncheckedCreateWithoutTenantInput = {
+  export type UserUncheckedCreateWithoutTenantInput = {
     id?: string
-    courseId: string
-    explanations?: NullableJsonNullValueInput | InputJsonValue
-    assignedAt?: Date | string
+    email: string
+    name: string
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    userRoles?: UserCreateuserRolesInput | $Enums.UserRole[]
+    password?: string | null
+    certificates?: CertificateUncheckedCreateNestedManyWithoutUserInput
+    enrollments?: EnrollmentUncheckedCreateNestedManyWithoutUserInput
+    mcqAnswers?: UserMCQAnswerUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type TenantCourseCreateOrConnectWithoutTenantInput = {
-    where: TenantCourseWhereUniqueInput
-    create: XOR<TenantCourseCreateWithoutTenantInput, TenantCourseUncheckedCreateWithoutTenantInput>
-  }
-
-  export type TenantCourseCreateManyTenantInputEnvelope = {
-    data: TenantCourseCreateManyTenantInput | TenantCourseCreateManyTenantInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type UserUpsertWithWhereUniqueWithoutTenantInput = {
+  export type UserCreateOrConnectWithoutTenantInput = {
     where: UserWhereUniqueInput
-    update: XOR<UserUpdateWithoutTenantInput, UserUncheckedUpdateWithoutTenantInput>
     create: XOR<UserCreateWithoutTenantInput, UserUncheckedCreateWithoutTenantInput>
   }
 
-  export type UserUpdateWithWhereUniqueWithoutTenantInput = {
-    where: UserWhereUniqueInput
-    data: XOR<UserUpdateWithoutTenantInput, UserUncheckedUpdateWithoutTenantInput>
+  export type UserCreateManyTenantInputEnvelope = {
+    data: UserCreateManyTenantInput | UserCreateManyTenantInput[]
+    skipDuplicates?: boolean
   }
 
-  export type UserUpdateManyWithWhereWithoutTenantInput = {
-    where: UserScalarWhereInput
-    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutTenantInput>
+  export type TenantCourseUpsertWithWhereUniqueWithoutTenantInput = {
+    where: TenantCourseWhereUniqueInput
+    update: XOR<TenantCourseUpdateWithoutTenantInput, TenantCourseUncheckedUpdateWithoutTenantInput>
+    create: XOR<TenantCourseCreateWithoutTenantInput, TenantCourseUncheckedCreateWithoutTenantInput>
   }
 
-  export type UserScalarWhereInput = {
-    AND?: UserScalarWhereInput | UserScalarWhereInput[]
-    OR?: UserScalarWhereInput[]
-    NOT?: UserScalarWhereInput | UserScalarWhereInput[]
-    id?: StringFilter<"User"> | string
-    tenantId?: StringNullableFilter<"User"> | string | null
-    email?: StringFilter<"User"> | string
-    name?: StringFilter<"User"> | string
-    password?: StringNullableFilter<"User"> | string | null
-    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
-    createdAt?: DateTimeFilter<"User"> | Date | string
-    userRoles?: EnumUserRoleNullableListFilter<"User">
+  export type TenantCourseUpdateWithWhereUniqueWithoutTenantInput = {
+    where: TenantCourseWhereUniqueInput
+    data: XOR<TenantCourseUpdateWithoutTenantInput, TenantCourseUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type TenantCourseUpdateManyWithWhereWithoutTenantInput = {
+    where: TenantCourseScalarWhereInput
+    data: XOR<TenantCourseUpdateManyMutationInput, TenantCourseUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type TenantCourseScalarWhereInput = {
+    AND?: TenantCourseScalarWhereInput | TenantCourseScalarWhereInput[]
+    OR?: TenantCourseScalarWhereInput[]
+    NOT?: TenantCourseScalarWhereInput | TenantCourseScalarWhereInput[]
+    id?: StringFilter<"TenantCourse"> | string
+    tenantId?: StringFilter<"TenantCourse"> | string
+    courseId?: StringFilter<"TenantCourse"> | string
+    assignedAt?: DateTimeFilter<"TenantCourse"> | Date | string
+    explanations?: JsonNullableFilter<"TenantCourse">
+    skippable?: BoolFilter<"TenantCourse"> | boolean
+    mandatory?: BoolFilter<"TenantCourse"> | boolean
+    retryType?: EnumRetryTypeFilter<"TenantCourse"> | $Enums.RetryType
   }
 
   export type TenantDetailsUpsertWithoutTenantInput = {
@@ -19689,53 +18407,56 @@ export namespace Prisma {
     legalOfficerContact?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type TenantCourseUpsertWithWhereUniqueWithoutTenantInput = {
-    where: TenantCourseWhereUniqueInput
-    update: XOR<TenantCourseUpdateWithoutTenantInput, TenantCourseUncheckedUpdateWithoutTenantInput>
-    create: XOR<TenantCourseCreateWithoutTenantInput, TenantCourseUncheckedCreateWithoutTenantInput>
+  export type UserUpsertWithWhereUniqueWithoutTenantInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutTenantInput, UserUncheckedUpdateWithoutTenantInput>
+    create: XOR<UserCreateWithoutTenantInput, UserUncheckedCreateWithoutTenantInput>
   }
 
-  export type TenantCourseUpdateWithWhereUniqueWithoutTenantInput = {
-    where: TenantCourseWhereUniqueInput
-    data: XOR<TenantCourseUpdateWithoutTenantInput, TenantCourseUncheckedUpdateWithoutTenantInput>
+  export type UserUpdateWithWhereUniqueWithoutTenantInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutTenantInput, UserUncheckedUpdateWithoutTenantInput>
   }
 
-  export type TenantCourseUpdateManyWithWhereWithoutTenantInput = {
-    where: TenantCourseScalarWhereInput
-    data: XOR<TenantCourseUpdateManyMutationInput, TenantCourseUncheckedUpdateManyWithoutTenantInput>
+  export type UserUpdateManyWithWhereWithoutTenantInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutTenantInput>
   }
 
-  export type TenantCourseScalarWhereInput = {
-    AND?: TenantCourseScalarWhereInput | TenantCourseScalarWhereInput[]
-    OR?: TenantCourseScalarWhereInput[]
-    NOT?: TenantCourseScalarWhereInput | TenantCourseScalarWhereInput[]
-    id?: StringFilter<"TenantCourse"> | string
-    tenantId?: StringFilter<"TenantCourse"> | string
-    courseId?: StringFilter<"TenantCourse"> | string
-    explanations?: JsonNullableFilter<"TenantCourse">
-    assignedAt?: DateTimeFilter<"TenantCourse"> | Date | string
+  export type UserScalarWhereInput = {
+    AND?: UserScalarWhereInput | UserScalarWhereInput[]
+    OR?: UserScalarWhereInput[]
+    NOT?: UserScalarWhereInput | UserScalarWhereInput[]
+    id?: StringFilter<"User"> | string
+    tenantId?: StringNullableFilter<"User"> | string | null
+    email?: StringFilter<"User"> | string
+    name?: StringFilter<"User"> | string
+    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    userRoles?: EnumUserRoleNullableListFilter<"User">
+    password?: StringNullableFilter<"User"> | string | null
   }
 
   export type TenantCreateWithoutDetailsInput = {
     id?: string
     name: string
     domain: string
+    createdAt?: Date | string
     adminEmail: string
     adminPassword: string
-    createdAt?: Date | string
-    users?: UserCreateNestedManyWithoutTenantInput
     courses?: TenantCourseCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDetailsInput = {
     id?: string
     name: string
     domain: string
+    createdAt?: Date | string
     adminEmail: string
     adminPassword: string
-    createdAt?: Date | string
-    users?: UserUncheckedCreateNestedManyWithoutTenantInput
     courses?: TenantCourseUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDetailsInput = {
@@ -19758,73 +18479,22 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     domain?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     adminEmail?: StringFieldUpdateOperationsInput | string
     adminPassword?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUpdateManyWithoutTenantNestedInput
     courses?: TenantCourseUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDetailsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     domain?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     adminEmail?: StringFieldUpdateOperationsInput | string
     adminPassword?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     courses?: TenantCourseUncheckedUpdateManyWithoutTenantNestedInput
-  }
-
-  export type TenantCreateWithoutUsersInput = {
-    id?: string
-    name: string
-    domain: string
-    adminEmail: string
-    adminPassword: string
-    createdAt?: Date | string
-    details?: TenantDetailsCreateNestedOneWithoutTenantInput
-    courses?: TenantCourseCreateNestedManyWithoutTenantInput
-  }
-
-  export type TenantUncheckedCreateWithoutUsersInput = {
-    id?: string
-    name: string
-    domain: string
-    adminEmail: string
-    adminPassword: string
-    createdAt?: Date | string
-    details?: TenantDetailsUncheckedCreateNestedOneWithoutTenantInput
-    courses?: TenantCourseUncheckedCreateNestedManyWithoutTenantInput
-  }
-
-  export type TenantCreateOrConnectWithoutUsersInput = {
-    where: TenantWhereUniqueInput
-    create: XOR<TenantCreateWithoutUsersInput, TenantUncheckedCreateWithoutUsersInput>
-  }
-
-  export type EnrollmentCreateWithoutUserInput = {
-    id?: string
-    progress?: Decimal | DecimalJsLike | number | string
-    status?: $Enums.EnrollmentStatus
-    course: CourseCreateNestedOneWithoutEnrollmentsInput
-  }
-
-  export type EnrollmentUncheckedCreateWithoutUserInput = {
-    id?: string
-    courseId: string
-    progress?: Decimal | DecimalJsLike | number | string
-    status?: $Enums.EnrollmentStatus
-  }
-
-  export type EnrollmentCreateOrConnectWithoutUserInput = {
-    where: EnrollmentWhereUniqueInput
-    create: XOR<EnrollmentCreateWithoutUserInput, EnrollmentUncheckedCreateWithoutUserInput>
-  }
-
-  export type EnrollmentCreateManyUserInputEnvelope = {
-    data: EnrollmentCreateManyUserInput | EnrollmentCreateManyUserInput[]
-    skipDuplicates?: boolean
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type CertificateCreateWithoutUserInput = {
@@ -19848,6 +18518,30 @@ export namespace Prisma {
 
   export type CertificateCreateManyUserInputEnvelope = {
     data: CertificateCreateManyUserInput | CertificateCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EnrollmentCreateWithoutUserInput = {
+    id?: string
+    progress?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.EnrollmentStatus
+    course: CourseCreateNestedOneWithoutEnrollmentsInput
+  }
+
+  export type EnrollmentUncheckedCreateWithoutUserInput = {
+    id?: string
+    courseId: string
+    progress?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.EnrollmentStatus
+  }
+
+  export type EnrollmentCreateOrConnectWithoutUserInput = {
+    where: EnrollmentWhereUniqueInput
+    create: XOR<EnrollmentCreateWithoutUserInput, EnrollmentUncheckedCreateWithoutUserInput>
+  }
+
+  export type EnrollmentCreateManyUserInputEnvelope = {
+    data: EnrollmentCreateManyUserInput | EnrollmentCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -19877,64 +18571,31 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type TenantUpsertWithoutUsersInput = {
-    update: XOR<TenantUpdateWithoutUsersInput, TenantUncheckedUpdateWithoutUsersInput>
+  export type TenantCreateWithoutUsersInput = {
+    id?: string
+    name: string
+    domain: string
+    createdAt?: Date | string
+    adminEmail: string
+    adminPassword: string
+    courses?: TenantCourseCreateNestedManyWithoutTenantInput
+    details?: TenantDetailsCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutUsersInput = {
+    id?: string
+    name: string
+    domain: string
+    createdAt?: Date | string
+    adminEmail: string
+    adminPassword: string
+    courses?: TenantCourseUncheckedCreateNestedManyWithoutTenantInput
+    details?: TenantDetailsUncheckedCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutUsersInput = {
+    where: TenantWhereUniqueInput
     create: XOR<TenantCreateWithoutUsersInput, TenantUncheckedCreateWithoutUsersInput>
-    where?: TenantWhereInput
-  }
-
-  export type TenantUpdateToOneWithWhereWithoutUsersInput = {
-    where?: TenantWhereInput
-    data: XOR<TenantUpdateWithoutUsersInput, TenantUncheckedUpdateWithoutUsersInput>
-  }
-
-  export type TenantUpdateWithoutUsersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    domain?: StringFieldUpdateOperationsInput | string
-    adminEmail?: StringFieldUpdateOperationsInput | string
-    adminPassword?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    details?: TenantDetailsUpdateOneWithoutTenantNestedInput
-    courses?: TenantCourseUpdateManyWithoutTenantNestedInput
-  }
-
-  export type TenantUncheckedUpdateWithoutUsersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    domain?: StringFieldUpdateOperationsInput | string
-    adminEmail?: StringFieldUpdateOperationsInput | string
-    adminPassword?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    details?: TenantDetailsUncheckedUpdateOneWithoutTenantNestedInput
-    courses?: TenantCourseUncheckedUpdateManyWithoutTenantNestedInput
-  }
-
-  export type EnrollmentUpsertWithWhereUniqueWithoutUserInput = {
-    where: EnrollmentWhereUniqueInput
-    update: XOR<EnrollmentUpdateWithoutUserInput, EnrollmentUncheckedUpdateWithoutUserInput>
-    create: XOR<EnrollmentCreateWithoutUserInput, EnrollmentUncheckedCreateWithoutUserInput>
-  }
-
-  export type EnrollmentUpdateWithWhereUniqueWithoutUserInput = {
-    where: EnrollmentWhereUniqueInput
-    data: XOR<EnrollmentUpdateWithoutUserInput, EnrollmentUncheckedUpdateWithoutUserInput>
-  }
-
-  export type EnrollmentUpdateManyWithWhereWithoutUserInput = {
-    where: EnrollmentScalarWhereInput
-    data: XOR<EnrollmentUpdateManyMutationInput, EnrollmentUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type EnrollmentScalarWhereInput = {
-    AND?: EnrollmentScalarWhereInput | EnrollmentScalarWhereInput[]
-    OR?: EnrollmentScalarWhereInput[]
-    NOT?: EnrollmentScalarWhereInput | EnrollmentScalarWhereInput[]
-    id?: StringFilter<"Enrollment"> | string
-    userId?: StringFilter<"Enrollment"> | string
-    courseId?: StringFilter<"Enrollment"> | string
-    progress?: DecimalFilter<"Enrollment"> | Decimal | DecimalJsLike | number | string
-    status?: EnumEnrollmentStatusFilter<"Enrollment"> | $Enums.EnrollmentStatus
   }
 
   export type CertificateUpsertWithWhereUniqueWithoutUserInput = {
@@ -19964,6 +18625,33 @@ export namespace Prisma {
     issuedAt?: DateTimeFilter<"Certificate"> | Date | string
   }
 
+  export type EnrollmentUpsertWithWhereUniqueWithoutUserInput = {
+    where: EnrollmentWhereUniqueInput
+    update: XOR<EnrollmentUpdateWithoutUserInput, EnrollmentUncheckedUpdateWithoutUserInput>
+    create: XOR<EnrollmentCreateWithoutUserInput, EnrollmentUncheckedCreateWithoutUserInput>
+  }
+
+  export type EnrollmentUpdateWithWhereUniqueWithoutUserInput = {
+    where: EnrollmentWhereUniqueInput
+    data: XOR<EnrollmentUpdateWithoutUserInput, EnrollmentUncheckedUpdateWithoutUserInput>
+  }
+
+  export type EnrollmentUpdateManyWithWhereWithoutUserInput = {
+    where: EnrollmentScalarWhereInput
+    data: XOR<EnrollmentUpdateManyMutationInput, EnrollmentUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type EnrollmentScalarWhereInput = {
+    AND?: EnrollmentScalarWhereInput | EnrollmentScalarWhereInput[]
+    OR?: EnrollmentScalarWhereInput[]
+    NOT?: EnrollmentScalarWhereInput | EnrollmentScalarWhereInput[]
+    id?: StringFilter<"Enrollment"> | string
+    userId?: StringFilter<"Enrollment"> | string
+    courseId?: StringFilter<"Enrollment"> | string
+    progress?: DecimalFilter<"Enrollment"> | Decimal | DecimalJsLike | number | string
+    status?: EnumEnrollmentStatusFilter<"Enrollment"> | $Enums.EnrollmentStatus
+  }
+
   export type UserMCQAnswerUpsertWithWhereUniqueWithoutUserInput = {
     where: UserMCQAnswerWhereUniqueInput
     update: XOR<UserMCQAnswerUpdateWithoutUserInput, UserMCQAnswerUncheckedUpdateWithoutUserInput>
@@ -19990,6 +18678,63 @@ export namespace Prisma {
     answer?: StringFilter<"UserMCQAnswer"> | string
     isCorrect?: BoolFilter<"UserMCQAnswer"> | boolean
     createdAt?: DateTimeFilter<"UserMCQAnswer"> | Date | string
+  }
+
+  export type TenantUpsertWithoutUsersInput = {
+    update: XOR<TenantUpdateWithoutUsersInput, TenantUncheckedUpdateWithoutUsersInput>
+    create: XOR<TenantCreateWithoutUsersInput, TenantUncheckedCreateWithoutUsersInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutUsersInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutUsersInput, TenantUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type TenantUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    domain?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
+    courses?: TenantCourseUpdateManyWithoutTenantNestedInput
+    details?: TenantDetailsUpdateOneWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    domain?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
+    courses?: TenantCourseUncheckedUpdateManyWithoutTenantNestedInput
+    details?: TenantDetailsUncheckedUpdateOneWithoutTenantNestedInput
+  }
+
+  export type EnrollmentCreateWithoutCourseInput = {
+    id?: string
+    progress?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.EnrollmentStatus
+    user: UserCreateNestedOneWithoutEnrollmentsInput
+  }
+
+  export type EnrollmentUncheckedCreateWithoutCourseInput = {
+    id?: string
+    userId: string
+    progress?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.EnrollmentStatus
+  }
+
+  export type EnrollmentCreateOrConnectWithoutCourseInput = {
+    where: EnrollmentWhereUniqueInput
+    create: XOR<EnrollmentCreateWithoutCourseInput, EnrollmentUncheckedCreateWithoutCourseInput>
+  }
+
+  export type EnrollmentCreateManyCourseInputEnvelope = {
+    data: EnrollmentCreateManyCourseInput | EnrollmentCreateManyCourseInput[]
+    skipDuplicates?: boolean
   }
 
   export type MCQCreateWithoutCourseInput = {
@@ -20024,54 +18769,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type EnrollmentCreateWithoutCourseInput = {
-    id?: string
-    progress?: Decimal | DecimalJsLike | number | string
-    status?: $Enums.EnrollmentStatus
-    user: UserCreateNestedOneWithoutEnrollmentsInput
-  }
-
-  export type EnrollmentUncheckedCreateWithoutCourseInput = {
-    id?: string
-    userId: string
-    progress?: Decimal | DecimalJsLike | number | string
-    status?: $Enums.EnrollmentStatus
-  }
-
-  export type EnrollmentCreateOrConnectWithoutCourseInput = {
-    where: EnrollmentWhereUniqueInput
-    create: XOR<EnrollmentCreateWithoutCourseInput, EnrollmentUncheckedCreateWithoutCourseInput>
-  }
-
-  export type EnrollmentCreateManyCourseInputEnvelope = {
-    data: EnrollmentCreateManyCourseInput | EnrollmentCreateManyCourseInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type TenantCourseCreateWithoutCourseInput = {
-    id?: string
-    explanations?: NullableJsonNullValueInput | InputJsonValue
-    assignedAt?: Date | string
-    tenant: TenantCreateNestedOneWithoutCoursesInput
-  }
-
-  export type TenantCourseUncheckedCreateWithoutCourseInput = {
-    id?: string
-    tenantId: string
-    explanations?: NullableJsonNullValueInput | InputJsonValue
-    assignedAt?: Date | string
-  }
-
-  export type TenantCourseCreateOrConnectWithoutCourseInput = {
-    where: TenantCourseWhereUniqueInput
-    create: XOR<TenantCourseCreateWithoutCourseInput, TenantCourseUncheckedCreateWithoutCourseInput>
-  }
-
-  export type TenantCourseCreateManyCourseInputEnvelope = {
-    data: TenantCourseCreateManyCourseInput | TenantCourseCreateManyCourseInput[]
-    skipDuplicates?: boolean
-  }
-
   export type SlideExplanationCreateWithoutCourseInput = {
     id?: string
     slideNumber: number
@@ -20098,23 +18795,50 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type CoursePropertiesCreateWithoutCourseInput = {
+  export type TenantCourseCreateWithoutCourseInput = {
     id?: string
+    assignedAt?: Date | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: $Enums.RetryType
+    tenant: TenantCreateNestedOneWithoutCoursesInput
+  }
+
+  export type TenantCourseUncheckedCreateWithoutCourseInput = {
+    id?: string
+    tenantId: string
+    assignedAt?: Date | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
     skippable?: boolean
     mandatory?: boolean
     retryType?: $Enums.RetryType
   }
 
-  export type CoursePropertiesUncheckedCreateWithoutCourseInput = {
-    id?: string
-    skippable?: boolean
-    mandatory?: boolean
-    retryType?: $Enums.RetryType
+  export type TenantCourseCreateOrConnectWithoutCourseInput = {
+    where: TenantCourseWhereUniqueInput
+    create: XOR<TenantCourseCreateWithoutCourseInput, TenantCourseUncheckedCreateWithoutCourseInput>
   }
 
-  export type CoursePropertiesCreateOrConnectWithoutCourseInput = {
-    where: CoursePropertiesWhereUniqueInput
-    create: XOR<CoursePropertiesCreateWithoutCourseInput, CoursePropertiesUncheckedCreateWithoutCourseInput>
+  export type TenantCourseCreateManyCourseInputEnvelope = {
+    data: TenantCourseCreateManyCourseInput | TenantCourseCreateManyCourseInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EnrollmentUpsertWithWhereUniqueWithoutCourseInput = {
+    where: EnrollmentWhereUniqueInput
+    update: XOR<EnrollmentUpdateWithoutCourseInput, EnrollmentUncheckedUpdateWithoutCourseInput>
+    create: XOR<EnrollmentCreateWithoutCourseInput, EnrollmentUncheckedCreateWithoutCourseInput>
+  }
+
+  export type EnrollmentUpdateWithWhereUniqueWithoutCourseInput = {
+    where: EnrollmentWhereUniqueInput
+    data: XOR<EnrollmentUpdateWithoutCourseInput, EnrollmentUncheckedUpdateWithoutCourseInput>
+  }
+
+  export type EnrollmentUpdateManyWithWhereWithoutCourseInput = {
+    where: EnrollmentScalarWhereInput
+    data: XOR<EnrollmentUpdateManyMutationInput, EnrollmentUncheckedUpdateManyWithoutCourseInput>
   }
 
   export type MCQUpsertWithWhereUniqueWithoutCourseInput = {
@@ -20147,38 +18871,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"MCQ"> | Date | string
   }
 
-  export type EnrollmentUpsertWithWhereUniqueWithoutCourseInput = {
-    where: EnrollmentWhereUniqueInput
-    update: XOR<EnrollmentUpdateWithoutCourseInput, EnrollmentUncheckedUpdateWithoutCourseInput>
-    create: XOR<EnrollmentCreateWithoutCourseInput, EnrollmentUncheckedCreateWithoutCourseInput>
-  }
-
-  export type EnrollmentUpdateWithWhereUniqueWithoutCourseInput = {
-    where: EnrollmentWhereUniqueInput
-    data: XOR<EnrollmentUpdateWithoutCourseInput, EnrollmentUncheckedUpdateWithoutCourseInput>
-  }
-
-  export type EnrollmentUpdateManyWithWhereWithoutCourseInput = {
-    where: EnrollmentScalarWhereInput
-    data: XOR<EnrollmentUpdateManyMutationInput, EnrollmentUncheckedUpdateManyWithoutCourseInput>
-  }
-
-  export type TenantCourseUpsertWithWhereUniqueWithoutCourseInput = {
-    where: TenantCourseWhereUniqueInput
-    update: XOR<TenantCourseUpdateWithoutCourseInput, TenantCourseUncheckedUpdateWithoutCourseInput>
-    create: XOR<TenantCourseCreateWithoutCourseInput, TenantCourseUncheckedCreateWithoutCourseInput>
-  }
-
-  export type TenantCourseUpdateWithWhereUniqueWithoutCourseInput = {
-    where: TenantCourseWhereUniqueInput
-    data: XOR<TenantCourseUpdateWithoutCourseInput, TenantCourseUncheckedUpdateWithoutCourseInput>
-  }
-
-  export type TenantCourseUpdateManyWithWhereWithoutCourseInput = {
-    where: TenantCourseScalarWhereInput
-    data: XOR<TenantCourseUpdateManyMutationInput, TenantCourseUncheckedUpdateManyWithoutCourseInput>
-  }
-
   export type SlideExplanationUpsertWithWhereUniqueWithoutCourseInput = {
     where: SlideExplanationWhereUniqueInput
     update: XOR<SlideExplanationUpdateWithoutCourseInput, SlideExplanationUncheckedUpdateWithoutCourseInput>
@@ -20207,94 +18899,52 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"SlideExplanation"> | Date | string
   }
 
-  export type CoursePropertiesUpsertWithoutCourseInput = {
-    update: XOR<CoursePropertiesUpdateWithoutCourseInput, CoursePropertiesUncheckedUpdateWithoutCourseInput>
-    create: XOR<CoursePropertiesCreateWithoutCourseInput, CoursePropertiesUncheckedCreateWithoutCourseInput>
-    where?: CoursePropertiesWhereInput
+  export type TenantCourseUpsertWithWhereUniqueWithoutCourseInput = {
+    where: TenantCourseWhereUniqueInput
+    update: XOR<TenantCourseUpdateWithoutCourseInput, TenantCourseUncheckedUpdateWithoutCourseInput>
+    create: XOR<TenantCourseCreateWithoutCourseInput, TenantCourseUncheckedCreateWithoutCourseInput>
   }
 
-  export type CoursePropertiesUpdateToOneWithWhereWithoutCourseInput = {
-    where?: CoursePropertiesWhereInput
-    data: XOR<CoursePropertiesUpdateWithoutCourseInput, CoursePropertiesUncheckedUpdateWithoutCourseInput>
+  export type TenantCourseUpdateWithWhereUniqueWithoutCourseInput = {
+    where: TenantCourseWhereUniqueInput
+    data: XOR<TenantCourseUpdateWithoutCourseInput, TenantCourseUncheckedUpdateWithoutCourseInput>
   }
 
-  export type CoursePropertiesUpdateWithoutCourseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    skippable?: BoolFieldUpdateOperationsInput | boolean
-    mandatory?: BoolFieldUpdateOperationsInput | boolean
-    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
-  }
-
-  export type CoursePropertiesUncheckedUpdateWithoutCourseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    skippable?: BoolFieldUpdateOperationsInput | boolean
-    mandatory?: BoolFieldUpdateOperationsInput | boolean
-    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
-  }
-
-  export type UserCreateWithoutEnrollmentsInput = {
-    id?: string
-    email: string
-    name: string
-    password?: string | null
-    role?: $Enums.UserRole
-    createdAt?: Date | string
-    userRoles?: UserCreateuserRolesInput | $Enums.UserRole[]
-    tenant?: TenantCreateNestedOneWithoutUsersInput
-    certificates?: CertificateCreateNestedManyWithoutUserInput
-    mcqAnswers?: UserMCQAnswerCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutEnrollmentsInput = {
-    id?: string
-    tenantId?: string | null
-    email: string
-    name: string
-    password?: string | null
-    role?: $Enums.UserRole
-    createdAt?: Date | string
-    userRoles?: UserCreateuserRolesInput | $Enums.UserRole[]
-    certificates?: CertificateUncheckedCreateNestedManyWithoutUserInput
-    mcqAnswers?: UserMCQAnswerUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutEnrollmentsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutEnrollmentsInput, UserUncheckedCreateWithoutEnrollmentsInput>
+  export type TenantCourseUpdateManyWithWhereWithoutCourseInput = {
+    where: TenantCourseScalarWhereInput
+    data: XOR<TenantCourseUpdateManyMutationInput, TenantCourseUncheckedUpdateManyWithoutCourseInput>
   }
 
   export type CourseCreateWithoutEnrollmentsInput = {
     id?: string
     title: string
     description?: string | null
-    tags: string
+    createdAt?: Date | string
     learningObjectives: string
     materialUrl: string
-    videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
-    createdAt?: Date | string
+    tags: string
     updatedAt?: Date | string
+    videoUrl?: string | null
     mcqs?: MCQCreateNestedManyWithoutCourseInput
-    tenants?: TenantCourseCreateNestedManyWithoutCourseInput
     slideExplanations?: SlideExplanationCreateNestedManyWithoutCourseInput
-    properties?: CoursePropertiesCreateNestedOneWithoutCourseInput
+    tenants?: TenantCourseCreateNestedManyWithoutCourseInput
   }
 
   export type CourseUncheckedCreateWithoutEnrollmentsInput = {
     id?: string
     title: string
     description?: string | null
-    tags: string
+    createdAt?: Date | string
     learningObjectives: string
     materialUrl: string
-    videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
-    createdAt?: Date | string
+    tags: string
     updatedAt?: Date | string
+    videoUrl?: string | null
     mcqs?: MCQUncheckedCreateNestedManyWithoutCourseInput
-    tenants?: TenantCourseUncheckedCreateNestedManyWithoutCourseInput
     slideExplanations?: SlideExplanationUncheckedCreateNestedManyWithoutCourseInput
-    properties?: CoursePropertiesUncheckedCreateNestedOneWithoutCourseInput
+    tenants?: TenantCourseUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type CourseCreateOrConnectWithoutEnrollmentsInput = {
@@ -20302,41 +18952,35 @@ export namespace Prisma {
     create: XOR<CourseCreateWithoutEnrollmentsInput, CourseUncheckedCreateWithoutEnrollmentsInput>
   }
 
-  export type UserUpsertWithoutEnrollmentsInput = {
-    update: XOR<UserUpdateWithoutEnrollmentsInput, UserUncheckedUpdateWithoutEnrollmentsInput>
+  export type UserCreateWithoutEnrollmentsInput = {
+    id?: string
+    email: string
+    name: string
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    userRoles?: UserCreateuserRolesInput | $Enums.UserRole[]
+    password?: string | null
+    certificates?: CertificateCreateNestedManyWithoutUserInput
+    mcqAnswers?: UserMCQAnswerCreateNestedManyWithoutUserInput
+    tenant?: TenantCreateNestedOneWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutEnrollmentsInput = {
+    id?: string
+    tenantId?: string | null
+    email: string
+    name: string
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    userRoles?: UserCreateuserRolesInput | $Enums.UserRole[]
+    password?: string | null
+    certificates?: CertificateUncheckedCreateNestedManyWithoutUserInput
+    mcqAnswers?: UserMCQAnswerUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutEnrollmentsInput = {
+    where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutEnrollmentsInput, UserUncheckedCreateWithoutEnrollmentsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutEnrollmentsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutEnrollmentsInput, UserUncheckedUpdateWithoutEnrollmentsInput>
-  }
-
-  export type UserUpdateWithoutEnrollmentsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userRoles?: UserUpdateuserRolesInput | $Enums.UserRole[]
-    tenant?: TenantUpdateOneWithoutUsersNestedInput
-    certificates?: CertificateUpdateManyWithoutUserNestedInput
-    mcqAnswers?: UserMCQAnswerUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutEnrollmentsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userRoles?: UserUpdateuserRolesInput | $Enums.UserRole[]
-    certificates?: CertificateUncheckedUpdateManyWithoutUserNestedInput
-    mcqAnswers?: UserMCQAnswerUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CourseUpsertWithoutEnrollmentsInput = {
@@ -20354,47 +18998,82 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    tags?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
-    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     mcqs?: MCQUpdateManyWithoutCourseNestedInput
-    tenants?: TenantCourseUpdateManyWithoutCourseNestedInput
     slideExplanations?: SlideExplanationUpdateManyWithoutCourseNestedInput
-    properties?: CoursePropertiesUpdateOneWithoutCourseNestedInput
+    tenants?: TenantCourseUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateWithoutEnrollmentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    tags?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
-    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     mcqs?: MCQUncheckedUpdateManyWithoutCourseNestedInput
-    tenants?: TenantCourseUncheckedUpdateManyWithoutCourseNestedInput
     slideExplanations?: SlideExplanationUncheckedUpdateManyWithoutCourseNestedInput
-    properties?: CoursePropertiesUncheckedUpdateOneWithoutCourseNestedInput
+    tenants?: TenantCourseUncheckedUpdateManyWithoutCourseNestedInput
+  }
+
+  export type UserUpsertWithoutEnrollmentsInput = {
+    update: XOR<UserUpdateWithoutEnrollmentsInput, UserUncheckedUpdateWithoutEnrollmentsInput>
+    create: XOR<UserCreateWithoutEnrollmentsInput, UserUncheckedCreateWithoutEnrollmentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutEnrollmentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutEnrollmentsInput, UserUncheckedUpdateWithoutEnrollmentsInput>
+  }
+
+  export type UserUpdateWithoutEnrollmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userRoles?: UserUpdateuserRolesInput | $Enums.UserRole[]
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    certificates?: CertificateUpdateManyWithoutUserNestedInput
+    mcqAnswers?: UserMCQAnswerUpdateManyWithoutUserNestedInput
+    tenant?: TenantUpdateOneWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutEnrollmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userRoles?: UserUpdateuserRolesInput | $Enums.UserRole[]
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    certificates?: CertificateUncheckedUpdateManyWithoutUserNestedInput
+    mcqAnswers?: UserMCQAnswerUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutCertificatesInput = {
     id?: string
     email: string
     name: string
-    password?: string | null
     role?: $Enums.UserRole
     createdAt?: Date | string
     userRoles?: UserCreateuserRolesInput | $Enums.UserRole[]
-    tenant?: TenantCreateNestedOneWithoutUsersInput
+    password?: string | null
     enrollments?: EnrollmentCreateNestedManyWithoutUserInput
     mcqAnswers?: UserMCQAnswerCreateNestedManyWithoutUserInput
+    tenant?: TenantCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutCertificatesInput = {
@@ -20402,10 +19081,10 @@ export namespace Prisma {
     tenantId?: string | null
     email: string
     name: string
-    password?: string | null
     role?: $Enums.UserRole
     createdAt?: Date | string
     userRoles?: UserCreateuserRolesInput | $Enums.UserRole[]
+    password?: string | null
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutUserInput
     mcqAnswers?: UserMCQAnswerUncheckedCreateNestedManyWithoutUserInput
   }
@@ -20430,13 +19109,13 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userRoles?: UserUpdateuserRolesInput | $Enums.UserRole[]
-    tenant?: TenantUpdateOneWithoutUsersNestedInput
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: EnrollmentUpdateManyWithoutUserNestedInput
     mcqAnswers?: UserMCQAnswerUpdateManyWithoutUserNestedInput
+    tenant?: TenantUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCertificatesInput = {
@@ -20444,73 +19123,44 @@ export namespace Prisma {
     tenantId?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userRoles?: UserUpdateuserRolesInput | $Enums.UserRole[]
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: EnrollmentUncheckedUpdateManyWithoutUserNestedInput
     mcqAnswers?: UserMCQAnswerUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type TenantCreateWithoutCoursesInput = {
-    id?: string
-    name: string
-    domain: string
-    adminEmail: string
-    adminPassword: string
-    createdAt?: Date | string
-    users?: UserCreateNestedManyWithoutTenantInput
-    details?: TenantDetailsCreateNestedOneWithoutTenantInput
-  }
-
-  export type TenantUncheckedCreateWithoutCoursesInput = {
-    id?: string
-    name: string
-    domain: string
-    adminEmail: string
-    adminPassword: string
-    createdAt?: Date | string
-    users?: UserUncheckedCreateNestedManyWithoutTenantInput
-    details?: TenantDetailsUncheckedCreateNestedOneWithoutTenantInput
-  }
-
-  export type TenantCreateOrConnectWithoutCoursesInput = {
-    where: TenantWhereUniqueInput
-    create: XOR<TenantCreateWithoutCoursesInput, TenantUncheckedCreateWithoutCoursesInput>
   }
 
   export type CourseCreateWithoutTenantsInput = {
     id?: string
     title: string
     description?: string | null
-    tags: string
+    createdAt?: Date | string
     learningObjectives: string
     materialUrl: string
-    videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
-    createdAt?: Date | string
+    tags: string
     updatedAt?: Date | string
-    mcqs?: MCQCreateNestedManyWithoutCourseInput
+    videoUrl?: string | null
     enrollments?: EnrollmentCreateNestedManyWithoutCourseInput
+    mcqs?: MCQCreateNestedManyWithoutCourseInput
     slideExplanations?: SlideExplanationCreateNestedManyWithoutCourseInput
-    properties?: CoursePropertiesCreateNestedOneWithoutCourseInput
   }
 
   export type CourseUncheckedCreateWithoutTenantsInput = {
     id?: string
     title: string
     description?: string | null
-    tags: string
+    createdAt?: Date | string
     learningObjectives: string
     materialUrl: string
-    videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
-    createdAt?: Date | string
+    tags: string
     updatedAt?: Date | string
-    mcqs?: MCQUncheckedCreateNestedManyWithoutCourseInput
+    videoUrl?: string | null
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutCourseInput
+    mcqs?: MCQUncheckedCreateNestedManyWithoutCourseInput
     slideExplanations?: SlideExplanationUncheckedCreateNestedManyWithoutCourseInput
-    properties?: CoursePropertiesUncheckedCreateNestedOneWithoutCourseInput
   }
 
   export type CourseCreateOrConnectWithoutTenantsInput = {
@@ -20518,37 +19168,31 @@ export namespace Prisma {
     create: XOR<CourseCreateWithoutTenantsInput, CourseUncheckedCreateWithoutTenantsInput>
   }
 
-  export type TenantUpsertWithoutCoursesInput = {
-    update: XOR<TenantUpdateWithoutCoursesInput, TenantUncheckedUpdateWithoutCoursesInput>
+  export type TenantCreateWithoutCoursesInput = {
+    id?: string
+    name: string
+    domain: string
+    createdAt?: Date | string
+    adminEmail: string
+    adminPassword: string
+    details?: TenantDetailsCreateNestedOneWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutCoursesInput = {
+    id?: string
+    name: string
+    domain: string
+    createdAt?: Date | string
+    adminEmail: string
+    adminPassword: string
+    details?: TenantDetailsUncheckedCreateNestedOneWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutCoursesInput = {
+    where: TenantWhereUniqueInput
     create: XOR<TenantCreateWithoutCoursesInput, TenantUncheckedCreateWithoutCoursesInput>
-    where?: TenantWhereInput
-  }
-
-  export type TenantUpdateToOneWithWhereWithoutCoursesInput = {
-    where?: TenantWhereInput
-    data: XOR<TenantUpdateWithoutCoursesInput, TenantUncheckedUpdateWithoutCoursesInput>
-  }
-
-  export type TenantUpdateWithoutCoursesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    domain?: StringFieldUpdateOperationsInput | string
-    adminEmail?: StringFieldUpdateOperationsInput | string
-    adminPassword?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUpdateManyWithoutTenantNestedInput
-    details?: TenantDetailsUpdateOneWithoutTenantNestedInput
-  }
-
-  export type TenantUncheckedUpdateWithoutCoursesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    domain?: StringFieldUpdateOperationsInput | string
-    adminEmail?: StringFieldUpdateOperationsInput | string
-    adminPassword?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
-    details?: TenantDetailsUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type CourseUpsertWithoutTenantsInput = {
@@ -20566,68 +19210,97 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    tags?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
-    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    mcqs?: MCQUpdateManyWithoutCourseNestedInput
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: EnrollmentUpdateManyWithoutCourseNestedInput
+    mcqs?: MCQUpdateManyWithoutCourseNestedInput
     slideExplanations?: SlideExplanationUpdateManyWithoutCourseNestedInput
-    properties?: CoursePropertiesUpdateOneWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateWithoutTenantsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    tags?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
-    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    mcqs?: MCQUncheckedUpdateManyWithoutCourseNestedInput
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
+    mcqs?: MCQUncheckedUpdateManyWithoutCourseNestedInput
     slideExplanations?: SlideExplanationUncheckedUpdateManyWithoutCourseNestedInput
-    properties?: CoursePropertiesUncheckedUpdateOneWithoutCourseNestedInput
+  }
+
+  export type TenantUpsertWithoutCoursesInput = {
+    update: XOR<TenantUpdateWithoutCoursesInput, TenantUncheckedUpdateWithoutCoursesInput>
+    create: XOR<TenantCreateWithoutCoursesInput, TenantUncheckedCreateWithoutCoursesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutCoursesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutCoursesInput, TenantUncheckedUpdateWithoutCoursesInput>
+  }
+
+  export type TenantUpdateWithoutCoursesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    domain?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
+    details?: TenantDetailsUpdateOneWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutCoursesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    domain?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adminEmail?: StringFieldUpdateOperationsInput | string
+    adminPassword?: StringFieldUpdateOperationsInput | string
+    details?: TenantDetailsUncheckedUpdateOneWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type CourseCreateWithoutMcqsInput = {
     id?: string
     title: string
     description?: string | null
-    tags: string
+    createdAt?: Date | string
     learningObjectives: string
     materialUrl: string
-    videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
-    createdAt?: Date | string
+    tags: string
     updatedAt?: Date | string
+    videoUrl?: string | null
     enrollments?: EnrollmentCreateNestedManyWithoutCourseInput
-    tenants?: TenantCourseCreateNestedManyWithoutCourseInput
     slideExplanations?: SlideExplanationCreateNestedManyWithoutCourseInput
-    properties?: CoursePropertiesCreateNestedOneWithoutCourseInput
+    tenants?: TenantCourseCreateNestedManyWithoutCourseInput
   }
 
   export type CourseUncheckedCreateWithoutMcqsInput = {
     id?: string
     title: string
     description?: string | null
-    tags: string
+    createdAt?: Date | string
     learningObjectives: string
     materialUrl: string
-    videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
-    createdAt?: Date | string
+    tags: string
     updatedAt?: Date | string
+    videoUrl?: string | null
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutCourseInput
-    tenants?: TenantCourseUncheckedCreateNestedManyWithoutCourseInput
     slideExplanations?: SlideExplanationUncheckedCreateNestedManyWithoutCourseInput
-    properties?: CoursePropertiesUncheckedCreateNestedOneWithoutCourseInput
+    tenants?: TenantCourseUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type CourseCreateOrConnectWithoutMcqsInput = {
@@ -20676,34 +19349,32 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    tags?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
-    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: EnrollmentUpdateManyWithoutCourseNestedInput
-    tenants?: TenantCourseUpdateManyWithoutCourseNestedInput
     slideExplanations?: SlideExplanationUpdateManyWithoutCourseNestedInput
-    properties?: CoursePropertiesUpdateOneWithoutCourseNestedInput
+    tenants?: TenantCourseUpdateManyWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateWithoutMcqsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    tags?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
-    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
-    tenants?: TenantCourseUncheckedUpdateManyWithoutCourseNestedInput
     slideExplanations?: SlideExplanationUncheckedUpdateManyWithoutCourseNestedInput
-    properties?: CoursePropertiesUncheckedUpdateOneWithoutCourseNestedInput
+    tenants?: TenantCourseUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type UserMCQAnswerUpsertWithWhereUniqueWithoutMcqInput = {
@@ -20720,37 +19391,6 @@ export namespace Prisma {
   export type UserMCQAnswerUpdateManyWithWhereWithoutMcqInput = {
     where: UserMCQAnswerScalarWhereInput
     data: XOR<UserMCQAnswerUpdateManyMutationInput, UserMCQAnswerUncheckedUpdateManyWithoutMcqInput>
-  }
-
-  export type UserCreateWithoutMcqAnswersInput = {
-    id?: string
-    email: string
-    name: string
-    password?: string | null
-    role?: $Enums.UserRole
-    createdAt?: Date | string
-    userRoles?: UserCreateuserRolesInput | $Enums.UserRole[]
-    tenant?: TenantCreateNestedOneWithoutUsersInput
-    enrollments?: EnrollmentCreateNestedManyWithoutUserInput
-    certificates?: CertificateCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutMcqAnswersInput = {
-    id?: string
-    tenantId?: string | null
-    email: string
-    name: string
-    password?: string | null
-    role?: $Enums.UserRole
-    createdAt?: Date | string
-    userRoles?: UserCreateuserRolesInput | $Enums.UserRole[]
-    enrollments?: EnrollmentUncheckedCreateNestedManyWithoutUserInput
-    certificates?: CertificateUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutMcqAnswersInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutMcqAnswersInput, UserUncheckedCreateWithoutMcqAnswersInput>
   }
 
   export type MCQCreateWithoutUserAnswersInput = {
@@ -20780,41 +19420,35 @@ export namespace Prisma {
     create: XOR<MCQCreateWithoutUserAnswersInput, MCQUncheckedCreateWithoutUserAnswersInput>
   }
 
-  export type UserUpsertWithoutMcqAnswersInput = {
-    update: XOR<UserUpdateWithoutMcqAnswersInput, UserUncheckedUpdateWithoutMcqAnswersInput>
+  export type UserCreateWithoutMcqAnswersInput = {
+    id?: string
+    email: string
+    name: string
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    userRoles?: UserCreateuserRolesInput | $Enums.UserRole[]
+    password?: string | null
+    certificates?: CertificateCreateNestedManyWithoutUserInput
+    enrollments?: EnrollmentCreateNestedManyWithoutUserInput
+    tenant?: TenantCreateNestedOneWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutMcqAnswersInput = {
+    id?: string
+    tenantId?: string | null
+    email: string
+    name: string
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    userRoles?: UserCreateuserRolesInput | $Enums.UserRole[]
+    password?: string | null
+    certificates?: CertificateUncheckedCreateNestedManyWithoutUserInput
+    enrollments?: EnrollmentUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMcqAnswersInput = {
+    where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutMcqAnswersInput, UserUncheckedCreateWithoutMcqAnswersInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutMcqAnswersInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutMcqAnswersInput, UserUncheckedUpdateWithoutMcqAnswersInput>
-  }
-
-  export type UserUpdateWithoutMcqAnswersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userRoles?: UserUpdateuserRolesInput | $Enums.UserRole[]
-    tenant?: TenantUpdateOneWithoutUsersNestedInput
-    enrollments?: EnrollmentUpdateManyWithoutUserNestedInput
-    certificates?: CertificateUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutMcqAnswersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userRoles?: UserUpdateuserRolesInput | $Enums.UserRole[]
-    enrollments?: EnrollmentUncheckedUpdateManyWithoutUserNestedInput
-    certificates?: CertificateUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MCQUpsertWithoutUserAnswersInput = {
@@ -20850,38 +19484,73 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserUpsertWithoutMcqAnswersInput = {
+    update: XOR<UserUpdateWithoutMcqAnswersInput, UserUncheckedUpdateWithoutMcqAnswersInput>
+    create: XOR<UserCreateWithoutMcqAnswersInput, UserUncheckedCreateWithoutMcqAnswersInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMcqAnswersInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMcqAnswersInput, UserUncheckedUpdateWithoutMcqAnswersInput>
+  }
+
+  export type UserUpdateWithoutMcqAnswersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userRoles?: UserUpdateuserRolesInput | $Enums.UserRole[]
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    certificates?: CertificateUpdateManyWithoutUserNestedInput
+    enrollments?: EnrollmentUpdateManyWithoutUserNestedInput
+    tenant?: TenantUpdateOneWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMcqAnswersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userRoles?: UserUpdateuserRolesInput | $Enums.UserRole[]
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    certificates?: CertificateUncheckedUpdateManyWithoutUserNestedInput
+    enrollments?: EnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type CourseCreateWithoutSlideExplanationsInput = {
     id?: string
     title: string
     description?: string | null
-    tags: string
+    createdAt?: Date | string
     learningObjectives: string
     materialUrl: string
-    videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
-    createdAt?: Date | string
+    tags: string
     updatedAt?: Date | string
-    mcqs?: MCQCreateNestedManyWithoutCourseInput
+    videoUrl?: string | null
     enrollments?: EnrollmentCreateNestedManyWithoutCourseInput
+    mcqs?: MCQCreateNestedManyWithoutCourseInput
     tenants?: TenantCourseCreateNestedManyWithoutCourseInput
-    properties?: CoursePropertiesCreateNestedOneWithoutCourseInput
   }
 
   export type CourseUncheckedCreateWithoutSlideExplanationsInput = {
     id?: string
     title: string
     description?: string | null
-    tags: string
+    createdAt?: Date | string
     learningObjectives: string
     materialUrl: string
-    videoUrl?: string | null
     slides?: CourseCreateslidesInput | InputJsonValue[]
-    createdAt?: Date | string
+    tags: string
     updatedAt?: Date | string
-    mcqs?: MCQUncheckedCreateNestedManyWithoutCourseInput
+    videoUrl?: string | null
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutCourseInput
+    mcqs?: MCQUncheckedCreateNestedManyWithoutCourseInput
     tenants?: TenantCourseUncheckedCreateNestedManyWithoutCourseInput
-    properties?: CoursePropertiesUncheckedCreateNestedOneWithoutCourseInput
   }
 
   export type CourseCreateOrConnectWithoutSlideExplanationsInput = {
@@ -20904,147 +19573,94 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    tags?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
-    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    mcqs?: MCQUpdateManyWithoutCourseNestedInput
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: EnrollmentUpdateManyWithoutCourseNestedInput
+    mcqs?: MCQUpdateManyWithoutCourseNestedInput
     tenants?: TenantCourseUpdateManyWithoutCourseNestedInput
-    properties?: CoursePropertiesUpdateOneWithoutCourseNestedInput
   }
 
   export type CourseUncheckedUpdateWithoutSlideExplanationsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    tags?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     learningObjectives?: StringFieldUpdateOperationsInput | string
     materialUrl?: StringFieldUpdateOperationsInput | string
-    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     slides?: CourseUpdateslidesInput | InputJsonValue[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    mcqs?: MCQUncheckedUpdateManyWithoutCourseNestedInput
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     enrollments?: EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
-    tenants?: TenantCourseUncheckedUpdateManyWithoutCourseNestedInput
-    properties?: CoursePropertiesUncheckedUpdateOneWithoutCourseNestedInput
-  }
-
-  export type CourseCreateWithoutPropertiesInput = {
-    id?: string
-    title: string
-    description?: string | null
-    tags: string
-    learningObjectives: string
-    materialUrl: string
-    videoUrl?: string | null
-    slides?: CourseCreateslidesInput | InputJsonValue[]
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    mcqs?: MCQCreateNestedManyWithoutCourseInput
-    enrollments?: EnrollmentCreateNestedManyWithoutCourseInput
-    tenants?: TenantCourseCreateNestedManyWithoutCourseInput
-    slideExplanations?: SlideExplanationCreateNestedManyWithoutCourseInput
-  }
-
-  export type CourseUncheckedCreateWithoutPropertiesInput = {
-    id?: string
-    title: string
-    description?: string | null
-    tags: string
-    learningObjectives: string
-    materialUrl: string
-    videoUrl?: string | null
-    slides?: CourseCreateslidesInput | InputJsonValue[]
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    mcqs?: MCQUncheckedCreateNestedManyWithoutCourseInput
-    enrollments?: EnrollmentUncheckedCreateNestedManyWithoutCourseInput
-    tenants?: TenantCourseUncheckedCreateNestedManyWithoutCourseInput
-    slideExplanations?: SlideExplanationUncheckedCreateNestedManyWithoutCourseInput
-  }
-
-  export type CourseCreateOrConnectWithoutPropertiesInput = {
-    where: CourseWhereUniqueInput
-    create: XOR<CourseCreateWithoutPropertiesInput, CourseUncheckedCreateWithoutPropertiesInput>
-  }
-
-  export type CourseUpsertWithoutPropertiesInput = {
-    update: XOR<CourseUpdateWithoutPropertiesInput, CourseUncheckedUpdateWithoutPropertiesInput>
-    create: XOR<CourseCreateWithoutPropertiesInput, CourseUncheckedCreateWithoutPropertiesInput>
-    where?: CourseWhereInput
-  }
-
-  export type CourseUpdateToOneWithWhereWithoutPropertiesInput = {
-    where?: CourseWhereInput
-    data: XOR<CourseUpdateWithoutPropertiesInput, CourseUncheckedUpdateWithoutPropertiesInput>
-  }
-
-  export type CourseUpdateWithoutPropertiesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    tags?: StringFieldUpdateOperationsInput | string
-    learningObjectives?: StringFieldUpdateOperationsInput | string
-    materialUrl?: StringFieldUpdateOperationsInput | string
-    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    slides?: CourseUpdateslidesInput | InputJsonValue[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    mcqs?: MCQUpdateManyWithoutCourseNestedInput
-    enrollments?: EnrollmentUpdateManyWithoutCourseNestedInput
-    tenants?: TenantCourseUpdateManyWithoutCourseNestedInput
-    slideExplanations?: SlideExplanationUpdateManyWithoutCourseNestedInput
-  }
-
-  export type CourseUncheckedUpdateWithoutPropertiesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    tags?: StringFieldUpdateOperationsInput | string
-    learningObjectives?: StringFieldUpdateOperationsInput | string
-    materialUrl?: StringFieldUpdateOperationsInput | string
-    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    slides?: CourseUpdateslidesInput | InputJsonValue[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mcqs?: MCQUncheckedUpdateManyWithoutCourseNestedInput
-    enrollments?: EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
     tenants?: TenantCourseUncheckedUpdateManyWithoutCourseNestedInput
-    slideExplanations?: SlideExplanationUncheckedUpdateManyWithoutCourseNestedInput
+  }
+
+  export type TenantCourseCreateManyTenantInput = {
+    id?: string
+    courseId: string
+    assignedAt?: Date | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: $Enums.RetryType
   }
 
   export type UserCreateManyTenantInput = {
     id?: string
     email: string
     name: string
-    password?: string | null
     role?: $Enums.UserRole
     createdAt?: Date | string
     userRoles?: UserCreateuserRolesInput | $Enums.UserRole[]
+    password?: string | null
   }
 
-  export type TenantCourseCreateManyTenantInput = {
-    id?: string
-    courseId: string
+  export type TenantCourseUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     explanations?: NullableJsonNullValueInput | InputJsonValue
-    assignedAt?: Date | string
+    skippable?: BoolFieldUpdateOperationsInput | boolean
+    mandatory?: BoolFieldUpdateOperationsInput | boolean
+    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+    course?: CourseUpdateOneRequiredWithoutTenantsNestedInput
+  }
+
+  export type TenantCourseUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    courseId?: StringFieldUpdateOperationsInput | string
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
+    skippable?: BoolFieldUpdateOperationsInput | boolean
+    mandatory?: BoolFieldUpdateOperationsInput | boolean
+    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+  }
+
+  export type TenantCourseUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    courseId?: StringFieldUpdateOperationsInput | string
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
+    skippable?: BoolFieldUpdateOperationsInput | boolean
+    mandatory?: BoolFieldUpdateOperationsInput | boolean
+    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
   }
 
   export type UserUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userRoles?: UserUpdateuserRolesInput | $Enums.UserRole[]
-    enrollments?: EnrollmentUpdateManyWithoutUserNestedInput
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     certificates?: CertificateUpdateManyWithoutUserNestedInput
+    enrollments?: EnrollmentUpdateManyWithoutUserNestedInput
     mcqAnswers?: UserMCQAnswerUpdateManyWithoutUserNestedInput
   }
 
@@ -21052,12 +19668,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userRoles?: UserUpdateuserRolesInput | $Enums.UserRole[]
-    enrollments?: EnrollmentUncheckedUpdateManyWithoutUserNestedInput
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     certificates?: CertificateUncheckedUpdateManyWithoutUserNestedInput
+    enrollments?: EnrollmentUncheckedUpdateManyWithoutUserNestedInput
     mcqAnswers?: UserMCQAnswerUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -21065,38 +19681,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userRoles?: UserUpdateuserRolesInput | $Enums.UserRole[]
-  }
-
-  export type TenantCourseUpdateWithoutTenantInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    explanations?: NullableJsonNullValueInput | InputJsonValue
-    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    course?: CourseUpdateOneRequiredWithoutTenantsNestedInput
-  }
-
-  export type TenantCourseUncheckedUpdateWithoutTenantInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    courseId?: StringFieldUpdateOperationsInput | string
-    explanations?: NullableJsonNullValueInput | InputJsonValue
-    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type TenantCourseUncheckedUpdateManyWithoutTenantInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    courseId?: StringFieldUpdateOperationsInput | string
-    explanations?: NullableJsonNullValueInput | InputJsonValue
-    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type EnrollmentCreateManyUserInput = {
-    id?: string
-    courseId: string
-    progress?: Decimal | DecimalJsLike | number | string
-    status?: $Enums.EnrollmentStatus
+    password?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CertificateCreateManyUserInput = {
@@ -21106,33 +19694,19 @@ export namespace Prisma {
     issuedAt?: Date | string
   }
 
+  export type EnrollmentCreateManyUserInput = {
+    id?: string
+    courseId: string
+    progress?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.EnrollmentStatus
+  }
+
   export type UserMCQAnswerCreateManyUserInput = {
     id?: string
     mcqId: string
     answer: string
     isCorrect: boolean
     createdAt?: Date | string
-  }
-
-  export type EnrollmentUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
-    course?: CourseUpdateOneRequiredWithoutEnrollmentsNestedInput
-  }
-
-  export type EnrollmentUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    courseId?: StringFieldUpdateOperationsInput | string
-    progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
-  }
-
-  export type EnrollmentUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    courseId?: StringFieldUpdateOperationsInput | string
-    progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
   }
 
   export type CertificateUpdateWithoutUserInput = {
@@ -21154,6 +19728,27 @@ export namespace Prisma {
     courseId?: StringFieldUpdateOperationsInput | string
     certificateUrl?: StringFieldUpdateOperationsInput | string
     issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EnrollmentUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
+    course?: CourseUpdateOneRequiredWithoutEnrollmentsNestedInput
+  }
+
+  export type EnrollmentUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    courseId?: StringFieldUpdateOperationsInput | string
+    progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
+  }
+
+  export type EnrollmentUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    courseId?: StringFieldUpdateOperationsInput | string
+    progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
   }
 
   export type UserMCQAnswerUpdateWithoutUserInput = {
@@ -21180,6 +19775,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type EnrollmentCreateManyCourseInput = {
+    id?: string
+    userId: string
+    progress?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.EnrollmentStatus
+  }
+
   export type MCQCreateManyCourseInput = {
     id?: string
     question: string
@@ -21190,26 +19792,43 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type EnrollmentCreateManyCourseInput = {
-    id?: string
-    userId: string
-    progress?: Decimal | DecimalJsLike | number | string
-    status?: $Enums.EnrollmentStatus
-  }
-
-  export type TenantCourseCreateManyCourseInput = {
-    id?: string
-    tenantId: string
-    explanations?: NullableJsonNullValueInput | InputJsonValue
-    assignedAt?: Date | string
-  }
-
   export type SlideExplanationCreateManyCourseInput = {
     id?: string
     slideNumber: number
     explanation: string
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type TenantCourseCreateManyCourseInput = {
+    id?: string
+    tenantId: string
+    assignedAt?: Date | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: $Enums.RetryType
+  }
+
+  export type EnrollmentUpdateWithoutCourseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
+    user?: UserUpdateOneRequiredWithoutEnrollmentsNestedInput
+  }
+
+  export type EnrollmentUncheckedUpdateWithoutCourseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
+  }
+
+  export type EnrollmentUncheckedUpdateManyWithoutCourseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
   }
 
   export type MCQUpdateWithoutCourseInput = {
@@ -21244,48 +19863,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type EnrollmentUpdateWithoutCourseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
-    user?: UserUpdateOneRequiredWithoutEnrollmentsNestedInput
-  }
-
-  export type EnrollmentUncheckedUpdateWithoutCourseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
-  }
-
-  export type EnrollmentUncheckedUpdateManyWithoutCourseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
-  }
-
-  export type TenantCourseUpdateWithoutCourseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    explanations?: NullableJsonNullValueInput | InputJsonValue
-    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tenant?: TenantUpdateOneRequiredWithoutCoursesNestedInput
-  }
-
-  export type TenantCourseUncheckedUpdateWithoutCourseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tenantId?: StringFieldUpdateOperationsInput | string
-    explanations?: NullableJsonNullValueInput | InputJsonValue
-    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type TenantCourseUncheckedUpdateManyWithoutCourseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tenantId?: StringFieldUpdateOperationsInput | string
-    explanations?: NullableJsonNullValueInput | InputJsonValue
-    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type SlideExplanationUpdateWithoutCourseInput = {
     id?: StringFieldUpdateOperationsInput | string
     slideNumber?: IntFieldUpdateOperationsInput | number
@@ -21308,6 +19885,36 @@ export namespace Prisma {
     explanation?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantCourseUpdateWithoutCourseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
+    skippable?: BoolFieldUpdateOperationsInput | boolean
+    mandatory?: BoolFieldUpdateOperationsInput | boolean
+    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+    tenant?: TenantUpdateOneRequiredWithoutCoursesNestedInput
+  }
+
+  export type TenantCourseUncheckedUpdateWithoutCourseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
+    skippable?: BoolFieldUpdateOperationsInput | boolean
+    mandatory?: BoolFieldUpdateOperationsInput | boolean
+    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+  }
+
+  export type TenantCourseUncheckedUpdateManyWithoutCourseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
+    skippable?: BoolFieldUpdateOperationsInput | boolean
+    mandatory?: BoolFieldUpdateOperationsInput | boolean
+    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
   }
 
   export type UserMCQAnswerCreateManyMcqInput = {

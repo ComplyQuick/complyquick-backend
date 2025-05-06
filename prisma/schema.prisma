@@ -77,7 +77,6 @@ model Course {
   tags               String
   updatedAt          DateTime           @updatedAt
   videoUrl           String?
-  properties         CourseProperties?
   enrollments        Enrollment[]
   mcqs               MCQ[]
   slideExplanations  SlideExplanation[]
@@ -115,6 +114,9 @@ model TenantCourse {
   courseId     String   @map("course_id")
   assignedAt   DateTime @default(now()) @map("assigned_at")
   explanations Json?
+  skippable    Boolean  @default(false)
+  mandatory    Boolean  @default(false)
+  retryType    RetryType @default(SAME)
   course       Course   @relation(fields: [courseId], references: [id])
   tenant       Tenant   @relation(fields: [tenantId], references: [id])
 
@@ -173,17 +175,6 @@ model OrganizationInterest {
 
   @@unique([email, organizationName])
   @@map("organization_interest")
-}
-
-model CourseProperties {
-  id        String    @id @default(uuid())
-  courseId  String    @unique
-  skippable Boolean   @default(false)
-  mandatory Boolean   @default(false)
-  retryType RetryType @default(SAME)
-  course    Course    @relation(fields: [courseId], references: [id])
-
-  @@map("CourseProperties")
 }
 
 enum UserRole {

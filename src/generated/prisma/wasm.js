@@ -121,9 +121,9 @@ exports.Prisma.TenantScalarFieldEnum = {
   id: 'id',
   name: 'name',
   domain: 'domain',
+  createdAt: 'createdAt',
   adminEmail: 'adminEmail',
-  adminPassword: 'adminPassword',
-  createdAt: 'createdAt'
+  adminPassword: 'adminPassword'
 };
 
 exports.Prisma.TenantDetailsScalarFieldEnum = {
@@ -155,23 +155,23 @@ exports.Prisma.UserScalarFieldEnum = {
   tenantId: 'tenantId',
   email: 'email',
   name: 'name',
-  password: 'password',
   role: 'role',
   createdAt: 'createdAt',
-  userRoles: 'userRoles'
+  userRoles: 'userRoles',
+  password: 'password'
 };
 
 exports.Prisma.CourseScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
-  tags: 'tags',
+  createdAt: 'createdAt',
   learningObjectives: 'learningObjectives',
   materialUrl: 'materialUrl',
-  videoUrl: 'videoUrl',
   slides: 'slides',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  tags: 'tags',
+  updatedAt: 'updatedAt',
+  videoUrl: 'videoUrl'
 };
 
 exports.Prisma.EnrollmentScalarFieldEnum = {
@@ -194,8 +194,11 @@ exports.Prisma.TenantCourseScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
   courseId: 'courseId',
+  assignedAt: 'assignedAt',
   explanations: 'explanations',
-  assignedAt: 'assignedAt'
+  skippable: 'skippable',
+  mandatory: 'mandatory',
+  retryType: 'retryType'
 };
 
 exports.Prisma.MCQScalarFieldEnum = {
@@ -236,14 +239,6 @@ exports.Prisma.OrganizationInterestScalarFieldEnum = {
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
-};
-
-exports.Prisma.CoursePropertiesScalarFieldEnum = {
-  id: 'id',
-  courseId: 'courseId',
-  skippable: 'skippable',
-  mandatory: 'mandatory',
-  retryType: 'retryType'
 };
 
 exports.Prisma.SortOrder = {
@@ -299,8 +294,7 @@ exports.Prisma.ModelName = {
   MCQ: 'MCQ',
   UserMCQAnswer: 'UserMCQAnswer',
   SlideExplanation: 'SlideExplanation',
-  OrganizationInterest: 'OrganizationInterest',
-  CourseProperties: 'CourseProperties'
+  OrganizationInterest: 'OrganizationInterest'
 };
 
 /**

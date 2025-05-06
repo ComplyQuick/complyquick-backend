@@ -19,9 +19,6 @@ interface CourseRequest {
   tags: string | string[];
   learningObjectives: string | string[];
   companyName: string;
-  skippable?: boolean;
-  mandatory?: boolean;
-  retryType?: 'SAME' | 'DIFFERENT';
 }
 
 interface RequestWithFile extends Request {
@@ -60,7 +57,7 @@ function toBool(val: any): boolean {
 // Create a new course
 export const createCourse = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const { title, description, tags, learningObjectives, skippable, mandatory, retryType } = req.body;
+    const { title, description, tags, learningObjectives } = req.body;
     const file = req.file;
 
     if (!file) {
@@ -84,17 +81,7 @@ export const createCourse = async (req: Request, res: Response, next: NextFuncti
         tags,
         learningObjectives,
         materialUrl: slidesUrl,
-        slides: [],
-        properties: {
-          create: {
-            skippable: toBool(skippable),
-            mandatory: toBool(mandatory),
-            retryType: retryType === 'DIFFERENT' ? 'DIFFERENT' : 'SAME'
-          }
-        }
-      },
-      include: {
-        properties: true
+        slides: []
       }
     });
 
@@ -155,30 +142,13 @@ export const updateCourse = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
-    const { title, description, skippable, mandatory, retryType } = req.body;
+    const { title, description } = req.body;
     // Update course main fields
     const course = await prisma.course.update({
       where: { id },
       data: {
         title,
-        description,
-        properties: {
-          upsert: {
-            create: {
-              skippable: toBool(skippable),
-              mandatory: toBool(mandatory),
-              retryType: retryType === 'DIFFERENT' ? 'DIFFERENT' : 'SAME'
-            },
-            update: {
-              skippable: toBool(skippable),
-              mandatory: toBool(mandatory),
-              retryType: retryType === 'DIFFERENT' ? 'DIFFERENT' : 'SAME'
-            }
-          }
-        }
-      },
-      include: {
-        properties: true
+        description
       }
     });
     res.json(course);
@@ -207,12 +177,12 @@ export const deleteCourse = async (
   
 // Assign course to tenant
 export const assignCourseToTenant = async (
-  req: Request<{}, any, { courseId: string; tenantId: string }>,
+  req: Request<{}, any, { courseId: string; tenantId: string; skippable?: boolean; mandatory?: boolean; retryType?: 'SAME' | 'DIFFERENT' }>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { courseId, tenantId } = req.body;
+    const { courseId, tenantId, skippable = false, mandatory = false, retryType = 'SAME' } = req.body;
 
     // Get course and tenant details
     const course = await prisma.course.findUnique({
@@ -285,12 +255,15 @@ export const assignCourseToTenant = async (
       explanations = null;
     }
 
-    // Create tenant course assignment with explanations
+    // Create tenant course assignment with explanations and properties
     const tenantCourse = await prisma.tenantCourse.create({
       data: {
         courseId,
         tenantId,
-        explanations: explanations ? explanations as any : undefined
+        explanations: explanations ? explanations as any : undefined,
+        skippable: toBool(skippable),
+        mandatory: toBool(mandatory),
+        retryType: retryType === 'DIFFERENT' ? 'DIFFERENT' : 'SAME'
       },
       include: {
         course: true,
