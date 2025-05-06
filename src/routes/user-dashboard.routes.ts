@@ -259,4 +259,53 @@ router.get('/certificates/:id/download', asyncHandler(async (req: Request<{ id: 
 // Protected route - requires JWT authentication
 router.get('/profile', passport.authenticate('jwt', { session: false }), asyncHandler(getUserProfile));
 
+// Store certificate URL
+router.post('/certificates/store', asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { userId, certificateUrl, courseId } = req.body;
+
+    if (!userId || !certificateUrl || !courseId) {
+      res.status(400).json({ error: 'userId, certificateUrl, and courseId are required' });
+      return;
+    }
+
+    // Verify user exists
+    const user = await prisma.user.findUnique({
+      where: { id: userId }
+    });
+
+    if (!user) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+
+    // Create certificate record
+    const certificate = await prisma.certificate.create({
+      data: {
+        userId,
+        courseId,
+        certificateUrl,
+        issuedAt: new Date()
+      }
+    });
+
+    res.status(201).json({
+      success: true,
+      certificate: {
+        id: certificate.id,
+        userId: certificate.userId,
+        courseId: certificate.courseId,
+        certificateUrl: certificate.certificateUrl,
+        issuedAt: certificate.issuedAt
+      }
+    });
+  } catch (error) {
+    console.error('Error storing certificate:', error);
+    res.status(500).json({ 
+      error: 'Failed to store certificate',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+}));
+
 export default router; 
