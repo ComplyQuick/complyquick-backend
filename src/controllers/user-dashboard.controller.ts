@@ -26,8 +26,7 @@ export const getUserCourses = async (
           select: {
             id: true,
             title: true,
-            description: true,
-            duration: true
+            description: true
           }
         }
       }
@@ -79,8 +78,7 @@ export const getCourseContent = async (
       select: {
         id: true,
         title: true,
-        description: true,
-        duration: true
+        description: true
       }
     });
 
@@ -160,7 +158,7 @@ export const getUserProgress = async (
           select: {
             id: true,
             title: true,
-            duration: true
+            description: true
           }
         }
       }
@@ -381,4 +379,47 @@ export const getUserProfile = asyncHandler(async (req: Request, res: Response) =
     name: user.name,
     email: user.email
   });
-}); 
+});
+
+export const getUserDashboardCourses = async (
+  req: Request<{ userId: string }>,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { userId } = req.params;
+
+    // Get all enrollments for the user
+    const enrollments = await prisma.enrollment.findMany({
+      where: { userId },
+      include: { course: true }
+    });
+
+    // Get all certificates for the user
+    const certificates = await prisma.certificate.findMany({
+      where: { userId }
+    });
+
+    // Map courseId to certificate
+    const certMap = new Map(certificates.map(cert => [cert.courseId, cert]));
+
+    // Build response
+    const dashboardCourses = enrollments.map(enrollment => {
+      const cert = certMap.get(enrollment.courseId);
+      return {
+        courseId: enrollment.course.id,
+        title: enrollment.course.title,
+        description: enrollment.course.description,
+        progress: Number(enrollment.progress),
+        status: enrollment.status,
+        certificateUrl: cert ? cert.certificateUrl : null,
+        canDownloadCertificate: !!cert,
+        canRetakeQuiz: enrollment.status === 'COMPLETED' && !cert
+      };
+    });
+
+    res.json(dashboardCourses);
+  } catch (error) {
+    next(error);
+  }
+}; 

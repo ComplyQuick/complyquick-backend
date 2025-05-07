@@ -8,7 +8,8 @@ import {
   getUserCertificates,
   generateCertificate,
   downloadCertificate,
-  getUserProfile
+  getUserProfile,
+  getUserDashboardCourses
 } from '../controllers/user-dashboard.controller';
 import { getCourseById } from '../controllers/course.controller';
 import passport from '../config/passport';
@@ -308,4 +309,8 @@ router.post('/certificates/store', asyncHandler(async (req: Request, res: Respon
   }
 }));
 
-export default router; 
+router.get('/dashboard/:userId/courses', asyncHandler(getUserDashboardCourses));
+
+export default router;
+
+export { getUserDashboardCourses }; 
