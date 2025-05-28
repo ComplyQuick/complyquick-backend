@@ -199,7 +199,7 @@ router.post('/certificates', asyncHandler(async (req: Request, res: Response, ne
       certificateUrl: certificate.certificateUrl,
       issuedAt: certificate.issuedAt,
       userName: user.name,
-      courseName: course.title
+      courseName: course.title  
     });
   } catch (error) {
     console.error('Error generating certificate:', error);

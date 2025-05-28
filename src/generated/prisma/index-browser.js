@@ -227,6 +227,7 @@ exports.Prisma.SlideExplanationScalarFieldEnum = {
   slideNumber: 'slideNumber',
   explanation: 'explanation',
   explanation_audio: 'explanation_audio',
+  explanation_subtitle: 'explanation_subtitle',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

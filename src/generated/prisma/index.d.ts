@@ -12299,6 +12299,7 @@ export namespace Prisma {
     slideNumber: number | null
     explanation: string | null
     explanation_audio: string | null
+    explanation_subtitle: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -12309,6 +12310,7 @@ export namespace Prisma {
     slideNumber: number | null
     explanation: string | null
     explanation_audio: string | null
+    explanation_subtitle: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -12319,6 +12321,7 @@ export namespace Prisma {
     slideNumber: number
     explanation: number
     explanation_audio: number
+    explanation_subtitle: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -12339,6 +12342,7 @@ export namespace Prisma {
     slideNumber?: true
     explanation?: true
     explanation_audio?: true
+    explanation_subtitle?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -12349,6 +12353,7 @@ export namespace Prisma {
     slideNumber?: true
     explanation?: true
     explanation_audio?: true
+    explanation_subtitle?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -12359,6 +12364,7 @@ export namespace Prisma {
     slideNumber?: true
     explanation?: true
     explanation_audio?: true
+    explanation_subtitle?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -12456,6 +12462,7 @@ export namespace Prisma {
     slideNumber: number
     explanation: string
     explanation_audio: string | null
+    explanation_subtitle: string | null
     createdAt: Date
     updatedAt: Date
     _count: SlideExplanationCountAggregateOutputType | null
@@ -12485,6 +12492,7 @@ export namespace Prisma {
     slideNumber?: boolean
     explanation?: boolean
     explanation_audio?: boolean
+    explanation_subtitle?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
@@ -12496,6 +12504,7 @@ export namespace Prisma {
     slideNumber?: boolean
     explanation?: boolean
     explanation_audio?: boolean
+    explanation_subtitle?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
@@ -12507,6 +12516,7 @@ export namespace Prisma {
     slideNumber?: boolean
     explanation?: boolean
     explanation_audio?: boolean
+    explanation_subtitle?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
@@ -12518,11 +12528,12 @@ export namespace Prisma {
     slideNumber?: boolean
     explanation?: boolean
     explanation_audio?: boolean
+    explanation_subtitle?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SlideExplanationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "courseId" | "slideNumber" | "explanation" | "explanation_audio" | "createdAt" | "updatedAt", ExtArgs["result"]["slideExplanation"]>
+  export type SlideExplanationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "courseId" | "slideNumber" | "explanation" | "explanation_audio" | "explanation_subtitle" | "createdAt" | "updatedAt", ExtArgs["result"]["slideExplanation"]>
   export type SlideExplanationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     course?: boolean | CourseDefaultArgs<ExtArgs>
   }
@@ -12544,6 +12555,7 @@ export namespace Prisma {
       slideNumber: number
       explanation: string
       explanation_audio: string | null
+      explanation_subtitle: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["slideExplanation"]>
@@ -12975,6 +12987,7 @@ export namespace Prisma {
     readonly slideNumber: FieldRef<"SlideExplanation", 'Int'>
     readonly explanation: FieldRef<"SlideExplanation", 'String'>
     readonly explanation_audio: FieldRef<"SlideExplanation", 'String'>
+    readonly explanation_subtitle: FieldRef<"SlideExplanation", 'String'>
     readonly createdAt: FieldRef<"SlideExplanation", 'DateTime'>
     readonly updatedAt: FieldRef<"SlideExplanation", 'DateTime'>
   }
@@ -14576,6 +14589,7 @@ export namespace Prisma {
     slideNumber: 'slideNumber',
     explanation: 'explanation',
     explanation_audio: 'explanation_audio',
+    explanation_subtitle: 'explanation_subtitle',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -15488,6 +15502,7 @@ export namespace Prisma {
     slideNumber?: IntFilter<"SlideExplanation"> | number
     explanation?: StringFilter<"SlideExplanation"> | string
     explanation_audio?: StringNullableFilter<"SlideExplanation"> | string | null
+    explanation_subtitle?: StringNullableFilter<"SlideExplanation"> | string | null
     createdAt?: DateTimeFilter<"SlideExplanation"> | Date | string
     updatedAt?: DateTimeFilter<"SlideExplanation"> | Date | string
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
@@ -15499,6 +15514,7 @@ export namespace Prisma {
     slideNumber?: SortOrder
     explanation?: SortOrder
     explanation_audio?: SortOrderInput | SortOrder
+    explanation_subtitle?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     course?: CourseOrderByWithRelationInput
@@ -15513,6 +15529,7 @@ export namespace Prisma {
     slideNumber?: IntFilter<"SlideExplanation"> | number
     explanation?: StringFilter<"SlideExplanation"> | string
     explanation_audio?: StringNullableFilter<"SlideExplanation"> | string | null
+    explanation_subtitle?: StringNullableFilter<"SlideExplanation"> | string | null
     createdAt?: DateTimeFilter<"SlideExplanation"> | Date | string
     updatedAt?: DateTimeFilter<"SlideExplanation"> | Date | string
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
@@ -15524,6 +15541,7 @@ export namespace Prisma {
     slideNumber?: SortOrder
     explanation?: SortOrder
     explanation_audio?: SortOrderInput | SortOrder
+    explanation_subtitle?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SlideExplanationCountOrderByAggregateInput
@@ -15542,6 +15560,7 @@ export namespace Prisma {
     slideNumber?: IntWithAggregatesFilter<"SlideExplanation"> | number
     explanation?: StringWithAggregatesFilter<"SlideExplanation"> | string
     explanation_audio?: StringNullableWithAggregatesFilter<"SlideExplanation"> | string | null
+    explanation_subtitle?: StringNullableWithAggregatesFilter<"SlideExplanation"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"SlideExplanation"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"SlideExplanation"> | Date | string
   }
@@ -16381,6 +16400,7 @@ export namespace Prisma {
     slideNumber: number
     explanation: string
     explanation_audio?: string | null
+    explanation_subtitle?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     course: CourseCreateNestedOneWithoutSlideExplanationsInput
@@ -16392,6 +16412,7 @@ export namespace Prisma {
     slideNumber: number
     explanation: string
     explanation_audio?: string | null
+    explanation_subtitle?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16401,6 +16422,7 @@ export namespace Prisma {
     slideNumber?: IntFieldUpdateOperationsInput | number
     explanation?: StringFieldUpdateOperationsInput | string
     explanation_audio?: NullableStringFieldUpdateOperationsInput | string | null
+    explanation_subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     course?: CourseUpdateOneRequiredWithoutSlideExplanationsNestedInput
@@ -16412,6 +16434,7 @@ export namespace Prisma {
     slideNumber?: IntFieldUpdateOperationsInput | number
     explanation?: StringFieldUpdateOperationsInput | string
     explanation_audio?: NullableStringFieldUpdateOperationsInput | string | null
+    explanation_subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16422,6 +16445,7 @@ export namespace Prisma {
     slideNumber: number
     explanation: string
     explanation_audio?: string | null
+    explanation_subtitle?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16431,6 +16455,7 @@ export namespace Prisma {
     slideNumber?: IntFieldUpdateOperationsInput | number
     explanation?: StringFieldUpdateOperationsInput | string
     explanation_audio?: NullableStringFieldUpdateOperationsInput | string | null
+    explanation_subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16441,6 +16466,7 @@ export namespace Prisma {
     slideNumber?: IntFieldUpdateOperationsInput | number
     explanation?: StringFieldUpdateOperationsInput | string
     explanation_audio?: NullableStringFieldUpdateOperationsInput | string | null
+    explanation_subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17217,6 +17243,7 @@ export namespace Prisma {
     slideNumber?: SortOrder
     explanation?: SortOrder
     explanation_audio?: SortOrder
+    explanation_subtitle?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -17231,6 +17258,7 @@ export namespace Prisma {
     slideNumber?: SortOrder
     explanation?: SortOrder
     explanation_audio?: SortOrder
+    explanation_subtitle?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -17241,6 +17269,7 @@ export namespace Prisma {
     slideNumber?: SortOrder
     explanation?: SortOrder
     explanation_audio?: SortOrder
+    explanation_subtitle?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -18803,6 +18832,7 @@ export namespace Prisma {
     slideNumber: number
     explanation: string
     explanation_audio?: string | null
+    explanation_subtitle?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -18812,6 +18842,7 @@ export namespace Prisma {
     slideNumber: number
     explanation: string
     explanation_audio?: string | null
+    explanation_subtitle?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -18927,6 +18958,7 @@ export namespace Prisma {
     slideNumber?: IntFilter<"SlideExplanation"> | number
     explanation?: StringFilter<"SlideExplanation"> | string
     explanation_audio?: StringNullableFilter<"SlideExplanation"> | string | null
+    explanation_subtitle?: StringNullableFilter<"SlideExplanation"> | string | null
     createdAt?: DateTimeFilter<"SlideExplanation"> | Date | string
     updatedAt?: DateTimeFilter<"SlideExplanation"> | Date | string
   }
@@ -19829,6 +19861,7 @@ export namespace Prisma {
     slideNumber: number
     explanation: string
     explanation_audio?: string | null
+    explanation_subtitle?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -19901,6 +19934,7 @@ export namespace Prisma {
     slideNumber?: IntFieldUpdateOperationsInput | number
     explanation?: StringFieldUpdateOperationsInput | string
     explanation_audio?: NullableStringFieldUpdateOperationsInput | string | null
+    explanation_subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19910,6 +19944,7 @@ export namespace Prisma {
     slideNumber?: IntFieldUpdateOperationsInput | number
     explanation?: StringFieldUpdateOperationsInput | string
     explanation_audio?: NullableStringFieldUpdateOperationsInput | string | null
+    explanation_subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19919,6 +19954,7 @@ export namespace Prisma {
     slideNumber?: IntFieldUpdateOperationsInput | number
     explanation?: StringFieldUpdateOperationsInput | string
     explanation_audio?: NullableStringFieldUpdateOperationsInput | string | null
+    explanation_subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

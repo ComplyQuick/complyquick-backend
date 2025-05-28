@@ -152,14 +152,15 @@ model UserMCQAnswer {
 }
 
 model SlideExplanation {
-  id                String   @id @default(uuid())
-  courseId          String
-  slideNumber       Int
-  explanation       String
-  explanation_audio String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  course            Course   @relation(fields: [courseId], references: [id])
+  id                  String   @id @default(uuid())
+  courseId            String
+  slideNumber         Int
+  explanation         String
+  explanation_audio   String?
+  explanation_subtitle String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  course              Course   @relation(fields: [courseId], references: [id])
 
   @@map("slide_explanation")
 }

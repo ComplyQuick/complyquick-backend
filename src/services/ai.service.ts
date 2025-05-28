@@ -62,7 +62,7 @@ export const generateSlideExplanations = async (
   materialUrl: string,
   companyName: string,
   tenantDetails: any
-): Promise<Array<{ slide: number; explanation: string; explanation_audio: string }>> => {
+): Promise<Array<{ slide: number; explanation: string; explanation_audio: string; explanation_subtitle: string }>> => {
   try {
     const response = await aiServiceClient.post('/generate_explanations', {
       presentation_url: materialUrl,
@@ -92,18 +92,26 @@ export const generateSlideExplanations = async (
 
     const explanations = response.data.explanations;
 
-    // Generate audio for each explanation
-    const explanationsWithAudio = await Promise.all(
+    // Generate audio and transcribe for each explanation
+    const explanationsWithAudioAndSubtitle = await Promise.all(
       explanations.map(async (exp: { slide: number; explanation: string }) => {
+        // Generate audio
         const audioUrl = await generateAndUploadAudio(exp.explanation);
+        
+        // Transcribe audio
+        const transcriptionResponse = await aiServiceClient.post('/transcribe_audio', {
+          audio_url: audioUrl
+        });
+        
         return {
           ...exp,
-          explanation_audio: audioUrl
+          explanation_audio: audioUrl,
+          explanation_subtitle: transcriptionResponse.data.transcription
         };
       })
     );
 
-    return explanationsWithAudio;
+    return explanationsWithAudioAndSubtitle;
   } catch (error) {
     console.error('Error generating slide explanations:', error);
     throw error;
