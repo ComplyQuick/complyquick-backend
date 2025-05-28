@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { config } from 'dotenv';
+import { generateAndUploadAudio } from './tts.service';
 
 config();
 
@@ -58,59 +59,54 @@ export const generateMCQs = async (presentationUrl: string): Promise<MCQQuestion
 };
 
 export const generateSlideExplanations = async (
-  presentationUrl: string, 
+  materialUrl: string,
   companyName: string,
-  tenantDetails: TenantDetails
-): Promise<SlideExplanation[]> => {
+  tenantDetails: any
+): Promise<Array<{ slide: number; explanation: string; explanation_audio: string }>> => {
   try {
-    console.log('Generating explanations for:', { presentationUrl, companyName, tenantDetails });
-    
-    // Validate presentation URL
-    if (!presentationUrl) {
-      console.error('Invalid presentation URL:', presentationUrl);
-      throw new Error('Invalid presentation URL provided');
-    }
-
-    const requestBody = {
-      presentation_url: presentationUrl,
+    const response = await aiServiceClient.post('/generate_explanations', {
+      presentation_url: materialUrl,
       company_name: companyName,
-      tenant_details: tenantDetails
-    };
-
-    console.log('Sending request to AI service:', {
-      url: `${process.env.AI_SERVICE_URL}/generate_explanations`,
-      body: requestBody
-    });[]
-
-    const response = await aiServiceClient.post('/generate_explanations', requestBody);
-
-    console.log('AI service response:', {
-      status: response.status,
-      statusText: response.statusText,
-      data: response.data
+      tenant_details: {
+        presidingOfficerEmail: tenantDetails.presidingOfficerEmail,
+        poshCommitteeEmail: tenantDetails.poshCommitteeEmail,
+        hrContactName: tenantDetails.hrContactName,
+        hrContactEmail: tenantDetails.hrContactEmail,
+        hrContactPhone: tenantDetails.hrContactPhone,
+        ceoName: tenantDetails.ceoName,
+        ceoEmail: tenantDetails.ceoEmail,
+        ceoContact: tenantDetails.ceoContact,
+        ctoName: tenantDetails.ctoName,
+        ctoEmail: tenantDetails.ctoEmail,
+        ctoContact: tenantDetails.ctoContact,
+        ccoEmail: tenantDetails.ccoEmail,
+        ccoContact: tenantDetails.ccoContact,
+        croName: tenantDetails.croName,
+        croEmail: tenantDetails.croEmail,
+        croContact: tenantDetails.croContact,
+        legalOfficerName: tenantDetails.legalOfficerName,
+        legalOfficerEmail: tenantDetails.legalOfficerEmail,
+        legalOfficerContact: tenantDetails.legalOfficerContact
+      }
     });
 
-    if (!response.data || !Array.isArray(response.data.explanations)) {
-      console.error('Invalid response format from AI service:', response.data);
-      throw new Error('Invalid response format from AI service');
-    }
+    const explanations = response.data.explanations;
 
-    return response.data.explanations;
+    // Generate audio for each explanation
+    const explanationsWithAudio = await Promise.all(
+      explanations.map(async (exp: { slide: number; explanation: string }) => {
+        const audioUrl = await generateAndUploadAudio(exp.explanation);
+        return {
+          ...exp,
+          explanation_audio: audioUrl
+        };
+      })
+    );
+
+    return explanationsWithAudio;
   } catch (error) {
     console.error('Error generating slide explanations:', error);
-    if (axios.isAxiosError(error)) {
-      console.error('AI Service Error Details:', {
-        status: error.response?.status,
-        statusText: error.response?.statusText,
-        data: error.response?.data,
-        url: error.config?.url,
-        method: error.config?.method,
-        headers: error.config?.headers,
-        baseURL: error.config?.baseURL
-      });
-      throw new Error(`AI Service Error: ${error.response?.status} ${error.response?.statusText} - ${JSON.stringify(error.response?.data)}`);
-    }
-    throw new Error('Failed to generate slide explanations: ' + (error instanceof Error ? error.message : 'Unknown error'));
+    throw error;
   }
 };
 

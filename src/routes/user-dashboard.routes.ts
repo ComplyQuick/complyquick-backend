@@ -311,6 +311,6 @@ router.post('/certificates/store', asyncHandler(async (req: Request, res: Respon
 
 router.get('/dashboard/:userId/courses', asyncHandler(getUserDashboardCourses));
 
-export default router;
+export default router; 
 
 export { getUserDashboardCourses }; 

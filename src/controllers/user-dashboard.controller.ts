@@ -379,7 +379,7 @@ export const getUserProfile = asyncHandler(async (req: Request, res: Response) =
     name: user.name,
     email: user.email
   });
-});
+}); 
 
 export const getUserDashboardCourses = async (
   req: Request<{ userId: string }>,

@@ -71,7 +71,8 @@ export const generateAndStoreExplanations = async (courseId: string, tenantId: s
           data: {
             courseId,
             slideNumber: index + 1,
-            explanation: exp.explanation
+            explanation: exp.explanation,
+            explanation_audio: exp.explanation_audio
           }
         })
       )

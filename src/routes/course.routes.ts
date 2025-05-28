@@ -24,6 +24,7 @@ import { authenticateToken } from '../middleware/auth.middleware';
 import { AuthenticatedRequest } from '../controllers/course.controller';
 import { Response, NextFunction } from 'express';
 import multer from 'multer';
+import express from 'express';
 
 const router = Router();
 
@@ -62,7 +63,7 @@ router.post('/assign', authenticateToken, asyncHandler(assignCourseToTenant));
 router.get('/test-ai', asyncHandler(testAIService));
 
 // Process course slides and generate video
-router.post('/:id/process-slides', asyncHandler(processCourseSlides));
+router.post('/:id/process-slides', express.json(), asyncHandler(processCourseSlides));
 
 router.post('/:courseId/generate-explanations', asyncHandler(generateExplanations));
 router.get('/:courseId/explanations', asyncHandler(fetchExplanations));
