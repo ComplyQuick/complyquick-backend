@@ -44,6 +44,11 @@ export type Enrollment = $Result.DefaultSelection<Prisma.$EnrollmentPayload>
  */
 export type Certificate = $Result.DefaultSelection<Prisma.$CertificatePayload>
 /**
+ * Model TenantCourseDetails
+ * 
+ */
+export type TenantCourseDetails = $Result.DefaultSelection<Prisma.$TenantCourseDetailsPayload>
+/**
  * Model TenantCourse
  * 
  */
@@ -296,6 +301,16 @@ export class PrismaClient<
     * ```
     */
   get certificate(): Prisma.CertificateDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tenantCourseDetails`: Exposes CRUD operations for the **TenantCourseDetails** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TenantCourseDetails
+    * const tenantCourseDetails = await prisma.tenantCourseDetails.findMany()
+    * ```
+    */
+  get tenantCourseDetails(): Prisma.TenantCourseDetailsDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.tenantCourse`: Exposes CRUD operations for the **TenantCourse** model.
@@ -792,6 +807,7 @@ export namespace Prisma {
     Course: 'Course',
     Enrollment: 'Enrollment',
     Certificate: 'Certificate',
+    TenantCourseDetails: 'TenantCourseDetails',
     TenantCourse: 'TenantCourse',
     MCQ: 'MCQ',
     UserMCQAnswer: 'UserMCQAnswer',
@@ -815,7 +831,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "tenant" | "tenantDetails" | "user" | "course" | "enrollment" | "certificate" | "tenantCourse" | "mCQ" | "userMCQAnswer" | "slideExplanation" | "organizationInterest"
+      modelProps: "tenant" | "tenantDetails" | "user" | "course" | "enrollment" | "certificate" | "tenantCourseDetails" | "tenantCourse" | "mCQ" | "userMCQAnswer" | "slideExplanation" | "organizationInterest"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1260,6 +1276,80 @@ export namespace Prisma {
           count: {
             args: Prisma.CertificateCountArgs<ExtArgs>
             result: $Utils.Optional<CertificateCountAggregateOutputType> | number
+          }
+        }
+      }
+      TenantCourseDetails: {
+        payload: Prisma.$TenantCourseDetailsPayload<ExtArgs>
+        fields: Prisma.TenantCourseDetailsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TenantCourseDetailsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantCourseDetailsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TenantCourseDetailsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantCourseDetailsPayload>
+          }
+          findFirst: {
+            args: Prisma.TenantCourseDetailsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantCourseDetailsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TenantCourseDetailsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantCourseDetailsPayload>
+          }
+          findMany: {
+            args: Prisma.TenantCourseDetailsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantCourseDetailsPayload>[]
+          }
+          create: {
+            args: Prisma.TenantCourseDetailsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantCourseDetailsPayload>
+          }
+          createMany: {
+            args: Prisma.TenantCourseDetailsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TenantCourseDetailsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantCourseDetailsPayload>[]
+          }
+          delete: {
+            args: Prisma.TenantCourseDetailsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantCourseDetailsPayload>
+          }
+          update: {
+            args: Prisma.TenantCourseDetailsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantCourseDetailsPayload>
+          }
+          deleteMany: {
+            args: Prisma.TenantCourseDetailsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TenantCourseDetailsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TenantCourseDetailsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantCourseDetailsPayload>[]
+          }
+          upsert: {
+            args: Prisma.TenantCourseDetailsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantCourseDetailsPayload>
+          }
+          aggregate: {
+            args: Prisma.TenantCourseDetailsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTenantCourseDetails>
+          }
+          groupBy: {
+            args: Prisma.TenantCourseDetailsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TenantCourseDetailsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TenantCourseDetailsCountArgs<ExtArgs>
+            result: $Utils.Optional<TenantCourseDetailsCountAggregateOutputType> | number
           }
         }
       }
@@ -1723,6 +1813,7 @@ export namespace Prisma {
     course?: CourseOmit
     enrollment?: EnrollmentOmit
     certificate?: CertificateOmit
+    tenantCourseDetails?: TenantCourseDetailsOmit
     tenantCourse?: TenantCourseOmit
     mCQ?: MCQOmit
     userMCQAnswer?: UserMCQAnswerOmit
@@ -1961,6 +2052,37 @@ export namespace Prisma {
    */
   export type CourseCountOutputTypeCountTenantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TenantCourseWhereInput
+  }
+
+
+  /**
+   * Count Type TenantCourseCountOutputType
+   */
+
+  export type TenantCourseCountOutputType = {
+    details: number
+  }
+
+  export type TenantCourseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    details?: boolean | TenantCourseCountOutputTypeCountDetailsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TenantCourseCountOutputType without action
+   */
+  export type TenantCourseCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantCourseCountOutputType
+     */
+    select?: TenantCourseCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TenantCourseCountOutputType without action
+   */
+  export type TenantCourseCountOutputTypeCountDetailsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TenantCourseDetailsWhereInput
   }
 
 
@@ -8841,6 +8963,1064 @@ export namespace Prisma {
 
 
   /**
+   * Model TenantCourseDetails
+   */
+
+  export type AggregateTenantCourseDetails = {
+    _count: TenantCourseDetailsCountAggregateOutputType | null
+    _min: TenantCourseDetailsMinAggregateOutputType | null
+    _max: TenantCourseDetailsMaxAggregateOutputType | null
+  }
+
+  export type TenantCourseDetailsMinAggregateOutputType = {
+    id: string | null
+    tenantCourseId: string | null
+    role: string | null
+    name: string | null
+    contact: string | null
+  }
+
+  export type TenantCourseDetailsMaxAggregateOutputType = {
+    id: string | null
+    tenantCourseId: string | null
+    role: string | null
+    name: string | null
+    contact: string | null
+  }
+
+  export type TenantCourseDetailsCountAggregateOutputType = {
+    id: number
+    tenantCourseId: number
+    role: number
+    name: number
+    contact: number
+    _all: number
+  }
+
+
+  export type TenantCourseDetailsMinAggregateInputType = {
+    id?: true
+    tenantCourseId?: true
+    role?: true
+    name?: true
+    contact?: true
+  }
+
+  export type TenantCourseDetailsMaxAggregateInputType = {
+    id?: true
+    tenantCourseId?: true
+    role?: true
+    name?: true
+    contact?: true
+  }
+
+  export type TenantCourseDetailsCountAggregateInputType = {
+    id?: true
+    tenantCourseId?: true
+    role?: true
+    name?: true
+    contact?: true
+    _all?: true
+  }
+
+  export type TenantCourseDetailsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TenantCourseDetails to aggregate.
+     */
+    where?: TenantCourseDetailsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantCourseDetails to fetch.
+     */
+    orderBy?: TenantCourseDetailsOrderByWithRelationInput | TenantCourseDetailsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TenantCourseDetailsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantCourseDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantCourseDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TenantCourseDetails
+    **/
+    _count?: true | TenantCourseDetailsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TenantCourseDetailsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TenantCourseDetailsMaxAggregateInputType
+  }
+
+  export type GetTenantCourseDetailsAggregateType<T extends TenantCourseDetailsAggregateArgs> = {
+        [P in keyof T & keyof AggregateTenantCourseDetails]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTenantCourseDetails[P]>
+      : GetScalarType<T[P], AggregateTenantCourseDetails[P]>
+  }
+
+
+
+
+  export type TenantCourseDetailsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TenantCourseDetailsWhereInput
+    orderBy?: TenantCourseDetailsOrderByWithAggregationInput | TenantCourseDetailsOrderByWithAggregationInput[]
+    by: TenantCourseDetailsScalarFieldEnum[] | TenantCourseDetailsScalarFieldEnum
+    having?: TenantCourseDetailsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TenantCourseDetailsCountAggregateInputType | true
+    _min?: TenantCourseDetailsMinAggregateInputType
+    _max?: TenantCourseDetailsMaxAggregateInputType
+  }
+
+  export type TenantCourseDetailsGroupByOutputType = {
+    id: string
+    tenantCourseId: string
+    role: string
+    name: string
+    contact: string
+    _count: TenantCourseDetailsCountAggregateOutputType | null
+    _min: TenantCourseDetailsMinAggregateOutputType | null
+    _max: TenantCourseDetailsMaxAggregateOutputType | null
+  }
+
+  type GetTenantCourseDetailsGroupByPayload<T extends TenantCourseDetailsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TenantCourseDetailsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TenantCourseDetailsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TenantCourseDetailsGroupByOutputType[P]>
+            : GetScalarType<T[P], TenantCourseDetailsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TenantCourseDetailsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantCourseId?: boolean
+    role?: boolean
+    name?: boolean
+    contact?: boolean
+    tenantCourse?: boolean | TenantCourseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tenantCourseDetails"]>
+
+  export type TenantCourseDetailsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantCourseId?: boolean
+    role?: boolean
+    name?: boolean
+    contact?: boolean
+    tenantCourse?: boolean | TenantCourseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tenantCourseDetails"]>
+
+  export type TenantCourseDetailsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantCourseId?: boolean
+    role?: boolean
+    name?: boolean
+    contact?: boolean
+    tenantCourse?: boolean | TenantCourseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tenantCourseDetails"]>
+
+  export type TenantCourseDetailsSelectScalar = {
+    id?: boolean
+    tenantCourseId?: boolean
+    role?: boolean
+    name?: boolean
+    contact?: boolean
+  }
+
+  export type TenantCourseDetailsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantCourseId" | "role" | "name" | "contact", ExtArgs["result"]["tenantCourseDetails"]>
+  export type TenantCourseDetailsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenantCourse?: boolean | TenantCourseDefaultArgs<ExtArgs>
+  }
+  export type TenantCourseDetailsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenantCourse?: boolean | TenantCourseDefaultArgs<ExtArgs>
+  }
+  export type TenantCourseDetailsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenantCourse?: boolean | TenantCourseDefaultArgs<ExtArgs>
+  }
+
+  export type $TenantCourseDetailsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TenantCourseDetails"
+    objects: {
+      tenantCourse: Prisma.$TenantCoursePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantCourseId: string
+      role: string
+      name: string
+      contact: string
+    }, ExtArgs["result"]["tenantCourseDetails"]>
+    composites: {}
+  }
+
+  type TenantCourseDetailsGetPayload<S extends boolean | null | undefined | TenantCourseDetailsDefaultArgs> = $Result.GetResult<Prisma.$TenantCourseDetailsPayload, S>
+
+  type TenantCourseDetailsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TenantCourseDetailsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TenantCourseDetailsCountAggregateInputType | true
+    }
+
+  export interface TenantCourseDetailsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TenantCourseDetails'], meta: { name: 'TenantCourseDetails' } }
+    /**
+     * Find zero or one TenantCourseDetails that matches the filter.
+     * @param {TenantCourseDetailsFindUniqueArgs} args - Arguments to find a TenantCourseDetails
+     * @example
+     * // Get one TenantCourseDetails
+     * const tenantCourseDetails = await prisma.tenantCourseDetails.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TenantCourseDetailsFindUniqueArgs>(args: SelectSubset<T, TenantCourseDetailsFindUniqueArgs<ExtArgs>>): Prisma__TenantCourseDetailsClient<$Result.GetResult<Prisma.$TenantCourseDetailsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TenantCourseDetails that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TenantCourseDetailsFindUniqueOrThrowArgs} args - Arguments to find a TenantCourseDetails
+     * @example
+     * // Get one TenantCourseDetails
+     * const tenantCourseDetails = await prisma.tenantCourseDetails.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TenantCourseDetailsFindUniqueOrThrowArgs>(args: SelectSubset<T, TenantCourseDetailsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TenantCourseDetailsClient<$Result.GetResult<Prisma.$TenantCourseDetailsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TenantCourseDetails that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantCourseDetailsFindFirstArgs} args - Arguments to find a TenantCourseDetails
+     * @example
+     * // Get one TenantCourseDetails
+     * const tenantCourseDetails = await prisma.tenantCourseDetails.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TenantCourseDetailsFindFirstArgs>(args?: SelectSubset<T, TenantCourseDetailsFindFirstArgs<ExtArgs>>): Prisma__TenantCourseDetailsClient<$Result.GetResult<Prisma.$TenantCourseDetailsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TenantCourseDetails that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantCourseDetailsFindFirstOrThrowArgs} args - Arguments to find a TenantCourseDetails
+     * @example
+     * // Get one TenantCourseDetails
+     * const tenantCourseDetails = await prisma.tenantCourseDetails.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TenantCourseDetailsFindFirstOrThrowArgs>(args?: SelectSubset<T, TenantCourseDetailsFindFirstOrThrowArgs<ExtArgs>>): Prisma__TenantCourseDetailsClient<$Result.GetResult<Prisma.$TenantCourseDetailsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TenantCourseDetails that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantCourseDetailsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TenantCourseDetails
+     * const tenantCourseDetails = await prisma.tenantCourseDetails.findMany()
+     * 
+     * // Get first 10 TenantCourseDetails
+     * const tenantCourseDetails = await prisma.tenantCourseDetails.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const tenantCourseDetailsWithIdOnly = await prisma.tenantCourseDetails.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TenantCourseDetailsFindManyArgs>(args?: SelectSubset<T, TenantCourseDetailsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantCourseDetailsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TenantCourseDetails.
+     * @param {TenantCourseDetailsCreateArgs} args - Arguments to create a TenantCourseDetails.
+     * @example
+     * // Create one TenantCourseDetails
+     * const TenantCourseDetails = await prisma.tenantCourseDetails.create({
+     *   data: {
+     *     // ... data to create a TenantCourseDetails
+     *   }
+     * })
+     * 
+     */
+    create<T extends TenantCourseDetailsCreateArgs>(args: SelectSubset<T, TenantCourseDetailsCreateArgs<ExtArgs>>): Prisma__TenantCourseDetailsClient<$Result.GetResult<Prisma.$TenantCourseDetailsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TenantCourseDetails.
+     * @param {TenantCourseDetailsCreateManyArgs} args - Arguments to create many TenantCourseDetails.
+     * @example
+     * // Create many TenantCourseDetails
+     * const tenantCourseDetails = await prisma.tenantCourseDetails.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TenantCourseDetailsCreateManyArgs>(args?: SelectSubset<T, TenantCourseDetailsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TenantCourseDetails and returns the data saved in the database.
+     * @param {TenantCourseDetailsCreateManyAndReturnArgs} args - Arguments to create many TenantCourseDetails.
+     * @example
+     * // Create many TenantCourseDetails
+     * const tenantCourseDetails = await prisma.tenantCourseDetails.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TenantCourseDetails and only return the `id`
+     * const tenantCourseDetailsWithIdOnly = await prisma.tenantCourseDetails.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TenantCourseDetailsCreateManyAndReturnArgs>(args?: SelectSubset<T, TenantCourseDetailsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantCourseDetailsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TenantCourseDetails.
+     * @param {TenantCourseDetailsDeleteArgs} args - Arguments to delete one TenantCourseDetails.
+     * @example
+     * // Delete one TenantCourseDetails
+     * const TenantCourseDetails = await prisma.tenantCourseDetails.delete({
+     *   where: {
+     *     // ... filter to delete one TenantCourseDetails
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TenantCourseDetailsDeleteArgs>(args: SelectSubset<T, TenantCourseDetailsDeleteArgs<ExtArgs>>): Prisma__TenantCourseDetailsClient<$Result.GetResult<Prisma.$TenantCourseDetailsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TenantCourseDetails.
+     * @param {TenantCourseDetailsUpdateArgs} args - Arguments to update one TenantCourseDetails.
+     * @example
+     * // Update one TenantCourseDetails
+     * const tenantCourseDetails = await prisma.tenantCourseDetails.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TenantCourseDetailsUpdateArgs>(args: SelectSubset<T, TenantCourseDetailsUpdateArgs<ExtArgs>>): Prisma__TenantCourseDetailsClient<$Result.GetResult<Prisma.$TenantCourseDetailsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TenantCourseDetails.
+     * @param {TenantCourseDetailsDeleteManyArgs} args - Arguments to filter TenantCourseDetails to delete.
+     * @example
+     * // Delete a few TenantCourseDetails
+     * const { count } = await prisma.tenantCourseDetails.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TenantCourseDetailsDeleteManyArgs>(args?: SelectSubset<T, TenantCourseDetailsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TenantCourseDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantCourseDetailsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TenantCourseDetails
+     * const tenantCourseDetails = await prisma.tenantCourseDetails.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TenantCourseDetailsUpdateManyArgs>(args: SelectSubset<T, TenantCourseDetailsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TenantCourseDetails and returns the data updated in the database.
+     * @param {TenantCourseDetailsUpdateManyAndReturnArgs} args - Arguments to update many TenantCourseDetails.
+     * @example
+     * // Update many TenantCourseDetails
+     * const tenantCourseDetails = await prisma.tenantCourseDetails.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TenantCourseDetails and only return the `id`
+     * const tenantCourseDetailsWithIdOnly = await prisma.tenantCourseDetails.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TenantCourseDetailsUpdateManyAndReturnArgs>(args: SelectSubset<T, TenantCourseDetailsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantCourseDetailsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TenantCourseDetails.
+     * @param {TenantCourseDetailsUpsertArgs} args - Arguments to update or create a TenantCourseDetails.
+     * @example
+     * // Update or create a TenantCourseDetails
+     * const tenantCourseDetails = await prisma.tenantCourseDetails.upsert({
+     *   create: {
+     *     // ... data to create a TenantCourseDetails
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TenantCourseDetails we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TenantCourseDetailsUpsertArgs>(args: SelectSubset<T, TenantCourseDetailsUpsertArgs<ExtArgs>>): Prisma__TenantCourseDetailsClient<$Result.GetResult<Prisma.$TenantCourseDetailsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TenantCourseDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantCourseDetailsCountArgs} args - Arguments to filter TenantCourseDetails to count.
+     * @example
+     * // Count the number of TenantCourseDetails
+     * const count = await prisma.tenantCourseDetails.count({
+     *   where: {
+     *     // ... the filter for the TenantCourseDetails we want to count
+     *   }
+     * })
+    **/
+    count<T extends TenantCourseDetailsCountArgs>(
+      args?: Subset<T, TenantCourseDetailsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TenantCourseDetailsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TenantCourseDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantCourseDetailsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TenantCourseDetailsAggregateArgs>(args: Subset<T, TenantCourseDetailsAggregateArgs>): Prisma.PrismaPromise<GetTenantCourseDetailsAggregateType<T>>
+
+    /**
+     * Group by TenantCourseDetails.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantCourseDetailsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TenantCourseDetailsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TenantCourseDetailsGroupByArgs['orderBy'] }
+        : { orderBy?: TenantCourseDetailsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TenantCourseDetailsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTenantCourseDetailsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TenantCourseDetails model
+   */
+  readonly fields: TenantCourseDetailsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TenantCourseDetails.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TenantCourseDetailsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenantCourse<T extends TenantCourseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantCourseDefaultArgs<ExtArgs>>): Prisma__TenantCourseClient<$Result.GetResult<Prisma.$TenantCoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TenantCourseDetails model
+   */
+  interface TenantCourseDetailsFieldRefs {
+    readonly id: FieldRef<"TenantCourseDetails", 'String'>
+    readonly tenantCourseId: FieldRef<"TenantCourseDetails", 'String'>
+    readonly role: FieldRef<"TenantCourseDetails", 'String'>
+    readonly name: FieldRef<"TenantCourseDetails", 'String'>
+    readonly contact: FieldRef<"TenantCourseDetails", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TenantCourseDetails findUnique
+   */
+  export type TenantCourseDetailsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantCourseDetails
+     */
+    select?: TenantCourseDetailsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantCourseDetails
+     */
+    omit?: TenantCourseDetailsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantCourseDetailsInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantCourseDetails to fetch.
+     */
+    where: TenantCourseDetailsWhereUniqueInput
+  }
+
+  /**
+   * TenantCourseDetails findUniqueOrThrow
+   */
+  export type TenantCourseDetailsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantCourseDetails
+     */
+    select?: TenantCourseDetailsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantCourseDetails
+     */
+    omit?: TenantCourseDetailsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantCourseDetailsInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantCourseDetails to fetch.
+     */
+    where: TenantCourseDetailsWhereUniqueInput
+  }
+
+  /**
+   * TenantCourseDetails findFirst
+   */
+  export type TenantCourseDetailsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantCourseDetails
+     */
+    select?: TenantCourseDetailsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantCourseDetails
+     */
+    omit?: TenantCourseDetailsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantCourseDetailsInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantCourseDetails to fetch.
+     */
+    where?: TenantCourseDetailsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantCourseDetails to fetch.
+     */
+    orderBy?: TenantCourseDetailsOrderByWithRelationInput | TenantCourseDetailsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TenantCourseDetails.
+     */
+    cursor?: TenantCourseDetailsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantCourseDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantCourseDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TenantCourseDetails.
+     */
+    distinct?: TenantCourseDetailsScalarFieldEnum | TenantCourseDetailsScalarFieldEnum[]
+  }
+
+  /**
+   * TenantCourseDetails findFirstOrThrow
+   */
+  export type TenantCourseDetailsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantCourseDetails
+     */
+    select?: TenantCourseDetailsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantCourseDetails
+     */
+    omit?: TenantCourseDetailsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantCourseDetailsInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantCourseDetails to fetch.
+     */
+    where?: TenantCourseDetailsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantCourseDetails to fetch.
+     */
+    orderBy?: TenantCourseDetailsOrderByWithRelationInput | TenantCourseDetailsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TenantCourseDetails.
+     */
+    cursor?: TenantCourseDetailsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantCourseDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantCourseDetails.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TenantCourseDetails.
+     */
+    distinct?: TenantCourseDetailsScalarFieldEnum | TenantCourseDetailsScalarFieldEnum[]
+  }
+
+  /**
+   * TenantCourseDetails findMany
+   */
+  export type TenantCourseDetailsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantCourseDetails
+     */
+    select?: TenantCourseDetailsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantCourseDetails
+     */
+    omit?: TenantCourseDetailsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantCourseDetailsInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantCourseDetails to fetch.
+     */
+    where?: TenantCourseDetailsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantCourseDetails to fetch.
+     */
+    orderBy?: TenantCourseDetailsOrderByWithRelationInput | TenantCourseDetailsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TenantCourseDetails.
+     */
+    cursor?: TenantCourseDetailsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantCourseDetails from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantCourseDetails.
+     */
+    skip?: number
+    distinct?: TenantCourseDetailsScalarFieldEnum | TenantCourseDetailsScalarFieldEnum[]
+  }
+
+  /**
+   * TenantCourseDetails create
+   */
+  export type TenantCourseDetailsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantCourseDetails
+     */
+    select?: TenantCourseDetailsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantCourseDetails
+     */
+    omit?: TenantCourseDetailsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantCourseDetailsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TenantCourseDetails.
+     */
+    data: XOR<TenantCourseDetailsCreateInput, TenantCourseDetailsUncheckedCreateInput>
+  }
+
+  /**
+   * TenantCourseDetails createMany
+   */
+  export type TenantCourseDetailsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TenantCourseDetails.
+     */
+    data: TenantCourseDetailsCreateManyInput | TenantCourseDetailsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TenantCourseDetails createManyAndReturn
+   */
+  export type TenantCourseDetailsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantCourseDetails
+     */
+    select?: TenantCourseDetailsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantCourseDetails
+     */
+    omit?: TenantCourseDetailsOmit<ExtArgs> | null
+    /**
+     * The data used to create many TenantCourseDetails.
+     */
+    data: TenantCourseDetailsCreateManyInput | TenantCourseDetailsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantCourseDetailsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TenantCourseDetails update
+   */
+  export type TenantCourseDetailsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantCourseDetails
+     */
+    select?: TenantCourseDetailsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantCourseDetails
+     */
+    omit?: TenantCourseDetailsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantCourseDetailsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TenantCourseDetails.
+     */
+    data: XOR<TenantCourseDetailsUpdateInput, TenantCourseDetailsUncheckedUpdateInput>
+    /**
+     * Choose, which TenantCourseDetails to update.
+     */
+    where: TenantCourseDetailsWhereUniqueInput
+  }
+
+  /**
+   * TenantCourseDetails updateMany
+   */
+  export type TenantCourseDetailsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TenantCourseDetails.
+     */
+    data: XOR<TenantCourseDetailsUpdateManyMutationInput, TenantCourseDetailsUncheckedUpdateManyInput>
+    /**
+     * Filter which TenantCourseDetails to update
+     */
+    where?: TenantCourseDetailsWhereInput
+    /**
+     * Limit how many TenantCourseDetails to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TenantCourseDetails updateManyAndReturn
+   */
+  export type TenantCourseDetailsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantCourseDetails
+     */
+    select?: TenantCourseDetailsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantCourseDetails
+     */
+    omit?: TenantCourseDetailsOmit<ExtArgs> | null
+    /**
+     * The data used to update TenantCourseDetails.
+     */
+    data: XOR<TenantCourseDetailsUpdateManyMutationInput, TenantCourseDetailsUncheckedUpdateManyInput>
+    /**
+     * Filter which TenantCourseDetails to update
+     */
+    where?: TenantCourseDetailsWhereInput
+    /**
+     * Limit how many TenantCourseDetails to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantCourseDetailsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TenantCourseDetails upsert
+   */
+  export type TenantCourseDetailsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantCourseDetails
+     */
+    select?: TenantCourseDetailsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantCourseDetails
+     */
+    omit?: TenantCourseDetailsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantCourseDetailsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TenantCourseDetails to update in case it exists.
+     */
+    where: TenantCourseDetailsWhereUniqueInput
+    /**
+     * In case the TenantCourseDetails found by the `where` argument doesn't exist, create a new TenantCourseDetails with this data.
+     */
+    create: XOR<TenantCourseDetailsCreateInput, TenantCourseDetailsUncheckedCreateInput>
+    /**
+     * In case the TenantCourseDetails was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TenantCourseDetailsUpdateInput, TenantCourseDetailsUncheckedUpdateInput>
+  }
+
+  /**
+   * TenantCourseDetails delete
+   */
+  export type TenantCourseDetailsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantCourseDetails
+     */
+    select?: TenantCourseDetailsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantCourseDetails
+     */
+    omit?: TenantCourseDetailsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantCourseDetailsInclude<ExtArgs> | null
+    /**
+     * Filter which TenantCourseDetails to delete.
+     */
+    where: TenantCourseDetailsWhereUniqueInput
+  }
+
+  /**
+   * TenantCourseDetails deleteMany
+   */
+  export type TenantCourseDetailsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TenantCourseDetails to delete
+     */
+    where?: TenantCourseDetailsWhereInput
+    /**
+     * Limit how many TenantCourseDetails to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TenantCourseDetails without action
+   */
+  export type TenantCourseDetailsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantCourseDetails
+     */
+    select?: TenantCourseDetailsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantCourseDetails
+     */
+    omit?: TenantCourseDetailsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantCourseDetailsInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model TenantCourse
    */
 
@@ -9026,6 +10206,8 @@ export namespace Prisma {
     retryType?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    details?: boolean | TenantCourse$detailsArgs<ExtArgs>
+    _count?: boolean | TenantCourseCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenantCourse"]>
 
   export type TenantCourseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9069,6 +10251,8 @@ export namespace Prisma {
   export type TenantCourseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     course?: boolean | CourseDefaultArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    details?: boolean | TenantCourse$detailsArgs<ExtArgs>
+    _count?: boolean | TenantCourseCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TenantCourseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     course?: boolean | CourseDefaultArgs<ExtArgs>
@@ -9084,6 +10268,7 @@ export namespace Prisma {
     objects: {
       course: Prisma.$CoursePayload<ExtArgs>
       tenant: Prisma.$TenantPayload<ExtArgs>
+      details: Prisma.$TenantCourseDetailsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9490,6 +10675,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     course<T extends CourseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CourseDefaultArgs<ExtArgs>>): Prisma__CourseClient<$Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    details<T extends TenantCourse$detailsArgs<ExtArgs> = {}>(args?: Subset<T, TenantCourse$detailsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantCourseDetailsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9920,6 +11106,30 @@ export namespace Prisma {
      * Limit how many TenantCourses to delete.
      */
     limit?: number
+  }
+
+  /**
+   * TenantCourse.details
+   */
+  export type TenantCourse$detailsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantCourseDetails
+     */
+    select?: TenantCourseDetailsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantCourseDetails
+     */
+    omit?: TenantCourseDetailsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantCourseDetailsInclude<ExtArgs> | null
+    where?: TenantCourseDetailsWhereInput
+    orderBy?: TenantCourseDetailsOrderByWithRelationInput | TenantCourseDetailsOrderByWithRelationInput[]
+    cursor?: TenantCourseDetailsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TenantCourseDetailsScalarFieldEnum | TenantCourseDetailsScalarFieldEnum[]
   }
 
   /**
@@ -14403,6 +15613,17 @@ export namespace Prisma {
   export type CertificateScalarFieldEnum = (typeof CertificateScalarFieldEnum)[keyof typeof CertificateScalarFieldEnum]
 
 
+  export const TenantCourseDetailsScalarFieldEnum: {
+    id: 'id',
+    tenantCourseId: 'tenantCourseId',
+    role: 'role',
+    name: 'name',
+    contact: 'contact'
+  };
+
+  export type TenantCourseDetailsScalarFieldEnum = (typeof TenantCourseDetailsScalarFieldEnum)[keyof typeof TenantCourseDetailsScalarFieldEnum]
+
+
   export const TenantCourseScalarFieldEnum: {
     id: 'id',
     tenantId: 'tenantId',
@@ -15094,6 +16315,61 @@ export namespace Prisma {
     issuedAt?: DateTimeWithAggregatesFilter<"Certificate"> | Date | string
   }
 
+  export type TenantCourseDetailsWhereInput = {
+    AND?: TenantCourseDetailsWhereInput | TenantCourseDetailsWhereInput[]
+    OR?: TenantCourseDetailsWhereInput[]
+    NOT?: TenantCourseDetailsWhereInput | TenantCourseDetailsWhereInput[]
+    id?: StringFilter<"TenantCourseDetails"> | string
+    tenantCourseId?: StringFilter<"TenantCourseDetails"> | string
+    role?: StringFilter<"TenantCourseDetails"> | string
+    name?: StringFilter<"TenantCourseDetails"> | string
+    contact?: StringFilter<"TenantCourseDetails"> | string
+    tenantCourse?: XOR<TenantCourseScalarRelationFilter, TenantCourseWhereInput>
+  }
+
+  export type TenantCourseDetailsOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantCourseId?: SortOrder
+    role?: SortOrder
+    name?: SortOrder
+    contact?: SortOrder
+    tenantCourse?: TenantCourseOrderByWithRelationInput
+  }
+
+  export type TenantCourseDetailsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TenantCourseDetailsWhereInput | TenantCourseDetailsWhereInput[]
+    OR?: TenantCourseDetailsWhereInput[]
+    NOT?: TenantCourseDetailsWhereInput | TenantCourseDetailsWhereInput[]
+    tenantCourseId?: StringFilter<"TenantCourseDetails"> | string
+    role?: StringFilter<"TenantCourseDetails"> | string
+    name?: StringFilter<"TenantCourseDetails"> | string
+    contact?: StringFilter<"TenantCourseDetails"> | string
+    tenantCourse?: XOR<TenantCourseScalarRelationFilter, TenantCourseWhereInput>
+  }, "id">
+
+  export type TenantCourseDetailsOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantCourseId?: SortOrder
+    role?: SortOrder
+    name?: SortOrder
+    contact?: SortOrder
+    _count?: TenantCourseDetailsCountOrderByAggregateInput
+    _max?: TenantCourseDetailsMaxOrderByAggregateInput
+    _min?: TenantCourseDetailsMinOrderByAggregateInput
+  }
+
+  export type TenantCourseDetailsScalarWhereWithAggregatesInput = {
+    AND?: TenantCourseDetailsScalarWhereWithAggregatesInput | TenantCourseDetailsScalarWhereWithAggregatesInput[]
+    OR?: TenantCourseDetailsScalarWhereWithAggregatesInput[]
+    NOT?: TenantCourseDetailsScalarWhereWithAggregatesInput | TenantCourseDetailsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TenantCourseDetails"> | string
+    tenantCourseId?: StringWithAggregatesFilter<"TenantCourseDetails"> | string
+    role?: StringWithAggregatesFilter<"TenantCourseDetails"> | string
+    name?: StringWithAggregatesFilter<"TenantCourseDetails"> | string
+    contact?: StringWithAggregatesFilter<"TenantCourseDetails"> | string
+  }
+
   export type TenantCourseWhereInput = {
     AND?: TenantCourseWhereInput | TenantCourseWhereInput[]
     OR?: TenantCourseWhereInput[]
@@ -15108,6 +16384,7 @@ export namespace Prisma {
     retryType?: EnumRetryTypeFilter<"TenantCourse"> | $Enums.RetryType
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    details?: TenantCourseDetailsListRelationFilter
   }
 
   export type TenantCourseOrderByWithRelationInput = {
@@ -15121,6 +16398,7 @@ export namespace Prisma {
     retryType?: SortOrder
     course?: CourseOrderByWithRelationInput
     tenant?: TenantOrderByWithRelationInput
+    details?: TenantCourseDetailsOrderByRelationAggregateInput
   }
 
   export type TenantCourseWhereUniqueInput = Prisma.AtLeast<{
@@ -15137,6 +16415,7 @@ export namespace Prisma {
     retryType?: EnumRetryTypeFilter<"TenantCourse"> | $Enums.RetryType
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    details?: TenantCourseDetailsListRelationFilter
   }, "id">
 
   export type TenantCourseOrderByWithAggregationInput = {
@@ -15919,6 +17198,61 @@ export namespace Prisma {
     issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TenantCourseDetailsCreateInput = {
+    id?: string
+    role: string
+    name: string
+    contact: string
+    tenantCourse: TenantCourseCreateNestedOneWithoutDetailsInput
+  }
+
+  export type TenantCourseDetailsUncheckedCreateInput = {
+    id?: string
+    tenantCourseId: string
+    role: string
+    name: string
+    contact: string
+  }
+
+  export type TenantCourseDetailsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    contact?: StringFieldUpdateOperationsInput | string
+    tenantCourse?: TenantCourseUpdateOneRequiredWithoutDetailsNestedInput
+  }
+
+  export type TenantCourseDetailsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantCourseId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    contact?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TenantCourseDetailsCreateManyInput = {
+    id?: string
+    tenantCourseId: string
+    role: string
+    name: string
+    contact: string
+  }
+
+  export type TenantCourseDetailsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    contact?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TenantCourseDetailsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantCourseId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    contact?: StringFieldUpdateOperationsInput | string
+  }
+
   export type TenantCourseCreateInput = {
     id?: string
     assignedAt?: Date | string
@@ -15928,6 +17262,7 @@ export namespace Prisma {
     retryType?: $Enums.RetryType
     course: CourseCreateNestedOneWithoutTenantsInput
     tenant: TenantCreateNestedOneWithoutCoursesInput
+    details?: TenantCourseDetailsCreateNestedManyWithoutTenantCourseInput
   }
 
   export type TenantCourseUncheckedCreateInput = {
@@ -15939,6 +17274,7 @@ export namespace Prisma {
     skippable?: boolean
     mandatory?: boolean
     retryType?: $Enums.RetryType
+    details?: TenantCourseDetailsUncheckedCreateNestedManyWithoutTenantCourseInput
   }
 
   export type TenantCourseUpdateInput = {
@@ -15950,6 +17286,7 @@ export namespace Prisma {
     retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
     course?: CourseUpdateOneRequiredWithoutTenantsNestedInput
     tenant?: TenantUpdateOneRequiredWithoutCoursesNestedInput
+    details?: TenantCourseDetailsUpdateManyWithoutTenantCourseNestedInput
   }
 
   export type TenantCourseUncheckedUpdateInput = {
@@ -15961,6 +17298,7 @@ export namespace Prisma {
     skippable?: BoolFieldUpdateOperationsInput | boolean
     mandatory?: BoolFieldUpdateOperationsInput | boolean
     retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+    details?: TenantCourseDetailsUncheckedUpdateManyWithoutTenantCourseNestedInput
   }
 
   export type TenantCourseCreateManyInput = {
@@ -16754,6 +18092,35 @@ export namespace Prisma {
     certificateUrl?: SortOrder
     issuedAt?: SortOrder
   }
+
+  export type TenantCourseScalarRelationFilter = {
+    is?: TenantCourseWhereInput
+    isNot?: TenantCourseWhereInput
+  }
+
+  export type TenantCourseDetailsCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantCourseId?: SortOrder
+    role?: SortOrder
+    name?: SortOrder
+    contact?: SortOrder
+  }
+
+  export type TenantCourseDetailsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantCourseId?: SortOrder
+    role?: SortOrder
+    name?: SortOrder
+    contact?: SortOrder
+  }
+
+  export type TenantCourseDetailsMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantCourseId?: SortOrder
+    role?: SortOrder
+    name?: SortOrder
+    contact?: SortOrder
+  }
   export type JsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -16788,6 +18155,16 @@ export namespace Prisma {
     in?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
     notIn?: $Enums.RetryType[] | ListEnumRetryTypeFieldRefInput<$PrismaModel>
     not?: NestedEnumRetryTypeFilter<$PrismaModel> | $Enums.RetryType
+  }
+
+  export type TenantCourseDetailsListRelationFilter = {
+    every?: TenantCourseDetailsWhereInput
+    some?: TenantCourseDetailsWhereInput
+    none?: TenantCourseDetailsWhereInput
+  }
+
+  export type TenantCourseDetailsOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type TenantCourseCountOrderByAggregateInput = {
@@ -17570,6 +18947,20 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCertificatesInput, UserUpdateWithoutCertificatesInput>, UserUncheckedUpdateWithoutCertificatesInput>
   }
 
+  export type TenantCourseCreateNestedOneWithoutDetailsInput = {
+    create?: XOR<TenantCourseCreateWithoutDetailsInput, TenantCourseUncheckedCreateWithoutDetailsInput>
+    connectOrCreate?: TenantCourseCreateOrConnectWithoutDetailsInput
+    connect?: TenantCourseWhereUniqueInput
+  }
+
+  export type TenantCourseUpdateOneRequiredWithoutDetailsNestedInput = {
+    create?: XOR<TenantCourseCreateWithoutDetailsInput, TenantCourseUncheckedCreateWithoutDetailsInput>
+    connectOrCreate?: TenantCourseCreateOrConnectWithoutDetailsInput
+    upsert?: TenantCourseUpsertWithoutDetailsInput
+    connect?: TenantCourseWhereUniqueInput
+    update?: XOR<XOR<TenantCourseUpdateToOneWithWhereWithoutDetailsInput, TenantCourseUpdateWithoutDetailsInput>, TenantCourseUncheckedUpdateWithoutDetailsInput>
+  }
+
   export type CourseCreateNestedOneWithoutTenantsInput = {
     create?: XOR<CourseCreateWithoutTenantsInput, CourseUncheckedCreateWithoutTenantsInput>
     connectOrCreate?: CourseCreateOrConnectWithoutTenantsInput
@@ -17580,6 +18971,20 @@ export namespace Prisma {
     create?: XOR<TenantCreateWithoutCoursesInput, TenantUncheckedCreateWithoutCoursesInput>
     connectOrCreate?: TenantCreateOrConnectWithoutCoursesInput
     connect?: TenantWhereUniqueInput
+  }
+
+  export type TenantCourseDetailsCreateNestedManyWithoutTenantCourseInput = {
+    create?: XOR<TenantCourseDetailsCreateWithoutTenantCourseInput, TenantCourseDetailsUncheckedCreateWithoutTenantCourseInput> | TenantCourseDetailsCreateWithoutTenantCourseInput[] | TenantCourseDetailsUncheckedCreateWithoutTenantCourseInput[]
+    connectOrCreate?: TenantCourseDetailsCreateOrConnectWithoutTenantCourseInput | TenantCourseDetailsCreateOrConnectWithoutTenantCourseInput[]
+    createMany?: TenantCourseDetailsCreateManyTenantCourseInputEnvelope
+    connect?: TenantCourseDetailsWhereUniqueInput | TenantCourseDetailsWhereUniqueInput[]
+  }
+
+  export type TenantCourseDetailsUncheckedCreateNestedManyWithoutTenantCourseInput = {
+    create?: XOR<TenantCourseDetailsCreateWithoutTenantCourseInput, TenantCourseDetailsUncheckedCreateWithoutTenantCourseInput> | TenantCourseDetailsCreateWithoutTenantCourseInput[] | TenantCourseDetailsUncheckedCreateWithoutTenantCourseInput[]
+    connectOrCreate?: TenantCourseDetailsCreateOrConnectWithoutTenantCourseInput | TenantCourseDetailsCreateOrConnectWithoutTenantCourseInput[]
+    createMany?: TenantCourseDetailsCreateManyTenantCourseInputEnvelope
+    connect?: TenantCourseDetailsWhereUniqueInput | TenantCourseDetailsWhereUniqueInput[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -17604,6 +19009,34 @@ export namespace Prisma {
     upsert?: TenantUpsertWithoutCoursesInput
     connect?: TenantWhereUniqueInput
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutCoursesInput, TenantUpdateWithoutCoursesInput>, TenantUncheckedUpdateWithoutCoursesInput>
+  }
+
+  export type TenantCourseDetailsUpdateManyWithoutTenantCourseNestedInput = {
+    create?: XOR<TenantCourseDetailsCreateWithoutTenantCourseInput, TenantCourseDetailsUncheckedCreateWithoutTenantCourseInput> | TenantCourseDetailsCreateWithoutTenantCourseInput[] | TenantCourseDetailsUncheckedCreateWithoutTenantCourseInput[]
+    connectOrCreate?: TenantCourseDetailsCreateOrConnectWithoutTenantCourseInput | TenantCourseDetailsCreateOrConnectWithoutTenantCourseInput[]
+    upsert?: TenantCourseDetailsUpsertWithWhereUniqueWithoutTenantCourseInput | TenantCourseDetailsUpsertWithWhereUniqueWithoutTenantCourseInput[]
+    createMany?: TenantCourseDetailsCreateManyTenantCourseInputEnvelope
+    set?: TenantCourseDetailsWhereUniqueInput | TenantCourseDetailsWhereUniqueInput[]
+    disconnect?: TenantCourseDetailsWhereUniqueInput | TenantCourseDetailsWhereUniqueInput[]
+    delete?: TenantCourseDetailsWhereUniqueInput | TenantCourseDetailsWhereUniqueInput[]
+    connect?: TenantCourseDetailsWhereUniqueInput | TenantCourseDetailsWhereUniqueInput[]
+    update?: TenantCourseDetailsUpdateWithWhereUniqueWithoutTenantCourseInput | TenantCourseDetailsUpdateWithWhereUniqueWithoutTenantCourseInput[]
+    updateMany?: TenantCourseDetailsUpdateManyWithWhereWithoutTenantCourseInput | TenantCourseDetailsUpdateManyWithWhereWithoutTenantCourseInput[]
+    deleteMany?: TenantCourseDetailsScalarWhereInput | TenantCourseDetailsScalarWhereInput[]
+  }
+
+  export type TenantCourseDetailsUncheckedUpdateManyWithoutTenantCourseNestedInput = {
+    create?: XOR<TenantCourseDetailsCreateWithoutTenantCourseInput, TenantCourseDetailsUncheckedCreateWithoutTenantCourseInput> | TenantCourseDetailsCreateWithoutTenantCourseInput[] | TenantCourseDetailsUncheckedCreateWithoutTenantCourseInput[]
+    connectOrCreate?: TenantCourseDetailsCreateOrConnectWithoutTenantCourseInput | TenantCourseDetailsCreateOrConnectWithoutTenantCourseInput[]
+    upsert?: TenantCourseDetailsUpsertWithWhereUniqueWithoutTenantCourseInput | TenantCourseDetailsUpsertWithWhereUniqueWithoutTenantCourseInput[]
+    createMany?: TenantCourseDetailsCreateManyTenantCourseInputEnvelope
+    set?: TenantCourseDetailsWhereUniqueInput | TenantCourseDetailsWhereUniqueInput[]
+    disconnect?: TenantCourseDetailsWhereUniqueInput | TenantCourseDetailsWhereUniqueInput[]
+    delete?: TenantCourseDetailsWhereUniqueInput | TenantCourseDetailsWhereUniqueInput[]
+    connect?: TenantCourseDetailsWhereUniqueInput | TenantCourseDetailsWhereUniqueInput[]
+    update?: TenantCourseDetailsUpdateWithWhereUniqueWithoutTenantCourseInput | TenantCourseDetailsUpdateWithWhereUniqueWithoutTenantCourseInput[]
+    updateMany?: TenantCourseDetailsUpdateManyWithWhereWithoutTenantCourseInput | TenantCourseDetailsUpdateManyWithWhereWithoutTenantCourseInput[]
+    deleteMany?: TenantCourseDetailsScalarWhereInput | TenantCourseDetailsScalarWhereInput[]
   }
 
   export type MCQCreateoptionsInput = {
@@ -17979,6 +19412,7 @@ export namespace Prisma {
     mandatory?: boolean
     retryType?: $Enums.RetryType
     course: CourseCreateNestedOneWithoutTenantsInput
+    details?: TenantCourseDetailsCreateNestedManyWithoutTenantCourseInput
   }
 
   export type TenantCourseUncheckedCreateWithoutTenantInput = {
@@ -17989,6 +19423,7 @@ export namespace Prisma {
     skippable?: boolean
     mandatory?: boolean
     retryType?: $Enums.RetryType
+    details?: TenantCourseDetailsUncheckedCreateNestedManyWithoutTenantCourseInput
   }
 
   export type TenantCourseCreateOrConnectWithoutTenantInput = {
@@ -18535,6 +19970,7 @@ export namespace Prisma {
     mandatory?: boolean
     retryType?: $Enums.RetryType
     tenant: TenantCreateNestedOneWithoutCoursesInput
+    details?: TenantCourseDetailsCreateNestedManyWithoutTenantCourseInput
   }
 
   export type TenantCourseUncheckedCreateWithoutCourseInput = {
@@ -18545,6 +19981,7 @@ export namespace Prisma {
     skippable?: boolean
     mandatory?: boolean
     retryType?: $Enums.RetryType
+    details?: TenantCourseDetailsUncheckedCreateNestedManyWithoutTenantCourseInput
   }
 
   export type TenantCourseCreateOrConnectWithoutCourseInput = {
@@ -18865,6 +20302,66 @@ export namespace Prisma {
     mcqAnswers?: UserMCQAnswerUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type TenantCourseCreateWithoutDetailsInput = {
+    id?: string
+    assignedAt?: Date | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: $Enums.RetryType
+    course: CourseCreateNestedOneWithoutTenantsInput
+    tenant: TenantCreateNestedOneWithoutCoursesInput
+  }
+
+  export type TenantCourseUncheckedCreateWithoutDetailsInput = {
+    id?: string
+    tenantId: string
+    courseId: string
+    assignedAt?: Date | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
+    skippable?: boolean
+    mandatory?: boolean
+    retryType?: $Enums.RetryType
+  }
+
+  export type TenantCourseCreateOrConnectWithoutDetailsInput = {
+    where: TenantCourseWhereUniqueInput
+    create: XOR<TenantCourseCreateWithoutDetailsInput, TenantCourseUncheckedCreateWithoutDetailsInput>
+  }
+
+  export type TenantCourseUpsertWithoutDetailsInput = {
+    update: XOR<TenantCourseUpdateWithoutDetailsInput, TenantCourseUncheckedUpdateWithoutDetailsInput>
+    create: XOR<TenantCourseCreateWithoutDetailsInput, TenantCourseUncheckedCreateWithoutDetailsInput>
+    where?: TenantCourseWhereInput
+  }
+
+  export type TenantCourseUpdateToOneWithWhereWithoutDetailsInput = {
+    where?: TenantCourseWhereInput
+    data: XOR<TenantCourseUpdateWithoutDetailsInput, TenantCourseUncheckedUpdateWithoutDetailsInput>
+  }
+
+  export type TenantCourseUpdateWithoutDetailsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
+    skippable?: BoolFieldUpdateOperationsInput | boolean
+    mandatory?: BoolFieldUpdateOperationsInput | boolean
+    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+    course?: CourseUpdateOneRequiredWithoutTenantsNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutCoursesNestedInput
+  }
+
+  export type TenantCourseUncheckedUpdateWithoutDetailsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    courseId?: StringFieldUpdateOperationsInput | string
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    explanations?: NullableJsonNullValueInput | InputJsonValue
+    skippable?: BoolFieldUpdateOperationsInput | boolean
+    mandatory?: BoolFieldUpdateOperationsInput | boolean
+    retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+  }
+
   export type CourseCreateWithoutTenantsInput = {
     id?: string
     title: string
@@ -18927,6 +20424,30 @@ export namespace Prisma {
   export type TenantCreateOrConnectWithoutCoursesInput = {
     where: TenantWhereUniqueInput
     create: XOR<TenantCreateWithoutCoursesInput, TenantUncheckedCreateWithoutCoursesInput>
+  }
+
+  export type TenantCourseDetailsCreateWithoutTenantCourseInput = {
+    id?: string
+    role: string
+    name: string
+    contact: string
+  }
+
+  export type TenantCourseDetailsUncheckedCreateWithoutTenantCourseInput = {
+    id?: string
+    role: string
+    name: string
+    contact: string
+  }
+
+  export type TenantCourseDetailsCreateOrConnectWithoutTenantCourseInput = {
+    where: TenantCourseDetailsWhereUniqueInput
+    create: XOR<TenantCourseDetailsCreateWithoutTenantCourseInput, TenantCourseDetailsUncheckedCreateWithoutTenantCourseInput>
+  }
+
+  export type TenantCourseDetailsCreateManyTenantCourseInputEnvelope = {
+    data: TenantCourseDetailsCreateManyTenantCourseInput | TenantCourseDetailsCreateManyTenantCourseInput[]
+    skipDuplicates?: boolean
   }
 
   export type CourseUpsertWithoutTenantsInput = {
@@ -19003,6 +20524,33 @@ export namespace Prisma {
     adminPassword?: StringFieldUpdateOperationsInput | string
     details?: TenantDetailsUncheckedUpdateOneWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantCourseDetailsUpsertWithWhereUniqueWithoutTenantCourseInput = {
+    where: TenantCourseDetailsWhereUniqueInput
+    update: XOR<TenantCourseDetailsUpdateWithoutTenantCourseInput, TenantCourseDetailsUncheckedUpdateWithoutTenantCourseInput>
+    create: XOR<TenantCourseDetailsCreateWithoutTenantCourseInput, TenantCourseDetailsUncheckedCreateWithoutTenantCourseInput>
+  }
+
+  export type TenantCourseDetailsUpdateWithWhereUniqueWithoutTenantCourseInput = {
+    where: TenantCourseDetailsWhereUniqueInput
+    data: XOR<TenantCourseDetailsUpdateWithoutTenantCourseInput, TenantCourseDetailsUncheckedUpdateWithoutTenantCourseInput>
+  }
+
+  export type TenantCourseDetailsUpdateManyWithWhereWithoutTenantCourseInput = {
+    where: TenantCourseDetailsScalarWhereInput
+    data: XOR<TenantCourseDetailsUpdateManyMutationInput, TenantCourseDetailsUncheckedUpdateManyWithoutTenantCourseInput>
+  }
+
+  export type TenantCourseDetailsScalarWhereInput = {
+    AND?: TenantCourseDetailsScalarWhereInput | TenantCourseDetailsScalarWhereInput[]
+    OR?: TenantCourseDetailsScalarWhereInput[]
+    NOT?: TenantCourseDetailsScalarWhereInput | TenantCourseDetailsScalarWhereInput[]
+    id?: StringFilter<"TenantCourseDetails"> | string
+    tenantCourseId?: StringFilter<"TenantCourseDetails"> | string
+    role?: StringFilter<"TenantCourseDetails"> | string
+    name?: StringFilter<"TenantCourseDetails"> | string
+    contact?: StringFilter<"TenantCourseDetails"> | string
   }
 
   export type CourseCreateWithoutMcqsInput = {
@@ -19363,6 +20911,7 @@ export namespace Prisma {
     mandatory?: BoolFieldUpdateOperationsInput | boolean
     retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
     course?: CourseUpdateOneRequiredWithoutTenantsNestedInput
+    details?: TenantCourseDetailsUpdateManyWithoutTenantCourseNestedInput
   }
 
   export type TenantCourseUncheckedUpdateWithoutTenantInput = {
@@ -19373,6 +20922,7 @@ export namespace Prisma {
     skippable?: BoolFieldUpdateOperationsInput | boolean
     mandatory?: BoolFieldUpdateOperationsInput | boolean
     retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+    details?: TenantCourseDetailsUncheckedUpdateManyWithoutTenantCourseNestedInput
   }
 
   export type TenantCourseUncheckedUpdateManyWithoutTenantInput = {
@@ -19637,6 +21187,7 @@ export namespace Prisma {
     mandatory?: BoolFieldUpdateOperationsInput | boolean
     retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
     tenant?: TenantUpdateOneRequiredWithoutCoursesNestedInput
+    details?: TenantCourseDetailsUpdateManyWithoutTenantCourseNestedInput
   }
 
   export type TenantCourseUncheckedUpdateWithoutCourseInput = {
@@ -19647,6 +21198,7 @@ export namespace Prisma {
     skippable?: BoolFieldUpdateOperationsInput | boolean
     mandatory?: BoolFieldUpdateOperationsInput | boolean
     retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+    details?: TenantCourseDetailsUncheckedUpdateManyWithoutTenantCourseNestedInput
   }
 
   export type TenantCourseUncheckedUpdateManyWithoutCourseInput = {
@@ -19657,6 +21209,34 @@ export namespace Prisma {
     skippable?: BoolFieldUpdateOperationsInput | boolean
     mandatory?: BoolFieldUpdateOperationsInput | boolean
     retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+  }
+
+  export type TenantCourseDetailsCreateManyTenantCourseInput = {
+    id?: string
+    role: string
+    name: string
+    contact: string
+  }
+
+  export type TenantCourseDetailsUpdateWithoutTenantCourseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    contact?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TenantCourseDetailsUncheckedUpdateWithoutTenantCourseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    contact?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TenantCourseDetailsUncheckedUpdateManyWithoutTenantCourseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    contact?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserMCQAnswerCreateManyMcqInput = {

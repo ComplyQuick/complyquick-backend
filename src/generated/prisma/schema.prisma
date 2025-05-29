@@ -23,28 +23,18 @@ model Tenant {
 }
 
 model TenantDetails {
-  id                    String  @id @default(uuid())
-  tenantId              String  @unique @map("tenant_id")
-  presidingOfficerEmail String? @map("presiding_officer_email")
-  poshCommitteeEmail    String? @map("posh_committee_email")
-  hrContactName         String? @map("hr_contact_name")
-  hrContactEmail        String? @map("hr_contact_email")
-  hrContactPhone        String? @map("hr_contact_phone")
-  ceoName               String? @map("ceo_name")
-  ceoEmail              String? @map("ceo_email")
-  ceoContact            String? @map("ceo_contact")
-  ctoName               String? @map("cto_name")
-  ctoEmail              String? @map("cto_email")
-  ctoContact            String? @map("cto_contact")
-  ccoEmail              String? @map("cco_email")
-  ccoContact            String? @map("cco_contact")
-  croName               String? @map("cro_name")
-  croEmail              String? @map("cro_email")
-  croContact            String? @map("cro_contact")
-  legalOfficerName      String? @map("legal_officer_name")
-  legalOfficerEmail     String? @map("legal_officer_email")
-  legalOfficerContact   String? @map("legal_officer_contact")
-  tenant                Tenant  @relation(fields: [tenantId], references: [id])
+  id             String  @id @default(uuid())
+  tenantId       String  @unique @map("tenant_id")
+  hrContactName  String? @map("hr_contact_name")
+  hrContactEmail String? @map("hr_contact_email")
+  hrContactPhone String? @map("hr_contact_phone")
+  ceoName        String? @map("ceo_name")
+  ceoEmail       String? @map("ceo_email")
+  ceoContact     String? @map("ceo_contact")
+  ctoName        String? @map("cto_name")
+  ctoEmail       String? @map("cto_email")
+  ctoContact     String? @map("cto_contact")
+  tenant         Tenant  @relation(fields: [tenantId], references: [id])
 
   @@map("tenant_details")
 }
@@ -108,17 +98,29 @@ model Certificate {
   @@map("certificate")
 }
 
+model TenantCourseDetails {
+  id             String       @id @default(uuid())
+  tenantCourseId String
+  role           String
+  name           String
+  contact        String
+  tenantCourse   TenantCourse @relation(fields: [tenantCourseId], references: [id])
+
+  @@map("tenant_course_details")
+}
+
 model TenantCourse {
-  id           String    @id @default(uuid())
-  tenantId     String    @map("tenant_id")
-  courseId     String    @map("course_id")
-  assignedAt   DateTime  @default(now()) @map("assigned_at")
+  id           String                @id @default(uuid())
+  tenantId     String                @map("tenant_id")
+  courseId     String                @map("course_id")
+  assignedAt   DateTime              @default(now()) @map("assigned_at")
   explanations Json?
-  skippable    Boolean   @default(false)
-  mandatory    Boolean   @default(false)
-  retryType    RetryType @default(SAME)
-  course       Course    @relation(fields: [courseId], references: [id])
-  tenant       Tenant    @relation(fields: [tenantId], references: [id])
+  skippable    Boolean               @default(false)
+  mandatory    Boolean               @default(false)
+  retryType    RetryType             @default(SAME)
+  course       Course                @relation(fields: [courseId], references: [id])
+  tenant       Tenant                @relation(fields: [tenantId], references: [id])
+  details      TenantCourseDetails[]
 
   @@map("tenant_course")
 }
@@ -152,14 +154,15 @@ model UserMCQAnswer {
 }
 
 model SlideExplanation {
-  id                String   @id @default(uuid())
-  courseId          String
-  slideNumber       Int
-  explanation       String
-  explanation_audio String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  course            Course   @relation(fields: [courseId], references: [id])
+  id                   String   @id @default(uuid())
+  courseId             String
+  slideNumber          Int
+  explanation          String
+  explanation_audio    String?
+  explanation_subtitle String?
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  course               Course   @relation(fields: [courseId], references: [id])
 
   @@map("slide_explanation")
 }

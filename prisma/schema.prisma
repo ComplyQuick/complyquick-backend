@@ -98,6 +98,17 @@ model Certificate {
   @@map("certificate")
 }
 
+model TenantCourseDetails {
+  id             String   @id @default(uuid())
+  tenantCourseId String
+  role           String
+  name           String
+  contact        String
+  tenantCourse   TenantCourse @relation(fields: [tenantCourseId], references: [id])
+
+  @@map("tenant_course_details")
+}
+
 model TenantCourse {
   id           String   @id @default(uuid())
   tenantId     String   @map("tenant_id")
@@ -109,6 +120,7 @@ model TenantCourse {
   retryType    RetryType @default(SAME)
   course       Course   @relation(fields: [courseId], references: [id])
   tenant       Tenant   @relation(fields: [tenantId], references: [id])
+  details      TenantCourseDetails[]
 
   @@map("tenant_course")
 }

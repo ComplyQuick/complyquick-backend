@@ -183,6 +183,14 @@ exports.Prisma.CertificateScalarFieldEnum = {
   issuedAt: 'issuedAt'
 };
 
+exports.Prisma.TenantCourseDetailsScalarFieldEnum = {
+  id: 'id',
+  tenantCourseId: 'tenantCourseId',
+  role: 'role',
+  name: 'name',
+  contact: 'contact'
+};
+
 exports.Prisma.TenantCourseScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -285,6 +293,7 @@ exports.Prisma.ModelName = {
   Course: 'Course',
   Enrollment: 'Enrollment',
   Certificate: 'Certificate',
+  TenantCourseDetails: 'TenantCourseDetails',
   TenantCourse: 'TenantCourse',
   MCQ: 'MCQ',
   UserMCQAnswer: 'UserMCQAnswer',
