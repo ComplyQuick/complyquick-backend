@@ -11,6 +11,7 @@ import {
   getTenantById
 } from '../controllers/tenant.controller';
 import asyncHandler from 'express-async-handler';
+import { getPOCsForCourse } from '../controllers/course.controller';
 
 const router = Router();
 
@@ -24,5 +25,8 @@ router.get('/:id', asyncHandler(getTenantById));
 router.post('/:id/details', asyncHandler(addTenantDetails));
 router.get('/:id/details', asyncHandler(getTenantDetails));
 router.patch('/:id/details', asyncHandler(updateTenantDetails));
+
+// Add the new endpoint for fetching POCs for a course in a tenant
+router.get('/:tenantId/courses/:courseId/pocs', asyncHandler(getPOCsForCourse));
 
 export default router; 

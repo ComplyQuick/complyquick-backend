@@ -177,12 +177,19 @@ export const deleteCourse = async (
   
 // Assign course to tenant
 export const assignCourseToTenant = async (
-  req: Request<{}, any, { courseId: string; tenantId: string; skippable?: boolean; mandatory?: boolean; retryType?: 'SAME' | 'DIFFERENT' }>,
+  req: Request<{}, any, { 
+    courseId: string; 
+    tenantId: string; 
+    skippable?: boolean | string; 
+    mandatory?: boolean | string; 
+    retryType?: 'SAME' | 'DIFFERENT';
+    pocs?: Array<{ role: string; name: string; contact: string }>;
+  }>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { courseId, tenantId, skippable = false, mandatory = false, retryType = 'SAME' } = req.body;
+    const { courseId, tenantId, skippable, mandatory, retryType, pocs = [] } = req.body;
 
     // Get course and tenant details
     const course = await prisma.course.findUnique({
@@ -228,17 +235,7 @@ export const assignCourseToTenant = async (
       explanations = await generateSlideExplanations(
         course.materialUrl,
         tenant.name,
-        {
-          hrContactName: tenant.details?.hrContactName ?? undefined,
-          hrContactEmail: tenant.details?.hrContactEmail ?? undefined,
-          hrContactPhone: tenant.details?.hrContactPhone ?? undefined,
-          ceoName: tenant.details?.ceoName ?? undefined,
-          ceoEmail: tenant.details?.ceoEmail ?? undefined,
-          ceoContact: tenant.details?.ceoContact ?? undefined,
-          ctoName: tenant.details?.ctoName ?? undefined,
-          ctoEmail: tenant.details?.ctoEmail ?? undefined,
-          ctoContact: tenant.details?.ctoContact ?? undefined
-        }
+        pocs
       );
     } catch (error) {
       console.error('Error generating explanations:', error);
@@ -261,7 +258,29 @@ export const assignCourseToTenant = async (
       }
     });
 
-    res.status(201).json(tenantCourse);
+    // Save POCs if provided
+    if (Array.isArray(pocs) && pocs.length > 0) {
+      await prisma.tenantCourseDetails.createMany({
+        data: pocs.map(poc => ({
+          tenantCourseId: tenantCourse.id,
+          role: poc.role,
+          name: poc.name,
+          contact: poc.contact
+        }))
+      });
+    }
+
+    // Fetch the created assignment with POCs
+    const createdAssignment = await prisma.tenantCourse.findUnique({
+      where: { id: tenantCourse.id },
+      include: {
+        course: true,
+        tenant: true,
+        details: true // Include POCs
+      }
+    });
+
+    res.status(201).json(createdAssignment);
   } catch (error) {
     next(error);
   }
@@ -423,11 +442,8 @@ export const processCourseSlides = async (req: Request, res: Response, next: Nex
       },
       include: {
         course: true,
-        tenant: {
-          include: {
-            details: true
-          }
-        }
+        tenant: true,
+        details: true
       }
     });
 
@@ -451,20 +467,16 @@ export const processCourseSlides = async (req: Request, res: Response, next: Nex
 
     // If no explanations, generate them
     try {
+      const pocs = tenantCourse.details.map(detail => ({
+        role: detail.role,
+        name: detail.name,
+        contact: detail.contact
+      }));
+
       const explanations = await generateSlideExplanations(
         tenantCourse.course.materialUrl,
         tenantCourse.tenant.name,
-        {
-          hrContactName: tenantCourse.tenant.details?.hrContactName ?? undefined,
-          hrContactEmail: tenantCourse.tenant.details?.hrContactEmail ?? undefined,
-          hrContactPhone: tenantCourse.tenant.details?.hrContactPhone ?? undefined,
-          ceoName: tenantCourse.tenant.details?.ceoName ?? undefined,
-          ceoEmail: tenantCourse.tenant.details?.ceoEmail ?? undefined,
-          ceoContact: tenantCourse.tenant.details?.ceoContact ?? undefined,
-          ctoName: tenantCourse.tenant.details?.ctoName ?? undefined,
-          ctoEmail: tenantCourse.tenant.details?.ctoEmail ?? undefined,
-          ctoContact: tenantCourse.tenant.details?.ctoContact ?? undefined
-        }
+        pocs
       );
 
       // Update tenant course with explanations
@@ -537,11 +549,8 @@ export const generateExplanations = async (req: Request, res: Response, next: Ne
       },
       include: {
         course: true,
-        tenant: {
-          include: {
-            details: true
-          }
-        }
+        tenant: true,
+        details: true // Fetch POCs
       }
     });
 
@@ -550,25 +559,17 @@ export const generateExplanations = async (req: Request, res: Response, next: Ne
       return;
     }
 
-    if (!tenantCourse.tenant.details) {
-      res.status(400).json({ error: 'Tenant details not found' });
-      return;
-    }
+    // Build POC array
+    const pocs = tenantCourse.details.map(detail => ({
+      role: detail.role,
+      name: detail.name,
+      contact: detail.contact
+    }));
 
     const explanations = await generateSlideExplanations(
       tenantCourse.course.materialUrl,
       tenantCourse.tenant.name,
-      {
-        hrContactName: tenantCourse.tenant.details?.hrContactName ?? undefined,
-        hrContactEmail: tenantCourse.tenant.details?.hrContactEmail ?? undefined,
-        hrContactPhone: tenantCourse.tenant.details?.hrContactPhone ?? undefined,
-        ceoName: tenantCourse.tenant.details?.ceoName ?? undefined,
-        ceoEmail: tenantCourse.tenant.details?.ceoEmail ?? undefined,
-        ceoContact: tenantCourse.tenant.details?.ceoContact ?? undefined,
-        ctoName: tenantCourse.tenant.details?.ctoName ?? undefined,
-        ctoEmail: tenantCourse.tenant.details?.ctoEmail ?? undefined,
-        ctoContact: tenantCourse.tenant.details?.ctoContact ?? undefined
-      }
+      pocs
     );
 
     // Store explanations in tenant course
@@ -964,6 +965,37 @@ export const addPOCForCourse = async (req: Request, res: Response, next: NextFun
     res.status(201).json({ message: 'POCs added successfully', count: createdPOCs.count, tenantCourseId: tenantCourse.id });
   } catch (error) {
     console.error('[addPOCForCourse] Error:', error);
+    next(error);
+  }
+};
+
+export const getPOCsForCourse = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { tenantId, courseId } = req.params;
+
+    if (!tenantId || !courseId) {
+      res.status(400).json({ error: 'tenantId and courseId are required' });
+      return;
+    }
+
+    const tenantCourse = await prisma.tenantCourse.findFirst({
+      where: { tenantId, courseId },
+      include: { details: true }
+    });
+
+    if (!tenantCourse) {
+      res.status(404).json({ error: 'No course assignment found for this tenant and course' });
+      return;
+    }
+
+    res.json({
+      pocs: tenantCourse.details.map(detail => ({
+        role: detail.role,
+        name: detail.name,
+        contact: detail.contact
+      }))
+    });
+  } catch (error) {
     next(error);
   }
 }; 

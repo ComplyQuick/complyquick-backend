@@ -22,6 +22,14 @@ export interface SlideExplanation {
   slideNumber: number;
   content: string;
   explanation: string;
+  explanation_audio?: string;
+  explanation_subtitle?: string;
+}
+
+export interface POC {
+  role: string;
+  name: string;
+  contact: string;
 }
 
 export interface TenantDetails {
@@ -51,23 +59,13 @@ export const generateMCQs = async (presentationUrl: string): Promise<MCQQuestion
 export const generateSlideExplanations = async (
   materialUrl: string,
   companyName: string,
-  tenantDetails: any
+  pocs: POC[]
 ): Promise<Array<{ slide: number; explanation: string; explanation_audio: string; explanation_subtitle: string }>> => {
   try {
     const response = await aiServiceClient.post('/generate_explanations', {
       presentation_url: materialUrl,
       company_name: companyName,
-      tenant_details: {
-        hrContactName: tenantDetails.hrContactName,
-        hrContactEmail: tenantDetails.hrContactEmail,
-        hrContactPhone: tenantDetails.hrContactPhone,
-        ceoName: tenantDetails.ceoName,
-        ceoEmail: tenantDetails.ceoEmail,
-        ceoContact: tenantDetails.ceoContact,
-        ctoName: tenantDetails.ctoName,
-        ctoEmail: tenantDetails.ctoEmail,
-        ctoContact: tenantDetails.ctoContact
-      }
+      pocs
     });
 
     const explanations = response.data.explanations;
