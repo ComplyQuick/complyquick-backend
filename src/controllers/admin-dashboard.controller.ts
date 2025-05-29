@@ -35,10 +35,10 @@ export const getTrainingStatistics = async (
     // Calculate total users (only USER role)
     const totalUsers = users.length;
 
-    // Get all courses assigned to this tenant
+    // Get all unique courseIds assigned to this tenant
     const tenantCourses = await prisma.tenantCourse.findMany({
       where: { tenantId },
-      include: { course: true }
+      select: { courseId: true }
     });
     const uniqueCourseIds = Array.from(new Set(tenantCourses.map(tc => tc.courseId)));
     const totalCourses = uniqueCourseIds.length;
