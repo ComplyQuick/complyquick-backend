@@ -5,13 +5,24 @@ const prisma = new PrismaClient();
 
 // Get overall training statistics
 export const getTrainingStatistics = async (
-  _req: Request,
+  req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
-    // Get all users and their enrollments
+    // Get tenantId from query params
+    const { tenantId } = req.query;
+    if (!tenantId || typeof tenantId !== 'string') {
+      res.status(400).json({ error: 'tenantId is required as a query parameter' });
+      return;
+    }
+
+    // Get all users with role USER for this tenant
     const users = await prisma.user.findMany({
+      where: {
+        tenantId,
+        role: 'USER'
+      },
       include: {
         enrollments: {
           include: {
@@ -21,11 +32,16 @@ export const getTrainingStatistics = async (
       }
     });
 
-    // Calculate total users
+    // Calculate total users (only USER role)
     const totalUsers = users.length;
 
-    // Get all courses
-    const totalCourses = await prisma.course.count();
+    // Get all courses assigned to this tenant
+    const tenantCourses = await prisma.tenantCourse.findMany({
+      where: { tenantId },
+      include: { course: true }
+    });
+    const uniqueCourseIds = Array.from(new Set(tenantCourses.map(tc => tc.courseId)));
+    const totalCourses = uniqueCourseIds.length;
 
     // Initialize counters for training status
     let completedCount = 0;
@@ -36,10 +52,10 @@ export const getTrainingStatistics = async (
     users.forEach(user => {
       if (user.enrollments.length === 0) {
         notStartedCount++;
+
       } else {
         const allCompleted = user.enrollments.every(e => e.status === 'COMPLETED');
         const anyInProgress = user.enrollments.some(e => e.status === 'IN_PROGRESS');
-        
         if (allCompleted) {
           completedCount++;
         } else if (anyInProgress) {
@@ -51,10 +67,9 @@ export const getTrainingStatistics = async (
     });
 
     // Calculate overall completion rate
-    const totalEnrollments = await prisma.enrollment.count();
-    const completedEnrollments = await prisma.enrollment.count({
-      where: { status: 'COMPLETED' }
-    });
+    const allEnrollments = users.flatMap(u => u.enrollments);
+    const totalEnrollments = allEnrollments.length;
+    const completedEnrollments = allEnrollments.filter(e => e.status === 'COMPLETED').length;
     const completionRate = totalEnrollments > 0 
       ? Math.round((completedEnrollments / totalEnrollments) * 100) 
       : 0;

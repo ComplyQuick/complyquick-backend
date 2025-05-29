@@ -131,44 +131,78 @@ export const getTenantCourses = async (
 };
 
 export const assignCourseToUsers = async (
-  req: Request<{ id: string; courseId: string }, any, AssignCourseRequest>,
+  req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { id: tenantId, courseId } = req.params;
-    const { userIds } = req.body;
+    const { courseId, userIds } = req.body;
 
-    // Verify course is assigned to tenant
-    const tenantCourse = await prisma.tenantCourse.findFirst({
-      where: {
-        tenantId,
-        courseId
-      }
-    });
-
-    if (!tenantCourse) {
-      res.status(404).json({ error: 'Course not found in tenant' });
+    if (!courseId || !userIds || !Array.isArray(userIds) || userIds.length === 0) {
+      res.status(400).json({ error: 'courseId and userIds[] are required' });
       return;
     }
 
-    // Create enrollments for each user
+    // Get the tenantId from the first user (all users should belong to the same tenant)
+    const user = await prisma.user.findUnique({ where: { id: userIds[0] } });
+    if (!user) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+    const tenantId = user.tenantId;
+    if (!tenantId) {
+      res.status(400).json({ error: 'User does not belong to a tenant' });
+      return;
+    }
+
+    // Ensure TenantCourse exists
+    let tenantCourse = await prisma.tenantCourse.findFirst({
+      where: { tenantId, courseId }
+    });
+    if (!tenantCourse) {
+      tenantCourse = await prisma.tenantCourse.create({
+        data: { tenantId, courseId }
+      });
+    }
+
+    // Create enrollments for each user (skip if already enrolled)
     const enrollments = await Promise.all(
-      userIds.map(userId =>
-        prisma.enrollment.create({
+      userIds.map(async (userId: string) => {
+        // Check if enrollment already exists
+        const existingEnrollment = await prisma.enrollment.findFirst({
+          where: { userId, courseId }
+        });
+        if (existingEnrollment) {
+          // Fetch with user and course included for consistency
+          return prisma.enrollment.findUnique({
+            where: { id: existingEnrollment.id },
+            include: { user: true, course: true }
+          });
+        }
+
+        // Create new enrollment
+        return prisma.enrollment.create({
           data: {
             userId,
             courseId,
-            status: 'IN_PROGRESS',
-            progress: 0
+            progress: 0,
+            status: 'IN_PROGRESS'
+          },
+          include: {
+            user: true,
+            course: true
           }
-        })
-      )
+        });
+      })
     );
 
-    res.status(201).json(enrollments);
+    res.status(201).json({
+      message: 'Course assigned successfully',
+      enrollments
+    });
   } catch (error) {
-    next(error);
+    console.error('Error assigning course:', error);
+    res.status(500).json({ error: 'Failed to assign course', details: error instanceof Error ? error.message : error });
   }
 };
 

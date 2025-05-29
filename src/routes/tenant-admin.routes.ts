@@ -14,6 +14,7 @@ import asyncHandler from 'express-async-handler';
 import { PrismaClient } from '../generated/prisma';
 import bcrypt from 'bcryptjs';
 
+
 const router = Router();
 const prisma = new PrismaClient();
 
@@ -109,60 +110,7 @@ router.post('/tenants/:tenantId/users', asyncHandler(async (req: Request<{ tenan
 }));
 
 // Assign course to users
-router.post('/courses/assign', asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  const { courseId, userIds } = req.body;
-
-  try {
-    // Verify course exists
-    const course = await prisma.course.findUnique({
-      where: { id: courseId }
-    });
-
-    if (!course) {
-      res.status(404).json({ error: 'Course not found' });
-      return;
-    }
-
-    // Create enrollments for each user
-    const enrollments = await Promise.all(
-      userIds.map(async (userId: string) => {
-        // Check if enrollment already exists
-        const existingEnrollment = await prisma.enrollment.findFirst({
-          where: {
-            userId,
-            courseId
-          }
-        });
-
-        if (existingEnrollment) {
-          return existingEnrollment;
-        }
-
-        // Create new enrollment
-        return prisma.enrollment.create({
-          data: {
-            userId,
-            courseId,
-            progress: 0,
-            status: 'IN_PROGRESS'
-          },
-          include: {
-            user: true,
-            course: true
-          }
-        });
-      })
-    );
-
-    res.status(201).json({
-      message: 'Course assigned successfully',
-      enrollments
-    });
-  } catch (error) {
-    console.error('Error assigning course:', error);
-    res.status(500).json({ error: 'Failed to assign course' });
-  }
-}));
+router.post('/courses/assign', asyncHandler(assignCourseToUsers));
 
 // Get tenant progress statistics
 router.get('/tenants/:tenantId/progress', asyncHandler(async (req: Request<{ tenantId: string }>, res: Response, next: NextFunction): Promise<void> => {
