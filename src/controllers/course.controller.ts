@@ -229,8 +229,6 @@ export const assignCourseToTenant = async (
         course.materialUrl,
         tenant.name,
         {
-          presidingOfficerEmail: tenant.details?.presidingOfficerEmail ?? undefined,
-          poshCommitteeEmail: tenant.details?.poshCommitteeEmail ?? undefined,
           hrContactName: tenant.details?.hrContactName ?? undefined,
           hrContactEmail: tenant.details?.hrContactEmail ?? undefined,
           hrContactPhone: tenant.details?.hrContactPhone ?? undefined,
@@ -239,15 +237,7 @@ export const assignCourseToTenant = async (
           ceoContact: tenant.details?.ceoContact ?? undefined,
           ctoName: tenant.details?.ctoName ?? undefined,
           ctoEmail: tenant.details?.ctoEmail ?? undefined,
-          ctoContact: tenant.details?.ctoContact ?? undefined,
-          ccoEmail: tenant.details?.ccoEmail ?? undefined,
-          ccoContact: tenant.details?.ccoContact ?? undefined,
-          croName: tenant.details?.croName ?? undefined,
-          croEmail: tenant.details?.croEmail ?? undefined,
-          croContact: tenant.details?.croContact ?? undefined,
-          legalOfficerName: tenant.details?.legalOfficerName ?? undefined,
-          legalOfficerEmail: tenant.details?.legalOfficerEmail ?? undefined,
-          legalOfficerContact: tenant.details?.legalOfficerContact ?? undefined
+          ctoContact: tenant.details?.ctoContact ?? undefined
         }
       );
     } catch (error) {
@@ -465,8 +455,6 @@ export const processCourseSlides = async (req: Request, res: Response, next: Nex
         tenantCourse.course.materialUrl,
         tenantCourse.tenant.name,
         {
-          presidingOfficerEmail: tenantCourse.tenant.details?.presidingOfficerEmail ?? undefined,
-          poshCommitteeEmail: tenantCourse.tenant.details?.poshCommitteeEmail ?? undefined,
           hrContactName: tenantCourse.tenant.details?.hrContactName ?? undefined,
           hrContactEmail: tenantCourse.tenant.details?.hrContactEmail ?? undefined,
           hrContactPhone: tenantCourse.tenant.details?.hrContactPhone ?? undefined,
@@ -475,15 +463,7 @@ export const processCourseSlides = async (req: Request, res: Response, next: Nex
           ceoContact: tenantCourse.tenant.details?.ceoContact ?? undefined,
           ctoName: tenantCourse.tenant.details?.ctoName ?? undefined,
           ctoEmail: tenantCourse.tenant.details?.ctoEmail ?? undefined,
-          ctoContact: tenantCourse.tenant.details?.ctoContact ?? undefined,
-          ccoEmail: tenantCourse.tenant.details?.ccoEmail ?? undefined,
-          ccoContact: tenantCourse.tenant.details?.ccoContact ?? undefined,
-          croName: tenantCourse.tenant.details?.croName ?? undefined,
-          croEmail: tenantCourse.tenant.details?.croEmail ?? undefined,
-          croContact: tenantCourse.tenant.details?.croContact ?? undefined,
-          legalOfficerName: tenantCourse.tenant.details?.legalOfficerName ?? undefined,
-          legalOfficerEmail: tenantCourse.tenant.details?.legalOfficerEmail ?? undefined,
-          legalOfficerContact: tenantCourse.tenant.details?.legalOfficerContact ?? undefined
+          ctoContact: tenantCourse.tenant.details?.ctoContact ?? undefined
         }
       );
 
@@ -579,8 +559,6 @@ export const generateExplanations = async (req: Request, res: Response, next: Ne
       tenantCourse.course.materialUrl,
       tenantCourse.tenant.name,
       {
-        presidingOfficerEmail: tenantCourse.tenant.details?.presidingOfficerEmail ?? undefined,
-        poshCommitteeEmail: tenantCourse.tenant.details?.poshCommitteeEmail ?? undefined,
         hrContactName: tenantCourse.tenant.details?.hrContactName ?? undefined,
         hrContactEmail: tenantCourse.tenant.details?.hrContactEmail ?? undefined,
         hrContactPhone: tenantCourse.tenant.details?.hrContactPhone ?? undefined,
@@ -589,15 +567,7 @@ export const generateExplanations = async (req: Request, res: Response, next: Ne
         ceoContact: tenantCourse.tenant.details?.ceoContact ?? undefined,
         ctoName: tenantCourse.tenant.details?.ctoName ?? undefined,
         ctoEmail: tenantCourse.tenant.details?.ctoEmail ?? undefined,
-        ctoContact: tenantCourse.tenant.details?.ctoContact ?? undefined,
-        ccoEmail: tenantCourse.tenant.details?.ccoEmail ?? undefined,
-        ccoContact: tenantCourse.tenant.details?.ccoContact ?? undefined,
-        croName: tenantCourse.tenant.details?.croName ?? undefined,
-        croEmail: tenantCourse.tenant.details?.croEmail ?? undefined,
-        croContact: tenantCourse.tenant.details?.croContact ?? undefined,
-        legalOfficerName: tenantCourse.tenant.details?.legalOfficerName ?? undefined,
-        legalOfficerEmail: tenantCourse.tenant.details?.legalOfficerEmail ?? undefined,
-        legalOfficerContact: tenantCourse.tenant.details?.legalOfficerContact ?? undefined
+        ctoContact: tenantCourse.tenant.details?.ctoContact ?? undefined
       }
     );
 

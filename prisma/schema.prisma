@@ -25,8 +25,6 @@ model Tenant {
 model TenantDetails {
   id                    String  @id @default(uuid())
   tenantId              String  @unique @map("tenant_id")
-  presidingOfficerEmail String? @map("presiding_officer_email")
-  poshCommitteeEmail    String? @map("posh_committee_email")
   hrContactName         String? @map("hr_contact_name")
   hrContactEmail        String? @map("hr_contact_email")
   hrContactPhone        String? @map("hr_contact_phone")
@@ -36,14 +34,6 @@ model TenantDetails {
   ctoName               String? @map("cto_name")
   ctoEmail              String? @map("cto_email")
   ctoContact            String? @map("cto_contact")
-  ccoEmail              String? @map("cco_email")
-  ccoContact            String? @map("cco_contact")
-  croName               String? @map("cro_name")
-  croEmail              String? @map("cro_email")
-  croContact            String? @map("cro_contact")
-  legalOfficerName      String? @map("legal_officer_name")
-  legalOfficerEmail     String? @map("legal_officer_email")
-  legalOfficerContact   String? @map("legal_officer_contact")
   tenant                Tenant  @relation(fields: [tenantId], references: [id])
 
   @@map("tenant_details")

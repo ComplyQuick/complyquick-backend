@@ -5,12 +5,8 @@ export interface ContactDetails {
 }
 
 export interface TenantDetails {
-  presidingOfficer?: ContactDetails;
   hrManager?: ContactDetails;
   ceo?: ContactDetails;
   cto?: ContactDetails;
-  cco?: ContactDetails;
-  cro?: ContactDetails;
-  legalOfficer?: ContactDetails;
   [key: string]: ContactDetails | undefined;
 } 

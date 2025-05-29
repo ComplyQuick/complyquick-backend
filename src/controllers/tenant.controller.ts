@@ -12,8 +12,6 @@ export interface CreateTenantRequest {
 }
 
 export interface TenantDetailsRequest {
-  presidingOfficerEmail?: string;
-  poshCommitteeEmail?: string;
   hrContactName?: string;
   hrContactEmail?: string;
   hrContactPhone?: string;
@@ -23,14 +21,6 @@ export interface TenantDetailsRequest {
   ctoName?: string;
   ctoEmail?: string;
   ctoContact?: string;
-  ccoEmail?: string;
-  ccoContact?: string;
-  croName?: string;
-  croEmail?: string;
-  croContact?: string;
-  legalOfficerName?: string;
-  legalOfficerEmail?: string;
-  legalOfficerContact?: string;
 }
 
 // Create a new tenant (organization) - SuperAdmin only

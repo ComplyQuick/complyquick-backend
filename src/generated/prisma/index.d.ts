@@ -404,8 +404,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.6.0
-   * Query Engine version: f676762280b54cd07c770017ed3711ddde35f37a
+   * Prisma Client JS version: 6.8.2
+   * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
    */
   export type PrismaVersion = {
     client: string
@@ -3146,8 +3146,6 @@ export namespace Prisma {
   export type TenantDetailsMinAggregateOutputType = {
     id: string | null
     tenantId: string | null
-    presidingOfficerEmail: string | null
-    poshCommitteeEmail: string | null
     hrContactName: string | null
     hrContactEmail: string | null
     hrContactPhone: string | null
@@ -3157,21 +3155,11 @@ export namespace Prisma {
     ctoName: string | null
     ctoEmail: string | null
     ctoContact: string | null
-    ccoEmail: string | null
-    ccoContact: string | null
-    croName: string | null
-    croEmail: string | null
-    croContact: string | null
-    legalOfficerName: string | null
-    legalOfficerEmail: string | null
-    legalOfficerContact: string | null
   }
 
   export type TenantDetailsMaxAggregateOutputType = {
     id: string | null
     tenantId: string | null
-    presidingOfficerEmail: string | null
-    poshCommitteeEmail: string | null
     hrContactName: string | null
     hrContactEmail: string | null
     hrContactPhone: string | null
@@ -3181,21 +3169,11 @@ export namespace Prisma {
     ctoName: string | null
     ctoEmail: string | null
     ctoContact: string | null
-    ccoEmail: string | null
-    ccoContact: string | null
-    croName: string | null
-    croEmail: string | null
-    croContact: string | null
-    legalOfficerName: string | null
-    legalOfficerEmail: string | null
-    legalOfficerContact: string | null
   }
 
   export type TenantDetailsCountAggregateOutputType = {
     id: number
     tenantId: number
-    presidingOfficerEmail: number
-    poshCommitteeEmail: number
     hrContactName: number
     hrContactEmail: number
     hrContactPhone: number
@@ -3205,14 +3183,6 @@ export namespace Prisma {
     ctoName: number
     ctoEmail: number
     ctoContact: number
-    ccoEmail: number
-    ccoContact: number
-    croName: number
-    croEmail: number
-    croContact: number
-    legalOfficerName: number
-    legalOfficerEmail: number
-    legalOfficerContact: number
     _all: number
   }
 
@@ -3220,8 +3190,6 @@ export namespace Prisma {
   export type TenantDetailsMinAggregateInputType = {
     id?: true
     tenantId?: true
-    presidingOfficerEmail?: true
-    poshCommitteeEmail?: true
     hrContactName?: true
     hrContactEmail?: true
     hrContactPhone?: true
@@ -3231,21 +3199,11 @@ export namespace Prisma {
     ctoName?: true
     ctoEmail?: true
     ctoContact?: true
-    ccoEmail?: true
-    ccoContact?: true
-    croName?: true
-    croEmail?: true
-    croContact?: true
-    legalOfficerName?: true
-    legalOfficerEmail?: true
-    legalOfficerContact?: true
   }
 
   export type TenantDetailsMaxAggregateInputType = {
     id?: true
     tenantId?: true
-    presidingOfficerEmail?: true
-    poshCommitteeEmail?: true
     hrContactName?: true
     hrContactEmail?: true
     hrContactPhone?: true
@@ -3255,21 +3213,11 @@ export namespace Prisma {
     ctoName?: true
     ctoEmail?: true
     ctoContact?: true
-    ccoEmail?: true
-    ccoContact?: true
-    croName?: true
-    croEmail?: true
-    croContact?: true
-    legalOfficerName?: true
-    legalOfficerEmail?: true
-    legalOfficerContact?: true
   }
 
   export type TenantDetailsCountAggregateInputType = {
     id?: true
     tenantId?: true
-    presidingOfficerEmail?: true
-    poshCommitteeEmail?: true
     hrContactName?: true
     hrContactEmail?: true
     hrContactPhone?: true
@@ -3279,14 +3227,6 @@ export namespace Prisma {
     ctoName?: true
     ctoEmail?: true
     ctoContact?: true
-    ccoEmail?: true
-    ccoContact?: true
-    croName?: true
-    croEmail?: true
-    croContact?: true
-    legalOfficerName?: true
-    legalOfficerEmail?: true
-    legalOfficerContact?: true
     _all?: true
   }
 
@@ -3365,8 +3305,6 @@ export namespace Prisma {
   export type TenantDetailsGroupByOutputType = {
     id: string
     tenantId: string
-    presidingOfficerEmail: string | null
-    poshCommitteeEmail: string | null
     hrContactName: string | null
     hrContactEmail: string | null
     hrContactPhone: string | null
@@ -3376,14 +3314,6 @@ export namespace Prisma {
     ctoName: string | null
     ctoEmail: string | null
     ctoContact: string | null
-    ccoEmail: string | null
-    ccoContact: string | null
-    croName: string | null
-    croEmail: string | null
-    croContact: string | null
-    legalOfficerName: string | null
-    legalOfficerEmail: string | null
-    legalOfficerContact: string | null
     _count: TenantDetailsCountAggregateOutputType | null
     _min: TenantDetailsMinAggregateOutputType | null
     _max: TenantDetailsMaxAggregateOutputType | null
@@ -3406,8 +3336,6 @@ export namespace Prisma {
   export type TenantDetailsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tenantId?: boolean
-    presidingOfficerEmail?: boolean
-    poshCommitteeEmail?: boolean
     hrContactName?: boolean
     hrContactEmail?: boolean
     hrContactPhone?: boolean
@@ -3417,22 +3345,12 @@ export namespace Prisma {
     ctoName?: boolean
     ctoEmail?: boolean
     ctoContact?: boolean
-    ccoEmail?: boolean
-    ccoContact?: boolean
-    croName?: boolean
-    croEmail?: boolean
-    croContact?: boolean
-    legalOfficerName?: boolean
-    legalOfficerEmail?: boolean
-    legalOfficerContact?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenantDetails"]>
 
   export type TenantDetailsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tenantId?: boolean
-    presidingOfficerEmail?: boolean
-    poshCommitteeEmail?: boolean
     hrContactName?: boolean
     hrContactEmail?: boolean
     hrContactPhone?: boolean
@@ -3442,22 +3360,12 @@ export namespace Prisma {
     ctoName?: boolean
     ctoEmail?: boolean
     ctoContact?: boolean
-    ccoEmail?: boolean
-    ccoContact?: boolean
-    croName?: boolean
-    croEmail?: boolean
-    croContact?: boolean
-    legalOfficerName?: boolean
-    legalOfficerEmail?: boolean
-    legalOfficerContact?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenantDetails"]>
 
   export type TenantDetailsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tenantId?: boolean
-    presidingOfficerEmail?: boolean
-    poshCommitteeEmail?: boolean
     hrContactName?: boolean
     hrContactEmail?: boolean
     hrContactPhone?: boolean
@@ -3467,22 +3375,12 @@ export namespace Prisma {
     ctoName?: boolean
     ctoEmail?: boolean
     ctoContact?: boolean
-    ccoEmail?: boolean
-    ccoContact?: boolean
-    croName?: boolean
-    croEmail?: boolean
-    croContact?: boolean
-    legalOfficerName?: boolean
-    legalOfficerEmail?: boolean
-    legalOfficerContact?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenantDetails"]>
 
   export type TenantDetailsSelectScalar = {
     id?: boolean
     tenantId?: boolean
-    presidingOfficerEmail?: boolean
-    poshCommitteeEmail?: boolean
     hrContactName?: boolean
     hrContactEmail?: boolean
     hrContactPhone?: boolean
@@ -3492,17 +3390,9 @@ export namespace Prisma {
     ctoName?: boolean
     ctoEmail?: boolean
     ctoContact?: boolean
-    ccoEmail?: boolean
-    ccoContact?: boolean
-    croName?: boolean
-    croEmail?: boolean
-    croContact?: boolean
-    legalOfficerName?: boolean
-    legalOfficerEmail?: boolean
-    legalOfficerContact?: boolean
   }
 
-  export type TenantDetailsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "presidingOfficerEmail" | "poshCommitteeEmail" | "hrContactName" | "hrContactEmail" | "hrContactPhone" | "ceoName" | "ceoEmail" | "ceoContact" | "ctoName" | "ctoEmail" | "ctoContact" | "ccoEmail" | "ccoContact" | "croName" | "croEmail" | "croContact" | "legalOfficerName" | "legalOfficerEmail" | "legalOfficerContact", ExtArgs["result"]["tenantDetails"]>
+  export type TenantDetailsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "hrContactName" | "hrContactEmail" | "hrContactPhone" | "ceoName" | "ceoEmail" | "ceoContact" | "ctoName" | "ctoEmail" | "ctoContact", ExtArgs["result"]["tenantDetails"]>
   export type TenantDetailsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }
@@ -3521,8 +3411,6 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       tenantId: string
-      presidingOfficerEmail: string | null
-      poshCommitteeEmail: string | null
       hrContactName: string | null
       hrContactEmail: string | null
       hrContactPhone: string | null
@@ -3532,14 +3420,6 @@ export namespace Prisma {
       ctoName: string | null
       ctoEmail: string | null
       ctoContact: string | null
-      ccoEmail: string | null
-      ccoContact: string | null
-      croName: string | null
-      croEmail: string | null
-      croContact: string | null
-      legalOfficerName: string | null
-      legalOfficerEmail: string | null
-      legalOfficerContact: string | null
     }, ExtArgs["result"]["tenantDetails"]>
     composites: {}
   }
@@ -3966,8 +3846,6 @@ export namespace Prisma {
   interface TenantDetailsFieldRefs {
     readonly id: FieldRef<"TenantDetails", 'String'>
     readonly tenantId: FieldRef<"TenantDetails", 'String'>
-    readonly presidingOfficerEmail: FieldRef<"TenantDetails", 'String'>
-    readonly poshCommitteeEmail: FieldRef<"TenantDetails", 'String'>
     readonly hrContactName: FieldRef<"TenantDetails", 'String'>
     readonly hrContactEmail: FieldRef<"TenantDetails", 'String'>
     readonly hrContactPhone: FieldRef<"TenantDetails", 'String'>
@@ -3977,14 +3855,6 @@ export namespace Prisma {
     readonly ctoName: FieldRef<"TenantDetails", 'String'>
     readonly ctoEmail: FieldRef<"TenantDetails", 'String'>
     readonly ctoContact: FieldRef<"TenantDetails", 'String'>
-    readonly ccoEmail: FieldRef<"TenantDetails", 'String'>
-    readonly ccoContact: FieldRef<"TenantDetails", 'String'>
-    readonly croName: FieldRef<"TenantDetails", 'String'>
-    readonly croEmail: FieldRef<"TenantDetails", 'String'>
-    readonly croContact: FieldRef<"TenantDetails", 'String'>
-    readonly legalOfficerName: FieldRef<"TenantDetails", 'String'>
-    readonly legalOfficerEmail: FieldRef<"TenantDetails", 'String'>
-    readonly legalOfficerContact: FieldRef<"TenantDetails", 'String'>
   }
     
 
@@ -14467,8 +14337,6 @@ export namespace Prisma {
   export const TenantDetailsScalarFieldEnum: {
     id: 'id',
     tenantId: 'tenantId',
-    presidingOfficerEmail: 'presidingOfficerEmail',
-    poshCommitteeEmail: 'poshCommitteeEmail',
     hrContactName: 'hrContactName',
     hrContactEmail: 'hrContactEmail',
     hrContactPhone: 'hrContactPhone',
@@ -14477,15 +14345,7 @@ export namespace Prisma {
     ceoContact: 'ceoContact',
     ctoName: 'ctoName',
     ctoEmail: 'ctoEmail',
-    ctoContact: 'ctoContact',
-    ccoEmail: 'ccoEmail',
-    ccoContact: 'ccoContact',
-    croName: 'croName',
-    croEmail: 'croEmail',
-    croContact: 'croContact',
-    legalOfficerName: 'legalOfficerName',
-    legalOfficerEmail: 'legalOfficerEmail',
-    legalOfficerContact: 'legalOfficerContact'
+    ctoContact: 'ctoContact'
   };
 
   export type TenantDetailsScalarFieldEnum = (typeof TenantDetailsScalarFieldEnum)[keyof typeof TenantDetailsScalarFieldEnum]
@@ -14872,8 +14732,6 @@ export namespace Prisma {
     NOT?: TenantDetailsWhereInput | TenantDetailsWhereInput[]
     id?: StringFilter<"TenantDetails"> | string
     tenantId?: StringFilter<"TenantDetails"> | string
-    presidingOfficerEmail?: StringNullableFilter<"TenantDetails"> | string | null
-    poshCommitteeEmail?: StringNullableFilter<"TenantDetails"> | string | null
     hrContactName?: StringNullableFilter<"TenantDetails"> | string | null
     hrContactEmail?: StringNullableFilter<"TenantDetails"> | string | null
     hrContactPhone?: StringNullableFilter<"TenantDetails"> | string | null
@@ -14883,22 +14741,12 @@ export namespace Prisma {
     ctoName?: StringNullableFilter<"TenantDetails"> | string | null
     ctoEmail?: StringNullableFilter<"TenantDetails"> | string | null
     ctoContact?: StringNullableFilter<"TenantDetails"> | string | null
-    ccoEmail?: StringNullableFilter<"TenantDetails"> | string | null
-    ccoContact?: StringNullableFilter<"TenantDetails"> | string | null
-    croName?: StringNullableFilter<"TenantDetails"> | string | null
-    croEmail?: StringNullableFilter<"TenantDetails"> | string | null
-    croContact?: StringNullableFilter<"TenantDetails"> | string | null
-    legalOfficerName?: StringNullableFilter<"TenantDetails"> | string | null
-    legalOfficerEmail?: StringNullableFilter<"TenantDetails"> | string | null
-    legalOfficerContact?: StringNullableFilter<"TenantDetails"> | string | null
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
   }
 
   export type TenantDetailsOrderByWithRelationInput = {
     id?: SortOrder
     tenantId?: SortOrder
-    presidingOfficerEmail?: SortOrderInput | SortOrder
-    poshCommitteeEmail?: SortOrderInput | SortOrder
     hrContactName?: SortOrderInput | SortOrder
     hrContactEmail?: SortOrderInput | SortOrder
     hrContactPhone?: SortOrderInput | SortOrder
@@ -14908,14 +14756,6 @@ export namespace Prisma {
     ctoName?: SortOrderInput | SortOrder
     ctoEmail?: SortOrderInput | SortOrder
     ctoContact?: SortOrderInput | SortOrder
-    ccoEmail?: SortOrderInput | SortOrder
-    ccoContact?: SortOrderInput | SortOrder
-    croName?: SortOrderInput | SortOrder
-    croEmail?: SortOrderInput | SortOrder
-    croContact?: SortOrderInput | SortOrder
-    legalOfficerName?: SortOrderInput | SortOrder
-    legalOfficerEmail?: SortOrderInput | SortOrder
-    legalOfficerContact?: SortOrderInput | SortOrder
     tenant?: TenantOrderByWithRelationInput
   }
 
@@ -14925,8 +14765,6 @@ export namespace Prisma {
     AND?: TenantDetailsWhereInput | TenantDetailsWhereInput[]
     OR?: TenantDetailsWhereInput[]
     NOT?: TenantDetailsWhereInput | TenantDetailsWhereInput[]
-    presidingOfficerEmail?: StringNullableFilter<"TenantDetails"> | string | null
-    poshCommitteeEmail?: StringNullableFilter<"TenantDetails"> | string | null
     hrContactName?: StringNullableFilter<"TenantDetails"> | string | null
     hrContactEmail?: StringNullableFilter<"TenantDetails"> | string | null
     hrContactPhone?: StringNullableFilter<"TenantDetails"> | string | null
@@ -14936,22 +14774,12 @@ export namespace Prisma {
     ctoName?: StringNullableFilter<"TenantDetails"> | string | null
     ctoEmail?: StringNullableFilter<"TenantDetails"> | string | null
     ctoContact?: StringNullableFilter<"TenantDetails"> | string | null
-    ccoEmail?: StringNullableFilter<"TenantDetails"> | string | null
-    ccoContact?: StringNullableFilter<"TenantDetails"> | string | null
-    croName?: StringNullableFilter<"TenantDetails"> | string | null
-    croEmail?: StringNullableFilter<"TenantDetails"> | string | null
-    croContact?: StringNullableFilter<"TenantDetails"> | string | null
-    legalOfficerName?: StringNullableFilter<"TenantDetails"> | string | null
-    legalOfficerEmail?: StringNullableFilter<"TenantDetails"> | string | null
-    legalOfficerContact?: StringNullableFilter<"TenantDetails"> | string | null
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
   }, "id" | "tenantId">
 
   export type TenantDetailsOrderByWithAggregationInput = {
     id?: SortOrder
     tenantId?: SortOrder
-    presidingOfficerEmail?: SortOrderInput | SortOrder
-    poshCommitteeEmail?: SortOrderInput | SortOrder
     hrContactName?: SortOrderInput | SortOrder
     hrContactEmail?: SortOrderInput | SortOrder
     hrContactPhone?: SortOrderInput | SortOrder
@@ -14961,14 +14789,6 @@ export namespace Prisma {
     ctoName?: SortOrderInput | SortOrder
     ctoEmail?: SortOrderInput | SortOrder
     ctoContact?: SortOrderInput | SortOrder
-    ccoEmail?: SortOrderInput | SortOrder
-    ccoContact?: SortOrderInput | SortOrder
-    croName?: SortOrderInput | SortOrder
-    croEmail?: SortOrderInput | SortOrder
-    croContact?: SortOrderInput | SortOrder
-    legalOfficerName?: SortOrderInput | SortOrder
-    legalOfficerEmail?: SortOrderInput | SortOrder
-    legalOfficerContact?: SortOrderInput | SortOrder
     _count?: TenantDetailsCountOrderByAggregateInput
     _max?: TenantDetailsMaxOrderByAggregateInput
     _min?: TenantDetailsMinOrderByAggregateInput
@@ -14980,8 +14800,6 @@ export namespace Prisma {
     NOT?: TenantDetailsScalarWhereWithAggregatesInput | TenantDetailsScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"TenantDetails"> | string
     tenantId?: StringWithAggregatesFilter<"TenantDetails"> | string
-    presidingOfficerEmail?: StringNullableWithAggregatesFilter<"TenantDetails"> | string | null
-    poshCommitteeEmail?: StringNullableWithAggregatesFilter<"TenantDetails"> | string | null
     hrContactName?: StringNullableWithAggregatesFilter<"TenantDetails"> | string | null
     hrContactEmail?: StringNullableWithAggregatesFilter<"TenantDetails"> | string | null
     hrContactPhone?: StringNullableWithAggregatesFilter<"TenantDetails"> | string | null
@@ -14991,14 +14809,6 @@ export namespace Prisma {
     ctoName?: StringNullableWithAggregatesFilter<"TenantDetails"> | string | null
     ctoEmail?: StringNullableWithAggregatesFilter<"TenantDetails"> | string | null
     ctoContact?: StringNullableWithAggregatesFilter<"TenantDetails"> | string | null
-    ccoEmail?: StringNullableWithAggregatesFilter<"TenantDetails"> | string | null
-    ccoContact?: StringNullableWithAggregatesFilter<"TenantDetails"> | string | null
-    croName?: StringNullableWithAggregatesFilter<"TenantDetails"> | string | null
-    croEmail?: StringNullableWithAggregatesFilter<"TenantDetails"> | string | null
-    croContact?: StringNullableWithAggregatesFilter<"TenantDetails"> | string | null
-    legalOfficerName?: StringNullableWithAggregatesFilter<"TenantDetails"> | string | null
-    legalOfficerEmail?: StringNullableWithAggregatesFilter<"TenantDetails"> | string | null
-    legalOfficerContact?: StringNullableWithAggregatesFilter<"TenantDetails"> | string | null
   }
 
   export type UserWhereInput = {
@@ -15710,8 +15520,6 @@ export namespace Prisma {
 
   export type TenantDetailsCreateInput = {
     id?: string
-    presidingOfficerEmail?: string | null
-    poshCommitteeEmail?: string | null
     hrContactName?: string | null
     hrContactEmail?: string | null
     hrContactPhone?: string | null
@@ -15721,22 +15529,12 @@ export namespace Prisma {
     ctoName?: string | null
     ctoEmail?: string | null
     ctoContact?: string | null
-    ccoEmail?: string | null
-    ccoContact?: string | null
-    croName?: string | null
-    croEmail?: string | null
-    croContact?: string | null
-    legalOfficerName?: string | null
-    legalOfficerEmail?: string | null
-    legalOfficerContact?: string | null
     tenant: TenantCreateNestedOneWithoutDetailsInput
   }
 
   export type TenantDetailsUncheckedCreateInput = {
     id?: string
     tenantId: string
-    presidingOfficerEmail?: string | null
-    poshCommitteeEmail?: string | null
     hrContactName?: string | null
     hrContactEmail?: string | null
     hrContactPhone?: string | null
@@ -15746,20 +15544,10 @@ export namespace Prisma {
     ctoName?: string | null
     ctoEmail?: string | null
     ctoContact?: string | null
-    ccoEmail?: string | null
-    ccoContact?: string | null
-    croName?: string | null
-    croEmail?: string | null
-    croContact?: string | null
-    legalOfficerName?: string | null
-    legalOfficerEmail?: string | null
-    legalOfficerContact?: string | null
   }
 
   export type TenantDetailsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    presidingOfficerEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    poshCommitteeEmail?: NullableStringFieldUpdateOperationsInput | string | null
     hrContactName?: NullableStringFieldUpdateOperationsInput | string | null
     hrContactEmail?: NullableStringFieldUpdateOperationsInput | string | null
     hrContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15769,22 +15557,12 @@ export namespace Prisma {
     ctoName?: NullableStringFieldUpdateOperationsInput | string | null
     ctoEmail?: NullableStringFieldUpdateOperationsInput | string | null
     ctoContact?: NullableStringFieldUpdateOperationsInput | string | null
-    ccoEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    ccoContact?: NullableStringFieldUpdateOperationsInput | string | null
-    croName?: NullableStringFieldUpdateOperationsInput | string | null
-    croEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    croContact?: NullableStringFieldUpdateOperationsInput | string | null
-    legalOfficerName?: NullableStringFieldUpdateOperationsInput | string | null
-    legalOfficerEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    legalOfficerContact?: NullableStringFieldUpdateOperationsInput | string | null
     tenant?: TenantUpdateOneRequiredWithoutDetailsNestedInput
   }
 
   export type TenantDetailsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
-    presidingOfficerEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    poshCommitteeEmail?: NullableStringFieldUpdateOperationsInput | string | null
     hrContactName?: NullableStringFieldUpdateOperationsInput | string | null
     hrContactEmail?: NullableStringFieldUpdateOperationsInput | string | null
     hrContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15794,21 +15572,11 @@ export namespace Prisma {
     ctoName?: NullableStringFieldUpdateOperationsInput | string | null
     ctoEmail?: NullableStringFieldUpdateOperationsInput | string | null
     ctoContact?: NullableStringFieldUpdateOperationsInput | string | null
-    ccoEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    ccoContact?: NullableStringFieldUpdateOperationsInput | string | null
-    croName?: NullableStringFieldUpdateOperationsInput | string | null
-    croEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    croContact?: NullableStringFieldUpdateOperationsInput | string | null
-    legalOfficerName?: NullableStringFieldUpdateOperationsInput | string | null
-    legalOfficerEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    legalOfficerContact?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TenantDetailsCreateManyInput = {
     id?: string
     tenantId: string
-    presidingOfficerEmail?: string | null
-    poshCommitteeEmail?: string | null
     hrContactName?: string | null
     hrContactEmail?: string | null
     hrContactPhone?: string | null
@@ -15818,20 +15586,10 @@ export namespace Prisma {
     ctoName?: string | null
     ctoEmail?: string | null
     ctoContact?: string | null
-    ccoEmail?: string | null
-    ccoContact?: string | null
-    croName?: string | null
-    croEmail?: string | null
-    croContact?: string | null
-    legalOfficerName?: string | null
-    legalOfficerEmail?: string | null
-    legalOfficerContact?: string | null
   }
 
   export type TenantDetailsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    presidingOfficerEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    poshCommitteeEmail?: NullableStringFieldUpdateOperationsInput | string | null
     hrContactName?: NullableStringFieldUpdateOperationsInput | string | null
     hrContactEmail?: NullableStringFieldUpdateOperationsInput | string | null
     hrContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15841,21 +15599,11 @@ export namespace Prisma {
     ctoName?: NullableStringFieldUpdateOperationsInput | string | null
     ctoEmail?: NullableStringFieldUpdateOperationsInput | string | null
     ctoContact?: NullableStringFieldUpdateOperationsInput | string | null
-    ccoEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    ccoContact?: NullableStringFieldUpdateOperationsInput | string | null
-    croName?: NullableStringFieldUpdateOperationsInput | string | null
-    croEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    croContact?: NullableStringFieldUpdateOperationsInput | string | null
-    legalOfficerName?: NullableStringFieldUpdateOperationsInput | string | null
-    legalOfficerEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    legalOfficerContact?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TenantDetailsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
-    presidingOfficerEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    poshCommitteeEmail?: NullableStringFieldUpdateOperationsInput | string | null
     hrContactName?: NullableStringFieldUpdateOperationsInput | string | null
     hrContactEmail?: NullableStringFieldUpdateOperationsInput | string | null
     hrContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15865,14 +15613,6 @@ export namespace Prisma {
     ctoName?: NullableStringFieldUpdateOperationsInput | string | null
     ctoEmail?: NullableStringFieldUpdateOperationsInput | string | null
     ctoContact?: NullableStringFieldUpdateOperationsInput | string | null
-    ccoEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    ccoContact?: NullableStringFieldUpdateOperationsInput | string | null
-    croName?: NullableStringFieldUpdateOperationsInput | string | null
-    croEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    croContact?: NullableStringFieldUpdateOperationsInput | string | null
-    legalOfficerName?: NullableStringFieldUpdateOperationsInput | string | null
-    legalOfficerEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    legalOfficerContact?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserCreateInput = {
@@ -16686,8 +16426,6 @@ export namespace Prisma {
   export type TenantDetailsCountOrderByAggregateInput = {
     id?: SortOrder
     tenantId?: SortOrder
-    presidingOfficerEmail?: SortOrder
-    poshCommitteeEmail?: SortOrder
     hrContactName?: SortOrder
     hrContactEmail?: SortOrder
     hrContactPhone?: SortOrder
@@ -16697,21 +16435,11 @@ export namespace Prisma {
     ctoName?: SortOrder
     ctoEmail?: SortOrder
     ctoContact?: SortOrder
-    ccoEmail?: SortOrder
-    ccoContact?: SortOrder
-    croName?: SortOrder
-    croEmail?: SortOrder
-    croContact?: SortOrder
-    legalOfficerName?: SortOrder
-    legalOfficerEmail?: SortOrder
-    legalOfficerContact?: SortOrder
   }
 
   export type TenantDetailsMaxOrderByAggregateInput = {
     id?: SortOrder
     tenantId?: SortOrder
-    presidingOfficerEmail?: SortOrder
-    poshCommitteeEmail?: SortOrder
     hrContactName?: SortOrder
     hrContactEmail?: SortOrder
     hrContactPhone?: SortOrder
@@ -16721,21 +16449,11 @@ export namespace Prisma {
     ctoName?: SortOrder
     ctoEmail?: SortOrder
     ctoContact?: SortOrder
-    ccoEmail?: SortOrder
-    ccoContact?: SortOrder
-    croName?: SortOrder
-    croEmail?: SortOrder
-    croContact?: SortOrder
-    legalOfficerName?: SortOrder
-    legalOfficerEmail?: SortOrder
-    legalOfficerContact?: SortOrder
   }
 
   export type TenantDetailsMinOrderByAggregateInput = {
     id?: SortOrder
     tenantId?: SortOrder
-    presidingOfficerEmail?: SortOrder
-    poshCommitteeEmail?: SortOrder
     hrContactName?: SortOrder
     hrContactEmail?: SortOrder
     hrContactPhone?: SortOrder
@@ -16745,14 +16463,6 @@ export namespace Prisma {
     ctoName?: SortOrder
     ctoEmail?: SortOrder
     ctoContact?: SortOrder
-    ccoEmail?: SortOrder
-    ccoContact?: SortOrder
-    croName?: SortOrder
-    croEmail?: SortOrder
-    croContact?: SortOrder
-    legalOfficerName?: SortOrder
-    legalOfficerEmail?: SortOrder
-    legalOfficerContact?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -18293,8 +18003,6 @@ export namespace Prisma {
 
   export type TenantDetailsCreateWithoutTenantInput = {
     id?: string
-    presidingOfficerEmail?: string | null
-    poshCommitteeEmail?: string | null
     hrContactName?: string | null
     hrContactEmail?: string | null
     hrContactPhone?: string | null
@@ -18304,20 +18012,10 @@ export namespace Prisma {
     ctoName?: string | null
     ctoEmail?: string | null
     ctoContact?: string | null
-    ccoEmail?: string | null
-    ccoContact?: string | null
-    croName?: string | null
-    croEmail?: string | null
-    croContact?: string | null
-    legalOfficerName?: string | null
-    legalOfficerEmail?: string | null
-    legalOfficerContact?: string | null
   }
 
   export type TenantDetailsUncheckedCreateWithoutTenantInput = {
     id?: string
-    presidingOfficerEmail?: string | null
-    poshCommitteeEmail?: string | null
     hrContactName?: string | null
     hrContactEmail?: string | null
     hrContactPhone?: string | null
@@ -18327,14 +18025,6 @@ export namespace Prisma {
     ctoName?: string | null
     ctoEmail?: string | null
     ctoContact?: string | null
-    ccoEmail?: string | null
-    ccoContact?: string | null
-    croName?: string | null
-    croEmail?: string | null
-    croContact?: string | null
-    legalOfficerName?: string | null
-    legalOfficerEmail?: string | null
-    legalOfficerContact?: string | null
   }
 
   export type TenantDetailsCreateOrConnectWithoutTenantInput = {
@@ -18421,8 +18111,6 @@ export namespace Prisma {
 
   export type TenantDetailsUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
-    presidingOfficerEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    poshCommitteeEmail?: NullableStringFieldUpdateOperationsInput | string | null
     hrContactName?: NullableStringFieldUpdateOperationsInput | string | null
     hrContactEmail?: NullableStringFieldUpdateOperationsInput | string | null
     hrContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18432,20 +18120,10 @@ export namespace Prisma {
     ctoName?: NullableStringFieldUpdateOperationsInput | string | null
     ctoEmail?: NullableStringFieldUpdateOperationsInput | string | null
     ctoContact?: NullableStringFieldUpdateOperationsInput | string | null
-    ccoEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    ccoContact?: NullableStringFieldUpdateOperationsInput | string | null
-    croName?: NullableStringFieldUpdateOperationsInput | string | null
-    croEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    croContact?: NullableStringFieldUpdateOperationsInput | string | null
-    legalOfficerName?: NullableStringFieldUpdateOperationsInput | string | null
-    legalOfficerEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    legalOfficerContact?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TenantDetailsUncheckedUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
-    presidingOfficerEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    poshCommitteeEmail?: NullableStringFieldUpdateOperationsInput | string | null
     hrContactName?: NullableStringFieldUpdateOperationsInput | string | null
     hrContactEmail?: NullableStringFieldUpdateOperationsInput | string | null
     hrContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18455,14 +18133,6 @@ export namespace Prisma {
     ctoName?: NullableStringFieldUpdateOperationsInput | string | null
     ctoEmail?: NullableStringFieldUpdateOperationsInput | string | null
     ctoContact?: NullableStringFieldUpdateOperationsInput | string | null
-    ccoEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    ccoContact?: NullableStringFieldUpdateOperationsInput | string | null
-    croName?: NullableStringFieldUpdateOperationsInput | string | null
-    croEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    croContact?: NullableStringFieldUpdateOperationsInput | string | null
-    legalOfficerName?: NullableStringFieldUpdateOperationsInput | string | null
-    legalOfficerEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    legalOfficerContact?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUpsertWithWhereUniqueWithoutTenantInput = {

@@ -25,8 +25,6 @@ export interface SlideExplanation {
 }
 
 export interface TenantDetails {
-  presidingOfficerEmail?: string;
-  poshCommitteeEmail?: string;
   hrContactName?: string;
   hrContactEmail?: string;
   hrContactPhone?: string;
@@ -36,14 +34,6 @@ export interface TenantDetails {
   ctoName?: string;
   ctoEmail?: string;
   ctoContact?: string;
-  ccoEmail?: string;
-  ccoContact?: string;
-  croName?: string;
-  croEmail?: string;
-  croContact?: string;
-  legalOfficerName?: string;
-  legalOfficerEmail?: string;
-  legalOfficerContact?: string;
 }
 
 export const generateMCQs = async (presentationUrl: string): Promise<MCQQuestion[]> => {
@@ -68,8 +58,6 @@ export const generateSlideExplanations = async (
       presentation_url: materialUrl,
       company_name: companyName,
       tenant_details: {
-        presidingOfficerEmail: tenantDetails.presidingOfficerEmail,
-        poshCommitteeEmail: tenantDetails.poshCommitteeEmail,
         hrContactName: tenantDetails.hrContactName,
         hrContactEmail: tenantDetails.hrContactEmail,
         hrContactPhone: tenantDetails.hrContactPhone,
@@ -78,15 +66,7 @@ export const generateSlideExplanations = async (
         ceoContact: tenantDetails.ceoContact,
         ctoName: tenantDetails.ctoName,
         ctoEmail: tenantDetails.ctoEmail,
-        ctoContact: tenantDetails.ctoContact,
-        ccoEmail: tenantDetails.ccoEmail,
-        ccoContact: tenantDetails.ccoContact,
-        croName: tenantDetails.croName,
-        croEmail: tenantDetails.croEmail,
-        croContact: tenantDetails.croContact,
-        legalOfficerName: tenantDetails.legalOfficerName,
-        legalOfficerEmail: tenantDetails.legalOfficerEmail,
-        legalOfficerContact: tenantDetails.legalOfficerContact
+        ctoContact: tenantDetails.ctoContact
       }
     });
 
