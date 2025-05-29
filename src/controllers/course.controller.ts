@@ -905,4 +905,65 @@ export const getAllUsersProgress = async (
   } catch (error) {
     next(error);
   }
+};
+
+/**
+ * Add POCs (points of contact) for a course assignment (TenantCourse)
+ * POST /api/courses/add-poc
+ * Body: {
+ *   tenantId: string,
+ *   courseId: string,
+ *   pocs: [ { role: string, name: string, contact: string }, ... ]
+ * }
+ */
+export const addPOCForCourse = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const { tenantId, courseId, pocs } = req.body;
+    console.log('[addPOCForCourse] Received:', { tenantId, courseId, pocs });
+
+    if (!tenantId || !courseId || !Array.isArray(pocs) || pocs.length === 0) {
+      res.status(400).json({ error: 'tenantId, courseId, and pocs[] are required' });
+      return;
+    }
+
+    for (const poc of pocs) {
+      if (!poc.role || !poc.name || !poc.contact) {
+        res.status(400).json({ error: 'Each POC must have role, name, and contact' });
+        return;
+      }
+    }
+
+    // Find or create TenantCourse
+    let tenantCourse = await prisma.tenantCourse.findFirst({
+      where: { tenantId, courseId }
+    });
+    if (!tenantCourse) {
+      tenantCourse = await prisma.tenantCourse.create({
+        data: {
+          tenantId,
+          courseId,
+          skippable: false,
+          mandatory: false,
+          retryType: 'SAME'
+        }
+      });
+      console.log('[addPOCForCourse] Created new TenantCourse:', tenantCourse.id);
+    }
+
+    // Create POCs
+    const createdPOCs = await prisma.tenantCourseDetails.createMany({
+      data: pocs.map((poc: { role: string; name: string; contact: string }) => ({
+        tenantCourseId: tenantCourse.id,
+        role: poc.role,
+        name: poc.name,
+        contact: poc.contact
+      }))
+    });
+
+    console.log('[addPOCForCourse] Created:', createdPOCs);
+    res.status(201).json({ message: 'POCs added successfully', count: createdPOCs.count, tenantCourseId: tenantCourse.id });
+  } catch (error) {
+    console.error('[addPOCForCourse] Error:', error);
+    next(error);
+  }
 }; 

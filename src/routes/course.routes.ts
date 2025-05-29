@@ -17,7 +17,8 @@ import {
   updateCourseProgress,
   generalChatbot,
   getUserCourseProgress,
-  getAllUsersProgress
+  getAllUsersProgress,
+  addPOCForCourse
 } from '../controllers/course.controller';
 import asyncHandler from 'express-async-handler';
 import { authenticateToken } from '../middleware/auth.middleware';
@@ -75,5 +76,8 @@ router.post('/general-chatbot', asyncHandler(generalChatbot));
 router.get('/progress/user', asyncHandler(getUserCourseProgress));
 router.get('/progress/all', asyncHandler(getAllUsersProgress));
 router.post('/:courseId/update-progress', authenticateToken, asyncHandler(updateCourseProgress as any));
+
+// Add POCs for a course assignment (TenantCourse)
+router.post('/add-poc', asyncHandler(addPOCForCourse));
 
 export default router; 
