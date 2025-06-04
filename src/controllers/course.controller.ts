@@ -11,6 +11,7 @@ import { Prisma } from '@prisma/client';
 // import { processCourseSlides as processSlides } from '../services/video.service';
 import { uploadToGoogleDrive } from '../services/google-drive.service';
 
+
 const prisma = new PrismaClient();
 
 interface CourseRequest {
@@ -965,6 +966,38 @@ export const addPOCForCourse = async (req: Request, res: Response, next: NextFun
     res.status(201).json({ message: 'POCs added successfully', count: createdPOCs.count, tenantCourseId: tenantCourse.id });
   } catch (error) {
     console.error('[addPOCForCourse] Error:', error);
+    next(error);
+  }
+};
+
+
+
+
+export const getPOCsForCourse = async (
+  req: Request<{ tenantId: string; courseId: string }>,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { tenantId, courseId } = req.params;
+    const tenantCourse = await prisma.tenantCourse.findFirst({
+      where: { tenantId, courseId },
+      include: { details: true }
+    });
+
+    if (!tenantCourse) {
+      res.status(404).json({ error: 'Course not found for this tenant' });
+      return;
+    }
+
+    res.json({
+      pocs: tenantCourse.details.map(poc => ({
+        role: poc.role,
+        name: poc.name,
+        contact: poc.contact
+      }))
+    });
+  } catch (error) {
     next(error);
   }
 };
