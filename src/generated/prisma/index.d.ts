@@ -419,8 +419,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.2
-   * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
+   * Prisma Client JS version: 6.9.0
+   * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
    */
   export type PrismaVersion = {
     client: string
@@ -6830,6 +6830,7 @@ export namespace Prisma {
     courseId: string | null
     progress: Decimal | null
     status: $Enums.EnrollmentStatus | null
+    lastReminderSent: Date | null
   }
 
   export type EnrollmentMaxAggregateOutputType = {
@@ -6838,6 +6839,7 @@ export namespace Prisma {
     courseId: string | null
     progress: Decimal | null
     status: $Enums.EnrollmentStatus | null
+    lastReminderSent: Date | null
   }
 
   export type EnrollmentCountAggregateOutputType = {
@@ -6846,6 +6848,7 @@ export namespace Prisma {
     courseId: number
     progress: number
     status: number
+    lastReminderSent: number
     _all: number
   }
 
@@ -6864,6 +6867,7 @@ export namespace Prisma {
     courseId?: true
     progress?: true
     status?: true
+    lastReminderSent?: true
   }
 
   export type EnrollmentMaxAggregateInputType = {
@@ -6872,6 +6876,7 @@ export namespace Prisma {
     courseId?: true
     progress?: true
     status?: true
+    lastReminderSent?: true
   }
 
   export type EnrollmentCountAggregateInputType = {
@@ -6880,6 +6885,7 @@ export namespace Prisma {
     courseId?: true
     progress?: true
     status?: true
+    lastReminderSent?: true
     _all?: true
   }
 
@@ -6975,6 +6981,7 @@ export namespace Prisma {
     courseId: string
     progress: Decimal
     status: $Enums.EnrollmentStatus
+    lastReminderSent: Date | null
     _count: EnrollmentCountAggregateOutputType | null
     _avg: EnrollmentAvgAggregateOutputType | null
     _sum: EnrollmentSumAggregateOutputType | null
@@ -7002,6 +7009,7 @@ export namespace Prisma {
     courseId?: boolean
     progress?: boolean
     status?: boolean
+    lastReminderSent?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["enrollment"]>
@@ -7012,6 +7020,7 @@ export namespace Prisma {
     courseId?: boolean
     progress?: boolean
     status?: boolean
+    lastReminderSent?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["enrollment"]>
@@ -7022,6 +7031,7 @@ export namespace Prisma {
     courseId?: boolean
     progress?: boolean
     status?: boolean
+    lastReminderSent?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["enrollment"]>
@@ -7032,9 +7042,10 @@ export namespace Prisma {
     courseId?: boolean
     progress?: boolean
     status?: boolean
+    lastReminderSent?: boolean
   }
 
-  export type EnrollmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "courseId" | "progress" | "status", ExtArgs["result"]["enrollment"]>
+  export type EnrollmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "courseId" | "progress" | "status" | "lastReminderSent", ExtArgs["result"]["enrollment"]>
   export type EnrollmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     course?: boolean | CourseDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7060,6 +7071,7 @@ export namespace Prisma {
       courseId: string
       progress: Prisma.Decimal
       status: $Enums.EnrollmentStatus
+      lastReminderSent: Date | null
     }, ExtArgs["result"]["enrollment"]>
     composites: {}
   }
@@ -7490,6 +7502,7 @@ export namespace Prisma {
     readonly courseId: FieldRef<"Enrollment", 'String'>
     readonly progress: FieldRef<"Enrollment", 'Decimal'>
     readonly status: FieldRef<"Enrollment", 'EnrollmentStatus'>
+    readonly lastReminderSent: FieldRef<"Enrollment", 'DateTime'>
   }
     
 
@@ -15596,7 +15609,8 @@ export namespace Prisma {
     userId: 'userId',
     courseId: 'courseId',
     progress: 'progress',
-    status: 'status'
+    status: 'status',
+    lastReminderSent: 'lastReminderSent'
   };
 
   export type EnrollmentScalarFieldEnum = (typeof EnrollmentScalarFieldEnum)[keyof typeof EnrollmentScalarFieldEnum]
@@ -16209,6 +16223,7 @@ export namespace Prisma {
     courseId?: StringFilter<"Enrollment"> | string
     progress?: DecimalFilter<"Enrollment"> | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFilter<"Enrollment"> | $Enums.EnrollmentStatus
+    lastReminderSent?: DateTimeNullableFilter<"Enrollment"> | Date | string | null
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
@@ -16219,6 +16234,7 @@ export namespace Prisma {
     courseId?: SortOrder
     progress?: SortOrder
     status?: SortOrder
+    lastReminderSent?: SortOrderInput | SortOrder
     course?: CourseOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
   }
@@ -16232,6 +16248,7 @@ export namespace Prisma {
     courseId?: StringFilter<"Enrollment"> | string
     progress?: DecimalFilter<"Enrollment"> | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFilter<"Enrollment"> | $Enums.EnrollmentStatus
+    lastReminderSent?: DateTimeNullableFilter<"Enrollment"> | Date | string | null
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
@@ -16242,6 +16259,7 @@ export namespace Prisma {
     courseId?: SortOrder
     progress?: SortOrder
     status?: SortOrder
+    lastReminderSent?: SortOrderInput | SortOrder
     _count?: EnrollmentCountOrderByAggregateInput
     _avg?: EnrollmentAvgOrderByAggregateInput
     _max?: EnrollmentMaxOrderByAggregateInput
@@ -16258,6 +16276,7 @@ export namespace Prisma {
     courseId?: StringWithAggregatesFilter<"Enrollment"> | string
     progress?: DecimalWithAggregatesFilter<"Enrollment"> | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusWithAggregatesFilter<"Enrollment"> | $Enums.EnrollmentStatus
+    lastReminderSent?: DateTimeNullableWithAggregatesFilter<"Enrollment"> | Date | string | null
   }
 
   export type CertificateWhereInput = {
@@ -17093,6 +17112,7 @@ export namespace Prisma {
     id?: string
     progress?: Decimal | DecimalJsLike | number | string
     status?: $Enums.EnrollmentStatus
+    lastReminderSent?: Date | string | null
     course: CourseCreateNestedOneWithoutEnrollmentsInput
     user: UserCreateNestedOneWithoutEnrollmentsInput
   }
@@ -17103,12 +17123,14 @@ export namespace Prisma {
     courseId: string
     progress?: Decimal | DecimalJsLike | number | string
     status?: $Enums.EnrollmentStatus
+    lastReminderSent?: Date | string | null
   }
 
   export type EnrollmentUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
+    lastReminderSent?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     course?: CourseUpdateOneRequiredWithoutEnrollmentsNestedInput
     user?: UserUpdateOneRequiredWithoutEnrollmentsNestedInput
   }
@@ -17119,6 +17141,7 @@ export namespace Prisma {
     courseId?: StringFieldUpdateOperationsInput | string
     progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
+    lastReminderSent?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type EnrollmentCreateManyInput = {
@@ -17127,12 +17150,14 @@ export namespace Prisma {
     courseId: string
     progress?: Decimal | DecimalJsLike | number | string
     status?: $Enums.EnrollmentStatus
+    lastReminderSent?: Date | string | null
   }
 
   export type EnrollmentUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
+    lastReminderSent?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type EnrollmentUncheckedUpdateManyInput = {
@@ -17141,6 +17166,7 @@ export namespace Prisma {
     courseId?: StringFieldUpdateOperationsInput | string
     progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
+    lastReminderSent?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type CertificateCreateInput = {
@@ -18001,6 +18027,17 @@ export namespace Prisma {
     not?: NestedEnumEnrollmentStatusFilter<$PrismaModel> | $Enums.EnrollmentStatus
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type CourseScalarRelationFilter = {
     is?: CourseWhereInput
     isNot?: CourseWhereInput
@@ -18017,6 +18054,7 @@ export namespace Prisma {
     courseId?: SortOrder
     progress?: SortOrder
     status?: SortOrder
+    lastReminderSent?: SortOrder
   }
 
   export type EnrollmentAvgOrderByAggregateInput = {
@@ -18029,6 +18067,7 @@ export namespace Prisma {
     courseId?: SortOrder
     progress?: SortOrder
     status?: SortOrder
+    lastReminderSent?: SortOrder
   }
 
   export type EnrollmentMinOrderByAggregateInput = {
@@ -18037,6 +18076,7 @@ export namespace Prisma {
     courseId?: SortOrder
     progress?: SortOrder
     status?: SortOrder
+    lastReminderSent?: SortOrder
   }
 
   export type EnrollmentSumOrderByAggregateInput = {
@@ -18067,6 +18107,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumEnrollmentStatusFilter<$PrismaModel>
     _max?: NestedEnumEnrollmentStatusFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type CertificateCountOrderByAggregateInput = {
@@ -18917,6 +18971,10 @@ export namespace Prisma {
     set?: $Enums.EnrollmentStatus
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type CourseUpdateOneRequiredWithoutEnrollmentsNestedInput = {
     create?: XOR<CourseCreateWithoutEnrollmentsInput, CourseUncheckedCreateWithoutEnrollmentsInput>
     connectOrCreate?: CourseCreateOrConnectWithoutEnrollmentsInput
@@ -19298,6 +19356,17 @@ export namespace Prisma {
     not?: NestedEnumEnrollmentStatusFilter<$PrismaModel> | $Enums.EnrollmentStatus
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -19322,6 +19391,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumEnrollmentStatusFilter<$PrismaModel>
     _max?: NestedEnumEnrollmentStatusFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -19688,6 +19771,7 @@ export namespace Prisma {
     id?: string
     progress?: Decimal | DecimalJsLike | number | string
     status?: $Enums.EnrollmentStatus
+    lastReminderSent?: Date | string | null
     course: CourseCreateNestedOneWithoutEnrollmentsInput
   }
 
@@ -19696,6 +19780,7 @@ export namespace Prisma {
     courseId: string
     progress?: Decimal | DecimalJsLike | number | string
     status?: $Enums.EnrollmentStatus
+    lastReminderSent?: Date | string | null
   }
 
   export type EnrollmentCreateOrConnectWithoutUserInput = {
@@ -19813,6 +19898,7 @@ export namespace Prisma {
     courseId?: StringFilter<"Enrollment"> | string
     progress?: DecimalFilter<"Enrollment"> | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFilter<"Enrollment"> | $Enums.EnrollmentStatus
+    lastReminderSent?: DateTimeNullableFilter<"Enrollment"> | Date | string | null
   }
 
   export type UserMCQAnswerUpsertWithWhereUniqueWithoutUserInput = {
@@ -19880,6 +19966,7 @@ export namespace Prisma {
     id?: string
     progress?: Decimal | DecimalJsLike | number | string
     status?: $Enums.EnrollmentStatus
+    lastReminderSent?: Date | string | null
     user: UserCreateNestedOneWithoutEnrollmentsInput
   }
 
@@ -19888,6 +19975,7 @@ export namespace Prisma {
     userId: string
     progress?: Decimal | DecimalJsLike | number | string
     status?: $Enums.EnrollmentStatus
+    lastReminderSent?: Date | string | null
   }
 
   export type EnrollmentCreateOrConnectWithoutCourseInput = {
@@ -20983,6 +21071,7 @@ export namespace Prisma {
     courseId: string
     progress?: Decimal | DecimalJsLike | number | string
     status?: $Enums.EnrollmentStatus
+    lastReminderSent?: Date | string | null
   }
 
   export type UserMCQAnswerCreateManyUserInput = {
@@ -21018,6 +21107,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
+    lastReminderSent?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     course?: CourseUpdateOneRequiredWithoutEnrollmentsNestedInput
   }
 
@@ -21026,6 +21116,7 @@ export namespace Prisma {
     courseId?: StringFieldUpdateOperationsInput | string
     progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
+    lastReminderSent?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type EnrollmentUncheckedUpdateManyWithoutUserInput = {
@@ -21033,6 +21124,7 @@ export namespace Prisma {
     courseId?: StringFieldUpdateOperationsInput | string
     progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
+    lastReminderSent?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserMCQAnswerUpdateWithoutUserInput = {
@@ -21064,6 +21156,7 @@ export namespace Prisma {
     userId: string
     progress?: Decimal | DecimalJsLike | number | string
     status?: $Enums.EnrollmentStatus
+    lastReminderSent?: Date | string | null
   }
 
   export type MCQCreateManyCourseInput = {
@@ -21100,6 +21193,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
+    lastReminderSent?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutEnrollmentsNestedInput
   }
 
@@ -21108,6 +21202,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
+    lastReminderSent?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type EnrollmentUncheckedUpdateManyWithoutCourseInput = {
@@ -21115,6 +21210,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     progress?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumEnrollmentStatusFieldUpdateOperationsInput | $Enums.EnrollmentStatus
+    lastReminderSent?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MCQUpdateWithoutCourseInput = {

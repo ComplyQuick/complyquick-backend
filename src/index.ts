@@ -11,6 +11,8 @@ import passport from './config/passport';
 import session from 'express-session';
 import userDashboardRoutes from './routes/user-dashboard.routes';
 import contactRoutes from './routes/contact.routes';
+import cron from 'node-cron';
+import { checkAndSendReminders } from './services/reminder.service';
 
 // Load environment variables
 dotenv.config();
@@ -94,6 +96,17 @@ app.use('/api/admin/dashboard', adminDashboardRoutes);
 // Basic health check route
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// Set up cron job to run at 1:55 PM
+cron.schedule('55 13 * * *', async () => {
+  console.log('Running reminder check (at 1:55 PM)...');
+  try {
+    await checkAndSendReminders();
+    console.log('Reminder check completed successfully');
+  } catch (error) {
+    console.error('Error in reminder cron job:', error);
+  }
 });
 
 // Error handling middleware

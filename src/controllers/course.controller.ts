@@ -968,34 +968,3 @@ export const addPOCForCourse = async (req: Request, res: Response, next: NextFun
     next(error);
   }
 };
-
-export const getPOCsForCourse = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const { tenantId, courseId } = req.params;
-
-    if (!tenantId || !courseId) {
-      res.status(400).json({ error: 'tenantId and courseId are required' });
-      return;
-    }
-
-    const tenantCourse = await prisma.tenantCourse.findFirst({
-      where: { tenantId, courseId },
-      include: { details: true }
-    });
-
-    if (!tenantCourse) {
-      res.status(404).json({ error: 'No course assignment found for this tenant and course' });
-      return;
-    }
-
-    res.json({
-      pocs: tenantCourse.details.map(detail => ({
-        role: detail.role,
-        name: detail.name,
-        contact: detail.contact
-      }))
-    });
-  } catch (error) {
-    next(error);
-  }
-}; 

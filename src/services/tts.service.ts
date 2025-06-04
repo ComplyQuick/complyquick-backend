@@ -1,11 +1,19 @@
 import fs from 'fs';
 import path from 'path';
-import OpenAI from 'openai';
+import { TextToSpeechClient } from '@google-cloud/text-to-speech';
 import { uploadToS3 } from './aws.service';
 import { v4 as uuidv4 } from 'uuid';
+import { config } from 'dotenv';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
+config();
+
+// Initialize Google Cloud Text-to-Speech client
+const client = new TextToSpeechClient({
+  credentials: {
+    client_email: process.env.GOOGLE_CLIENT_EMAIL,
+    private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+    project_id: process.env.GOOGLE_PROJECT_ID
+  }
 });
 
 export const generateAndUploadAudio = async (text: string): Promise<string> => {
@@ -19,16 +27,32 @@ export const generateAndUploadAudio = async (text: string): Promise<string> => {
       fs.mkdirSync('./temp');
     }
 
-    // Generate speech using OpenAI
-    const mp3 = await openai.audio.speech.create({
-      model: "gpt-4o-mini-tts",
-      voice: "nova",
-      input: text,
-      instructions: "Speak in a Patient teacher tone"
-    });
+    // Configure the request
+    const request = {
+      input: { text },
+      voice: {
+        languageCode: process.env.TTS_LANGUAGE_CODE || 'en-IN',
+        name: process.env.TTS_VOICE_NAME || 'en-IN-Standard-A',
+        ssmlGender: (process.env.TTS_GENDER || 'FEMALE') as 'FEMALE' | 'MALE' | 'NEUTRAL'
+      },
+      audioConfig: {
+        audioEncoding: 'MP3' as const,
+        speakingRate: Number(process.env.TTS_SPEAKING_RATE) || 1.0,
+        pitch: Number(process.env.TTS_PITCH) || 0.0,
+        volumeGainDb: Number(process.env.TTS_VOLUME_GAIN) || 0.0
+      }
+    };
+
+    // Generate speech using Google Cloud TTS
+    const response = await client.synthesizeSpeech(request);
+    
+    if (!response[0].audioContent) {
+      throw new Error('No audio content generated');
+    }
 
     // Convert to buffer and save temporarily
-    const buffer = Buffer.from(await mp3.arrayBuffer());
+    const audioContent = response[0].audioContent;
+    const buffer = Buffer.from(audioContent as Uint8Array);
     await fs.promises.writeFile(tempFilePath, buffer);
 
     // Upload to S3

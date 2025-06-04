@@ -81,6 +81,7 @@ model Enrollment {
   courseId String           @map("course_id")
   progress Decimal          @default(0) @db.Decimal(5, 2)
   status   EnrollmentStatus @default(IN_PROGRESS)
+  lastReminderSent DateTime? @map("last_reminder_sent")
   course   Course           @relation(fields: [courseId], references: [id])
   user     User             @relation(fields: [userId], references: [id])
 
