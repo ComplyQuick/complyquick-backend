@@ -119,6 +119,7 @@ model TenantCourse {
   skippable    Boolean  @default(false)
   mandatory    Boolean  @default(false)
   retryType    RetryType @default(SAME)
+  isEnabled    Boolean  @default(true) @map("is_enabled")
   course       Course   @relation(fields: [courseId], references: [id])
   tenant       Tenant   @relation(fields: [tenantId], references: [id])
   details      TenantCourseDetails[]

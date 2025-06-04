@@ -200,7 +200,8 @@ exports.Prisma.TenantCourseScalarFieldEnum = {
   explanations: 'explanations',
   skippable: 'skippable',
   mandatory: 'mandatory',
-  retryType: 'retryType'
+  retryType: 'retryType',
+  isEnabled: 'isEnabled'
 };
 
 exports.Prisma.MCQScalarFieldEnum = {

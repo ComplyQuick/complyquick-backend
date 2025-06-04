@@ -970,9 +970,6 @@ export const addPOCForCourse = async (req: Request, res: Response, next: NextFun
   }
 };
 
-
-
-
 export const getPOCsForCourse = async (
   req: Request<{ tenantId: string; courseId: string }>,
   res: Response,

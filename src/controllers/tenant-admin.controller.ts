@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { UserRole } from '../generated/prisma';
 import bcrypt from 'bcryptjs';
 import { prisma } from '../lib/prisma';
+import { AuthenticatedRequest } from './course.controller';
 
 interface AddUserRequest {
   email: string;
@@ -432,6 +433,140 @@ export const getUserCourseContent = async (
     };
 
     res.json(courseContent);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Enable/Disable Course
+export const toggleCourseStatus = async (
+  req: Request<{ tenantId: string; courseId: string }>,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { tenantId, courseId } = req.params;
+    const { isEnabled } = req.body;
+
+    if (typeof isEnabled !== 'boolean') {
+      res.status(400).json({ error: 'isEnabled must be a boolean value' });
+      return;
+    }
+
+    const tenantCourse = await prisma.tenantCourse.findFirst({
+      where: { tenantId, courseId }
+    });
+
+    if (!tenantCourse) {
+      res.status(404).json({ error: 'Course not found for this tenant' });
+      return;
+    }
+
+    const updatedCourse = await prisma.tenantCourse.update({
+      where: { id: tenantCourse.id },
+      data: { isEnabled },
+      include: {
+        course: true
+      }
+    });
+
+    res.json({
+      message: `Course ${isEnabled ? 'enabled' : 'disabled'} successfully`,
+      course: updatedCourse
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Get enabled courses for tenant
+export const getEnabledCourses = async (
+  req: Request<{ tenantId: string }>,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { tenantId } = req.params;
+
+    const courses = await prisma.tenantCourse.findMany({
+      where: { 
+        tenantId,
+        isEnabled: true
+      },
+      include: {
+        course: true
+      }
+    });
+
+    res.json(courses);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Get disabled courses for tenant
+export const getDisabledCourses = async (
+  req: Request<{ tenantId: string }>,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { tenantId } = req.params;
+
+    const courses = await prisma.tenantCourse.findMany({
+      where: { 
+        tenantId,
+        isEnabled: false
+      },
+      include: {
+        course: true
+      }
+    });
+
+    res.json(courses);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Get all courses
+export const getAllCourses = async (
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const userId = req.user?.id;
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+
+    // Get user's tenant
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      include: { tenant: true }
+    });
+
+    if (!user?.tenant) {
+      res.status(404).json({ error: 'User not associated with any tenant' });
+      return;
+    }
+
+    // Get enabled courses for the tenant
+    const tenantCourses = await prisma.tenantCourse.findMany({
+      where: {
+        tenantId: user.tenant.id,
+        isEnabled: true
+      },
+      include: {
+        course: true
+      }
+    });
+
+    const courses = tenantCourses.map(tc => tc.course);
+
+    res.json(courses);
   } catch (error) {
     next(error);
   }

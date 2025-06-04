@@ -10051,6 +10051,7 @@ export namespace Prisma {
     skippable: boolean | null
     mandatory: boolean | null
     retryType: $Enums.RetryType | null
+    isEnabled: boolean | null
   }
 
   export type TenantCourseMaxAggregateOutputType = {
@@ -10061,6 +10062,7 @@ export namespace Prisma {
     skippable: boolean | null
     mandatory: boolean | null
     retryType: $Enums.RetryType | null
+    isEnabled: boolean | null
   }
 
   export type TenantCourseCountAggregateOutputType = {
@@ -10072,6 +10074,7 @@ export namespace Prisma {
     skippable: number
     mandatory: number
     retryType: number
+    isEnabled: number
     _all: number
   }
 
@@ -10084,6 +10087,7 @@ export namespace Prisma {
     skippable?: true
     mandatory?: true
     retryType?: true
+    isEnabled?: true
   }
 
   export type TenantCourseMaxAggregateInputType = {
@@ -10094,6 +10098,7 @@ export namespace Prisma {
     skippable?: true
     mandatory?: true
     retryType?: true
+    isEnabled?: true
   }
 
   export type TenantCourseCountAggregateInputType = {
@@ -10105,6 +10110,7 @@ export namespace Prisma {
     skippable?: true
     mandatory?: true
     retryType?: true
+    isEnabled?: true
     _all?: true
   }
 
@@ -10189,6 +10195,7 @@ export namespace Prisma {
     skippable: boolean
     mandatory: boolean
     retryType: $Enums.RetryType
+    isEnabled: boolean
     _count: TenantCourseCountAggregateOutputType | null
     _min: TenantCourseMinAggregateOutputType | null
     _max: TenantCourseMaxAggregateOutputType | null
@@ -10217,6 +10224,7 @@ export namespace Prisma {
     skippable?: boolean
     mandatory?: boolean
     retryType?: boolean
+    isEnabled?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     details?: boolean | TenantCourse$detailsArgs<ExtArgs>
@@ -10232,6 +10240,7 @@ export namespace Prisma {
     skippable?: boolean
     mandatory?: boolean
     retryType?: boolean
+    isEnabled?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenantCourse"]>
@@ -10245,6 +10254,7 @@ export namespace Prisma {
     skippable?: boolean
     mandatory?: boolean
     retryType?: boolean
+    isEnabled?: boolean
     course?: boolean | CourseDefaultArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenantCourse"]>
@@ -10258,9 +10268,10 @@ export namespace Prisma {
     skippable?: boolean
     mandatory?: boolean
     retryType?: boolean
+    isEnabled?: boolean
   }
 
-  export type TenantCourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "courseId" | "assignedAt" | "explanations" | "skippable" | "mandatory" | "retryType", ExtArgs["result"]["tenantCourse"]>
+  export type TenantCourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "courseId" | "assignedAt" | "explanations" | "skippable" | "mandatory" | "retryType" | "isEnabled", ExtArgs["result"]["tenantCourse"]>
   export type TenantCourseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     course?: boolean | CourseDefaultArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
@@ -10292,6 +10303,7 @@ export namespace Prisma {
       skippable: boolean
       mandatory: boolean
       retryType: $Enums.RetryType
+      isEnabled: boolean
     }, ExtArgs["result"]["tenantCourse"]>
     composites: {}
   }
@@ -10726,6 +10738,7 @@ export namespace Prisma {
     readonly skippable: FieldRef<"TenantCourse", 'Boolean'>
     readonly mandatory: FieldRef<"TenantCourse", 'Boolean'>
     readonly retryType: FieldRef<"TenantCourse", 'RetryType'>
+    readonly isEnabled: FieldRef<"TenantCourse", 'Boolean'>
   }
     
 
@@ -15646,7 +15659,8 @@ export namespace Prisma {
     explanations: 'explanations',
     skippable: 'skippable',
     mandatory: 'mandatory',
-    retryType: 'retryType'
+    retryType: 'retryType',
+    isEnabled: 'isEnabled'
   };
 
   export type TenantCourseScalarFieldEnum = (typeof TenantCourseScalarFieldEnum)[keyof typeof TenantCourseScalarFieldEnum]
@@ -16401,6 +16415,7 @@ export namespace Prisma {
     skippable?: BoolFilter<"TenantCourse"> | boolean
     mandatory?: BoolFilter<"TenantCourse"> | boolean
     retryType?: EnumRetryTypeFilter<"TenantCourse"> | $Enums.RetryType
+    isEnabled?: BoolFilter<"TenantCourse"> | boolean
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     details?: TenantCourseDetailsListRelationFilter
@@ -16415,6 +16430,7 @@ export namespace Prisma {
     skippable?: SortOrder
     mandatory?: SortOrder
     retryType?: SortOrder
+    isEnabled?: SortOrder
     course?: CourseOrderByWithRelationInput
     tenant?: TenantOrderByWithRelationInput
     details?: TenantCourseDetailsOrderByRelationAggregateInput
@@ -16432,6 +16448,7 @@ export namespace Prisma {
     skippable?: BoolFilter<"TenantCourse"> | boolean
     mandatory?: BoolFilter<"TenantCourse"> | boolean
     retryType?: EnumRetryTypeFilter<"TenantCourse"> | $Enums.RetryType
+    isEnabled?: BoolFilter<"TenantCourse"> | boolean
     course?: XOR<CourseScalarRelationFilter, CourseWhereInput>
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     details?: TenantCourseDetailsListRelationFilter
@@ -16446,6 +16463,7 @@ export namespace Prisma {
     skippable?: SortOrder
     mandatory?: SortOrder
     retryType?: SortOrder
+    isEnabled?: SortOrder
     _count?: TenantCourseCountOrderByAggregateInput
     _max?: TenantCourseMaxOrderByAggregateInput
     _min?: TenantCourseMinOrderByAggregateInput
@@ -16463,6 +16481,7 @@ export namespace Prisma {
     skippable?: BoolWithAggregatesFilter<"TenantCourse"> | boolean
     mandatory?: BoolWithAggregatesFilter<"TenantCourse"> | boolean
     retryType?: EnumRetryTypeWithAggregatesFilter<"TenantCourse"> | $Enums.RetryType
+    isEnabled?: BoolWithAggregatesFilter<"TenantCourse"> | boolean
   }
 
   export type MCQWhereInput = {
@@ -17286,6 +17305,7 @@ export namespace Prisma {
     skippable?: boolean
     mandatory?: boolean
     retryType?: $Enums.RetryType
+    isEnabled?: boolean
     course: CourseCreateNestedOneWithoutTenantsInput
     tenant: TenantCreateNestedOneWithoutCoursesInput
     details?: TenantCourseDetailsCreateNestedManyWithoutTenantCourseInput
@@ -17300,6 +17320,7 @@ export namespace Prisma {
     skippable?: boolean
     mandatory?: boolean
     retryType?: $Enums.RetryType
+    isEnabled?: boolean
     details?: TenantCourseDetailsUncheckedCreateNestedManyWithoutTenantCourseInput
   }
 
@@ -17310,6 +17331,7 @@ export namespace Prisma {
     skippable?: BoolFieldUpdateOperationsInput | boolean
     mandatory?: BoolFieldUpdateOperationsInput | boolean
     retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
     course?: CourseUpdateOneRequiredWithoutTenantsNestedInput
     tenant?: TenantUpdateOneRequiredWithoutCoursesNestedInput
     details?: TenantCourseDetailsUpdateManyWithoutTenantCourseNestedInput
@@ -17324,6 +17346,7 @@ export namespace Prisma {
     skippable?: BoolFieldUpdateOperationsInput | boolean
     mandatory?: BoolFieldUpdateOperationsInput | boolean
     retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
     details?: TenantCourseDetailsUncheckedUpdateManyWithoutTenantCourseNestedInput
   }
 
@@ -17336,6 +17359,7 @@ export namespace Prisma {
     skippable?: boolean
     mandatory?: boolean
     retryType?: $Enums.RetryType
+    isEnabled?: boolean
   }
 
   export type TenantCourseUpdateManyMutationInput = {
@@ -17345,6 +17369,7 @@ export namespace Prisma {
     skippable?: BoolFieldUpdateOperationsInput | boolean
     mandatory?: BoolFieldUpdateOperationsInput | boolean
     retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type TenantCourseUncheckedUpdateManyInput = {
@@ -17356,6 +17381,7 @@ export namespace Prisma {
     skippable?: BoolFieldUpdateOperationsInput | boolean
     mandatory?: BoolFieldUpdateOperationsInput | boolean
     retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type MCQCreateInput = {
@@ -18230,6 +18256,7 @@ export namespace Prisma {
     skippable?: SortOrder
     mandatory?: SortOrder
     retryType?: SortOrder
+    isEnabled?: SortOrder
   }
 
   export type TenantCourseMaxOrderByAggregateInput = {
@@ -18240,6 +18267,7 @@ export namespace Prisma {
     skippable?: SortOrder
     mandatory?: SortOrder
     retryType?: SortOrder
+    isEnabled?: SortOrder
   }
 
   export type TenantCourseMinOrderByAggregateInput = {
@@ -18250,6 +18278,7 @@ export namespace Prisma {
     skippable?: SortOrder
     mandatory?: SortOrder
     retryType?: SortOrder
+    isEnabled?: SortOrder
   }
   export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -19494,6 +19523,7 @@ export namespace Prisma {
     skippable?: boolean
     mandatory?: boolean
     retryType?: $Enums.RetryType
+    isEnabled?: boolean
     course: CourseCreateNestedOneWithoutTenantsInput
     details?: TenantCourseDetailsCreateNestedManyWithoutTenantCourseInput
   }
@@ -19506,6 +19536,7 @@ export namespace Prisma {
     skippable?: boolean
     mandatory?: boolean
     retryType?: $Enums.RetryType
+    isEnabled?: boolean
     details?: TenantCourseDetailsUncheckedCreateNestedManyWithoutTenantCourseInput
   }
 
@@ -19614,6 +19645,7 @@ export namespace Prisma {
     skippable?: BoolFilter<"TenantCourse"> | boolean
     mandatory?: BoolFilter<"TenantCourse"> | boolean
     retryType?: EnumRetryTypeFilter<"TenantCourse"> | $Enums.RetryType
+    isEnabled?: BoolFilter<"TenantCourse"> | boolean
   }
 
   export type TenantDetailsUpsertWithoutTenantInput = {
@@ -20057,6 +20089,7 @@ export namespace Prisma {
     skippable?: boolean
     mandatory?: boolean
     retryType?: $Enums.RetryType
+    isEnabled?: boolean
     tenant: TenantCreateNestedOneWithoutCoursesInput
     details?: TenantCourseDetailsCreateNestedManyWithoutTenantCourseInput
   }
@@ -20069,6 +20102,7 @@ export namespace Prisma {
     skippable?: boolean
     mandatory?: boolean
     retryType?: $Enums.RetryType
+    isEnabled?: boolean
     details?: TenantCourseDetailsUncheckedCreateNestedManyWithoutTenantCourseInput
   }
 
@@ -20397,6 +20431,7 @@ export namespace Prisma {
     skippable?: boolean
     mandatory?: boolean
     retryType?: $Enums.RetryType
+    isEnabled?: boolean
     course: CourseCreateNestedOneWithoutTenantsInput
     tenant: TenantCreateNestedOneWithoutCoursesInput
   }
@@ -20410,6 +20445,7 @@ export namespace Prisma {
     skippable?: boolean
     mandatory?: boolean
     retryType?: $Enums.RetryType
+    isEnabled?: boolean
   }
 
   export type TenantCourseCreateOrConnectWithoutDetailsInput = {
@@ -20435,6 +20471,7 @@ export namespace Prisma {
     skippable?: BoolFieldUpdateOperationsInput | boolean
     mandatory?: BoolFieldUpdateOperationsInput | boolean
     retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
     course?: CourseUpdateOneRequiredWithoutTenantsNestedInput
     tenant?: TenantUpdateOneRequiredWithoutCoursesNestedInput
   }
@@ -20448,6 +20485,7 @@ export namespace Prisma {
     skippable?: BoolFieldUpdateOperationsInput | boolean
     mandatory?: BoolFieldUpdateOperationsInput | boolean
     retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type CourseCreateWithoutTenantsInput = {
@@ -20979,6 +21017,7 @@ export namespace Prisma {
     skippable?: boolean
     mandatory?: boolean
     retryType?: $Enums.RetryType
+    isEnabled?: boolean
   }
 
   export type UserCreateManyTenantInput = {
@@ -20998,6 +21037,7 @@ export namespace Prisma {
     skippable?: BoolFieldUpdateOperationsInput | boolean
     mandatory?: BoolFieldUpdateOperationsInput | boolean
     retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
     course?: CourseUpdateOneRequiredWithoutTenantsNestedInput
     details?: TenantCourseDetailsUpdateManyWithoutTenantCourseNestedInput
   }
@@ -21010,6 +21050,7 @@ export namespace Prisma {
     skippable?: BoolFieldUpdateOperationsInput | boolean
     mandatory?: BoolFieldUpdateOperationsInput | boolean
     retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
     details?: TenantCourseDetailsUncheckedUpdateManyWithoutTenantCourseNestedInput
   }
 
@@ -21021,6 +21062,7 @@ export namespace Prisma {
     skippable?: BoolFieldUpdateOperationsInput | boolean
     mandatory?: BoolFieldUpdateOperationsInput | boolean
     retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUpdateWithoutTenantInput = {
@@ -21187,6 +21229,7 @@ export namespace Prisma {
     skippable?: boolean
     mandatory?: boolean
     retryType?: $Enums.RetryType
+    isEnabled?: boolean
   }
 
   export type EnrollmentUpdateWithoutCourseInput = {
@@ -21282,6 +21325,7 @@ export namespace Prisma {
     skippable?: BoolFieldUpdateOperationsInput | boolean
     mandatory?: BoolFieldUpdateOperationsInput | boolean
     retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
     tenant?: TenantUpdateOneRequiredWithoutCoursesNestedInput
     details?: TenantCourseDetailsUpdateManyWithoutTenantCourseNestedInput
   }
@@ -21294,6 +21338,7 @@ export namespace Prisma {
     skippable?: BoolFieldUpdateOperationsInput | boolean
     mandatory?: BoolFieldUpdateOperationsInput | boolean
     retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
     details?: TenantCourseDetailsUncheckedUpdateManyWithoutTenantCourseNestedInput
   }
 
@@ -21305,6 +21350,7 @@ export namespace Prisma {
     skippable?: BoolFieldUpdateOperationsInput | boolean
     mandatory?: BoolFieldUpdateOperationsInput | boolean
     retryType?: EnumRetryTypeFieldUpdateOperationsInput | $Enums.RetryType
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type TenantCourseDetailsCreateManyTenantCourseInput = {

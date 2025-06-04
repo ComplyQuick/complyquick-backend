@@ -8,7 +8,10 @@ import {
   getTenantProgress,
   getTenantCompletionStats,
   getUserProgress,
-  getUserCourseContent
+  getUserCourseContent,
+  toggleCourseStatus,
+  getEnabledCourses,
+  getDisabledCourses
 } from '../controllers/tenant-admin.controller';
 import asyncHandler from 'express-async-handler';
 import { PrismaClient } from '../generated/prisma';
@@ -140,5 +143,14 @@ router.delete('/tenants/:id/users/:userId', asyncHandler(async (req: Request<{ i
 router.get('/tenants/:id/courses', asyncHandler(async (req: Request<{ id: string }>, res: Response, next: NextFunction): Promise<void> => {
   await getTenantCourses(req, res, next);
 }));
+
+// Enable/Disable course
+router.patch('/tenants/:tenantId/courses/:courseId/toggle', asyncHandler(toggleCourseStatus));
+
+// Get enabled courses
+router.get('/tenants/:tenantId/courses/enabled', asyncHandler(getEnabledCourses));
+
+// Get disabled courses
+router.get('/tenants/:tenantId/courses/disabled', asyncHandler(getDisabledCourses));
 
 export default router; 
