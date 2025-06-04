@@ -98,9 +98,9 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Set up cron job to run at 1:55 PM
-cron.schedule('55 13 * * *', async () => {
-  console.log('Running reminder check (at 1:55 PM)...');
+// Set up cron job to run at 8:00 AM
+cron.schedule('0 8 * * *', async () => {
+  console.log('Running reminder check (at 8:00 AM)...');
   try {
     await checkAndSendReminders();
     console.log('Reminder check completed successfully');

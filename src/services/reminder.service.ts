@@ -36,12 +36,19 @@ export const sendStartCourseReminder = async (enrollment: UserEnrollment) => {
   const mailOptions = {
     from: process.env.EMAIL_FROM || 'ComplyQuick Support <shoryaraj763@gmail.com>',
     to: enrollment.user.email,
-    subject: `Start Your Course: ${enrollment.course.title}`,
+    subject: `Action Required: Start Your Course - ${enrollment.course.title}`,
     html: `
-      <h2>Hi ${enrollment.user.name},</h2>
+      <h2>Hello ${enrollment.user.name},</h2>
       <p>We noticed you haven't started your course "${enrollment.course.title}" yet.</p>
-      <p>Get started now to stay on track with your compliance training!</p>
-      <p>Click here to begin: <a href="${process.env.FRONTEND_URL}/courses/${enrollment.courseId}">Start Course</a></p>
+      <p>To get started:</p>
+      <ol>
+        <li>Log in to your ComplyQuick account</li>
+        <li>Navigate to the "My Courses" section</li>
+        <li>Find "${enrollment.course.title}" in your course list</li>
+        <li>Click on the course to begin your learning journey</li>
+      </ol>
+      <p>Remember, completing this course is important for your professional development and compliance requirements.</p>
+      <p>If you need any assistance, please contact your organization's administrator.</p>
       <p>Best regards,<br>ComplyQuick Team</p>
     `
   };
@@ -53,11 +60,19 @@ export const sendProgressReminder = async (enrollment: UserEnrollment) => {
   const mailOptions = {
     from: process.env.EMAIL_FROM || 'ComplyQuick Support <shoryaraj763@gmail.com>',
     to: enrollment.user.email,
-    subject: `Continue Your Progress: ${enrollment.course.title}`,
+    subject: `Continue Your Progress - ${enrollment.course.title}`,
     html: `
-      <h2>Hi ${enrollment.user.name},</h2>
-      <p>You're making good progress on "${enrollment.course.title}" (${enrollment.progress}% complete).</p>
-      <p>Keep going! Click here to continue: <a href="${process.env.FRONTEND_URL}/courses/${enrollment.courseId}">Continue Course</a></p>
+      <h2>Hello ${enrollment.user.name},</h2>
+      <p>We noticed you're making progress in "${enrollment.course.title}" (${enrollment.progress}% complete), but haven't continued recently.</p>
+      <p>To continue your course:</p>
+      <ol>
+        <li>Log in to your ComplyQuick account</li>
+        <li>Go to "My Courses"</li>
+        <li>Select "${enrollment.course.title}"</li>
+        <li>Resume from where you left off</li>
+      </ol>
+      <p>Keep up the good work! Regular progress helps ensure you complete the course on time.</p>
+      <p>If you're experiencing any issues, please reach out to your organization's administrator.</p>
       <p>Best regards,<br>ComplyQuick Team</p>
     `
   };
@@ -69,11 +84,20 @@ export const sendNearCompletionReminder = async (enrollment: UserEnrollment) => 
   const mailOptions = {
     from: process.env.EMAIL_FROM || 'ComplyQuick Support <shoryaraj763@gmail.com>',
     to: enrollment.user.email,
-    subject: `Almost There: ${enrollment.course.title}`,
+    subject: `Almost There! Complete Your Course - ${enrollment.course.title}`,
     html: `
-      <h2>Hi ${enrollment.user.name},</h2>
-      <p>You're so close to completing "${enrollment.course.title}" (${enrollment.progress}% complete)!</p>
-      <p>Finish strong! Click here to complete: <a href="${process.env.FRONTEND_URL}/courses/${enrollment.courseId}">Complete Course</a></p>
+      <h2>Hello ${enrollment.user.name},</h2>
+      <p>Great progress! You're ${enrollment.progress}% through "${enrollment.course.title}".</p>
+      <p>To complete the course:</p>
+      <ol>
+        <li>Log in to your ComplyQuick account</li>
+        <li>Access "My Courses"</li>
+        <li>Open "${enrollment.course.title}"</li>
+        <li>Complete the remaining modules</li>
+        <li>Take the final assessment</li>
+      </ol>
+      <p>You're so close to earning your certificate! Don't let your progress go to waste.</p>
+      <p>Need help? Contact your organization's administrator for support.</p>
       <p>Best regards,<br>ComplyQuick Team</p>
     `
   };
@@ -85,12 +109,20 @@ export const sendMCQReminder = async (enrollment: UserEnrollment) => {
   const mailOptions = {
     from: process.env.EMAIL_FROM || 'ComplyQuick Support <shoryaraj763@gmail.com>',
     to: enrollment.user.email,
-    subject: `Complete Your MCQ: ${enrollment.course.title}`,
+    subject: `Complete Your Assessment - ${enrollment.course.title}`,
     html: `
-      <h2>Hi ${enrollment.user.name},</h2>
-      <p>You've completed the course content for "${enrollment.course.title}"!</p>
-      <p>Don't forget to take the MCQ to receive your certificate.</p>
-      <p>Click here to take the MCQ: <a href="${process.env.FRONTEND_URL}/courses/${enrollment.courseId}/mcq">Take MCQ</a></p>
+      <h2>Hello ${enrollment.user.name},</h2>
+      <p>You've completed the course content for "${enrollment.course.title}", but haven't taken the final assessment yet.</p>
+      <p>To complete your course:</p>
+      <ol>
+        <li>Log in to your ComplyQuick account</li>
+        <li>Go to "My Courses"</li>
+        <li>Select "${enrollment.course.title}"</li>
+        <li>Navigate to the assessment section</li>
+        <li>Complete the multiple-choice questions</li>
+      </ol>
+      <p>Remember: You need to pass the assessment to receive your course completion certificate.</p>
+      <p>If you need any assistance, please contact your organization's administrator.</p>
       <p>Best regards,<br>ComplyQuick Team</p>
     `
   };
@@ -100,12 +132,28 @@ export const sendMCQReminder = async (enrollment: UserEnrollment) => {
 
 export const checkAndSendReminders = async () => {
   try {
-    // Get all enrollments with progress less than 100%
+    // Get all enrollments with user and course details
     const enrollments = await prisma.enrollment.findMany({
-      where: {
-        status: {
-          in: ['NOT_STARTED', 'IN_PROGRESS']
+      include: {
+        user: {
+          select: {
+            email: true,
+            name: true
+          }
+        },
+        course: {
+          select: {
+            title: true
+          }
         }
+      }
+    });
+
+    // Get all completed enrollments
+    const completedEnrollments = await prisma.enrollment.findMany({
+      where: {
+        status: 'COMPLETED',
+        progress: 100
       },
       include: {
         user: {
@@ -122,6 +170,7 @@ export const checkAndSendReminders = async () => {
       }
     });
 
+    // Process regular enrollments
     for (const enrollment of enrollments) {
       const enrollmentData: UserEnrollment = {
         ...enrollment,
@@ -159,27 +208,7 @@ export const checkAndSendReminders = async () => {
       });
     }
 
-    // Check for completed courses without MCQ
-    const completedEnrollments = await prisma.enrollment.findMany({
-      where: {
-        status: 'COMPLETED',
-        progress: 100
-      },
-      include: {
-        user: {
-          select: {
-            email: true,
-            name: true
-          }
-        },
-        course: {
-          select: {
-            title: true
-          }
-        }
-      }
-    });
-
+    // Process completed enrollments
     for (const enrollment of completedEnrollments) {
       const enrollmentData: UserEnrollment = {
         ...enrollment,
@@ -207,7 +236,16 @@ export const checkAndSendReminders = async () => {
         }
       });
 
-      if (!mcqAnswers) {
+      // Check if user has a certificate
+      const certificate = await prisma.certificate.findFirst({
+        where: {
+          userId: enrollmentData.userId,
+          courseId: enrollmentData.courseId
+        }
+      });
+
+      // Only send MCQ reminder if no MCQ answers and no certificate
+      if (!mcqAnswers && !certificate) {
         await sendMCQReminder(enrollmentData);
         // Update the last reminder sent date
         await prisma.enrollment.update({
@@ -218,5 +256,6 @@ export const checkAndSendReminders = async () => {
     }
   } catch (error) {
     console.error('Error in checkAndSendReminders:', error);
+    throw error;
   }
 }; 
