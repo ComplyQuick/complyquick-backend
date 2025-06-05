@@ -651,4 +651,70 @@ export const getAllCourses = async (
   } catch (error) {
     next(error);
   }
+};
+
+// Get enabled courses for user with enrollment details
+export const getUserEnabledCourses = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { tenantId } = req.query;
+
+    if (!tenantId) {
+      res.status(400).json({ error: 'Tenant ID is required' });
+      return;
+    }
+
+    // Get enabled courses for the tenant with enrollments
+    const tenantCourses = await prisma.tenantCourse.findMany({
+      where: {
+        tenantId: tenantId as string,
+        isEnabled: true
+      },
+      include: {
+        course: {
+          include: {
+            enrollments: {
+              where: {
+                user: {
+                  tenantId: tenantId as string
+                }
+              }
+            }
+          }
+        }
+      }
+    });
+
+    const formattedCourses = tenantCourses.map(tc => ({
+      id: tc.course.id,
+      title: tc.course.title,
+      description: tc.course.description,
+      createdAt: tc.course.createdAt,
+      learningObjectives: tc.course.learningObjectives,
+      materialUrl: tc.course.materialUrl,
+      slides: tc.course.slides,
+      tags: tc.course.tags,
+      updatedAt: tc.course.updatedAt,
+      videoUrl: tc.course.videoUrl,
+      enrollments: tc.course.enrollments.map(e => ({
+        id: e.id,
+        userId: e.userId,
+        courseId: e.courseId,
+        progress: e.progress,
+        status: e.status,
+        lastReminderSent: e.lastReminderSent
+      })),
+      enrolledUsers: tc.course.enrollments.length,
+      skippable: tc.skippable,
+      mandatory: tc.mandatory,
+      retryType: tc.retryType
+    }));
+
+    res.json(formattedCourses);
+  } catch (error) {
+    next(error);
+  }
 }; 
