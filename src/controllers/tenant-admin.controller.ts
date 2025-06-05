@@ -480,7 +480,7 @@ export const toggleCourseStatus = async (
         }
       }
     });
-
+    
     if (!tenantCourse) {
       res.status(404).json({ error: 'Course not found for this tenant' });
       return;
@@ -523,11 +523,34 @@ export const getEnabledCourses = async (
         isEnabled: true
       },
       include: {
-        course: true
+        course: {
+          include: {
+            enrollments: {
+              where: {
+                user: {
+                  tenantId
+                }
+              }
+            }
+          }
+        }
       }
     });
 
-    res.json(courses);
+    const formattedCourses = courses.map(tc => ({
+      id: tc.id,
+      courseId: tc.courseId,
+      title: tc.course.title,
+      description: tc.course.description,
+      enrolledUsers: tc.course.enrollments.length,
+      skippable: tc.skippable,
+      mandatory: tc.mandatory,
+      retryType: tc.retryType,
+      isEnabled: tc.isEnabled,
+      assignedAt: tc.assignedAt
+    }));
+
+    res.json(formattedCourses);
   } catch (error) {
     next(error);
   }
@@ -548,11 +571,34 @@ export const getDisabledCourses = async (
         isEnabled: false
       },
       include: {
-        course: true
+        course: {
+          include: {
+            enrollments: {
+              where: {
+                user: {
+                  tenantId
+                }
+              }
+            }
+          }
+        }
       }
     });
 
-    res.json(courses);
+    const formattedCourses = courses.map(tc => ({
+      id: tc.id,
+      courseId: tc.courseId,
+      title: tc.course.title,
+      description: tc.course.description,
+      enrolledUsers: tc.course.enrollments.length,
+      skippable: tc.skippable,
+      mandatory: tc.mandatory,
+      retryType: tc.retryType,
+      isEnabled: tc.isEnabled,
+      assignedAt: tc.assignedAt
+    }));
+
+    res.json(formattedCourses);
   } catch (error) {
     next(error);
   }
