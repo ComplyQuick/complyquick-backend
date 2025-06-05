@@ -16,6 +16,7 @@ import {
 import asyncHandler from 'express-async-handler';
 import { PrismaClient } from '../generated/prisma';
 import bcrypt from 'bcryptjs';
+import { authenticateToken } from '../middleware/auth.middleware';
 
 
 const router = Router();
@@ -144,13 +145,17 @@ router.get('/tenants/:id/courses', asyncHandler(async (req: Request<{ id: string
   await getTenantCourses(req, res, next);
 }));
 
-// Enable/Disable course
-router.patch('/tenants/:tenantId/courses/:courseId/toggle', asyncHandler(toggleCourseStatus));
+// Enable/Disable course (protected route)
+router.patch(
+  '/tenants/:tenantId/courses/:courseId/toggle',
+  authenticateToken,
+  asyncHandler(toggleCourseStatus as any)
+);
 
-// Get enabled courses
+// Get enabled courses (public route)
 router.get('/tenants/:tenantId/courses/enabled', asyncHandler(getEnabledCourses));
 
-// Get disabled courses
+// Get disabled courses (public route)
 router.get('/tenants/:tenantId/courses/disabled', asyncHandler(getDisabledCourses));
 
 export default router; 

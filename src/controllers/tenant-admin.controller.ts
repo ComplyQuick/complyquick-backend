@@ -440,7 +440,7 @@ export const getUserCourseContent = async (
 
 // Enable/Disable Course
 export const toggleCourseStatus = async (
-  req: Request<{ tenantId: string; courseId: string }>,
+  req: AuthenticatedRequest,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
@@ -448,13 +448,37 @@ export const toggleCourseStatus = async (
     const { tenantId, courseId } = req.params;
     const { isEnabled } = req.body;
 
+    // Check if user is authenticated and has admin role
+    if (!req.user || req.user.role !== 'ADMIN') {
+      res.status(403).json({ error: 'Only tenant admins can toggle course status' });
+      return;
+    }
+
+    // Validate request body
     if (typeof isEnabled !== 'boolean') {
       res.status(400).json({ error: 'isEnabled must be a boolean value' });
       return;
     }
 
+    // Check if tenant exists
+    const tenant = await prisma.tenant.findUnique({
+      where: { id: tenantId }
+    });
+
+    if (!tenant) {
+      res.status(404).json({ error: 'Tenant not found' });
+      return;
+    }
+
+    // Check if course exists for this tenant
     const tenantCourse = await prisma.tenantCourse.findFirst({
-      where: { tenantId, courseId }
+      where: { 
+        tenantId, 
+        courseId,
+        course: {
+          id: courseId
+        }
+      }
     });
 
     if (!tenantCourse) {
@@ -462,6 +486,7 @@ export const toggleCourseStatus = async (
       return;
     }
 
+    // Update course status
     const updatedCourse = await prisma.tenantCourse.update({
       where: { id: tenantCourse.id },
       data: { isEnabled },
@@ -475,7 +500,11 @@ export const toggleCourseStatus = async (
       course: updatedCourse
     });
   } catch (error) {
-    next(error);
+    console.error('Error toggling course status:', error);
+    res.status(500).json({ 
+      error: 'Failed to update course status',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
   }
 };
 
