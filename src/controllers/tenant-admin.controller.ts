@@ -524,14 +524,21 @@ export const getEnabledCourses = async (
       },
       include: {
         course: {
-          include: {
-            enrollments: {
-              where: {
-                user: {
-                  tenantId
-                }
-              }
-            }
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            learningObjectives: true,
+            tags: true,
+            materialUrl: true
+          }
+        },
+        details: {
+          select: {
+            id: true,
+            role: true,
+            name: true,
+            contact: true
           }
         }
       }
@@ -545,12 +552,11 @@ export const getEnabledCourses = async (
       learningObjectives: tc.course.learningObjectives,
       tags: tc.course.tags,
       materialUrl: tc.course.materialUrl,
-      enrolledUsers: tc.course.enrollments.length,
       skippable: tc.skippable,
       mandatory: tc.mandatory,
       retryType: tc.retryType,
       isEnabled: tc.isEnabled,
-      assignedAt: tc.assignedAt
+      pocs: tc.details
     }));
 
     res.json(formattedCourses);
@@ -575,14 +581,21 @@ export const getDisabledCourses = async (
       },
       include: {
         course: {
-          include: {
-            enrollments: {
-              where: {
-                user: {
-                  tenantId
-                }
-              }
-            }
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            learningObjectives: true,
+            tags: true,
+            materialUrl: true
+          }
+        },
+        details: {
+          select: {
+            id: true,
+            role: true,
+            name: true,
+            contact: true
           }
         }
       }
@@ -596,12 +609,11 @@ export const getDisabledCourses = async (
       learningObjectives: tc.course.learningObjectives,
       tags: tc.course.tags,
       materialUrl: tc.course.materialUrl,
-      enrolledUsers: tc.course.enrollments.length,
       skippable: tc.skippable,
       mandatory: tc.mandatory,
       retryType: tc.retryType,
       isEnabled: tc.isEnabled,
-      assignedAt: tc.assignedAt
+      pocs: tc.details
     }));
 
     res.json(formattedCourses);
@@ -716,5 +728,101 @@ export const getUserEnabledCourses = async (
     res.json(formattedCourses);
   } catch (error) {
     next(error);
+  }
+};
+
+// Update course properties and POC details
+export const updateCourseProperties = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { 
+      tenantId,
+      courseId,
+      skippable, 
+      mandatory, 
+      retryType,
+      pocs 
+    } = req.body;
+
+    if (!tenantId || !courseId) {
+      res.status(400).json({ error: 'tenantId and courseId are required' });
+      return;
+    }
+
+    const tenantCourse = await prisma.tenantCourse.findFirst({
+      where: { 
+        tenantId, 
+        courseId 
+      }
+    });
+
+    if (!tenantCourse) {
+      res.status(404).json({ error: 'Course not found for this tenant' });
+      return;
+    }
+
+    await prisma.tenantCourse.update({
+      where: { id: tenantCourse.id },
+      data: {
+        ...(typeof skippable === 'boolean' && { skippable }),
+        ...(typeof mandatory === 'boolean' && { mandatory }),
+        ...(retryType && { retryType: retryType === 'DIFFERENT' ? 'DIFFERENT' : 'SAME' })
+      }
+    });
+
+    if (Array.isArray(pocs)) {
+      await prisma.tenantCourseDetails.deleteMany({
+        where: { tenantCourseId: tenantCourse.id }
+      });
+
+      if (pocs.length > 0) {
+        await prisma.tenantCourseDetails.createMany({
+          data: pocs.map(poc => ({
+            tenantCourseId: tenantCourse.id,
+            role: poc.role,
+            name: poc.name,
+            contact: poc.contact
+          }))
+        });
+      }
+    }
+
+    const updatedData = await prisma.tenantCourse.findUnique({
+      where: { id: tenantCourse.id },
+      select: {
+        id: true,
+        tenantId: true,
+        courseId: true,
+        skippable: true,
+        mandatory: true,
+        retryType: true,
+        isEnabled: true,
+        course: {
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            materialUrl: true,
+            tags: true,
+            learningObjectives: true
+          }
+        },
+        details: {
+          select: {
+            id: true,
+            role: true,
+            name: true,
+            contact: true
+          }
+        }
+      }
+    });
+
+    res.json(updatedData);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update course properties' });
   }
 }; 

@@ -12,7 +12,8 @@ import {
   toggleCourseStatus,
   getEnabledCourses,
   getDisabledCourses,
-  getUserEnabledCourses
+  getUserEnabledCourses,
+  updateCourseProperties
 } from '../controllers/tenant-admin.controller';
 import asyncHandler from 'express-async-handler';
 import { PrismaClient } from '../generated/prisma';
@@ -161,5 +162,8 @@ router.get('/tenants/:tenantId/courses/disabled', asyncHandler(getDisabledCourse
 
 // Get enabled courses for user
 router.get('/user/enabled-courses', asyncHandler(getUserEnabledCourses as any));
+
+// Update course properties and POC details
+router.patch('/courses/properties', asyncHandler(updateCourseProperties));
 
 export default router; 
