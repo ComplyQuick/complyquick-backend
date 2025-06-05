@@ -11,6 +11,7 @@ import passport from './config/passport';
 import session from 'express-session';
 import userDashboardRoutes from './routes/user-dashboard.routes';
 import contactRoutes from './routes/contact.routes';
+import superadminRoutes from './routes/superadmin.routes';
 import cron from 'node-cron';
 import { checkAndSendReminders } from './services/reminder.service';
 
@@ -52,6 +53,7 @@ app.use('/api/tenant-admin', tenantAdminRoutes);
 app.use('/api/user-dashboard', userDashboardRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/admin/dashboard', adminDashboardRoutes);
+app.use('/api/superadmin', superadminRoutes);
 
 // Basic health check route
 app.get('/health', (req, res) => {

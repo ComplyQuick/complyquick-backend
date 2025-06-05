@@ -23,41 +23,73 @@ export const uploadToGoogleDrive = async (fileBuffer: Buffer, fileName: string):
     bufferStream.push(fileBuffer);
     bufferStream.push(null);
 
-    const fileMetadata = {
-      name: fileName,
-      mimeType: 'application/vnd.google-apps.presentation', // This triggers conversion to Google Slides
-      parents: [process.env.GOOGLE_DRIVE_FOLDER_ID!]
-    };
-
-    const media = {
-      mimeType: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-      body: bufferStream
-    };
-
-    console.log('Uploading file to Google Drive:', { fileName });
-
-    const response = await drive.files.create({
-      requestBody: fileMetadata,
-      media: media,
-      fields: 'id, webViewLink'
+    // First, check if a file with the same name exists
+    const existingFiles = await drive.files.list({
+      q: `name = '${fileName}' and '${process.env.GOOGLE_DRIVE_FOLDER_ID}' in parents and trashed = false`,
+      fields: 'files(id, name)'
     });
 
-    console.log('File uploaded successfully:', response.data);
+    let fileId: string;
 
-    if (!response.data.webViewLink) {
+    if (existingFiles.data.files && existingFiles.data.files.length > 0) {
+      // If file exists, update it
+      const existingFile = existingFiles.data.files[0];
+      if (!existingFile.id) {
+        throw new Error('Existing file has no ID');
+      }
+      fileId = existingFile.id;
+      await drive.files.update({
+        fileId: fileId,
+        media: {
+          mimeType: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+          body: bufferStream
+        }
+      });
+    } else {
+      // If file doesn't exist, create new
+      const fileMetadata = {
+        name: fileName,
+        mimeType: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        parents: [process.env.GOOGLE_DRIVE_FOLDER_ID!]
+      };
+
+      const media = {
+        mimeType: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        body: bufferStream
+      };
+
+      const response = await drive.files.create({
+        requestBody: fileMetadata,
+        media: media,
+        fields: 'id, webViewLink'
+      });
+
+      if (!response.data.id) {
+        throw new Error('Failed to get file ID after creation');
+      }
+      fileId = response.data.id;
+    }
+
+    // Get the file's webViewLink
+    const file = await drive.files.get({
+      fileId: fileId,
+      fields: 'webViewLink'
+    });
+
+    if (!file.data.webViewLink) {
       throw new Error('Failed to get webViewLink for the uploaded file');
     }
 
     // Make the file accessible to anyone with the link
     await drive.permissions.create({
-      fileId: response.data.id!,
+      fileId: fileId,
       requestBody: {
         role: 'reader',
         type: 'anyone'
       }
     });
 
-    return response.data.webViewLink;
+    return file.data.webViewLink;
   } catch (error) {
     console.error('Error uploading to Google Drive:', error);
     throw error;
